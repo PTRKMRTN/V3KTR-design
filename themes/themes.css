@@ -1,8 +1,12 @@
 /* V3KTR app themes · EXPLORATION — NOT IN dist/, NOT LOCKED.
-   Patrick 2026-09-29: each app may get its own theme. Only PROCESSOR aqua is locked;
-   KOMPOSITOR and DIMENSOR values are taken from his lockup board and can change.
-   A theme sets ONLY the signal family (accent, dim, glow, hover, ink). Everything else is core.
-   Hover/dim for the provisional colours are derived (25% toward white / 45% toward the ground), not designed. */
-[data-app="processor"]  { --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,.15);  --hover:#3dffc2; --on-accent:#1c1c1c; }
-[data-app="kompositor"] { --accent:#ff6a43; --accent-dim:#9d4b35; --accent-glow:rgba(255,106,67,.15); --hover:#ff8f72; --on-accent:#1c1c1c; }
-[data-app="dimensor"]   { --accent:#9d64ff; --accent-dim:#6a4a9f; --accent-glow:rgba(157,100,255,.15); --hover:#b58bff; --on-accent:#1c1c1c; }
+   Patrick 2026-09-29: each app may get its own theme. Only PROCESSOR aqua is locked.
+   Shortlist: set A (refined triad) vs set C (gold + magenta). The board's first pair is kept for comparison.
+   A theme sets ONLY the signal family. Hover = 25% toward white, dim = 45% toward the ground: derived, not designed.
+   Each colour also has a light-ground ink (--accent-ink) for the site/socials/print; apps are dark-only and don't use it. */
+[data-app="processor"]    { --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,.15);  --hover:#3dffc2; --on-accent:#1c1c1c; --accent-ink:#008058; }
+[data-app="kompositor-a"] { --accent:#ff9137; --accent-dim:#9b5f2d; --accent-glow:rgba(255,145,55,.15);  --hover:#ffad69; --on-accent:#1c1c1c; --accent-ink:#ae5900; }
+[data-app="dimensor-a"]   { --accent:#ad8dff; --accent-dim:#6e5c9b; --accent-glow:rgba(173,141,255,.15); --hover:#c2aaff; --on-accent:#1c1c1c; --accent-ink:#8a43f8; }
+[data-app="kompositor-c"] { --accent:#f6c400; --accent-dim:#967b0f; --accent-glow:rgba(246,196,0,.15);   --hover:#f8d340; --on-accent:#1c1c1c; --accent-ink:#896c00; }
+[data-app="dimensor-c"]   { --accent:#ff4ee3; --accent-dim:#9b3a8c; --accent-glow:rgba(255,78,227,.15);  --hover:#ff7aea; --on-accent:#1c1c1c; --accent-ink:#c90fb1; }
+[data-app="kompositor-board"] { --accent:#ff6a43; --accent-dim:#9d4b35; --accent-glow:rgba(255,106,67,.15); --hover:#ff8f72; --on-accent:#1c1c1c; --accent-ink:#cf3700; }
+[data-app="dimensor-board"]   { --accent:#9d64ff; --accent-dim:#6a4a9f; --accent-glow:rgba(157,100,255,.15); --hover:#b58bff; --on-accent:#1c1c1c; --accent-ink:#8c40f5; }
