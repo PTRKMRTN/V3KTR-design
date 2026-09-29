@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.1.0
+/* V3KTR design tokens · v0.1.1
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -7,7 +7,7 @@
   --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
   --line:#171717;
 
-  /* Text — neutral greys. ⚠️ --tx-0 is PROVISIONAL: #f4f4f4 (neutral) vs #f4f6f8 (cool) is still open. */
+  /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
   --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
 
   /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */

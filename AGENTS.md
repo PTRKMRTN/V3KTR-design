@@ -26,5 +26,5 @@ Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT
 - **Focus:** `outline: var(--focus-ring); outline-offset: var(--focus-offset)` on `:focus-visible`.
 - **FX groups** are identified by the `--type-*` / `--depth` / `--adjust` colours, never by the signal aqua.
 
-## Open decisions (don't settle these yourself)
-- `--tx-0` white: `#f4f4f4` (neutral, current) vs `#f4f6f8` (cool, site v2). Patrick decides.
+## Settled (don't reopen)
+- Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).

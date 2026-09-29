@@ -15,8 +15,8 @@ Apps **consume** it; they never hand-copy it.
 **Build-time pull, pinned tag.** An app's build step fetches `tokens.css` at a release tag and inlines it in place of its own `:root`:
 
 ```
-https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.1.0/tokens.css
-https://raw.githubusercontent.com/PTRKMRTN/V3KTR-design/v0.1.0/tokens.css
+https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.1.1/tokens.css
+https://raw.githubusercontent.com/PTRKMRTN/V3KTR-design/v0.1.1/tokens.css
 ```
 
 Don't load it at runtime in a live app: it adds a network dependency and a flash of unstyled page.
