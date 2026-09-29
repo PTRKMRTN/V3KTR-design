@@ -1,0 +1,1172 @@
+/* V3KTR design tokens · v0.2.0
+   Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
+   change it here, tag a release, bump the app's pinned version.
+   Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
+:root {
+  /* Ground — neutral greys. Panels are a lighter FILL, never a frame. */
+  --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
+  --line:#171717;
+
+  /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
+  --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
+
+  /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
+  --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
+  --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+
+  /* Status */
+  --danger:#ff5b5b; --danger-dim:#7a2a2a;
+
+  /* FX-group identity colours (independent of the signal colour) */
+  --depth:#00e5a0; --adjust:#9aa0a6; --rust:#a85d4e;
+  --type-amber:#b08847; --type-rust:#a85d4e; --type-rose:#9d5a6e;
+  --type-sage:#6e8f6a; --type-teal:#5a8a8f; --type-slate:#6a7280;
+  --type-violet:#8a6db0;
+
+  /* Type */
+  --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --fs-body:13px; --fs-ctrl:11px; --fs-row:11.5px;
+  --head-weight:700; --head-track:.16em;
+
+  /* Shape + spacing */
+  --radius:2px; --pad:12px; --row-h:28px;
+  --focus-ring:2px solid var(--accent); --focus-offset:2px;
+}
+
+/* V3KTR site layer · v0.2.0 · requires tokens.css (core)
+   Reference CSS for the V3KTR website, extracted from site v2 (branch site-v2 @ 5004d53, 2026-09-29):
+   styles/v2-chrome.css, styles/v2.css, styles/v2-article.css.
+   The site shares the core (ground, text greys, signal aqua, fonts, radius) and adds what an
+   editorial page needs: display type, gutters, a max width, section rhythm.
+   Rules: colours only via core tokens or --site-* tokens below. Every :hover is also .is-hover
+   (for specimens and tests). Sizes are px (the site's legacy template sets html{font-size:62.5%}).
+   Each rule names the site-v2 selector it came from. See INVENTORY.md for the full mapping. */
+
+/* ══ PENDING CORE ═══════════════════════════════════════════════════════════
+   AGENTS.md layer rule 1: a layer may not own its own greys or inks. The five colours below are
+   values the site uses that the core lacks. They live here ONLY so this file renders today;
+   on Patrick's approval each moves to tokens.css (core v0.1.2, un-prefixed) and this block goes.
+   Two of them (--site-muted, --site-line-2) are PROPOSALS that change site v2's rendered colour. */
+:root {
+  /* ── fills ─────────────────────────────────────────────────────────────── */
+  --site-well: #262626;                  /* was --v2-well. Between core --bg-0 #212121 and --bg-2 #2b2b2b; no core step. */
+  /* --v2-panel #2a2a2a → core var(--bg-2) #2b2b2b (1 step off; recommended, used below). */
+  /* --v2-rule  #3a3a3a → core var(--bg-3) #3a3a3a (exact; used for the article hr). */
+
+  /* ── lines ─────────────────────────────────────────────────────────────── */
+  --site-line-2: #595959;                 /* was --v2-rule-2 #555a60 (cool). PROPOSED neutral: luminance-matched
+                                             (2.30:1 on --bg-0 vs 2.31:1). Alternative: core --ctrl-line (renders #4d4d4d on --bg-0, dimmer). */
+
+  /* ── text ──────────────────────────────────────────────────────────────── */
+  /* --v2-fg #f4f6f8 → var(--tx-0) · --v2-fg-2 #c9cdd3 → var(--tx-1) · --v2-muted #a0a6ae → var(--tx-2) */
+  --site-muted: #969696;                  /* PROPOSED, not settled. Core --tx-2 #8a8a8a is 4.66:1 on --bg-0 but FAILS 4.5:1 on
+                                             --site-well (4.38) and --bg-2 (4.10), where site-v2 puts muted captions (pricing tiers,
+                                             credit labels, fact lists). #969696 = 5.44 / 5.12 / 4.79. Until Patrick decides,
+                                             muted text on a panel uses this; on bare ground --tx-2 passes. */
+
+  /* ── signal ────────────────────────────────────────────────────────────── */
+  /* --v2-signal #00e5a0 → var(--accent) · --v2-signal-hi #3bf0b8 → var(--hover) (settled 2026-09-29) */
+  --site-signal-ink: #04120d;             /* was --v2-signal-ink. Differs from core --on-accent #1c1c1c (both pass: 11.59 vs 10.32
+                                             on --accent). Recommend retiring to --on-accent; kept exact here pending a decision. */
+  --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
+                                             this is a text-on-dark red (7.90:1 on --bg-0). */
+}
+
+/* ══ SITE LAYER TOKENS ══════════════════════════════════════════════════════ */
+:root {
+  /* ── scrims (derived from the core ground) ─────────────────────────────── */
+  --site-scrim-bar: color-mix(in srgb, var(--bg-0) 92%, transparent);   /* was raw rgba(33,33,33,0.92): sticky nav + subnav */
+  --site-scrim-label: color-mix(in srgb, var(--bg-0) 85%, transparent); /* was raw rgba(33,33,33,0.85): tagline, badge; also
+                                                                            replaces the cool rgba(13,14,16,0.85) on .v2-play */
+
+  /* ── layout ────────────────────────────────────────────────────────────── */
+  --site-gutter: clamp(16px, 3.4vw, 48px); /* was --v2-gutter */
+  --site-max: 1440px;                      /* was --v2-max */
+  --site-nav-h: 100px;                     /* was --v2-nav-h */
+  --site-subnav-h: 50px;                   /* was raw 50px on .v2-subnav .v2-wrap */
+  --site-section-y: clamp(64px, 8vw, 120px);                                   /* was .v2-section padding-block */
+  --site-hero-y: clamp(40px, 6vw, 80px) clamp(56px, 7vw, 96px);                /* was .v2-hero padding-block */
+  --site-shell-y: clamp(32px, 5vw, 64px) clamp(64px, 8vw, 112px);             /* was .v2-shell padding-block */
+  --site-col-gap: clamp(24px, 4vw, 56px);                                      /* was .v2-hero__grid / .v2-split gap */
+  --site-read: 760px;                      /* was .v2-article max-width */
+  --site-focus-offset: 3px;                /* was raw 3px on site :focus-visible. Core --focus-offset is 2px — recommend core. */
+
+  /* ── display + heading type scale (Manrope 800 unless noted) ───────────── */
+  --site-fs-sign: clamp(64px, 11vw, 160px);    /* .v2-sign        · lh .85  · track -.06em  */
+  --site-fs-display: clamp(46px, 6.4vw, 96px); /* .v2-hero h1     · lh .94  · track -.045em */
+  --site-fs-title: clamp(40px, 5.6vw, 84px);   /* .v2-shell__title· lh .98  · track -.04em  */
+  --site-fs-h2: clamp(34px, 4.6vw, 60px);      /* .v2-page h2     · lh 1.02 · track -.03em  */
+  --site-fs-h2-sm: clamp(30px, 3.6vw, 46px);   /* .v2-h2-sm                                 */
+  --site-fs-subhead: clamp(24px, 3vw, 40px);   /* .v2-apphero__what · lh 1.15 · track -.03em */
+  --site-fs-h3: clamp(24px, 2.4vw, 32px);      /* .v2-article h2 (700) · lh 1.2 · track -.02em */
+  --site-fs-h4: 21px;                          /* .v2-steps h3 · lh 1.25 */
+  --site-fs-intro: clamp(18px, 1.6vw, 22px);   /* .v2-shell__intro · lh 1.5 */
+  --site-fs-lede: clamp(17px, 1.4vw, 19px);    /* .v2-lede */
+  --site-fs-read: 17px;                        /* .v2-article · lh 1.7 */
+  --site-fs-body: 16px;                        /* .v2-chrome / .v2-page · lh 1.55 */
+  --site-fs-small: 15px;                       /* card / tier / step body copy */
+  --site-fs-fine: 14px;                        /* .v2-fine */
+  --site-fs-cap: 11px;                         /* .v2-cap (mono) — equals core --fs-ctrl */
+  --site-fs-eyebrow: 12px;                     /* .v2-eyebrow (mono) */
+  --site-fs-wordmark: clamp(40px, 7vw, 96px);  /* .v2-apphero h1 (mono 700) · lh 1 · track .06em */
+  --site-fs-appname: clamp(28px, 3.4vw, 44px); /* .v2-app__name (mono 700) · lh 1.1 · track .08em */
+  --site-weight-display: 800;
+}
+
+/* ── base ────────────────────────────────────────────────────────────────── */
+/* from .v2-chrome, .v2-page (box-sizing + base type). Fonts: core --sans / --mono. */
+.vs-site,
+.vs-site *,
+.vs-site *::before,
+.vs-site *::after {
+  box-sizing: border-box;
+}
+.vs-site {
+  font-family: var(--sans);
+  font-size: var(--site-fs-body);
+  line-height: 1.55;
+  color: var(--tx-0);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+}
+/* from .v2-chrome a, .v2-page a */
+.vs-site a {
+  color: inherit;
+  text-decoration: none;
+}
+/* from .v2-chrome :focus-visible, .v2-page :focus-visible */
+.vs-site :focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
+}
+/* from .v2-wrap */
+.vs-wrap {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding-inline: var(--site-gutter);
+}
+/* from .v2-skip */
+.vs-skip {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--site-signal-ink);
+  font-family: var(--mono);
+  font-weight: 700;
+  padding: 10px 14px;
+}
+.vs-skip:focus {
+  top: 8px;
+}
+
+/* ── small type ──────────────────────────────────────────────────────────── */
+/* from .v2-cap */
+.vs-cap {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  margin: 0;
+}
+/* new modifier: replaces inline style={{color:"var(--v2-signal)"}} on .v2-cap (8 uses in markup) */
+.vs-cap--signal {
+  color: var(--accent);
+}
+/* PROPOSED: muted text on a panel/well fill uses --site-muted (core --tx-2 fails 4.5:1 there) */
+.vs-panel .vs-cap,
+.vs-panel .vs-fine,
+.vs-tier .vs-cap,
+.vs-tier .vs-fine,
+.vs-callout .vs-cap {
+  color: var(--site-muted);
+}
+/* from .v2-eyebrow, .v2-eyebrow--signal */
+.vs-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  letter-spacing: var(--head-track);
+  text-transform: uppercase;
+  color: var(--tx-2);
+}
+.vs-eyebrow--signal {
+  color: var(--accent);
+}
+/* from .v2-lede */
+.vs-lede {
+  font-size: var(--site-fs-lede);
+  color: var(--tx-1);
+  max-width: 60ch;
+  margin: 0;
+}
+/* from .v2-shell__intro */
+.vs-intro {
+  font-size: var(--site-fs-intro);
+  line-height: 1.5;
+  color: var(--tx-1);
+  max-width: 62ch;
+  margin: 0;
+}
+/* from .v2-fine */
+.vs-fine {
+  font-size: var(--site-fs-fine);
+  color: var(--tx-2);
+  margin: 0;
+}
+/* from .v2-link (site-v2 needed !important to beat the template's bare-a rules; not needed here). No hover in site v2. */
+.vs-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-open-link */
+.vs-open-link {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-block: 4px;
+}
+.vs-open-link:hover,
+.vs-open-link.is-hover {
+  text-decoration: underline;
+}
+
+/* ── display type ────────────────────────────────────────────────────────── */
+/* from .v2-page h1, h2, h3 (shared reset) */
+.vs-display,
+.vs-title,
+.vs-h2,
+.vs-sign {
+  margin: 0;
+  text-wrap: balance;
+  font-weight: var(--site-weight-display);
+}
+/* from .v2-hero h1; em → .v2-hero h1 em */
+.vs-display {
+  font-size: var(--site-fs-display);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+.vs-display em {
+  font-style: normal;
+  color: var(--accent);
+}
+/* from .v2-page .v2-shell__title */
+.vs-title {
+  font-size: var(--site-fs-title);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 20ch;
+}
+/* from .v2-page h2 */
+.vs-h2 {
+  font-size: var(--site-fs-h2);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+/* from .v2-page .v2-h2-sm */
+.vs-h2--sm {
+  font-size: var(--site-fs-h2-sm);
+}
+/* from .v2-apphero__what */
+.vs-subhead {
+  font-size: var(--site-fs-subhead);
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+}
+/* from .v2-sign */
+.vs-sign {
+  font-size: var(--site-fs-sign);
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+/* from .v2-page .v2-apphero h1 (app name set in mono) */
+.vs-wordmark {
+  font-family: var(--mono);
+  font-size: var(--site-fs-wordmark);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin: 0;
+}
+/* from .v2-app__name */
+.vs-wordmark--sm {
+  font-size: var(--site-fs-appname);
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+/* ── buttons + tags ──────────────────────────────────────────────────────── */
+/* from .v2-btn. ⚠️ Site-v2's default button is OUTLINED on transparent — this departs from the core
+   rule (buttons: --bg-3 fill, no border). Ported as-is; see INVENTORY.md §drift. */
+.vs-btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--site-line-2);
+  background: transparent;
+  color: var(--tx-0);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+/* from .v2-btn:hover */
+.vs-btn:hover,
+.vs-btn.is-hover {
+  border-color: var(--tx-0);
+}
+/* from .v2-btn--primary (+ the .v2-page .v2-btn--primary colour override) */
+.vs-site .vs-btn--primary,
+.vs-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--site-signal-ink);
+}
+/* from .v2-btn--primary:hover (--v2-signal-hi → --hover) */
+.vs-btn--primary:hover,
+.vs-btn--primary.is-hover {
+  background: var(--hover);
+  border-color: var(--hover);
+}
+/* from .v2-btn--signal */
+.vs-btn--signal {
+  border-color: var(--accent);
+}
+/* from .v2-btn[disabled] */
+.vs-btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+/* from .v2-cta-row */
+.vs-cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+/* from .v2-soon */
+.vs-soon {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  line-height: 1.3;
+}
+/* from .v2-beta, .v2-beta__dot */
+.vs-beta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-1);
+  border: 1px solid var(--site-line-2);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.vs-beta:hover,
+.vs-beta.is-hover {
+  color: var(--tx-0);
+  border-color: var(--tx-1);
+}
+.vs-beta__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+/* from .v2-chip (filter toggle; aria-pressed = on) */
+.vs-chip {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  border: 1px solid var(--site-line-2);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--tx-1);
+  cursor: pointer;
+  min-height: 44px;
+}
+.vs-chip:hover,
+.vs-chip.is-hover {
+  border-color: var(--tx-1);
+}
+.vs-chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--site-signal-ink);
+}
+/* from .v2-chips > li, .is-signal (static tags) */
+.vs-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vs-tags > li {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 10px;
+  border: 1px solid var(--site-line-2);
+  color: var(--tx-1);
+}
+.vs-tags > li.is-signal {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── dropdown menu ───────────────────────────────────────────────────────── */
+/* from .v2-open__menu, .v2-open__name, .v2-open__what */
+.vs-menu {
+  min-width: 260px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--bg-2);
+}
+.vs-menu a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+}
+.vs-menu a:hover,
+.vs-menu a.is-hover {
+  background: var(--site-well);
+}
+.vs-menu__name {
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.vs-menu__what {
+  font-size: var(--site-fs-fine);
+  color: var(--tx-1);
+}
+
+/* ── header / nav ────────────────────────────────────────────────────────── */
+/* from .v2-nav */
+.vs-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--site-scrim-bar);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+/* from .v2-nav__bar */
+.vs-nav__bar {
+  height: var(--site-nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+/* from .v2-nav__brand, .v2-nav__logo img */
+.vs-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.vs-nav__logo img {
+  height: 60px;
+  width: auto;
+}
+/* from .v2-nav__links */
+.vs-nav__links {
+  display: flex;
+  gap: 32px;
+  font-size: var(--site-fs-small);
+  font-weight: 600;
+  align-items: center;
+}
+.vs-nav__links > a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--tx-1);
+  padding-block: 6px;
+}
+.vs-nav__links > a:hover,
+.vs-nav__links > a.is-hover,
+.vs-nav__links > a[aria-current="page"] {
+  color: var(--tx-0);
+}
+.vs-nav__links > a[aria-current="page"] {
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+/* from .v2-nav__actions */
+.vs-nav__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+/* from .v2-nav__menu (hamburger, mobile only) */
+.vs-nav__menu {
+  display: none;
+  width: 46px;
+  padding: 0;
+}
+@media (max-width: 860px) {
+  .vs-nav__links {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--site-nav-h);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--bg-0);
+    padding: 8px var(--site-gutter) 24px;
+    max-height: calc(100dvh - var(--site-nav-h));
+    overflow-y: auto;
+  }
+  .vs-nav__links.is-open {
+    display: flex;
+  }
+  .vs-nav__links > a {
+    padding: 14px 0;
+    font-size: 20px;
+  }
+  .vs-nav__menu {
+    display: inline-flex;
+  }
+}
+@media (max-width: 560px) {
+  .vs-nav__logo img {
+    height: 44px;
+  }
+}
+@media (max-width: 400px) {
+  .vs-beta {
+    display: none;
+  }
+}
+
+/* from .v2-subnav, .v2-subnav a / span (in-page section nav on app pages) */
+.vs-subnav {
+  position: sticky;
+  top: var(--site-nav-h);
+  z-index: 40;
+  background: var(--site-scrim-bar);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.vs-subnav__bar {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+  height: var(--site-subnav-h);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.vs-subnav a,
+.vs-subnav span {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  white-space: nowrap;
+  padding-block: 12px;
+}
+.vs-subnav span,
+.vs-subnav a:hover,
+.vs-subnav a.is-hover {
+  color: var(--tx-0);
+}
+
+/* ── footer ──────────────────────────────────────────────────────────────── */
+/* from .v2-foot */
+.vs-foot {
+  background: var(--bg-0);
+  padding-block: 72px 56px;
+}
+/* from .v2-foot__grid */
+.vs-foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr) minmax(0, 2fr);
+  gap: 32px;
+  align-items: start;
+}
+/* from .v2-foot__brand */
+.vs-foot__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vs-foot__brand img {
+  height: 80px;
+  width: auto;
+}
+/* from .v2-foot__nav, .v2-foot__social, .v2-foot__nav--quiet */
+.vs-foot__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: var(--site-fs-fine);
+  color: var(--tx-1);
+}
+.vs-foot__nav--quiet {
+  color: var(--tx-2);
+}
+/* from .v2-foot a:hover */
+.vs-foot a:hover,
+.vs-foot a.is-hover {
+  color: var(--tx-0);
+}
+@media (max-width: 900px) {
+  .vs-foot__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .vs-foot__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── sections ────────────────────────────────────────────────────────────── */
+/* from .v2-section — no separators between sections; space does the separating (Patrick 2026-09-29) */
+.vs-section {
+  padding-block: var(--site-section-y);
+}
+/* from .v2-head-row (section head: title left, lede/action right) */
+.vs-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.vs-head-row .vs-lede {
+  max-width: 44ch;
+}
+/* from .v2-stack */
+.vs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── hero ────────────────────────────────────────────────────────────────── */
+/* from .v2-hero, .v2-hero__grid, .v2-hero__copy */
+.vs-hero {
+  padding-block: var(--site-hero-y);
+}
+.vs-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--site-col-gap);
+  align-items: end;
+}
+.vs-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .vs-hero__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── media frames ────────────────────────────────────────────────────────── */
+/* from .v2-frame, --169, --square */
+.vs-frame {
+  position: relative;
+  background: var(--site-well);
+  overflow: hidden;
+}
+.vs-frame > video,
+.vs-frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vs-frame--169 {
+  aspect-ratio: 16 / 9;
+}
+.vs-frame--square {
+  aspect-ratio: 1;
+}
+/* from .v2-figure */
+.vs-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* from .v2-tagline, .v2-tagline--signal (used with .v2-cap) */
+.vs-tagline {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: var(--site-scrim-label);
+  padding: 5px 8px;
+  color: var(--tx-0);
+}
+.vs-tagline--signal {
+  color: var(--accent);
+}
+/* from .v2-badge (used with .v2-cap) */
+.vs-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 1;
+  background: var(--site-scrim-label);
+  padding: 4px 8px;
+  color: var(--tx-0);
+}
+/* from .v2-play — its cool rgba(13,14,16,.85) is replaced by --site-scrim-label */
+.vs-play {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-height: 32px;
+  padding: 0 10px;
+  color: var(--tx-0);
+  background: var(--site-scrim-label);
+  border: 1px solid var(--site-line-2);
+  cursor: pointer;
+}
+
+/* ── feed (masonry) ──────────────────────────────────────────────────────── */
+/* from .v2-filters */
+.vs-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-block: 32px 24px;
+}
+/* from .v2-grid */
+.vs-grid {
+  columns: 3 320px;
+  column-gap: 16px;
+}
+/* from .v2-card */
+.vs-card {
+  break-inside: avoid;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* from .v2-card__media (a reset <button>) */
+.vs-card__media {
+  all: unset;
+  cursor: zoom-in;
+  display: block;
+  position: relative;
+  background: var(--site-well);
+}
+.vs-card__media:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
+}
+.vs-card__media img,
+.vs-card__media video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* from .v2-card__body */
+.vs-card__body {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+/* from .v2-page .v2-card h2, h3 */
+.vs-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 0;
+}
+/* from .v2-card .v2-cap */
+.vs-card .vs-cap {
+  margin-top: 6px;
+}
+/* from .v2-empty */
+.vs-empty {
+  color: var(--tx-2);
+  padding-block: 40px;
+}
+
+/* ── panels (app cards, pricing, callout) ────────────────────────────────── */
+/* from .v2-app, .v2-app--soon — a lighter FILL, never a frame */
+.vs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--bg-2);
+}
+.vs-panel--well {
+  background: var(--site-well);
+}
+.vs-panel p {
+  color: var(--tx-1);
+  margin: 0;
+}
+/* from .v2-app__what */
+.vs-panel__what {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+/* from .v2-beta-note */
+.vs-callout {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  background: var(--bg-2);
+  font-size: 18px;
+  font-weight: 700;
+}
+/* from .v2-tiers */
+.vs-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+/* from .v2-tier, .v2-tier--feature */
+.vs-tier {
+  padding: 32px;
+  background: var(--site-well);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vs-tier--feature {
+  background: var(--bg-2);
+}
+.vs-tier p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-small);
+  margin: 0;
+}
+/* from .v2-tier__price, --later */
+.vs-tier__price {
+  font-size: 34px;
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.vs-tier__price--later {
+  font-size: 22px;
+  color: var(--tx-1);
+}
+@media (max-width: 900px) {
+  .vs-tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── steps ───────────────────────────────────────────────────────────────── */
+/* from .v2-steps (numbered row; first marker in signal) */
+.vs-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.vs-steps > li {
+  padding-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vs-steps > li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--site-line-2);
+}
+.vs-steps > li:first-child::before {
+  background: var(--accent);
+}
+.vs-steps h3 {
+  font-size: var(--site-fs-h4);
+  line-height: 1.25;
+  margin: 0;
+}
+.vs-steps p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-small);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .vs-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .vs-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── sign-up form ────────────────────────────────────────────────────────── */
+/* from .v2-signup, __label, --plain */
+.vs-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vs-signup__label {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-0);
+}
+.vs-signup--plain .vs-signup__label {
+  font-family: var(--sans);
+  font-size: var(--site-fs-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tx-1);
+}
+/* from .v2-field, .v2-field input */
+.vs-field {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vs-field input {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 46px;
+  background: var(--bg-0);
+  border: 1px solid var(--site-line-2);
+  color: var(--tx-0);
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-fine);
+  border-radius: var(--radius);
+}
+.vs-field input::placeholder {
+  color: var(--tx-2);
+}
+.vs-field input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+/* from .v2-signup__note, .is-error */
+.vs-signup__note {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  color: var(--accent);
+  min-height: 1.2em;
+}
+.vs-signup__note.is-error {
+  color: var(--site-error-ink);
+}
+
+/* ── article / prose ─────────────────────────────────────────────────────── */
+/* from .v2-shell (article page padding) */
+.vs-shell {
+  padding-block: var(--site-shell-y);
+}
+/* from .v2-shell__head */
+.vs-shell__head {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+/* from .v2-crumbs */
+.vs-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+}
+.vs-crumbs a:hover,
+.vs-crumbs a.is-hover {
+  color: var(--tx-0);
+}
+.vs-crumbs [aria-current] {
+  color: var(--tx-1);
+}
+/* from .v2-article (the one reading column) */
+.vs-article {
+  max-width: var(--site-read);
+  color: var(--tx-1);
+  font-size: var(--site-fs-read);
+  line-height: 1.7;
+}
+/* from .v2-page .v2-article h2 */
+.vs-article h2 {
+  font-size: var(--site-fs-h3);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--tx-0);
+  margin: 0 0 16px;
+  scroll-margin-top: calc(var(--site-nav-h) + 16px);
+}
+/* from .v2-page .v2-article h3 */
+.vs-article h3 {
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--tx-0);
+  margin: 28px 0 10px;
+}
+/* from .v2-page .v2-article p */
+.vs-article p {
+  margin: 0 0 16px;
+}
+/* from .v2-article ul, ol, li */
+.vs-article ul,
+.vs-article ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.vs-article li {
+  margin-bottom: 8px;
+}
+/* from .v2-article strong */
+.vs-article strong {
+  color: var(--tx-0);
+}
+/* from .v2-page .v2-article a */
+.vs-article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-article code, pre */
+.vs-article code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--bg-2);
+  padding: 1px 5px;
+}
+.vs-article pre {
+  background: var(--bg-2);
+  padding: 16px;
+  overflow-x: auto;
+}
+/* from .v2-article blockquote */
+.vs-article blockquote {
+  margin: 0 0 16px;
+  padding-left: 18px;
+  color: var(--tx-0);
+  font-style: italic;
+}
+/* from .v2-article hr (--v2-rule #3a3a3a = --bg-3) */
+.vs-article hr {
+  width: 64px;
+  border: 0;
+  border-top: 1px solid var(--bg-3);
+  margin: 40px 0;
+}
+/* from .v2-article .block-image__tags / .v3feed-gallery__caption */
+.vs-article figcaption {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  margin-top: 10px;
+}
+/* from .v2-prose (shorter prose blocks on product pages) */
+.vs-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 68ch;
+}
+.vs-prose h3 {
+  font-size: 22px;
+  margin: 18px 0 0;
+}
+.vs-prose p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-body);
+  line-height: 1.65;
+  margin: 0;
+}
+.vs-prose strong {
+  color: var(--tx-0);
+}
+.vs-prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-specs (label / value rows) */
+.vs-specs {
+  margin: 20px 0 0;
+}
+.vs-specs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.vs-specs dt {
+  color: var(--tx-1);
+}
+.vs-specs dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-body);
+  text-align: right;
+}

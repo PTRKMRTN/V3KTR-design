@@ -1,0 +1,2265 @@
+<title>V3KTR Design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* ===== core: tokens.css v0.2.0 ===== */
+/* V3KTR design tokens · v0.2.0
+   Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
+   change it here, tag a release, bump the app's pinned version.
+   Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
+:root {
+  /* Ground — neutral greys. Panels are a lighter FILL, never a frame. */
+  --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
+  --line:#171717;
+
+  /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
+  --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
+
+  /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
+  --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
+  --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+
+  /* Status */
+  --danger:#ff5b5b; --danger-dim:#7a2a2a;
+
+  /* FX-group identity colours (independent of the signal colour) */
+  --depth:#00e5a0; --adjust:#9aa0a6; --rust:#a85d4e;
+  --type-amber:#b08847; --type-rust:#a85d4e; --type-rose:#9d5a6e;
+  --type-sage:#6e8f6a; --type-teal:#5a8a8f; --type-slate:#6a7280;
+  --type-violet:#8a6db0;
+
+  /* Type */
+  --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --fs-body:13px; --fs-ctrl:11px; --fs-row:11.5px;
+  --head-weight:700; --head-track:.16em;
+
+  /* Shape + spacing */
+  --radius:2px; --pad:12px; --row-h:28px;
+  --focus-ring:2px solid var(--accent); --focus-offset:2px;
+}
+
+/* ===== app layer ===== */
+/* V3KTR app layer · v0.2.0 · requires tokens.css (core)
+   Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
+   PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
+   Colours, fonts and row height come from core tokens only. Values the core lacks are declared
+   once below as --app-* (candidates for promotion to core, see app/INVENTORY.md).
+
+   State classes (so a specimen can show a state at rest):
+     .is-hover   = :hover        .is-on / [aria-checked|aria-pressed="true"] = latched on
+     .is-active  = selected tab / filter / list row      .is-disabled = :disabled
+     .is-open    = open menu / dropdown                  .is-focus    = :focus-visible
+     .is-inline  = specimen-only helper: render a floating surface (menu pop, dropdown list,
+                   tooltip) in normal flow. NOT from PROCESSOR.
+
+   Radius: PROCESSOR declares --radius:2px but never uses it; every control renders square
+   (0). This file sets no border-radius on controls, so they match the live app. See INVENTORY. */
+
+:root {
+  /* .menu-pop, .cs-list, .cp-pop, select option: the pop-up surface, one step above --bg-0 */
+  --app-pop-bg:#262626;
+  /* .menu-pop, .cs-list */
+  --app-shadow-pop:0 8px 28px rgba(0,0,0,0.6);
+  /* .ui-card */
+  --app-shadow-modal:0 14px 44px rgba(0,0,0,0.6);
+  /* .crop-bar (floating tool strip over the canvas) */
+  --app-shadow-float:0 4px 20px rgba(0,0,0,0.6);
+  /* .depth-status */
+  --app-shadow-toast:0 8px 28px rgba(0,0,0,0.5);
+  /* .signup-note */
+  --app-shadow-note:0 6px 24px rgba(0,0,0,.45);
+  /* .rail-btn .tip */
+  --app-shadow-tip:0 2px 8px rgba(0,0,0,0.3);
+  /* .ui-overlay */
+  --app-scrim:rgba(8,9,11,0.72);
+  /* .depth-status */
+  --app-toast-bg:rgba(15,17,19,0.86);
+  /* .ui-btn.danger (ink on the danger fill) */
+  --app-danger-ink:#1a0606;
+  /* .blend-select, select.ctl, .mfps-select, .mr-row select, .cs-trigger::after.
+     A data URI cannot read var(); the fill %23cfcfcf is --tx-1's value, hard-coded. */
+  --app-chevron:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M0 2l4 4 4-4' fill='%23cfcfcf'/></svg>");
+}
+
+/* ---------------------------------------------------------------- base */
+
+/* from html,body */
+.vk-app{background:var(--bg-0);color:var(--tx-0);font-family:var(--sans);font-size:var(--fs-body);
+  -webkit-font-smoothing:antialiased;}
+
+/* from .mono */
+.vk-mono{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+
+/* from :focus-visible (PROCESSOR's global keyboard-only ring) */
+:focus-visible,
+.is-focus{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* ---------------------------------------------------------------- buttons
+   PROCESSOR's own size scale (comment above .gen-btn): Large 8x14 / Regular 5x10 / Small 3x7.
+   LARGE   = .gen-btn
+   REGULAR = .inline-btn, .looks-act-btn, .rz-btn, .crop-bar-btn, .topbar .btn, .dlr-btn, .ui-btn,
+             .mask-btn, .param-tools .inline-btn
+   SMALL   = .inline-btn.sm, .layer .lmask, .seg.mask-cmb button
+   No border on any of them: only chips (and .tog) carry a border. */
+
+/* from the shared mono/UPPERCASE rule (.btn,.gen-btn,.seg button,.filter-chip,.looks-act-btn,.rz-btn,
+   .crop-bar-btn,.ui-btn,.dlr-btn,.inline-btn) + .inline-btn / .looks-act-btn / .rz-btn / .ui-btn /
+   .dlr-btn / .crop-bar-btn / .topbar .btn / .mask-btn  (REGULAR) */
+.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:var(--bg-3);
+  border:none;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn:hover, .looks-act-btn:hover, .rz-btn:hover, .ui-btn:hover, .gen-btn:hover ... */
+.vk-btn:hover,
+.vk-btn.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .gen-btn (LARGE). Only the Large size carries a transition in PROCESSOR. */
+.vk-btn--lg{padding:8px 14px;transition:all 0.12s;}
+
+/* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
+.vk-btn--sm{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+
+/* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
+   .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing
+   "primary" class: accent fill marks a button whose thing is currently ON. Hover follows
+   .inline-btn.tog.on:hover (-> --hover fill); the other PROCESSOR on-states ignore hover. */
+.vk-btn--primary,
+.vk-btn.is-on{background:var(--accent);color:var(--on-accent);}
+.vk-btn--primary:hover,.vk-btn--primary.is-hover,
+.vk-btn.is-on:hover,.vk-btn.is-on.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .rz-btn.ghost, .crop-bar-btn.ghost, .ui-btn.ghost (dimmer label, same fill; hover as .vk-btn) */
+.vk-btn--ghost{color:var(--tx-2);}
+
+/* from .inline-btn.ghost (no fill until hover) */
+.vk-btn--bare{padding:5px 8px;color:var(--tx-2);background:transparent;}
+.vk-btn--bare:hover,
+.vk-btn--bare.is-hover{color:var(--tx-0);background:var(--bg-3);}
+
+/* from .ui-btn.danger */
+.vk-btn--danger{background:var(--danger);color:var(--app-danger-ink);}
+.vk-btn--danger:hover,
+.vk-btn--danger.is-hover{background:var(--danger);color:var(--app-danger-ink);filter:brightness(1.08);}
+
+/* from .gen-btn.disabled, .motion-step.disabled, .motion-step:disabled */
+.vk-btn:disabled,
+.vk-btn.is-disabled{opacity:0.38;pointer-events:none;}
+
+/* ---------------------------------------------------------------- .tog (latched STATE, not action) */
+
+/* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:transparent;
+  border:1px solid var(--ctrl-line);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn.tog:hover */
+.vk-tog:hover,
+.vk-tog.is-hover{background:transparent;border-color:var(--hover);color:var(--hover);}
+/* from .inline-btn.tog.on */
+.vk-tog.is-on,
+.vk-tog[aria-checked="true"],
+.vk-tog[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
+/* from .inline-btn.tog.on:hover */
+.vk-tog.is-on:hover,.vk-tog.is-on.is-hover,
+.vk-tog[aria-checked="true"]:hover,
+.vk-tog[aria-pressed="true"]:hover{background:var(--hover);border-color:var(--hover);color:var(--on-accent);}
+
+/* from .roll-group (Randomise + its latched modifiers as ONE control, in a --bg-2 tray) */
+.vk-roll-group{display:flex;gap:0;padding:3px;background:var(--bg-2);}
+/* from .roll-group .tog+.tog (no 2px seam where two borders meet) */
+.vk-roll-group .vk-tog+.vk-tog{margin-left:-1px;}
+
+/* from .param-tools, .gen-toolrow, .btn-row (left-aligned row of natural-width buttons) */
+.vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+
+/* ---------------------------------------------------------------- segmented (one-of-N) */
+
+/* from .seg */
+.vk-seg{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;}
+/* from .seg button (note: no letter-spacing, unlike the Regular button) */
+.vk-seg button{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
+  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:5px 10px;cursor:pointer;}
+/* from .seg button:hover */
+.vk-seg button:hover,
+.vk-seg button.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .seg button.on (in PROCESSOR the on option does not react to hover) */
+.vk-seg button.is-on,
+.vk-seg button[aria-pressed="true"],
+.vk-seg button.is-on:hover,
+.vk-seg button[aria-pressed="true"]:hover{background:var(--accent);color:var(--on-accent);}
+/* from .seg.mask-cmb button (SMALL) */
+.vk-seg--sm button{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+
+/* ---------------------------------------------------------------- chips (the only bordered element) */
+
+/* from .filter-chip (+ the shared mono/UPPERCASE rule). background set for use on <button>. */
+.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;
+  border:1px solid var(--ctrl-line);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
+/* from .filter-chip:hover */
+.vk-chip:hover,
+.vk-chip.is-hover{color:var(--hover);border-color:var(--hover);}
+/* from .filter-chip.active */
+.vk-chip.is-active{color:var(--accent);border-color:var(--accent-dim);background:var(--bg-3);}
+
+/* from .rail-chip (FX-group filter; set --gcol to the group's --type-* / --depth / --adjust colour) */
+.vk-chip--group{font-size:8px;letter-spacing:0.3px;padding:3px 5px;line-height:1.1;}
+/* from .rail-chip:hover */
+.vk-chip--group:hover,
+.vk-chip--group.is-hover{border-color:var(--hover);color:var(--hover);}
+/* from .rail-chip.on */
+.vk-chip--group.is-on{border-color:var(--gcol,var(--accent));color:var(--gcol,var(--accent));background:transparent;}
+
+/* ---------------------------------------------------------------- rows, switch, scrub slider */
+
+/* from .blend-row, .col-row (a 28px control row on --bg-3) */
+.vk-row{display:flex;align-items:center;height:var(--row-h);padding:0 9px;margin:3px 0;background:var(--bg-3);}
+/* from .blend-label, .col-row span */
+.vk-row__label{font-size:var(--fs-row);color:var(--tx-1);}
+/* from .col-row (clickable row) + .col-row:hover */
+.vk-row--action{cursor:pointer;position:relative;}
+.vk-row--action:hover,
+.vk-row--action.is-hover{background:var(--bg-4);}
+
+/* from .tog-row */
+.vk-tog-row{display:flex;align-items:center;justify-content:space-between;height:var(--row-h);padding:0 9px;
+  margin:3px 0;background:var(--bg-3);}
+/* from .tog-row span */
+.vk-tog-row > span{font-size:var(--fs-row);}
+
+/* from .switch */
+.vk-switch{width:30px;height:16px;background:var(--bg-0);position:relative;cursor:pointer;}
+/* from .switch::after */
+.vk-switch::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;
+  background:var(--tx-2);transition:all 0.14s ease;}
+/* from .switch.on */
+.vk-switch.is-on,
+.vk-switch[aria-checked="true"]{background:var(--accent-dim);}
+/* from .switch.on::after */
+.vk-switch.is-on::after,
+.vk-switch[aria-checked="true"]::after{left:16px;background:var(--accent);}
+
+/* from .scrub (the track: drag anywhere to set; --fill is the value as a %) */
+.vk-scrub{position:relative;height:var(--row-h);background:var(--bg-2);margin:5px 0;display:flex;
+  align-items:center;cursor:ew-resize;overflow:hidden;--fill:50%;touch-action:none;}
+/* from .scrub .fill */
+.vk-scrub__fill{position:absolute;left:0;top:0;bottom:0;width:var(--fill);
+  background:color-mix(in srgb,var(--tx-2) 20%,transparent);
+  border-left:2px solid color-mix(in srgb,var(--tx-1) 45%,transparent);pointer-events:none;}
+/* from .scrub .s-label */
+.vk-scrub__label{position:relative;z-index:1;padding-left:9px;font-size:var(--fs-row);}
+/* from .scrub .s-val (+ .mono, which the markup always adds) */
+.vk-scrub__val{position:relative;z-index:1;margin-left:auto;padding-right:9px;
+  font-family:var(--mono);font-size:var(--fs-row);font-variant-numeric:tabular-nums;}
+/* from .scrub:hover .fill */
+.vk-scrub:hover .vk-scrub__fill,
+.vk-scrub.is-hover .vk-scrub__fill{filter:brightness(1.25);}
+
+/* ---------------------------------------------------------------- headings */
+
+/* from .panel-head, .explorer-head, .rail-label (type only; each container sets its own padding) */
+.vk-sec-head{font-size:var(--fs-ctrl);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  text-transform:uppercase;color:var(--tx-0);line-height:1;}
+/* from .sec-label, .gen-secname (sub-section inside a panel) */
+.vk-sec-label{font-size:10px;font-weight:var(--head-weight);letter-spacing:var(--head-track);text-transform:uppercase;
+  color:var(--tx-0);margin:11px 0 7px;display:flex;align-items:center;gap:6px;}
+/* from .sec-sub */
+.vk-sec-sub{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-2);padding:18px 0 11px;opacity:0.85;}
+/* from .rail-group-label (FX-group heading in its group colour via --gcol) */
+.vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
+  text-transform:uppercase;line-height:1;padding:8px 0 6px;}
+/* from .looks-group-label, .mi-group-label */
+.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);}
+
+/* ---------------------------------------------------------------- workspace tabs */
+
+/* from .ws-tabs */
+.vk-tabs{display:flex;align-items:center;gap:22px;background:var(--bg-1);}
+/* from .ws-tab */
+.vk-tab{display:flex;align-items:center;font-size:var(--fs-body);letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.12s,border-color 0.12s;
+  user-select:none;}
+/* from .ws-tab:hover */
+.vk-tab:hover,
+.vk-tab.is-hover{color:var(--hover);}
+/* from .ws-tab.active */
+.vk-tab.is-active,
+.vk-tab[aria-selected="true"]{color:var(--hover);border-bottom-color:var(--hover);}
+
+/* ---------------------------------------------------------------- menus */
+
+/* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
+.vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
+/* from .menu */
+.vk-menu{color:var(--accent);padding:4px 9px;font-size:12.5px;cursor:default;position:relative;}
+/* from .menu:hover */
+.vk-menu:hover,
+.vk-menu.is-hover{color:var(--hover);}
+/* from .menu-pop */
+.vk-menu-pop{position:absolute;top:100%;left:0;background:var(--app-pop-bg);border:1px solid var(--line);
+  min-width:228px;box-shadow:var(--app-shadow-pop);z-index:100;display:none;padding:4px;}
+/* from .menu.open .menu-pop */
+.vk-menu.is-open .vk-menu-pop{display:block;}
+/* from .mi */
+.vk-menu-item{padding:6px 10px;font-size:12px;color:var(--tx-1);cursor:pointer;white-space:nowrap;letter-spacing:0.02em;
+  display:flex;align-items:center;gap:18px;justify-content:space-between;}
+/* from .mi:hover (text goes --accent here, not --hover) */
+.vk-menu-item:hover,
+.vk-menu-item.is-hover{background:var(--bg-4);color:var(--accent);}
+/* from .mi.disabled */
+.vk-menu-item.is-disabled{color:var(--tx-2);pointer-events:none;}
+/* from .mi.disabled .mi-kbd */
+.vk-menu-item.is-disabled .vk-menu-kbd{color:var(--tx-2);opacity:0.5;}
+/* from .mi-kbd */
+.vk-menu-kbd{font-family:var(--mono);font-size:10.5px;color:var(--tx-2);letter-spacing:0;margin-left:auto;}
+/* from .mi-sep */
+.vk-menu-sep{height:1px;background:var(--line);margin:3px 0;}
+/* from .mi-group-label */
+.vk-menu-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);padding:5px 10px 2px;}
+/* from .mi-check */
+.vk-menu-check{display:inline-block;width:14px;color:var(--accent);flex-shrink:0;}
+/* from #menuImage .mi, #menuView .mi (check-led menus: left-aligned) */
+.vk-menu-pop--checks .vk-menu-item{justify-content:flex-start;gap:4px;}
+
+/* ---------------------------------------------------------------- selects */
+
+/* from .blend-select (select inside a 28px row) */
+.vk-select{height:22px;background-color:var(--bg-2);color:var(--tx-0);border:none;
+  -webkit-appearance:none;appearance:none;background-image:var(--app-chevron);
+  background-repeat:no-repeat;background-position:right 8px center;
+  font-family:var(--mono);font-size:var(--fs-ctrl);padding:0 22px 0 8px;cursor:pointer;letter-spacing:0.01em;min-width:110px;}
+/* from .blend-select (margin-left:auto pushes it to the right end of its row) */
+.vk-row .vk-select{margin-left:auto;}
+/* from select.ctl (full-width 28px select) */
+.vk-select--block{height:var(--row-h);width:100%;padding:0 24px 0 9px;background-position:right 9px center;
+  min-width:0;letter-spacing:normal;}
+/* from .mfps-select (compact transport select, 30px to match the transport buttons) */
+.vk-select--transport{flex:0 0 auto;height:30px;box-sizing:border-box;padding:0 17px 0 7px;
+  background-position:right 5px center;min-width:0;letter-spacing:normal;}
+/* from select option, select option:checked */
+.vk-select option{background:var(--app-pop-bg);color:var(--tx-0);}
+.vk-select option:checked{background:var(--accent);color:var(--on-accent);}
+
+/* from .cs-wrap (themed dropdown; native <select> kept hidden inside for behaviour) */
+.vk-cs{position:relative;display:inline-flex;min-width:120px;vertical-align:middle;}
+/* from .cs-wrap > select */
+.vk-cs > select{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+/* from .cs-trigger */
+.vk-cs__trigger{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-0);background:var(--bg-2);
+  border:none;padding:5px 9px;cursor:pointer;text-align:left;line-height:1.3;letter-spacing:0.01em;}
+/* from .cs-trigger::after */
+.vk-cs__trigger::after{content:'';width:8px;height:8px;flex:0 0 auto;background:var(--app-chevron) no-repeat center/contain;}
+/* from .cs-wrap.open .cs-trigger */
+.vk-cs.is-open .vk-cs__trigger{color:var(--hover);}
+/* from .cs-list */
+.vk-cs__list{position:absolute;top:calc(100% + 2px);left:0;right:0;min-width:100%;background:var(--app-pop-bg);
+  z-index:200;display:none;box-shadow:var(--app-shadow-pop);max-height:260px;overflow-y:auto;}
+/* from .cs-wrap.open .cs-list */
+.vk-cs.is-open .vk-cs__list{display:block;}
+/* from .cs-wrap.cs-up .cs-list */
+.vk-cs--up .vk-cs__list{top:auto;bottom:calc(100% + 2px);}
+/* from .cs-opt */
+.vk-cs__opt{padding:6px 10px;font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-1);cursor:pointer;white-space:nowrap;}
+/* from .cs-opt:hover */
+.vk-cs__opt:hover,
+.vk-cs__opt.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .cs-opt.sel */
+.vk-cs__opt.is-sel{color:var(--accent);}
+
+/* ---------------------------------------------------------------- text inputs
+   PROCESSOR pairs every input :focus with outline:none, which also kills the keyboard ring.
+   Not carried over: the border tint is kept, the :focus-visible ring above still applies. */
+
+/* from input.ctl / .ctl */
+.vk-input{height:var(--row-h);background:var(--bg-3);color:var(--tx-0);border:1px solid var(--line);
+  font-family:inherit;font-size:var(--fs-row);padding:0 9px;}
+/* from input.ctl::placeholder */
+.vk-input::placeholder{color:var(--tx-2);}
+/* from .ctl:focus, .text-input:focus, .inline-field:focus (border only) */
+.vk-input:focus,
+.vk-input.is-focus{border-color:var(--accent-dim);}
+/* from .text-input (mono entry: Type FX text, hex) */
+.vk-input--mono{font-family:var(--mono);font-size:12px;letter-spacing:0.05em;}
+/* from .inline-field (name field in an inline-expand row) */
+.vk-input--inline{height:auto;flex:1;min-width:0;padding:5px 8px;}
+
+/* ---------------------------------------------------------------- modal / dialog */
+
+/* from .ui-overlay */
+.vk-scrim{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;
+  background:var(--app-scrim);backdrop-filter:blur(2px);}
+/* from .ui-overlay.on */
+.vk-scrim.is-on{display:flex;}
+/* from .ui-card */
+.vk-modal{background:var(--bg-2);border:1px solid var(--line);min-width:300px;max-width:min(440px,90vw);
+  box-shadow:var(--app-shadow-modal);animation:vk-ui-pop 0.13s ease-out;}
+/* from .ui-card.danger */
+.vk-modal--danger{border-color:var(--danger-dim);}
+/* from @keyframes uiPop */
+@keyframes vk-ui-pop{from{opacity:0;transform:translateY(6px) scale(0.985);}to{opacity:1;transform:none;}}
+/* from .ui-title */
+.vk-modal__title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);
+  font-family:var(--mono);padding:15px 18px 0;}
+/* from .ui-card.danger .ui-title */
+.vk-modal--danger .vk-modal__title{color:var(--danger);}
+/* from .ui-msg */
+.vk-modal__msg{font-size:12.5px;line-height:1.55;color:var(--tx-1);padding:8px 18px 16px;white-space:pre-wrap;}
+/* from .ui-actions */
+.vk-modal__actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 16px;}
+
+/* ---------------------------------------------------------------- toast / note
+   PROCESSOR has no toast class. Its non-blocking status message is the .depth-status pill. */
+
+/* from .depth-status */
+.vk-toast{display:flex;align-items:center;gap:9px;padding:7px 14px;
+  background:var(--app-toast-bg);border:1px solid var(--line);backdrop-filter:blur(8px);
+  color:var(--tx-1);font-size:var(--fs-row);letter-spacing:0.03em;pointer-events:none;
+  box-shadow:var(--app-shadow-toast);}
+/* from .depth-status (its placement over the canvas) */
+.vk-toast--pinned{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);z-index:7;}
+/* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
+.vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:vk-ds-pulse 1.1s ease-in-out infinite;}
+/* from @keyframes dsPulse */
+@keyframes vk-ds-pulse{0%,100%{opacity:0.35;transform:scale(0.8);}50%{opacity:1;transform:scale(1.1);}}
+
+/* from .signup-note (post-export footnote: not modal, no backdrop, no focus steal) */
+.vk-note{max-width:320px;padding:12px 14px 10px;background:var(--bg-2);border:1px solid var(--bg-4);
+  color:var(--tx-2);font-size:12px;line-height:1.45;box-shadow:var(--app-shadow-note);}
+/* from .signup-note (its placement) */
+.vk-note--pinned{position:fixed;left:18px;top:76px;z-index:900;}
+/* from .signup-note b */
+.vk-note b{color:var(--tx-1);font-weight:500;}
+/* from .signup-note a.sn-go */
+.vk-note__go{color:var(--accent);font-family:var(--mono);font-size:var(--fs-ctrl);letter-spacing:0.06em;
+  text-transform:uppercase;text-decoration:none;}
+/* from .signup-note a.sn-go:hover */
+.vk-note__go:hover,
+.vk-note__go.is-hover{text-decoration:underline;}
+
+/* ---------------------------------------------------------------- tooltip */
+
+/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
+.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+/* from .rail-btn .tip b */
+.vk-tip b{display:block;font-weight:700;}
+/* from .rail-btn .tip em */
+.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
+  opacity:0.7;white-space:normal;max-width:190px;}
+/* from .rail-btn:hover .tip */
+.vk-tip.is-shown{opacity:1;}
+
+/* ---------------------------------------------------------------- panels, list rows, kbd */
+
+/* from .crop-bar, .canvas-controls (a lighter FILL, never an outline) */
+.vk-panel{background:var(--bg-2);}
+/* from .crop-bar (floating tool strip over the canvas: layout, padding, shadow) */
+.vk-panel--float{display:flex;align-items:center;gap:8px;padding:8px 12px;box-shadow:var(--app-shadow-float);}
+
+/* from .layer (FX stack row); .motion-item is the same pattern */
+.vk-layer{display:flex;align-items:center;gap:8px;padding:7px 8px;margin:2px 0;background:var(--bg-2);
+  cursor:pointer;border-left:2px solid transparent;}
+/* from .layer:hover */
+.vk-layer:hover,
+.vk-layer.is-hover{background:var(--bg-3);}
+/* from .layer.active */
+.vk-layer.is-active{background:var(--bg-3);border-left-color:var(--accent);}
+/* from .layer.hidden-layer */
+.vk-layer.is-disabled{opacity:0.42;}
+/* from .layer .licon */
+.vk-layer__icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;background:var(--bg-0);color:var(--accent);}
+/* from .layer .licon svg */
+.vk-layer__icon svg{width:13px;height:13px;}
+/* from .layer .lname */
+.vk-layer__name{flex:1;font-size:12px;}
+/* from .layer .lname small */
+.vk-layer__name small{display:block;color:var(--tx-2);font-size:10px;margin-top:1px;}
+
+/* from .kbd */
+.vk-kbd{font-family:var(--mono);font-size:10.5px;background:var(--bg-3);color:var(--tx-1);padding:2px 6px;margin:0 2px;}
+
+/* ---------------------------------------------------------------- specimen helper (NOT from PROCESSOR) */
+.vk-menu-pop.is-inline,
+.vk-cs__list.is-inline{position:static;display:block;}
+.vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
+
+/* ===== site layer ===== */
+/* V3KTR site layer · v0.2.0 · requires tokens.css (core)
+   Reference CSS for the V3KTR website, extracted from site v2 (branch site-v2 @ 5004d53, 2026-09-29):
+   styles/v2-chrome.css, styles/v2.css, styles/v2-article.css.
+   The site shares the core (ground, text greys, signal aqua, fonts, radius) and adds what an
+   editorial page needs: display type, gutters, a max width, section rhythm.
+   Rules: colours only via core tokens or --site-* tokens below. Every :hover is also .is-hover
+   (for specimens and tests). Sizes are px (the site's legacy template sets html{font-size:62.5%}).
+   Each rule names the site-v2 selector it came from. See INVENTORY.md for the full mapping. */
+
+/* ══ PENDING CORE ═══════════════════════════════════════════════════════════
+   AGENTS.md layer rule 1: a layer may not own its own greys or inks. The five colours below are
+   values the site uses that the core lacks. They live here ONLY so this file renders today;
+   on Patrick's approval each moves to tokens.css (core v0.1.2, un-prefixed) and this block goes.
+   Two of them (--site-muted, --site-line-2) are PROPOSALS that change site v2's rendered colour. */
+:root {
+  /* ── fills ─────────────────────────────────────────────────────────────── */
+  --site-well: #262626;                  /* was --v2-well. Between core --bg-0 #212121 and --bg-2 #2b2b2b; no core step. */
+  /* --v2-panel #2a2a2a → core var(--bg-2) #2b2b2b (1 step off; recommended, used below). */
+  /* --v2-rule  #3a3a3a → core var(--bg-3) #3a3a3a (exact; used for the article hr). */
+
+  /* ── lines ─────────────────────────────────────────────────────────────── */
+  --site-line-2: #595959;                 /* was --v2-rule-2 #555a60 (cool). PROPOSED neutral: luminance-matched
+                                             (2.30:1 on --bg-0 vs 2.31:1). Alternative: core --ctrl-line (renders #4d4d4d on --bg-0, dimmer). */
+
+  /* ── text ──────────────────────────────────────────────────────────────── */
+  /* --v2-fg #f4f6f8 → var(--tx-0) · --v2-fg-2 #c9cdd3 → var(--tx-1) · --v2-muted #a0a6ae → var(--tx-2) */
+  --site-muted: #969696;                  /* PROPOSED, not settled. Core --tx-2 #8a8a8a is 4.66:1 on --bg-0 but FAILS 4.5:1 on
+                                             --site-well (4.38) and --bg-2 (4.10), where site-v2 puts muted captions (pricing tiers,
+                                             credit labels, fact lists). #969696 = 5.44 / 5.12 / 4.79. Until Patrick decides,
+                                             muted text on a panel uses this; on bare ground --tx-2 passes. */
+
+  /* ── signal ────────────────────────────────────────────────────────────── */
+  /* --v2-signal #00e5a0 → var(--accent) · --v2-signal-hi #3bf0b8 → var(--hover) (settled 2026-09-29) */
+  --site-signal-ink: #04120d;             /* was --v2-signal-ink. Differs from core --on-accent #1c1c1c (both pass: 11.59 vs 10.32
+                                             on --accent). Recommend retiring to --on-accent; kept exact here pending a decision. */
+  --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
+                                             this is a text-on-dark red (7.90:1 on --bg-0). */
+}
+
+/* ══ SITE LAYER TOKENS ══════════════════════════════════════════════════════ */
+:root {
+  /* ── scrims (derived from the core ground) ─────────────────────────────── */
+  --site-scrim-bar: color-mix(in srgb, var(--bg-0) 92%, transparent);   /* was raw rgba(33,33,33,0.92): sticky nav + subnav */
+  --site-scrim-label: color-mix(in srgb, var(--bg-0) 85%, transparent); /* was raw rgba(33,33,33,0.85): tagline, badge; also
+                                                                            replaces the cool rgba(13,14,16,0.85) on .v2-play */
+
+  /* ── layout ────────────────────────────────────────────────────────────── */
+  --site-gutter: clamp(16px, 3.4vw, 48px); /* was --v2-gutter */
+  --site-max: 1440px;                      /* was --v2-max */
+  --site-nav-h: 100px;                     /* was --v2-nav-h */
+  --site-subnav-h: 50px;                   /* was raw 50px on .v2-subnav .v2-wrap */
+  --site-section-y: clamp(64px, 8vw, 120px);                                   /* was .v2-section padding-block */
+  --site-hero-y: clamp(40px, 6vw, 80px) clamp(56px, 7vw, 96px);                /* was .v2-hero padding-block */
+  --site-shell-y: clamp(32px, 5vw, 64px) clamp(64px, 8vw, 112px);             /* was .v2-shell padding-block */
+  --site-col-gap: clamp(24px, 4vw, 56px);                                      /* was .v2-hero__grid / .v2-split gap */
+  --site-read: 760px;                      /* was .v2-article max-width */
+  --site-focus-offset: 3px;                /* was raw 3px on site :focus-visible. Core --focus-offset is 2px — recommend core. */
+
+  /* ── display + heading type scale (Manrope 800 unless noted) ───────────── */
+  --site-fs-sign: clamp(64px, 11vw, 160px);    /* .v2-sign        · lh .85  · track -.06em  */
+  --site-fs-display: clamp(46px, 6.4vw, 96px); /* .v2-hero h1     · lh .94  · track -.045em */
+  --site-fs-title: clamp(40px, 5.6vw, 84px);   /* .v2-shell__title· lh .98  · track -.04em  */
+  --site-fs-h2: clamp(34px, 4.6vw, 60px);      /* .v2-page h2     · lh 1.02 · track -.03em  */
+  --site-fs-h2-sm: clamp(30px, 3.6vw, 46px);   /* .v2-h2-sm                                 */
+  --site-fs-subhead: clamp(24px, 3vw, 40px);   /* .v2-apphero__what · lh 1.15 · track -.03em */
+  --site-fs-h3: clamp(24px, 2.4vw, 32px);      /* .v2-article h2 (700) · lh 1.2 · track -.02em */
+  --site-fs-h4: 21px;                          /* .v2-steps h3 · lh 1.25 */
+  --site-fs-intro: clamp(18px, 1.6vw, 22px);   /* .v2-shell__intro · lh 1.5 */
+  --site-fs-lede: clamp(17px, 1.4vw, 19px);    /* .v2-lede */
+  --site-fs-read: 17px;                        /* .v2-article · lh 1.7 */
+  --site-fs-body: 16px;                        /* .v2-chrome / .v2-page · lh 1.55 */
+  --site-fs-small: 15px;                       /* card / tier / step body copy */
+  --site-fs-fine: 14px;                        /* .v2-fine */
+  --site-fs-cap: 11px;                         /* .v2-cap (mono) — equals core --fs-ctrl */
+  --site-fs-eyebrow: 12px;                     /* .v2-eyebrow (mono) */
+  --site-fs-wordmark: clamp(40px, 7vw, 96px);  /* .v2-apphero h1 (mono 700) · lh 1 · track .06em */
+  --site-fs-appname: clamp(28px, 3.4vw, 44px); /* .v2-app__name (mono 700) · lh 1.1 · track .08em */
+  --site-weight-display: 800;
+}
+
+/* ── base ────────────────────────────────────────────────────────────────── */
+/* from .v2-chrome, .v2-page (box-sizing + base type). Fonts: core --sans / --mono. */
+.vs-site,
+.vs-site *,
+.vs-site *::before,
+.vs-site *::after {
+  box-sizing: border-box;
+}
+.vs-site {
+  font-family: var(--sans);
+  font-size: var(--site-fs-body);
+  line-height: 1.55;
+  color: var(--tx-0);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+}
+/* from .v2-chrome a, .v2-page a */
+.vs-site a {
+  color: inherit;
+  text-decoration: none;
+}
+/* from .v2-chrome :focus-visible, .v2-page :focus-visible */
+.vs-site :focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
+}
+/* from .v2-wrap */
+.vs-wrap {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding-inline: var(--site-gutter);
+}
+/* from .v2-skip */
+.vs-skip {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--site-signal-ink);
+  font-family: var(--mono);
+  font-weight: 700;
+  padding: 10px 14px;
+}
+.vs-skip:focus {
+  top: 8px;
+}
+
+/* ── small type ──────────────────────────────────────────────────────────── */
+/* from .v2-cap */
+.vs-cap {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  margin: 0;
+}
+/* new modifier: replaces inline style={{color:"var(--v2-signal)"}} on .v2-cap (8 uses in markup) */
+.vs-cap--signal {
+  color: var(--accent);
+}
+/* PROPOSED: muted text on a panel/well fill uses --site-muted (core --tx-2 fails 4.5:1 there) */
+.vs-panel .vs-cap,
+.vs-panel .vs-fine,
+.vs-tier .vs-cap,
+.vs-tier .vs-fine,
+.vs-callout .vs-cap {
+  color: var(--site-muted);
+}
+/* from .v2-eyebrow, .v2-eyebrow--signal */
+.vs-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  letter-spacing: var(--head-track);
+  text-transform: uppercase;
+  color: var(--tx-2);
+}
+.vs-eyebrow--signal {
+  color: var(--accent);
+}
+/* from .v2-lede */
+.vs-lede {
+  font-size: var(--site-fs-lede);
+  color: var(--tx-1);
+  max-width: 60ch;
+  margin: 0;
+}
+/* from .v2-shell__intro */
+.vs-intro {
+  font-size: var(--site-fs-intro);
+  line-height: 1.5;
+  color: var(--tx-1);
+  max-width: 62ch;
+  margin: 0;
+}
+/* from .v2-fine */
+.vs-fine {
+  font-size: var(--site-fs-fine);
+  color: var(--tx-2);
+  margin: 0;
+}
+/* from .v2-link (site-v2 needed !important to beat the template's bare-a rules; not needed here). No hover in site v2. */
+.vs-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-open-link */
+.vs-open-link {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-block: 4px;
+}
+.vs-open-link:hover,
+.vs-open-link.is-hover {
+  text-decoration: underline;
+}
+
+/* ── display type ────────────────────────────────────────────────────────── */
+/* from .v2-page h1, h2, h3 (shared reset) */
+.vs-display,
+.vs-title,
+.vs-h2,
+.vs-sign {
+  margin: 0;
+  text-wrap: balance;
+  font-weight: var(--site-weight-display);
+}
+/* from .v2-hero h1; em → .v2-hero h1 em */
+.vs-display {
+  font-size: var(--site-fs-display);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+.vs-display em {
+  font-style: normal;
+  color: var(--accent);
+}
+/* from .v2-page .v2-shell__title */
+.vs-title {
+  font-size: var(--site-fs-title);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 20ch;
+}
+/* from .v2-page h2 */
+.vs-h2 {
+  font-size: var(--site-fs-h2);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+/* from .v2-page .v2-h2-sm */
+.vs-h2--sm {
+  font-size: var(--site-fs-h2-sm);
+}
+/* from .v2-apphero__what */
+.vs-subhead {
+  font-size: var(--site-fs-subhead);
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+}
+/* from .v2-sign */
+.vs-sign {
+  font-size: var(--site-fs-sign);
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+/* from .v2-page .v2-apphero h1 (app name set in mono) */
+.vs-wordmark {
+  font-family: var(--mono);
+  font-size: var(--site-fs-wordmark);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin: 0;
+}
+/* from .v2-app__name */
+.vs-wordmark--sm {
+  font-size: var(--site-fs-appname);
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+/* ── buttons + tags ──────────────────────────────────────────────────────── */
+/* from .v2-btn. ⚠️ Site-v2's default button is OUTLINED on transparent — this departs from the core
+   rule (buttons: --bg-3 fill, no border). Ported as-is; see INVENTORY.md §drift. */
+.vs-btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--site-line-2);
+  background: transparent;
+  color: var(--tx-0);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+/* from .v2-btn:hover */
+.vs-btn:hover,
+.vs-btn.is-hover {
+  border-color: var(--tx-0);
+}
+/* from .v2-btn--primary (+ the .v2-page .v2-btn--primary colour override) */
+.vs-site .vs-btn--primary,
+.vs-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--site-signal-ink);
+}
+/* from .v2-btn--primary:hover (--v2-signal-hi → --hover) */
+.vs-btn--primary:hover,
+.vs-btn--primary.is-hover {
+  background: var(--hover);
+  border-color: var(--hover);
+}
+/* from .v2-btn--signal */
+.vs-btn--signal {
+  border-color: var(--accent);
+}
+/* from .v2-btn[disabled] */
+.vs-btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+/* from .v2-cta-row */
+.vs-cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+/* from .v2-soon */
+.vs-soon {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  line-height: 1.3;
+}
+/* from .v2-beta, .v2-beta__dot */
+.vs-beta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-1);
+  border: 1px solid var(--site-line-2);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.vs-beta:hover,
+.vs-beta.is-hover {
+  color: var(--tx-0);
+  border-color: var(--tx-1);
+}
+.vs-beta__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+/* from .v2-chip (filter toggle; aria-pressed = on) */
+.vs-chip {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  border: 1px solid var(--site-line-2);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--tx-1);
+  cursor: pointer;
+  min-height: 44px;
+}
+.vs-chip:hover,
+.vs-chip.is-hover {
+  border-color: var(--tx-1);
+}
+.vs-chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--site-signal-ink);
+}
+/* from .v2-chips > li, .is-signal (static tags) */
+.vs-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vs-tags > li {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 10px;
+  border: 1px solid var(--site-line-2);
+  color: var(--tx-1);
+}
+.vs-tags > li.is-signal {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── dropdown menu ───────────────────────────────────────────────────────── */
+/* from .v2-open__menu, .v2-open__name, .v2-open__what */
+.vs-menu {
+  min-width: 260px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--bg-2);
+}
+.vs-menu a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+}
+.vs-menu a:hover,
+.vs-menu a.is-hover {
+  background: var(--site-well);
+}
+.vs-menu__name {
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.vs-menu__what {
+  font-size: var(--site-fs-fine);
+  color: var(--tx-1);
+}
+
+/* ── header / nav ────────────────────────────────────────────────────────── */
+/* from .v2-nav */
+.vs-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--site-scrim-bar);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+/* from .v2-nav__bar */
+.vs-nav__bar {
+  height: var(--site-nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+/* from .v2-nav__brand, .v2-nav__logo img */
+.vs-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.vs-nav__logo img {
+  height: 60px;
+  width: auto;
+}
+/* from .v2-nav__links */
+.vs-nav__links {
+  display: flex;
+  gap: 32px;
+  font-size: var(--site-fs-small);
+  font-weight: 600;
+  align-items: center;
+}
+.vs-nav__links > a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--tx-1);
+  padding-block: 6px;
+}
+.vs-nav__links > a:hover,
+.vs-nav__links > a.is-hover,
+.vs-nav__links > a[aria-current="page"] {
+  color: var(--tx-0);
+}
+.vs-nav__links > a[aria-current="page"] {
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+/* from .v2-nav__actions */
+.vs-nav__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+/* from .v2-nav__menu (hamburger, mobile only) */
+.vs-nav__menu {
+  display: none;
+  width: 46px;
+  padding: 0;
+}
+@media (max-width: 860px) {
+  .vs-nav__links {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--site-nav-h);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--bg-0);
+    padding: 8px var(--site-gutter) 24px;
+    max-height: calc(100dvh - var(--site-nav-h));
+    overflow-y: auto;
+  }
+  .vs-nav__links.is-open {
+    display: flex;
+  }
+  .vs-nav__links > a {
+    padding: 14px 0;
+    font-size: 20px;
+  }
+  .vs-nav__menu {
+    display: inline-flex;
+  }
+}
+@media (max-width: 560px) {
+  .vs-nav__logo img {
+    height: 44px;
+  }
+}
+@media (max-width: 400px) {
+  .vs-beta {
+    display: none;
+  }
+}
+
+/* from .v2-subnav, .v2-subnav a / span (in-page section nav on app pages) */
+.vs-subnav {
+  position: sticky;
+  top: var(--site-nav-h);
+  z-index: 40;
+  background: var(--site-scrim-bar);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.vs-subnav__bar {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+  height: var(--site-subnav-h);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.vs-subnav a,
+.vs-subnav span {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  white-space: nowrap;
+  padding-block: 12px;
+}
+.vs-subnav span,
+.vs-subnav a:hover,
+.vs-subnav a.is-hover {
+  color: var(--tx-0);
+}
+
+/* ── footer ──────────────────────────────────────────────────────────────── */
+/* from .v2-foot */
+.vs-foot {
+  background: var(--bg-0);
+  padding-block: 72px 56px;
+}
+/* from .v2-foot__grid */
+.vs-foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr) minmax(0, 2fr);
+  gap: 32px;
+  align-items: start;
+}
+/* from .v2-foot__brand */
+.vs-foot__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vs-foot__brand img {
+  height: 80px;
+  width: auto;
+}
+/* from .v2-foot__nav, .v2-foot__social, .v2-foot__nav--quiet */
+.vs-foot__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: var(--site-fs-fine);
+  color: var(--tx-1);
+}
+.vs-foot__nav--quiet {
+  color: var(--tx-2);
+}
+/* from .v2-foot a:hover */
+.vs-foot a:hover,
+.vs-foot a.is-hover {
+  color: var(--tx-0);
+}
+@media (max-width: 900px) {
+  .vs-foot__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .vs-foot__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── sections ────────────────────────────────────────────────────────────── */
+/* from .v2-section — no separators between sections; space does the separating (Patrick 2026-09-29) */
+.vs-section {
+  padding-block: var(--site-section-y);
+}
+/* from .v2-head-row (section head: title left, lede/action right) */
+.vs-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.vs-head-row .vs-lede {
+  max-width: 44ch;
+}
+/* from .v2-stack */
+.vs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── hero ────────────────────────────────────────────────────────────────── */
+/* from .v2-hero, .v2-hero__grid, .v2-hero__copy */
+.vs-hero {
+  padding-block: var(--site-hero-y);
+}
+.vs-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--site-col-gap);
+  align-items: end;
+}
+.vs-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .vs-hero__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── media frames ────────────────────────────────────────────────────────── */
+/* from .v2-frame, --169, --square */
+.vs-frame {
+  position: relative;
+  background: var(--site-well);
+  overflow: hidden;
+}
+.vs-frame > video,
+.vs-frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vs-frame--169 {
+  aspect-ratio: 16 / 9;
+}
+.vs-frame--square {
+  aspect-ratio: 1;
+}
+/* from .v2-figure */
+.vs-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* from .v2-tagline, .v2-tagline--signal (used with .v2-cap) */
+.vs-tagline {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: var(--site-scrim-label);
+  padding: 5px 8px;
+  color: var(--tx-0);
+}
+.vs-tagline--signal {
+  color: var(--accent);
+}
+/* from .v2-badge (used with .v2-cap) */
+.vs-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 1;
+  background: var(--site-scrim-label);
+  padding: 4px 8px;
+  color: var(--tx-0);
+}
+/* from .v2-play — its cool rgba(13,14,16,.85) is replaced by --site-scrim-label */
+.vs-play {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-height: 32px;
+  padding: 0 10px;
+  color: var(--tx-0);
+  background: var(--site-scrim-label);
+  border: 1px solid var(--site-line-2);
+  cursor: pointer;
+}
+
+/* ── feed (masonry) ──────────────────────────────────────────────────────── */
+/* from .v2-filters */
+.vs-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-block: 32px 24px;
+}
+/* from .v2-grid */
+.vs-grid {
+  columns: 3 320px;
+  column-gap: 16px;
+}
+/* from .v2-card */
+.vs-card {
+  break-inside: avoid;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* from .v2-card__media (a reset <button>) */
+.vs-card__media {
+  all: unset;
+  cursor: zoom-in;
+  display: block;
+  position: relative;
+  background: var(--site-well);
+}
+.vs-card__media:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
+}
+.vs-card__media img,
+.vs-card__media video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* from .v2-card__body */
+.vs-card__body {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+/* from .v2-page .v2-card h2, h3 */
+.vs-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 0;
+}
+/* from .v2-card .v2-cap */
+.vs-card .vs-cap {
+  margin-top: 6px;
+}
+/* from .v2-empty */
+.vs-empty {
+  color: var(--tx-2);
+  padding-block: 40px;
+}
+
+/* ── panels (app cards, pricing, callout) ────────────────────────────────── */
+/* from .v2-app, .v2-app--soon — a lighter FILL, never a frame */
+.vs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--bg-2);
+}
+.vs-panel--well {
+  background: var(--site-well);
+}
+.vs-panel p {
+  color: var(--tx-1);
+  margin: 0;
+}
+/* from .v2-app__what */
+.vs-panel__what {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+/* from .v2-beta-note */
+.vs-callout {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  background: var(--bg-2);
+  font-size: 18px;
+  font-weight: 700;
+}
+/* from .v2-tiers */
+.vs-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+/* from .v2-tier, .v2-tier--feature */
+.vs-tier {
+  padding: 32px;
+  background: var(--site-well);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vs-tier--feature {
+  background: var(--bg-2);
+}
+.vs-tier p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-small);
+  margin: 0;
+}
+/* from .v2-tier__price, --later */
+.vs-tier__price {
+  font-size: 34px;
+  font-weight: var(--site-weight-display);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.vs-tier__price--later {
+  font-size: 22px;
+  color: var(--tx-1);
+}
+@media (max-width: 900px) {
+  .vs-tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── steps ───────────────────────────────────────────────────────────────── */
+/* from .v2-steps (numbered row; first marker in signal) */
+.vs-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.vs-steps > li {
+  padding-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vs-steps > li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--site-line-2);
+}
+.vs-steps > li:first-child::before {
+  background: var(--accent);
+}
+.vs-steps h3 {
+  font-size: var(--site-fs-h4);
+  line-height: 1.25;
+  margin: 0;
+}
+.vs-steps p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-small);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .vs-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .vs-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── sign-up form ────────────────────────────────────────────────────────── */
+/* from .v2-signup, __label, --plain */
+.vs-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vs-signup__label {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-0);
+}
+.vs-signup--plain .vs-signup__label {
+  font-family: var(--sans);
+  font-size: var(--site-fs-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tx-1);
+}
+/* from .v2-field, .v2-field input */
+.vs-field {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vs-field input {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 46px;
+  background: var(--bg-0);
+  border: 1px solid var(--site-line-2);
+  color: var(--tx-0);
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-fine);
+  border-radius: var(--radius);
+}
+.vs-field input::placeholder {
+  color: var(--tx-2);
+}
+.vs-field input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+/* from .v2-signup__note, .is-error */
+.vs-signup__note {
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  color: var(--accent);
+  min-height: 1.2em;
+}
+.vs-signup__note.is-error {
+  color: var(--site-error-ink);
+}
+
+/* ── article / prose ─────────────────────────────────────────────────────── */
+/* from .v2-shell (article page padding) */
+.vs-shell {
+  padding-block: var(--site-shell-y);
+}
+/* from .v2-shell__head */
+.vs-shell__head {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+/* from .v2-crumbs */
+.vs-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+}
+.vs-crumbs a:hover,
+.vs-crumbs a.is-hover {
+  color: var(--tx-0);
+}
+.vs-crumbs [aria-current] {
+  color: var(--tx-1);
+}
+/* from .v2-article (the one reading column) */
+.vs-article {
+  max-width: var(--site-read);
+  color: var(--tx-1);
+  font-size: var(--site-fs-read);
+  line-height: 1.7;
+}
+/* from .v2-page .v2-article h2 */
+.vs-article h2 {
+  font-size: var(--site-fs-h3);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--tx-0);
+  margin: 0 0 16px;
+  scroll-margin-top: calc(var(--site-nav-h) + 16px);
+}
+/* from .v2-page .v2-article h3 */
+.vs-article h3 {
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--tx-0);
+  margin: 28px 0 10px;
+}
+/* from .v2-page .v2-article p */
+.vs-article p {
+  margin: 0 0 16px;
+}
+/* from .v2-article ul, ol, li */
+.vs-article ul,
+.vs-article ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.vs-article li {
+  margin-bottom: 8px;
+}
+/* from .v2-article strong */
+.vs-article strong {
+  color: var(--tx-0);
+}
+/* from .v2-page .v2-article a */
+.vs-article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-article code, pre */
+.vs-article code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--bg-2);
+  padding: 1px 5px;
+}
+.vs-article pre {
+  background: var(--bg-2);
+  padding: 16px;
+  overflow-x: auto;
+}
+/* from .v2-article blockquote */
+.vs-article blockquote {
+  margin: 0 0 16px;
+  padding-left: 18px;
+  color: var(--tx-0);
+  font-style: italic;
+}
+/* from .v2-article hr (--v2-rule #3a3a3a = --bg-3) */
+.vs-article hr {
+  width: 64px;
+  border: 0;
+  border-top: 1px solid var(--bg-3);
+  margin: 40px 0;
+}
+/* from .v2-article .block-image__tags / .v3feed-gallery__caption */
+.vs-article figcaption {
+  font-family: var(--mono);
+  font-size: var(--site-fs-cap);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-2);
+  margin-top: 10px;
+}
+/* from .v2-prose (shorter prose blocks on product pages) */
+.vs-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 68ch;
+}
+.vs-prose h3 {
+  font-size: 22px;
+  margin: 18px 0 0;
+}
+.vs-prose p {
+  color: var(--tx-1);
+  font-size: var(--site-fs-body);
+  line-height: 1.65;
+  margin: 0;
+}
+.vs-prose strong {
+  color: var(--tx-0);
+}
+.vs-prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* from .v2-specs (label / value rows) */
+.vs-specs {
+  margin: 20px 0 0;
+}
+.vs-specs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.vs-specs dt {
+  color: var(--tx-1);
+}
+.vs-specs dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-body);
+  text-align: right;
+}
+
+/* ===== specimen page shell (not part of the system) ===== */
+:root{color-scheme:dark}
+html,body{background:var(--bg-0);color:var(--tx-1)}
+body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
+.shell{max-width:1200px;margin:0 auto;padding-block:28px 64px}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;margin-bottom:6px}
+.top h1{font:800 22px/1.2 var(--sans);color:var(--tx-0);margin:0}
+.top .ver{font:500 11px var(--mono);color:var(--accent)}
+.intro{max-width:68ch;color:var(--tx-2);margin:0 0 20px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg-0);padding-block:10px;z-index:5;border-bottom:1px solid var(--bg-2);margin-bottom:24px}
+.tabs button{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--bg-3);color:var(--tx-1);border:0;border-radius:var(--radius);height:28px;padding:0 12px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--accent);color:var(--on-accent)}
+.tabs button:hover{background:var(--hover);color:var(--on-accent)}
+.tabs button:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset)}
+.lede{max-width:68ch;margin:0 0 24px;color:var(--tx-1)}
+.empty{color:var(--tx-2);font:11px var(--mono)}
+.spec-group{margin:0 0 32px}
+.spec-caption{font:700 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-2);margin:0 0 12px}
+.spec-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 12px}
+.tk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.tk{background:var(--bg-2);border-radius:var(--radius);overflow:hidden}
+.tk-sw{height:56px}
+.tk-n{font:600 11px var(--mono);color:var(--tx-0);padding:8px 10px 0;word-break:break-all}
+.tk-v{font:11px var(--mono);color:var(--tx-2);padding:2px 10px 10px;font-variant-numeric:tabular-nums}
+.tk-plain .tk-n{padding-top:10px}
+.ty{display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--bg-2)}
+.ty-l{font:11px var(--mono);color:var(--tx-2)}
+@media (max-width:600px){.ty{grid-template-columns:1fr;gap:4px}}
+.model{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 0 28px}
+.model div{background:var(--bg-2);border-radius:var(--radius);padding:14px}
+.model b{display:block;font:700 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.model p{margin:0;color:var(--tx-1)}
+.src{font:11px var(--mono);color:var(--tx-2)}
+</style>
+<div class="shell">
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.2.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
+    <button role="tab" id="t-app" data-t="app" aria-selected="false">App layer</button>
+    <button role="tab" id="t-site" data-t="site" aria-selected="false">Site layer</button>
+  </div>
+  <section class="tab-panel" id="p-core" data-tab="core">
+    <div class="model">
+      <div><b>Core</b><p>Shared by every surface: signal aqua, grounds, text greys, FX-group colours, fonts, radius. Layers can't redefine these.</p></div>
+      <div><b>App layer</b><p>Dense tool UI taken from PROCESSOR: buttons, chips, toggles, rows, sliders. Used by PROCESSOR, KOMPOSITOR and DIMENSOR.</p></div>
+      <div><b>Site layer</b><p>The website's own scale: display type, gutters, nav, feed cards, article prose. Same core, different shape.</p></div>
+    </div>
+    <div class="spec-group"><div class="spec-caption">Ground</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--bg-0)"></div><div class="tk-n">--bg-0</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-1)"></div><div class="tk-n">--bg-1</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-2)"></div><div class="tk-n">--bg-2</div><div class="tk-v">#2b2b2b · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-3)"></div><div class="tk-n">--bg-3</div><div class="tk-v">#3a3a3a · 1.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-4)"></div><div class="tk-n">--bg-4</div><div class="tk-v">#444444 · 1.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--line)"></div><div class="tk-n">--line</div><div class="tk-v">#171717 · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Text</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--tx-0)"></div><div class="tk-n">--tx-0</div><div class="tk-v">#f4f4f4 · 14.6:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-1)"></div><div class="tk-n">--tx-1</div><div class="tk-v">#cfcfcf · 10.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-2)"></div><div class="tk-n">--tx-2</div><div class="tk-v">#8a8a8a · 4.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Signal</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--accent)"></div><div class="tk-n">--accent</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-dim)"></div><div class="tk-n">--accent-dim</div><div class="tk-v">#0a8f66 · 3.9:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-glow)"></div><div class="tk-n">--accent-glow</div><div class="tk-v">rgba(0,229,160,0.15)</div></div><div class="tk"><div class="tk-sw" style="background:var(--hover)"></div><div class="tk-n">--hover</div><div class="tk-v">#3dffc2 · 12.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-accent)"></div><div class="tk-n">--on-accent</div><div class="tk-v">#1c1c1c · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--ctrl-line)"></div><div class="tk-n">--ctrl-line</div><div class="tk-v">rgba(255,255,255,.20)</div></div></div></div><div class="spec-group"><div class="spec-caption">Status</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--danger)"></div><div class="tk-n">--danger</div><div class="tk-v">#ff5b5b · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--danger-dim)"></div><div class="tk-n">--danger-dim</div><div class="tk-v">#7a2a2a · 1.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">FX-group identity colours</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--depth)"></div><div class="tk-n">--depth</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--adjust)"></div><div class="tk-n">--adjust</div><div class="tk-v">#9aa0a6 · 6.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--rust)"></div><div class="tk-n">--rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-amber)"></div><div class="tk-n">--type-amber</div><div class="tk-v">#b08847 · 5.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rust)"></div><div class="tk-n">--type-rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rose)"></div><div class="tk-n">--type-rose</div><div class="tk-v">#9d5a6e · 3.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-sage)"></div><div class="tk-n">--type-sage</div><div class="tk-v">#6e8f6a · 4.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-teal)"></div><div class="tk-n">--type-teal</div><div class="tk-v">#5a8a8f · 4.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-slate)"></div><div class="tk-n">--type-slate</div><div class="tk-v">#6a7280 · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-violet)"></div><div class="tk-n">--type-violet</div><div class="tk-v">#8a6db0 · 3.8:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Type</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--sans</div><div class="tk-v">'Manrope',ui-sans-serif,system-ui,sans-serif</div></div><div class="tk tk-plain"><div class="tk-n">--mono</div><div class="tk-v">'JetBrains Mono',ui-monospace,monospace</div></div><div class="tk tk-plain"><div class="tk-n">--fs-body</div><div class="tk-v">13px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-ctrl</div><div class="tk-v">11px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-row</div><div class="tk-v">11.5px</div></div><div class="tk tk-plain"><div class="tk-n">--head-weight</div><div class="tk-v">700</div></div><div class="tk tk-plain"><div class="tk-n">--head-track</div><div class="tk-v">.16em</div></div></div></div><div class="spec-group"><div class="spec-caption">Shape + spacing</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--radius</div><div class="tk-v">2px</div></div><div class="tk tk-plain"><div class="tk-n">--pad</div><div class="tk-v">12px</div></div><div class="tk tk-plain"><div class="tk-n">--row-h</div><div class="tk-v">28px</div></div><div class="tk tk-plain"><div class="tk-n">--focus-ring</div><div class="tk-v">2px solid var(--accent)</div></div><div class="tk tk-plain"><div class="tk-n">--focus-offset</div><div class="tk-v">2px</div></div></div></div>
+    
+<div class="spec-group"><div class="spec-caption">Type in use</div>
+  <div class="ty"><span class="ty-l">Manrope 800 · display</span><span style="font:800 40px/1.1 var(--sans);color:var(--tx-0)">Effects that see depth.</span></div>
+  <div class="ty"><span class="ty-l">Manrope 13 · body</span><span style="font:400 var(--fs-body)/1.5 var(--sans);color:var(--tx-1)">Reads depth out of a flat photo, so effects work inside the picture, not just on top.</span></div>
+  <div class="ty"><span class="ty-l">Mono 11 · controls</span><span style="font:500 var(--fs-ctrl) var(--mono);text-transform:uppercase;color:var(--tx-0)">Depth 0.62 · Bleed 0.40 · Randomise</span></div>
+  <div class="ty"><span class="ty-l">Section head 11/700/.16em</span><span style="font:var(--head-weight) var(--fs-ctrl) var(--mono);letter-spacing:var(--head-track);text-transform:uppercase;color:var(--tx-2)">Adjust</span></div>
+</div>
+  </section>
+  
+<section class="tab-panel" id="p-app" data-tab="app" hidden>
+  <p class="lede">Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once.</p>
+  <section class="spec-layer" data-layer="app">
+
+  <!-- ============================================================ BUTTONS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn.vk-btn--lg · LARGE 8×14 (from .gen-btn) · rest / hover / disabled</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--lg" type="button">Randomise</button>
+      <button class="vk-btn vk-btn--lg is-hover" type="button">Randomise</button>
+      <button class="vk-btn vk-btn--lg" type="button" disabled>Randomise</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn · REGULAR 5×10 (from .inline-btn, .looks-act-btn, .rz-btn, .ui-btn …) · rest / hover / focus / disabled</p>
+    <div class="spec-row">
+      <button class="vk-btn" type="button">Export</button>
+      <button class="vk-btn is-hover" type="button">Export</button>
+      <button class="vk-btn is-focus" type="button">Export</button>
+      <button class="vk-btn is-disabled" type="button">Export</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn.vk-btn--sm · SMALL 3×7 (from .inline-btn.sm, .layer .lmask) · rest / hover / on</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--sm" type="button">Mask</button>
+      <button class="vk-btn vk-btn--sm is-hover" type="button">Mask</button>
+      <button class="vk-btn vk-btn--sm is-on" type="button">Mask</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--primary / .vk-btn.is-on · accent fill (from .looks-act-btn.active, .motion-play.on) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--primary" type="button">Render</button>
+      <button class="vk-btn vk-btn--primary is-hover" type="button">Render</button>
+      <button class="vk-btn vk-btn--lg is-on" type="button">Play</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--ghost (from .rz-btn.ghost) · .vk-btn--bare (from .inline-btn.ghost) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+      <button class="vk-btn vk-btn--ghost is-hover" type="button">Cancel</button>
+      <button class="vk-btn vk-btn--bare" type="button">Close</button>
+      <button class="vk-btn vk-btn--bare is-hover" type="button">Close</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--danger (from .ui-btn.danger) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--danger" type="button">Delete Look</button>
+      <button class="vk-btn vk-btn--danger is-hover" type="button">Delete Look</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ TOG + ROLL GROUP -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tog · latched STATE (from .inline-btn.tog) · off / off hover / on / on hover</p>
+    <div class="spec-row">
+      <button class="vk-tog" type="button" role="switch" aria-checked="false">Focus</button>
+      <button class="vk-tog is-hover" type="button" role="switch" aria-checked="false">Focus</button>
+      <button class="vk-tog is-on" type="button" role="switch" aria-checked="true">Wild</button>
+      <button class="vk-tog is-on is-hover" type="button" role="switch" aria-checked="true">Wild</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn-row + .vk-roll-group · Reset outside, Randomise + its latches in one tray (from .param-tools, .roll-group)</p>
+    <div class="spec-row">
+      <div class="vk-btn-row">
+        <button class="vk-btn" type="button">Reset</button>
+        <div class="vk-roll-group" role="group" aria-label="Randomise and its modifiers">
+          <button class="vk-btn" type="button">Randomise</button>
+          <button class="vk-tog is-on" type="button" role="switch" aria-checked="true">Focus</button>
+          <button class="vk-tog" type="button" role="switch" aria-checked="false">Wild</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ SEGMENTED -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-seg · one-of-N (from .seg button) · rest / hover / on</p>
+    <div class="spec-row">
+      <div class="vk-seg" role="group" aria-label="Blend">
+        <button type="button">Normal</button>
+        <button type="button" class="is-hover">Screen</button>
+        <button type="button" class="is-on" aria-pressed="true">Z-Depth</button>
+        <button type="button">Erase</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-seg.vk-seg--sm · SMALL options (from .seg.mask-cmb button)</p>
+    <div class="spec-row">
+      <div class="vk-seg vk-seg--sm" role="group" aria-label="Combine">
+        <button type="button" class="is-on" aria-pressed="true">Add</button>
+        <button type="button">Subtract</button>
+        <button type="button" class="is-hover">Intersect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ CHIPS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-chip · the only bordered element (from .filter-chip) · rest / hover / active</p>
+    <div class="spec-row">
+      <span class="vk-chip">All</span>
+      <span class="vk-chip is-hover">My Looks</span>
+      <span class="vk-chip is-active">Depth</span>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-chip.vk-chip--group · FX-group filter, colour from --gcol (from .rail-chip) · rest / hover / on per group</p>
+    <div class="spec-row">
+      <span class="vk-chip vk-chip--group">Adjust</span>
+      <span class="vk-chip vk-chip--group is-hover">Degrade</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--adjust)">Adjust</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-sage)">Degrade</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-rust)">Distort</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-rose)">Colour</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-teal)">Signal</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-violet)">Glitch</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-amber)">Type</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-slate)">Light</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--depth)">Depth</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ ROWS / SWITCH / SCRUB -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-scrub · label + value + track, --fill = value (from .scrub) · rest / hover</p>
+    <div class="spec-row">
+      <div class="vk-scrub" style="--fill:62%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Depth</span><span class="vk-scrub__val">0.62</span></div>
+      <div class="vk-scrub is-hover" style="--fill:35%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Bleed</span><span class="vk-scrub__val">0.35</span></div>
+      <div class="vk-scrub" style="--fill:80%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Levels</span><span class="vk-scrub__val">2</span></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tog-row + .vk-switch · off / on (from .tog-row, .switch)</p>
+    <div class="spec-row">
+      <div class="vk-tog-row"><span>Invert Depth</span><div class="vk-switch" role="switch" aria-checked="false" tabindex="0"></div></div>
+      <div class="vk-tog-row"><span>Animate</span><div class="vk-switch is-on" role="switch" aria-checked="true" tabindex="0"></div></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-row + .vk-select · .vk-row--action rest / hover (from .blend-row, .col-row)</p>
+    <div class="spec-row">
+      <div class="vk-row"><span class="vk-row__label">FX Blend</span>
+        <select class="vk-select" aria-label="FX Blend"><option>Normal</option><option>Z-Depth</option><option>N-Depth</option><option>Erase</option></select></div>
+      <div class="vk-row vk-row--action"><span class="vk-row__label">Background</span></div>
+      <div class="vk-row vk-row--action is-hover"><span class="vk-row__label">Background</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ HEADINGS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-sec-head (from .panel-head) · .vk-sec-label (from .sec-label) · .vk-sec-sub (from .sec-sub) · .vk-micro-label (from .mi-group-label)</p>
+    <div class="spec-row">
+      <div class="vk-sec-head">FX Stack</div>
+      <div class="vk-sec-label">FX Parameters</div>
+      <div class="vk-sec-sub">Gradient</div>
+      <div class="vk-micro-label">Built-in Looks</div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-group-label · FX-group heading in --gcol (from .rail-group-label)</p>
+    <div class="spec-row">
+      <div class="vk-group-label" style="--gcol:var(--type-rust)">Distort</div>
+      <div class="vk-group-label" style="--gcol:var(--type-violet)">Glitch</div>
+      <div class="vk-group-label" style="--gcol:var(--type-slate)">Light</div>
+      <div class="vk-group-label" style="--gcol:var(--depth)">Depth</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ TABS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tabs / .vk-tab · rest / hover / active (from .ws-tabs, .ws-tab)</p>
+    <div class="spec-row">
+      <div class="vk-tabs" role="tablist">
+        <div class="vk-tab is-active" role="tab" aria-selected="true">FX Edit</div>
+        <div class="vk-tab is-hover" role="tab" aria-selected="false">FX Explorer</div>
+        <div class="vk-tab" role="tab" aria-selected="false">FX Motion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ MENUS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-menubar / .vk-menu · rest / hover (from .topbar, .menu)</p>
+    <div class="spec-row">
+      <div class="vk-menubar">
+        <div class="vk-menu">File</div>
+        <div class="vk-menu is-hover">Edit</div>
+        <div class="vk-menu">Image</div>
+        <div class="vk-menu">View</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-menu-pop (.is-inline for the specimen) · item rest / hover / disabled, kbd, sep, label, check (from .menu-pop, .mi)</p>
+    <div class="spec-row">
+      <div class="vk-menu-pop is-inline">
+        <div class="vk-menu-item">Undo<span class="vk-menu-kbd">⌘Z</span></div>
+        <div class="vk-menu-item is-hover">Duplicate Layer<span class="vk-menu-kbd">⌘D</span></div>
+        <div class="vk-menu-item is-disabled">Redo<span class="vk-menu-kbd">⌘⇧Z</span></div>
+        <div class="vk-menu-sep"></div>
+        <div class="vk-menu-item">Clear Effect Stack</div>
+      </div>
+      <div class="vk-menu-pop vk-menu-pop--checks is-inline">
+        <div class="vk-menu-label">Export Format</div>
+        <div class="vk-menu-item"><span class="vk-menu-check">✓</span>PNG</div>
+        <div class="vk-menu-item is-hover"><span class="vk-menu-check"></span>JPEG</div>
+        <div class="vk-menu-item"><span class="vk-menu-check"></span>WebP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ SELECTS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-select--block (from select.ctl) · .vk-select--transport (from .mfps-select)</p>
+    <div class="spec-row">
+      <select class="vk-select vk-select--block" aria-label="Preset"><option>Bend · Levels 2</option><option>Seam Mesh</option></select>
+      <select class="vk-select vk-select--transport" aria-label="Frame rate"><option>30 fps</option><option>24 fps</option><option>60 fps</option></select>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-cs · themed dropdown · closed / open with option hover + selected (from .cs-wrap, .cs-opt)</p>
+    <div class="spec-row">
+      <div class="vk-cs"><button class="vk-cs__trigger" type="button">Point Cloud</button></div>
+      <div class="vk-cs is-open">
+        <button class="vk-cs__trigger" type="button" aria-expanded="true">Pattern</button>
+      </div>
+      <div class="vk-cs__list is-inline" role="listbox">
+        <div class="vk-cs__opt" role="option">Bend</div>
+        <div class="vk-cs__opt is-hover" role="option">Physarum</div>
+        <div class="vk-cs__opt is-sel" role="option" aria-selected="true">Pattern</div>
+        <div class="vk-cs__opt" role="option">Point Cloud</div>
+        <div class="vk-cs__opt" role="option">Seam Mesh</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ INPUTS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-input (from input.ctl) · .vk-input--mono (from .text-input) · .vk-input--inline (from .inline-field) · rest / focus</p>
+    <div class="spec-row">
+      <input class="vk-input" type="text" placeholder="Look name" aria-label="Look name">
+      <input class="vk-input is-focus" type="text" value="Physarum drift" aria-label="Look name">
+      <input class="vk-input vk-input--mono" type="text" value="V3KTR" aria-label="Text">
+      <input class="vk-input vk-input--inline" type="text" value="Bend study 04" aria-label="Look name">
+    </div>
+  </div>
+
+  <!-- ============================================================ MODAL -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-modal (card only; .vk-scrim is the fixed backdrop) · default / danger (from .ui-card)</p>
+    <div class="spec-row">
+      <div class="vk-modal" role="dialog" aria-label="Render video">
+        <div class="vk-modal__title">Render Video</div>
+        <div class="vk-modal__msg">Renders the FX Motion loop to a video file. Edits are locked while it runs.</div>
+        <div class="vk-modal__actions">
+          <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+          <button class="vk-btn vk-btn--lg" type="button">Render</button>
+        </div>
+      </div>
+      <div class="vk-modal vk-modal--danger" role="alertdialog" aria-label="Delete Look">
+        <div class="vk-modal__title">Delete Look</div>
+        <div class="vk-modal__msg">Delete “Seam Mesh study”? This cannot be undone.</div>
+        <div class="vk-modal__actions">
+          <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+          <button class="vk-btn vk-btn--danger" type="button">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ TOAST / NOTE / TIP -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-toast (from .depth-status) · .vk-note (from .signup-note)</p>
+    <div class="spec-row">
+      <div class="vk-toast" role="status"><span class="vk-toast__dot"></span>Computing depth…</div>
+      <div class="vk-note" role="note"><b>Exported.</b> V3KTR is in open beta.
+        <div><a class="vk-note__go" href="#signup">Sign up</a></div></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tip · tooltip, shown (from .rail-btn .tip)</p>
+    <div class="spec-row">
+      <span class="vk-tip is-inline" role="tooltip"><b>Physarum</b><em>Grow a slime-mould network that feeds on the picture</em></span>
+    </div>
+  </div>
+
+  <!-- ============================================================ PANEL / LAYER / KBD -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-panel.vk-panel--float · a lighter fill, never an outline (from .crop-bar)</p>
+    <div class="spec-row">
+      <div class="vk-panel vk-panel--float">
+        <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+        <button class="vk-btn" type="button">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-layer · FX stack row · rest / hover / active / hidden (from .layer)</p>
+    <div class="spec-row">
+      <div class="vk-layer"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16c4-8 12-8 16 0"/></svg></span><span class="vk-layer__name">Bend<small>Levels 2</small></span></div>
+      <div class="vk-layer is-hover"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="6"/></svg></span><span class="vk-layer__name">Physarum<small>Screen</small></span></div>
+      <div class="vk-layer is-active"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/></svg></span><span class="vk-layer__name">Pattern<small>Z-Depth</small></span></div>
+      <div class="vk-layer is-disabled"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20L12 4l8 16z"/></svg></span><span class="vk-layer__name">Seam Mesh<small>Normal</small></span></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-kbd (from .kbd)</p>
+    <div class="spec-row">
+      <span class="vk-kbd">R</span><span class="vk-kbd">⌘Z</span><span class="vk-kbd">?</span>
+    </div>
+  </div>
+
+</section>
+
+</section>
+  
+<section class="tab-panel" id="p-site" data-tab="site" hidden>
+  <p class="lede">Taken from site v2 and moved onto the core colours: hover #3dffc2, neutral greys.</p>
+  <section class="spec-layer vs-site" data-layer="site">
+
+  <div class="spec-group">
+    <div class="spec-caption">Nav · .vs-nav (sticky, scrim over the ground)</div>
+    <div>
+      <header class="vs-nav">
+        <div class="vs-wrap vs-nav__bar">
+          <div class="vs-nav__brand">
+            <a class="vs-wordmark vs-wordmark--sm" href="#">V3KTR</a>
+            <a class="vs-beta" href="#"><span class="vs-beta__dot"></span>Open beta</a>
+          </div>
+          <nav class="vs-nav__links" aria-label="Specimen">
+            <a href="#" aria-current="page">Processor</a>
+            <a href="#" class="is-hover">Looks</a>
+            <a href="#">About</a>
+          </nav>
+          <div class="vs-nav__actions">
+            <a class="vs-btn vs-btn--primary" href="#">Open Processor</a>
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Display type scale · Manrope 800, tight tracking</div>
+    <div class="vs-stack">
+      <p class="vs-eyebrow vs-eyebrow--signal">Dimensional FX</p>
+      <p class="vs-sign">Go deep.</p>
+      <h1 class="vs-display">Effects that <em>see depth.</em></h1>
+      <h2 class="vs-title">Make the look. Make the edit.</h2>
+      <h2 class="vs-h2">Depth, read from one photo.</h2>
+      <h2 class="vs-h2 vs-h2--sm">Every frame here was made in Processor.</h2>
+      <p class="vs-subhead">A dimensional image FX processor.</p>
+      <p class="vs-wordmark">PROCESSOR</p>
+      <p class="vs-intro">It reads depth out of a flat photo, so the effects work inside the picture, not just on top of it.</p>
+      <p class="vs-lede">Pick a colour, pull a slider, and the whole stack re-renders live.</p>
+      <p class="vs-fine">Runs in the browser. Nothing is uploaded.</p>
+      <p class="vs-cap">Input · one still</p>
+      <p class="vs-cap vs-cap--signal">Step 1</p>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Buttons · rest / hover (.is-hover) / disabled</div>
+    <div class="spec-row">
+      <a class="vs-btn vs-btn--primary" href="#">Open Processor</a>
+      <a class="vs-btn vs-btn--primary is-hover" href="#">Open Processor</a>
+      <a class="vs-btn" href="#">See the looks</a>
+      <a class="vs-btn is-hover" href="#">See the looks</a>
+      <a class="vs-btn vs-btn--signal" href="#">Get early access</a>
+      <button class="vs-btn" type="button" disabled>Sending</button>
+    </div>
+    <div class="spec-row">
+      <span class="vs-soon">Soon</span>
+      <a class="vs-beta" href="#"><span class="vs-beta__dot"></span>Open beta</a>
+      <a class="vs-beta is-hover" href="#"><span class="vs-beta__dot"></span>Open beta</a>
+      <a class="vs-link" href="#">Read the licence</a>
+      <a class="vs-open-link" href="#">OPEN IN PROCESSOR →</a>
+      <a class="vs-open-link is-hover" href="#">OPEN IN PROCESSOR →</a>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Filter chips (toggle) · tags (static)</div>
+    <div class="spec-row">
+      <button class="vs-chip" type="button" aria-pressed="true">All</button>
+      <button class="vs-chip" type="button" aria-pressed="false">Depth</button>
+      <button class="vs-chip is-hover" type="button" aria-pressed="false">Pattern</button>
+      <button class="vs-chip" type="button" aria-pressed="false">Colour</button>
+    </div>
+    <ul class="vs-tags">
+      <li class="is-signal">Depth-aware</li>
+      <li>Live video</li>
+      <li>PNG + MP4</li>
+    </ul>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Section head · .vs-head-row</div>
+    <div class="vs-head-row">
+      <h2 class="vs-h2">Make the look. Make the edit.</h2>
+      <p class="vs-lede">Two apps, one depth engine. Processor makes the look; Kompositor will cut it together.</p>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Feed · .vs-grid masonry of .vs-card</div>
+    <div class="vs-filters">
+      <button class="vs-chip" type="button" aria-pressed="true">All</button>
+      <button class="vs-chip" type="button" aria-pressed="false">Stills</button>
+      <button class="vs-chip" type="button" aria-pressed="false">Video</button>
+    </div>
+    <div class="vs-grid">
+      <article class="vs-card">
+        <button class="vs-card__media" type="button" aria-label="Open Depth Parallax">
+          <span class="vs-frame vs-frame--square" style="display:block;background:linear-gradient(135deg,var(--bg-3),var(--accent-dim))"></span>
+          <span class="vs-badge vs-cap">Video</span>
+        </button>
+        <div class="vs-card__body">
+          <div>
+            <h3 class="vs-card__title">Depth Parallax on a harbour at dusk</h3>
+            <p class="vs-cap">Depth Parallax · Bleed</p>
+          </div>
+          <a class="vs-open-link" href="#">OPEN →</a>
+        </div>
+      </article>
+      <article class="vs-card">
+        <button class="vs-card__media" type="button" aria-label="Open Seam Mesh">
+          <span class="vs-frame vs-frame--169" style="display:block;background:linear-gradient(180deg,var(--site-well),var(--type-teal))"></span>
+          <span class="vs-tagline vs-tagline--signal vs-cap">Seam Mesh</span>
+        </button>
+        <div class="vs-card__body">
+          <div>
+            <h3 class="vs-card__title">A portrait, re-drawn as wireframe</h3>
+            <p class="vs-cap">Seam Mesh · Levels</p>
+          </div>
+          <a class="vs-open-link is-hover" href="#">OPEN →</a>
+        </div>
+      </article>
+      <article class="vs-card">
+        <button class="vs-card__media" type="button" aria-label="Open Pattern">
+          <span class="vs-frame" style="display:block;aspect-ratio:3/4;background:var(--bg-2)"></span>
+          <span class="vs-play">Play</span>
+        </button>
+        <div class="vs-card__body">
+          <div>
+            <h3 class="vs-card__title">Pattern Height over a city block</h3>
+            <p class="vs-cap">Pattern · Height</p>
+          </div>
+          <a class="vs-open-link" href="#">OPEN →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Panels + pricing · a lighter fill, never a frame</div>
+    <div class="vs-tiers">
+      <div class="vs-tier">
+        <span class="vs-cap">Personal</span>
+        <div class="vs-tier__price">Free</div>
+        <p>Everything in Processor, for your own work. Free forever.</p>
+      </div>
+      <div class="vs-tier vs-tier--feature">
+        <span class="vs-cap vs-cap--signal">Commercial</span>
+        <div class="vs-tier__price vs-tier__price--later">After the beta</div>
+        <p>For work that earns money or promotes a business.</p>
+      </div>
+      <div class="vs-panel vs-panel--well">
+        <div class="spec-row"><span class="vs-wordmark vs-wordmark--sm">KOMPOSITOR</span><span class="vs-soon">Soon</span></div>
+        <p class="vs-panel__what">Make the edit.</p>
+        <p>Cut treated clips together, on the same depth engine.</p>
+      </div>
+    </div>
+    <div class="vs-callout" style="margin-top:16px">Processor is in open beta. <a class="vs-btn vs-btn--primary" href="#">Open Processor</a></div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Steps</div>
+    <ol class="vs-steps">
+      <li><span class="vs-cap vs-cap--signal">Step 1</span><h3>Drop in a photo</h3><p>Any still or short clip.</p></li>
+      <li><span class="vs-cap">Step 2</span><h3>Read the depth</h3><p>The model builds a depth map on your machine.</p></li>
+      <li><span class="vs-cap">Step 3</span><h3>Stack effects</h3><p>Each one can see what is near and what is far.</p></li>
+      <li><span class="vs-cap">Step 4</span><h3>Export</h3><p>PNG with the stack inside, or video.</p></li>
+    </ol>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Sign-up form · rest / error</div>
+    <form class="vs-signup" style="max-width:520px">
+      <label class="vs-signup__label" for="vs-spec-email">Hear when Kompositor opens</label>
+      <div class="vs-field">
+        <input id="vs-spec-email" type="email" placeholder="you@example.com">
+        <button class="vs-btn vs-btn--primary" type="button">Notify me</button>
+      </div>
+      <p class="vs-signup__note">Done. We'll write once, when it opens.</p>
+      <p class="vs-signup__note is-error">That address doesn't look right.</p>
+    </form>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Article · .vs-crumbs + .vs-title + .vs-article reading column</div>
+    <div class="vs-shell__head">
+      <nav class="vs-crumbs" aria-label="Breadcrumb"><a href="#">Home</a><span>/</span><a href="#" class="is-hover">Looks</a><span>/</span><span aria-current="page">Depth Parallax</span></nav>
+      <h1 class="vs-title">How depth changes a filter.</h1>
+      <p class="vs-intro">A flat filter treats every pixel the same. A depth-aware one knows the <a class="vs-link" href="#">foreground</a> from the sky.</p>
+    </div>
+    <div class="vs-article">
+      <h2>Why depth matters</h2>
+      <p>Most image effects work on colour alone. Processor also knows how far away each part of the picture is, so a blur can fall off with distance and a glow can sit <strong>behind</strong> a subject instead of on top of it.</p>
+      <h3>What you need</h3>
+      <ul>
+        <li>A browser with WebGPU.</li>
+        <li>One photo. The depth model downloads once, about 50 MB.</li>
+      </ul>
+      <blockquote>The image seeds the structure, not just the palette.</blockquote>
+      <p>Settings travel with the export: open a PNG and the whole stack comes back. See <a href="#">the technical notes</a> or run <code>read-fx-meta</code>.</p>
+      <hr>
+      <figure style="margin:0"><div class="vs-frame vs-frame--169" style="background:linear-gradient(90deg,var(--bg-2),var(--type-slate))"></div><figcaption>Input · depth map · result</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Specs + prose (product pages)</div>
+    <div class="vs-prose">
+      <h3>Technical</h3>
+      <p>Everything renders on your graphics card. <strong>Nothing leaves the machine.</strong></p>
+    </div>
+    <dl class="vs-specs" style="max-width:520px">
+      <div><dt>Depth model</dt><dd>~50 MB, once</dd></div>
+      <div><dt>Export</dt><dd>PNG · MP4</dd></div>
+    </dl>
+  </div>
+
+  <div class="spec-group">
+    <div class="spec-caption">Footer</div>
+    <footer class="vs-foot">
+      <div class="vs-wrap vs-foot__grid">
+        <div class="vs-foot__brand">
+          <span class="vs-wordmark vs-wordmark--sm">V3KTR</span>
+          <p class="vs-cap">Dimensional FX</p>
+        </div>
+        <nav class="vs-foot__nav" aria-label="Footer"><a href="#">Processor</a><a href="#" class="is-hover">Looks</a><a href="#">About</a><a href="#">Contact</a></nav>
+        <nav class="vs-foot__nav vs-foot__nav--quiet" aria-label="Legal"><a href="#">Compatibility</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Acknowledgements</a></nav>
+        <nav class="vs-foot__nav" aria-label="Social"><a href="#">Instagram</a><a href="#">YouTube</a></nav>
+      </div>
+    </footer>
+  </div>
+
+</section>
+
+</section>
+</div>
+<script>
+(function(){
+  var btns=[].slice.call(document.querySelectorAll('.tabs button'));
+  function show(t){
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===t?'true':'false')});
+    [].forEach.call(document.querySelectorAll('.tab-panel'),function(p){p.hidden=p.dataset.tab!==t});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);try{history.replaceState(null,'','#'+b.dataset.t)}catch(e){}})});
+  var h=(location.hash||'').slice(1); if(h==='app'||h==='site') show(h);
+})();
+</script>

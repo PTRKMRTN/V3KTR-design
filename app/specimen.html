@@ -1,0 +1,333 @@
+<section class="spec-layer" data-layer="app">
+
+  <!-- ============================================================ BUTTONS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn.vk-btn--lg · LARGE 8×14 (from .gen-btn) · rest / hover / disabled</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--lg" type="button">Randomise</button>
+      <button class="vk-btn vk-btn--lg is-hover" type="button">Randomise</button>
+      <button class="vk-btn vk-btn--lg" type="button" disabled>Randomise</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn · REGULAR 5×10 (from .inline-btn, .looks-act-btn, .rz-btn, .ui-btn …) · rest / hover / focus / disabled</p>
+    <div class="spec-row">
+      <button class="vk-btn" type="button">Export</button>
+      <button class="vk-btn is-hover" type="button">Export</button>
+      <button class="vk-btn is-focus" type="button">Export</button>
+      <button class="vk-btn is-disabled" type="button">Export</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn.vk-btn--sm · SMALL 3×7 (from .inline-btn.sm, .layer .lmask) · rest / hover / on</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--sm" type="button">Mask</button>
+      <button class="vk-btn vk-btn--sm is-hover" type="button">Mask</button>
+      <button class="vk-btn vk-btn--sm is-on" type="button">Mask</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--primary / .vk-btn.is-on · accent fill (from .looks-act-btn.active, .motion-play.on) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--primary" type="button">Render</button>
+      <button class="vk-btn vk-btn--primary is-hover" type="button">Render</button>
+      <button class="vk-btn vk-btn--lg is-on" type="button">Play</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--ghost (from .rz-btn.ghost) · .vk-btn--bare (from .inline-btn.ghost) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+      <button class="vk-btn vk-btn--ghost is-hover" type="button">Cancel</button>
+      <button class="vk-btn vk-btn--bare" type="button">Close</button>
+      <button class="vk-btn vk-btn--bare is-hover" type="button">Close</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn--danger (from .ui-btn.danger) · rest / hover</p>
+    <div class="spec-row">
+      <button class="vk-btn vk-btn--danger" type="button">Delete Look</button>
+      <button class="vk-btn vk-btn--danger is-hover" type="button">Delete Look</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ TOG + ROLL GROUP -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tog · latched STATE (from .inline-btn.tog) · off / off hover / on / on hover</p>
+    <div class="spec-row">
+      <button class="vk-tog" type="button" role="switch" aria-checked="false">Focus</button>
+      <button class="vk-tog is-hover" type="button" role="switch" aria-checked="false">Focus</button>
+      <button class="vk-tog is-on" type="button" role="switch" aria-checked="true">Wild</button>
+      <button class="vk-tog is-on is-hover" type="button" role="switch" aria-checked="true">Wild</button>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-btn-row + .vk-roll-group · Reset outside, Randomise + its latches in one tray (from .param-tools, .roll-group)</p>
+    <div class="spec-row">
+      <div class="vk-btn-row">
+        <button class="vk-btn" type="button">Reset</button>
+        <div class="vk-roll-group" role="group" aria-label="Randomise and its modifiers">
+          <button class="vk-btn" type="button">Randomise</button>
+          <button class="vk-tog is-on" type="button" role="switch" aria-checked="true">Focus</button>
+          <button class="vk-tog" type="button" role="switch" aria-checked="false">Wild</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ SEGMENTED -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-seg · one-of-N (from .seg button) · rest / hover / on</p>
+    <div class="spec-row">
+      <div class="vk-seg" role="group" aria-label="Blend">
+        <button type="button">Normal</button>
+        <button type="button" class="is-hover">Screen</button>
+        <button type="button" class="is-on" aria-pressed="true">Z-Depth</button>
+        <button type="button">Erase</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-seg.vk-seg--sm · SMALL options (from .seg.mask-cmb button)</p>
+    <div class="spec-row">
+      <div class="vk-seg vk-seg--sm" role="group" aria-label="Combine">
+        <button type="button" class="is-on" aria-pressed="true">Add</button>
+        <button type="button">Subtract</button>
+        <button type="button" class="is-hover">Intersect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ CHIPS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-chip · the only bordered element (from .filter-chip) · rest / hover / active</p>
+    <div class="spec-row">
+      <span class="vk-chip">All</span>
+      <span class="vk-chip is-hover">My Looks</span>
+      <span class="vk-chip is-active">Depth</span>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-chip.vk-chip--group · FX-group filter, colour from --gcol (from .rail-chip) · rest / hover / on per group</p>
+    <div class="spec-row">
+      <span class="vk-chip vk-chip--group">Adjust</span>
+      <span class="vk-chip vk-chip--group is-hover">Degrade</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--adjust)">Adjust</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-sage)">Degrade</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-rust)">Distort</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-rose)">Colour</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-teal)">Signal</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-violet)">Glitch</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-amber)">Type</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--type-slate)">Light</span>
+      <span class="vk-chip vk-chip--group is-on" style="--gcol:var(--depth)">Depth</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ ROWS / SWITCH / SCRUB -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-scrub · label + value + track, --fill = value (from .scrub) · rest / hover</p>
+    <div class="spec-row">
+      <div class="vk-scrub" style="--fill:62%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Depth</span><span class="vk-scrub__val">0.62</span></div>
+      <div class="vk-scrub is-hover" style="--fill:35%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Bleed</span><span class="vk-scrub__val">0.35</span></div>
+      <div class="vk-scrub" style="--fill:80%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Levels</span><span class="vk-scrub__val">2</span></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tog-row + .vk-switch · off / on (from .tog-row, .switch)</p>
+    <div class="spec-row">
+      <div class="vk-tog-row"><span>Invert Depth</span><div class="vk-switch" role="switch" aria-checked="false" tabindex="0"></div></div>
+      <div class="vk-tog-row"><span>Animate</span><div class="vk-switch is-on" role="switch" aria-checked="true" tabindex="0"></div></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-row + .vk-select · .vk-row--action rest / hover (from .blend-row, .col-row)</p>
+    <div class="spec-row">
+      <div class="vk-row"><span class="vk-row__label">FX Blend</span>
+        <select class="vk-select" aria-label="FX Blend"><option>Normal</option><option>Z-Depth</option><option>N-Depth</option><option>Erase</option></select></div>
+      <div class="vk-row vk-row--action"><span class="vk-row__label">Background</span></div>
+      <div class="vk-row vk-row--action is-hover"><span class="vk-row__label">Background</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ HEADINGS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-sec-head (from .panel-head) · .vk-sec-label (from .sec-label) · .vk-sec-sub (from .sec-sub) · .vk-micro-label (from .mi-group-label)</p>
+    <div class="spec-row">
+      <div class="vk-sec-head">FX Stack</div>
+      <div class="vk-sec-label">FX Parameters</div>
+      <div class="vk-sec-sub">Gradient</div>
+      <div class="vk-micro-label">Built-in Looks</div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-group-label · FX-group heading in --gcol (from .rail-group-label)</p>
+    <div class="spec-row">
+      <div class="vk-group-label" style="--gcol:var(--type-rust)">Distort</div>
+      <div class="vk-group-label" style="--gcol:var(--type-violet)">Glitch</div>
+      <div class="vk-group-label" style="--gcol:var(--type-slate)">Light</div>
+      <div class="vk-group-label" style="--gcol:var(--depth)">Depth</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ TABS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tabs / .vk-tab · rest / hover / active (from .ws-tabs, .ws-tab)</p>
+    <div class="spec-row">
+      <div class="vk-tabs" role="tablist">
+        <div class="vk-tab is-active" role="tab" aria-selected="true">FX Edit</div>
+        <div class="vk-tab is-hover" role="tab" aria-selected="false">FX Explorer</div>
+        <div class="vk-tab" role="tab" aria-selected="false">FX Motion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ MENUS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-menubar / .vk-menu · rest / hover (from .topbar, .menu)</p>
+    <div class="spec-row">
+      <div class="vk-menubar">
+        <div class="vk-menu">File</div>
+        <div class="vk-menu is-hover">Edit</div>
+        <div class="vk-menu">Image</div>
+        <div class="vk-menu">View</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-menu-pop (.is-inline for the specimen) · item rest / hover / disabled, kbd, sep, label, check (from .menu-pop, .mi)</p>
+    <div class="spec-row">
+      <div class="vk-menu-pop is-inline">
+        <div class="vk-menu-item">Undo<span class="vk-menu-kbd">⌘Z</span></div>
+        <div class="vk-menu-item is-hover">Duplicate Layer<span class="vk-menu-kbd">⌘D</span></div>
+        <div class="vk-menu-item is-disabled">Redo<span class="vk-menu-kbd">⌘⇧Z</span></div>
+        <div class="vk-menu-sep"></div>
+        <div class="vk-menu-item">Clear Effect Stack</div>
+      </div>
+      <div class="vk-menu-pop vk-menu-pop--checks is-inline">
+        <div class="vk-menu-label">Export Format</div>
+        <div class="vk-menu-item"><span class="vk-menu-check">✓</span>PNG</div>
+        <div class="vk-menu-item is-hover"><span class="vk-menu-check"></span>JPEG</div>
+        <div class="vk-menu-item"><span class="vk-menu-check"></span>WebP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ SELECTS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-select--block (from select.ctl) · .vk-select--transport (from .mfps-select)</p>
+    <div class="spec-row">
+      <select class="vk-select vk-select--block" aria-label="Preset"><option>Bend · Levels 2</option><option>Seam Mesh</option></select>
+      <select class="vk-select vk-select--transport" aria-label="Frame rate"><option>30 fps</option><option>24 fps</option><option>60 fps</option></select>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-cs · themed dropdown · closed / open with option hover + selected (from .cs-wrap, .cs-opt)</p>
+    <div class="spec-row">
+      <div class="vk-cs"><button class="vk-cs__trigger" type="button">Point Cloud</button></div>
+      <div class="vk-cs is-open">
+        <button class="vk-cs__trigger" type="button" aria-expanded="true">Pattern</button>
+      </div>
+      <div class="vk-cs__list is-inline" role="listbox">
+        <div class="vk-cs__opt" role="option">Bend</div>
+        <div class="vk-cs__opt is-hover" role="option">Physarum</div>
+        <div class="vk-cs__opt is-sel" role="option" aria-selected="true">Pattern</div>
+        <div class="vk-cs__opt" role="option">Point Cloud</div>
+        <div class="vk-cs__opt" role="option">Seam Mesh</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ INPUTS -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-input (from input.ctl) · .vk-input--mono (from .text-input) · .vk-input--inline (from .inline-field) · rest / focus</p>
+    <div class="spec-row">
+      <input class="vk-input" type="text" placeholder="Look name" aria-label="Look name">
+      <input class="vk-input is-focus" type="text" value="Physarum drift" aria-label="Look name">
+      <input class="vk-input vk-input--mono" type="text" value="V3KTR" aria-label="Text">
+      <input class="vk-input vk-input--inline" type="text" value="Bend study 04" aria-label="Look name">
+    </div>
+  </div>
+
+  <!-- ============================================================ MODAL -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-modal (card only; .vk-scrim is the fixed backdrop) · default / danger (from .ui-card)</p>
+    <div class="spec-row">
+      <div class="vk-modal" role="dialog" aria-label="Render video">
+        <div class="vk-modal__title">Render Video</div>
+        <div class="vk-modal__msg">Renders the FX Motion loop to a video file. Edits are locked while it runs.</div>
+        <div class="vk-modal__actions">
+          <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+          <button class="vk-btn vk-btn--lg" type="button">Render</button>
+        </div>
+      </div>
+      <div class="vk-modal vk-modal--danger" role="alertdialog" aria-label="Delete Look">
+        <div class="vk-modal__title">Delete Look</div>
+        <div class="vk-modal__msg">Delete “Seam Mesh study”? This cannot be undone.</div>
+        <div class="vk-modal__actions">
+          <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+          <button class="vk-btn vk-btn--danger" type="button">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ TOAST / NOTE / TIP -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-toast (from .depth-status) · .vk-note (from .signup-note)</p>
+    <div class="spec-row">
+      <div class="vk-toast" role="status"><span class="vk-toast__dot"></span>Computing depth…</div>
+      <div class="vk-note" role="note"><b>Exported.</b> V3KTR is in open beta.
+        <div><a class="vk-note__go" href="#signup">Sign up</a></div></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-tip · tooltip, shown (from .rail-btn .tip)</p>
+    <div class="spec-row">
+      <span class="vk-tip is-inline" role="tooltip"><b>Physarum</b><em>Grow a slime-mould network that feeds on the picture</em></span>
+    </div>
+  </div>
+
+  <!-- ============================================================ PANEL / LAYER / KBD -->
+  <div class="spec-group">
+    <p class="spec-caption">.vk-panel.vk-panel--float · a lighter fill, never an outline (from .crop-bar)</p>
+    <div class="spec-row">
+      <div class="vk-panel vk-panel--float">
+        <button class="vk-btn vk-btn--ghost" type="button">Cancel</button>
+        <button class="vk-btn" type="button">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-layer · FX stack row · rest / hover / active / hidden (from .layer)</p>
+    <div class="spec-row">
+      <div class="vk-layer"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16c4-8 12-8 16 0"/></svg></span><span class="vk-layer__name">Bend<small>Levels 2</small></span></div>
+      <div class="vk-layer is-hover"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="6"/></svg></span><span class="vk-layer__name">Physarum<small>Screen</small></span></div>
+      <div class="vk-layer is-active"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/></svg></span><span class="vk-layer__name">Pattern<small>Z-Depth</small></span></div>
+      <div class="vk-layer is-disabled"><span class="vk-layer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20L12 4l8 16z"/></svg></span><span class="vk-layer__name">Seam Mesh<small>Normal</small></span></div>
+    </div>
+  </div>
+
+  <div class="spec-group">
+    <p class="spec-caption">.vk-kbd (from .kbd)</p>
+    <div class="spec-row">
+      <span class="vk-kbd">R</span><span class="vk-kbd">⌘Z</span><span class="vk-kbd">?</span>
+    </div>
+  </div>
+
+</section>

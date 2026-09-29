@@ -11,11 +11,30 @@ Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT
 4. **Dark only.** No light mode or theming in v1.
 5. A visual change to a live app ships with a before/after sheet.
 
+## Layers: how surfaces differ without drifting
+The system has three layers. Every surface takes the core plus exactly one layer.
+
+| Layer | File | Who uses it | What it holds |
+|---|---|---|---|
+| **Core** | `tokens.css` | everyone | signal aqua, grounds, text greys, FX-group colours, fonts, radius, focus |
+| **App** | `app/app.css` | PROCESSOR, KOMPOSITOR, DIMENSOR | dense tool UI taken from PROCESSOR: buttons, chips, `.tog`, rows, sliders, menus (`vk-` classes) |
+| **Site** | `site/site.css` | v3ktr.com | display type scale, gutters, nav, feed cards, article prose (`vs-` classes, `--site-*` tokens) |
+
+Each surface pulls one bundle: `dist/app.css` (core + app) or `dist/site.css` (core + site).
+
+Rules for differences:
+1. **A layer adds; it never redefines a core token.** The site can have its own type scale, but not its own aqua or its own greys.
+2. **A difference lives in the narrowest place that's true.** Used by one app only: a named block in that layer
+   (e.g. `/* KOMPOSITOR only */` in `app/app.css`), still in this repo. Used by two surfaces: move it down to the core.
+3. **Pure layout of one screen** (PROCESSOR's rail width, a page's grid) stays in the app. It isn't design language.
+4. **If a surface needs a value that isn't here, add it here first**, bump the version, then use it. Never a local hex.
+5. The specimen page (`specimen/index.html`, built by `scripts/build-specimen.mjs`) shows all three layers. If an app looks different from it, the app has drifted.
+
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
 - Body 13px. Controls 11px mono UPPERCASE. Section heads: 11px / 700 / letter-spacing .16em, uppercase, `--tx-2`.
 
-## Components (rules; reference CSS lands in `components/` in a later version)
+## App components (rules; reference CSS in `app/app.css`)
 - **Buttons:** mono, UPPERCASE, square (`--radius` 2px), `--bg-3` fill, 3 sizes. **No border** — only chips have borders.
   Primary = `--accent` fill + `--on-accent` ink; hover = `--hover` fill.
 - **Chips:** the only bordered element: 1px `--ctrl-line`; hover turns border + text `--hover`.
@@ -28,3 +47,11 @@ Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT
 
 ## Settled (don't reopen)
 - Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).
+
+## Open decisions (Patrick; don't settle these yourself)
+1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
+2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.
+3. **Radius:** `--radius 2px` is declared but PROCESSOR never applies it; its controls are square. The app layer follows PROCESSOR (square).
+4. **Site buttons:** site v2 uses outlined buttons on transparent; the app rule is filled `--bg-3`, no border. Different by design, or align?
+5. **Primary-button ink:** site `#04120d` vs core `--on-accent #1c1c1c`.
+6. **Pending core colours** (marked PROPOSED in the layers): popup `#262626`, neutral rule `#595959`, error ink `#ff9b8a`, a neutral scrim/toast (PROCESSOR's are blue-tinted).

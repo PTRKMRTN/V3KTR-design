@@ -5,18 +5,22 @@ Apps **consume** it; they never hand-copy it.
 
 | File | What |
 |---|---|
-| `tokens.css` | The tokens as CSS custom properties. **Source of truth.** |
-| `tokens.json` | Generated from `tokens.css` (`node scripts/build-json.mjs`) for TS and tooling. |
+| `tokens.css` | **Core** tokens, shared by every surface. Source of truth. |
+| `app/app.css` | **App layer**: tool UI taken from PROCESSOR (`vk-` classes). `app/INVENTORY.md` maps each to its PROCESSOR selector + drift. |
+| `site/site.css` | **Site layer**: website scale and components from site v2 (`vs-` classes, `--site-*`). `site/INVENTORY.md` likewise. |
+| `dist/app.css`, `dist/site.css` | What consumers pull: core + one layer (`node scripts/build-dist.mjs`). |
+| `specimen/index.html` | The whole system on one page (`node scripts/build-specimen.mjs`). |
+| `tokens.json` | Generated from `tokens.css` (`node scripts/build-json.mjs`). |
 | `AGENTS.md` | Rules for any session doing design work. Read before building UI. |
 | `CHANGELOG.md` | Semver history. |
 
 ## Consuming it
 
-**Build-time pull, pinned tag.** An app's build step fetches `tokens.css` at a release tag and inlines it in place of its own `:root`:
+**Build-time pull, pinned tag.** An app's build step fetches its bundle at a release tag and inlines it in place of its own `:root`:
 
 ```
-https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.1.1/tokens.css
-https://raw.githubusercontent.com/PTRKMRTN/V3KTR-design/v0.1.1/tokens.css
+https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.2.0/dist/app.css    # apps
+https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.2.0/dist/site.css   # website
 ```
 
 Don't load it at runtime in a live app: it adds a network dependency and a flash of unstyled page.
@@ -24,5 +28,5 @@ To take a change, bump the pinned tag in the app and rebuild. A weekly drift che
 
 **Referencing it.** Each app repo's `CLAUDE.md` points here, so any design build reads `AGENTS.md` and uses tokens instead of raw values.
 
-## Changing a token
-Edit `tokens.css` → `node scripts/build-json.mjs` → CHANGELOG entry → bump the version in the `tokens.css` header → tag `vX.Y.Z`.
+## Changing something
+Edit `tokens.css` or a layer → `node scripts/build-json.mjs && node scripts/build-dist.mjs && node scripts/build-specimen.mjs` → CHANGELOG entry → bump the version in the `tokens.css` header → tag `vX.Y.Z`. Layer rules are in `AGENTS.md`.

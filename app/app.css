@@ -1,0 +1,442 @@
+/* V3KTR app layer · v0.2.0 · requires tokens.css (core)
+   Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
+   PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
+   Colours, fonts and row height come from core tokens only. Values the core lacks are declared
+   once below as --app-* (candidates for promotion to core, see app/INVENTORY.md).
+
+   State classes (so a specimen can show a state at rest):
+     .is-hover   = :hover        .is-on / [aria-checked|aria-pressed="true"] = latched on
+     .is-active  = selected tab / filter / list row      .is-disabled = :disabled
+     .is-open    = open menu / dropdown                  .is-focus    = :focus-visible
+     .is-inline  = specimen-only helper: render a floating surface (menu pop, dropdown list,
+                   tooltip) in normal flow. NOT from PROCESSOR.
+
+   Radius: PROCESSOR declares --radius:2px but never uses it; every control renders square
+   (0). This file sets no border-radius on controls, so they match the live app. See INVENTORY. */
+
+:root {
+  /* .menu-pop, .cs-list, .cp-pop, select option: the pop-up surface, one step above --bg-0 */
+  --app-pop-bg:#262626;
+  /* .menu-pop, .cs-list */
+  --app-shadow-pop:0 8px 28px rgba(0,0,0,0.6);
+  /* .ui-card */
+  --app-shadow-modal:0 14px 44px rgba(0,0,0,0.6);
+  /* .crop-bar (floating tool strip over the canvas) */
+  --app-shadow-float:0 4px 20px rgba(0,0,0,0.6);
+  /* .depth-status */
+  --app-shadow-toast:0 8px 28px rgba(0,0,0,0.5);
+  /* .signup-note */
+  --app-shadow-note:0 6px 24px rgba(0,0,0,.45);
+  /* .rail-btn .tip */
+  --app-shadow-tip:0 2px 8px rgba(0,0,0,0.3);
+  /* .ui-overlay */
+  --app-scrim:rgba(8,9,11,0.72);
+  /* .depth-status */
+  --app-toast-bg:rgba(15,17,19,0.86);
+  /* .ui-btn.danger (ink on the danger fill) */
+  --app-danger-ink:#1a0606;
+  /* .blend-select, select.ctl, .mfps-select, .mr-row select, .cs-trigger::after.
+     A data URI cannot read var(); the fill %23cfcfcf is --tx-1's value, hard-coded. */
+  --app-chevron:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M0 2l4 4 4-4' fill='%23cfcfcf'/></svg>");
+}
+
+/* ---------------------------------------------------------------- base */
+
+/* from html,body */
+.vk-app{background:var(--bg-0);color:var(--tx-0);font-family:var(--sans);font-size:var(--fs-body);
+  -webkit-font-smoothing:antialiased;}
+
+/* from .mono */
+.vk-mono{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+
+/* from :focus-visible (PROCESSOR's global keyboard-only ring) */
+:focus-visible,
+.is-focus{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* ---------------------------------------------------------------- buttons
+   PROCESSOR's own size scale (comment above .gen-btn): Large 8x14 / Regular 5x10 / Small 3x7.
+   LARGE   = .gen-btn
+   REGULAR = .inline-btn, .looks-act-btn, .rz-btn, .crop-bar-btn, .topbar .btn, .dlr-btn, .ui-btn,
+             .mask-btn, .param-tools .inline-btn
+   SMALL   = .inline-btn.sm, .layer .lmask, .seg.mask-cmb button
+   No border on any of them: only chips (and .tog) carry a border. */
+
+/* from the shared mono/UPPERCASE rule (.btn,.gen-btn,.seg button,.filter-chip,.looks-act-btn,.rz-btn,
+   .crop-bar-btn,.ui-btn,.dlr-btn,.inline-btn) + .inline-btn / .looks-act-btn / .rz-btn / .ui-btn /
+   .dlr-btn / .crop-bar-btn / .topbar .btn / .mask-btn  (REGULAR) */
+.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:var(--bg-3);
+  border:none;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn:hover, .looks-act-btn:hover, .rz-btn:hover, .ui-btn:hover, .gen-btn:hover ... */
+.vk-btn:hover,
+.vk-btn.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .gen-btn (LARGE). Only the Large size carries a transition in PROCESSOR. */
+.vk-btn--lg{padding:8px 14px;transition:all 0.12s;}
+
+/* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
+.vk-btn--sm{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+
+/* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
+   .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing
+   "primary" class: accent fill marks a button whose thing is currently ON. Hover follows
+   .inline-btn.tog.on:hover (-> --hover fill); the other PROCESSOR on-states ignore hover. */
+.vk-btn--primary,
+.vk-btn.is-on{background:var(--accent);color:var(--on-accent);}
+.vk-btn--primary:hover,.vk-btn--primary.is-hover,
+.vk-btn.is-on:hover,.vk-btn.is-on.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .rz-btn.ghost, .crop-bar-btn.ghost, .ui-btn.ghost (dimmer label, same fill; hover as .vk-btn) */
+.vk-btn--ghost{color:var(--tx-2);}
+
+/* from .inline-btn.ghost (no fill until hover) */
+.vk-btn--bare{padding:5px 8px;color:var(--tx-2);background:transparent;}
+.vk-btn--bare:hover,
+.vk-btn--bare.is-hover{color:var(--tx-0);background:var(--bg-3);}
+
+/* from .ui-btn.danger */
+.vk-btn--danger{background:var(--danger);color:var(--app-danger-ink);}
+.vk-btn--danger:hover,
+.vk-btn--danger.is-hover{background:var(--danger);color:var(--app-danger-ink);filter:brightness(1.08);}
+
+/* from .gen-btn.disabled, .motion-step.disabled, .motion-step:disabled */
+.vk-btn:disabled,
+.vk-btn.is-disabled{opacity:0.38;pointer-events:none;}
+
+/* ---------------------------------------------------------------- .tog (latched STATE, not action) */
+
+/* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:transparent;
+  border:1px solid var(--ctrl-line);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn.tog:hover */
+.vk-tog:hover,
+.vk-tog.is-hover{background:transparent;border-color:var(--hover);color:var(--hover);}
+/* from .inline-btn.tog.on */
+.vk-tog.is-on,
+.vk-tog[aria-checked="true"],
+.vk-tog[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
+/* from .inline-btn.tog.on:hover */
+.vk-tog.is-on:hover,.vk-tog.is-on.is-hover,
+.vk-tog[aria-checked="true"]:hover,
+.vk-tog[aria-pressed="true"]:hover{background:var(--hover);border-color:var(--hover);color:var(--on-accent);}
+
+/* from .roll-group (Randomise + its latched modifiers as ONE control, in a --bg-2 tray) */
+.vk-roll-group{display:flex;gap:0;padding:3px;background:var(--bg-2);}
+/* from .roll-group .tog+.tog (no 2px seam where two borders meet) */
+.vk-roll-group .vk-tog+.vk-tog{margin-left:-1px;}
+
+/* from .param-tools, .gen-toolrow, .btn-row (left-aligned row of natural-width buttons) */
+.vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+
+/* ---------------------------------------------------------------- segmented (one-of-N) */
+
+/* from .seg */
+.vk-seg{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;}
+/* from .seg button (note: no letter-spacing, unlike the Regular button) */
+.vk-seg button{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
+  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:5px 10px;cursor:pointer;}
+/* from .seg button:hover */
+.vk-seg button:hover,
+.vk-seg button.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .seg button.on (in PROCESSOR the on option does not react to hover) */
+.vk-seg button.is-on,
+.vk-seg button[aria-pressed="true"],
+.vk-seg button.is-on:hover,
+.vk-seg button[aria-pressed="true"]:hover{background:var(--accent);color:var(--on-accent);}
+/* from .seg.mask-cmb button (SMALL) */
+.vk-seg--sm button{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+
+/* ---------------------------------------------------------------- chips (the only bordered element) */
+
+/* from .filter-chip (+ the shared mono/UPPERCASE rule). background set for use on <button>. */
+.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;
+  border:1px solid var(--ctrl-line);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
+/* from .filter-chip:hover */
+.vk-chip:hover,
+.vk-chip.is-hover{color:var(--hover);border-color:var(--hover);}
+/* from .filter-chip.active */
+.vk-chip.is-active{color:var(--accent);border-color:var(--accent-dim);background:var(--bg-3);}
+
+/* from .rail-chip (FX-group filter; set --gcol to the group's --type-* / --depth / --adjust colour) */
+.vk-chip--group{font-size:8px;letter-spacing:0.3px;padding:3px 5px;line-height:1.1;}
+/* from .rail-chip:hover */
+.vk-chip--group:hover,
+.vk-chip--group.is-hover{border-color:var(--hover);color:var(--hover);}
+/* from .rail-chip.on */
+.vk-chip--group.is-on{border-color:var(--gcol,var(--accent));color:var(--gcol,var(--accent));background:transparent;}
+
+/* ---------------------------------------------------------------- rows, switch, scrub slider */
+
+/* from .blend-row, .col-row (a 28px control row on --bg-3) */
+.vk-row{display:flex;align-items:center;height:var(--row-h);padding:0 9px;margin:3px 0;background:var(--bg-3);}
+/* from .blend-label, .col-row span */
+.vk-row__label{font-size:var(--fs-row);color:var(--tx-1);}
+/* from .col-row (clickable row) + .col-row:hover */
+.vk-row--action{cursor:pointer;position:relative;}
+.vk-row--action:hover,
+.vk-row--action.is-hover{background:var(--bg-4);}
+
+/* from .tog-row */
+.vk-tog-row{display:flex;align-items:center;justify-content:space-between;height:var(--row-h);padding:0 9px;
+  margin:3px 0;background:var(--bg-3);}
+/* from .tog-row span */
+.vk-tog-row > span{font-size:var(--fs-row);}
+
+/* from .switch */
+.vk-switch{width:30px;height:16px;background:var(--bg-0);position:relative;cursor:pointer;}
+/* from .switch::after */
+.vk-switch::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;
+  background:var(--tx-2);transition:all 0.14s ease;}
+/* from .switch.on */
+.vk-switch.is-on,
+.vk-switch[aria-checked="true"]{background:var(--accent-dim);}
+/* from .switch.on::after */
+.vk-switch.is-on::after,
+.vk-switch[aria-checked="true"]::after{left:16px;background:var(--accent);}
+
+/* from .scrub (the track: drag anywhere to set; --fill is the value as a %) */
+.vk-scrub{position:relative;height:var(--row-h);background:var(--bg-2);margin:5px 0;display:flex;
+  align-items:center;cursor:ew-resize;overflow:hidden;--fill:50%;touch-action:none;}
+/* from .scrub .fill */
+.vk-scrub__fill{position:absolute;left:0;top:0;bottom:0;width:var(--fill);
+  background:color-mix(in srgb,var(--tx-2) 20%,transparent);
+  border-left:2px solid color-mix(in srgb,var(--tx-1) 45%,transparent);pointer-events:none;}
+/* from .scrub .s-label */
+.vk-scrub__label{position:relative;z-index:1;padding-left:9px;font-size:var(--fs-row);}
+/* from .scrub .s-val (+ .mono, which the markup always adds) */
+.vk-scrub__val{position:relative;z-index:1;margin-left:auto;padding-right:9px;
+  font-family:var(--mono);font-size:var(--fs-row);font-variant-numeric:tabular-nums;}
+/* from .scrub:hover .fill */
+.vk-scrub:hover .vk-scrub__fill,
+.vk-scrub.is-hover .vk-scrub__fill{filter:brightness(1.25);}
+
+/* ---------------------------------------------------------------- headings */
+
+/* from .panel-head, .explorer-head, .rail-label (type only; each container sets its own padding) */
+.vk-sec-head{font-size:var(--fs-ctrl);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  text-transform:uppercase;color:var(--tx-0);line-height:1;}
+/* from .sec-label, .gen-secname (sub-section inside a panel) */
+.vk-sec-label{font-size:10px;font-weight:var(--head-weight);letter-spacing:var(--head-track);text-transform:uppercase;
+  color:var(--tx-0);margin:11px 0 7px;display:flex;align-items:center;gap:6px;}
+/* from .sec-sub */
+.vk-sec-sub{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-2);padding:18px 0 11px;opacity:0.85;}
+/* from .rail-group-label (FX-group heading in its group colour via --gcol) */
+.vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
+  text-transform:uppercase;line-height:1;padding:8px 0 6px;}
+/* from .looks-group-label, .mi-group-label */
+.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);}
+
+/* ---------------------------------------------------------------- workspace tabs */
+
+/* from .ws-tabs */
+.vk-tabs{display:flex;align-items:center;gap:22px;background:var(--bg-1);}
+/* from .ws-tab */
+.vk-tab{display:flex;align-items:center;font-size:var(--fs-body);letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.12s,border-color 0.12s;
+  user-select:none;}
+/* from .ws-tab:hover */
+.vk-tab:hover,
+.vk-tab.is-hover{color:var(--hover);}
+/* from .ws-tab.active */
+.vk-tab.is-active,
+.vk-tab[aria-selected="true"]{color:var(--hover);border-bottom-color:var(--hover);}
+
+/* ---------------------------------------------------------------- menus */
+
+/* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
+.vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
+/* from .menu */
+.vk-menu{color:var(--accent);padding:4px 9px;font-size:12.5px;cursor:default;position:relative;}
+/* from .menu:hover */
+.vk-menu:hover,
+.vk-menu.is-hover{color:var(--hover);}
+/* from .menu-pop */
+.vk-menu-pop{position:absolute;top:100%;left:0;background:var(--app-pop-bg);border:1px solid var(--line);
+  min-width:228px;box-shadow:var(--app-shadow-pop);z-index:100;display:none;padding:4px;}
+/* from .menu.open .menu-pop */
+.vk-menu.is-open .vk-menu-pop{display:block;}
+/* from .mi */
+.vk-menu-item{padding:6px 10px;font-size:12px;color:var(--tx-1);cursor:pointer;white-space:nowrap;letter-spacing:0.02em;
+  display:flex;align-items:center;gap:18px;justify-content:space-between;}
+/* from .mi:hover (text goes --accent here, not --hover) */
+.vk-menu-item:hover,
+.vk-menu-item.is-hover{background:var(--bg-4);color:var(--accent);}
+/* from .mi.disabled */
+.vk-menu-item.is-disabled{color:var(--tx-2);pointer-events:none;}
+/* from .mi.disabled .mi-kbd */
+.vk-menu-item.is-disabled .vk-menu-kbd{color:var(--tx-2);opacity:0.5;}
+/* from .mi-kbd */
+.vk-menu-kbd{font-family:var(--mono);font-size:10.5px;color:var(--tx-2);letter-spacing:0;margin-left:auto;}
+/* from .mi-sep */
+.vk-menu-sep{height:1px;background:var(--line);margin:3px 0;}
+/* from .mi-group-label */
+.vk-menu-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);padding:5px 10px 2px;}
+/* from .mi-check */
+.vk-menu-check{display:inline-block;width:14px;color:var(--accent);flex-shrink:0;}
+/* from #menuImage .mi, #menuView .mi (check-led menus: left-aligned) */
+.vk-menu-pop--checks .vk-menu-item{justify-content:flex-start;gap:4px;}
+
+/* ---------------------------------------------------------------- selects */
+
+/* from .blend-select (select inside a 28px row) */
+.vk-select{height:22px;background-color:var(--bg-2);color:var(--tx-0);border:none;
+  -webkit-appearance:none;appearance:none;background-image:var(--app-chevron);
+  background-repeat:no-repeat;background-position:right 8px center;
+  font-family:var(--mono);font-size:var(--fs-ctrl);padding:0 22px 0 8px;cursor:pointer;letter-spacing:0.01em;min-width:110px;}
+/* from .blend-select (margin-left:auto pushes it to the right end of its row) */
+.vk-row .vk-select{margin-left:auto;}
+/* from select.ctl (full-width 28px select) */
+.vk-select--block{height:var(--row-h);width:100%;padding:0 24px 0 9px;background-position:right 9px center;
+  min-width:0;letter-spacing:normal;}
+/* from .mfps-select (compact transport select, 30px to match the transport buttons) */
+.vk-select--transport{flex:0 0 auto;height:30px;box-sizing:border-box;padding:0 17px 0 7px;
+  background-position:right 5px center;min-width:0;letter-spacing:normal;}
+/* from select option, select option:checked */
+.vk-select option{background:var(--app-pop-bg);color:var(--tx-0);}
+.vk-select option:checked{background:var(--accent);color:var(--on-accent);}
+
+/* from .cs-wrap (themed dropdown; native <select> kept hidden inside for behaviour) */
+.vk-cs{position:relative;display:inline-flex;min-width:120px;vertical-align:middle;}
+/* from .cs-wrap > select */
+.vk-cs > select{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+/* from .cs-trigger */
+.vk-cs__trigger{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-0);background:var(--bg-2);
+  border:none;padding:5px 9px;cursor:pointer;text-align:left;line-height:1.3;letter-spacing:0.01em;}
+/* from .cs-trigger::after */
+.vk-cs__trigger::after{content:'';width:8px;height:8px;flex:0 0 auto;background:var(--app-chevron) no-repeat center/contain;}
+/* from .cs-wrap.open .cs-trigger */
+.vk-cs.is-open .vk-cs__trigger{color:var(--hover);}
+/* from .cs-list */
+.vk-cs__list{position:absolute;top:calc(100% + 2px);left:0;right:0;min-width:100%;background:var(--app-pop-bg);
+  z-index:200;display:none;box-shadow:var(--app-shadow-pop);max-height:260px;overflow-y:auto;}
+/* from .cs-wrap.open .cs-list */
+.vk-cs.is-open .vk-cs__list{display:block;}
+/* from .cs-wrap.cs-up .cs-list */
+.vk-cs--up .vk-cs__list{top:auto;bottom:calc(100% + 2px);}
+/* from .cs-opt */
+.vk-cs__opt{padding:6px 10px;font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-1);cursor:pointer;white-space:nowrap;}
+/* from .cs-opt:hover */
+.vk-cs__opt:hover,
+.vk-cs__opt.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .cs-opt.sel */
+.vk-cs__opt.is-sel{color:var(--accent);}
+
+/* ---------------------------------------------------------------- text inputs
+   PROCESSOR pairs every input :focus with outline:none, which also kills the keyboard ring.
+   Not carried over: the border tint is kept, the :focus-visible ring above still applies. */
+
+/* from input.ctl / .ctl */
+.vk-input{height:var(--row-h);background:var(--bg-3);color:var(--tx-0);border:1px solid var(--line);
+  font-family:inherit;font-size:var(--fs-row);padding:0 9px;}
+/* from input.ctl::placeholder */
+.vk-input::placeholder{color:var(--tx-2);}
+/* from .ctl:focus, .text-input:focus, .inline-field:focus (border only) */
+.vk-input:focus,
+.vk-input.is-focus{border-color:var(--accent-dim);}
+/* from .text-input (mono entry: Type FX text, hex) */
+.vk-input--mono{font-family:var(--mono);font-size:12px;letter-spacing:0.05em;}
+/* from .inline-field (name field in an inline-expand row) */
+.vk-input--inline{height:auto;flex:1;min-width:0;padding:5px 8px;}
+
+/* ---------------------------------------------------------------- modal / dialog */
+
+/* from .ui-overlay */
+.vk-scrim{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;
+  background:var(--app-scrim);backdrop-filter:blur(2px);}
+/* from .ui-overlay.on */
+.vk-scrim.is-on{display:flex;}
+/* from .ui-card */
+.vk-modal{background:var(--bg-2);border:1px solid var(--line);min-width:300px;max-width:min(440px,90vw);
+  box-shadow:var(--app-shadow-modal);animation:vk-ui-pop 0.13s ease-out;}
+/* from .ui-card.danger */
+.vk-modal--danger{border-color:var(--danger-dim);}
+/* from @keyframes uiPop */
+@keyframes vk-ui-pop{from{opacity:0;transform:translateY(6px) scale(0.985);}to{opacity:1;transform:none;}}
+/* from .ui-title */
+.vk-modal__title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);
+  font-family:var(--mono);padding:15px 18px 0;}
+/* from .ui-card.danger .ui-title */
+.vk-modal--danger .vk-modal__title{color:var(--danger);}
+/* from .ui-msg */
+.vk-modal__msg{font-size:12.5px;line-height:1.55;color:var(--tx-1);padding:8px 18px 16px;white-space:pre-wrap;}
+/* from .ui-actions */
+.vk-modal__actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 16px;}
+
+/* ---------------------------------------------------------------- toast / note
+   PROCESSOR has no toast class. Its non-blocking status message is the .depth-status pill. */
+
+/* from .depth-status */
+.vk-toast{display:flex;align-items:center;gap:9px;padding:7px 14px;
+  background:var(--app-toast-bg);border:1px solid var(--line);backdrop-filter:blur(8px);
+  color:var(--tx-1);font-size:var(--fs-row);letter-spacing:0.03em;pointer-events:none;
+  box-shadow:var(--app-shadow-toast);}
+/* from .depth-status (its placement over the canvas) */
+.vk-toast--pinned{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);z-index:7;}
+/* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
+.vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:vk-ds-pulse 1.1s ease-in-out infinite;}
+/* from @keyframes dsPulse */
+@keyframes vk-ds-pulse{0%,100%{opacity:0.35;transform:scale(0.8);}50%{opacity:1;transform:scale(1.1);}}
+
+/* from .signup-note (post-export footnote: not modal, no backdrop, no focus steal) */
+.vk-note{max-width:320px;padding:12px 14px 10px;background:var(--bg-2);border:1px solid var(--bg-4);
+  color:var(--tx-2);font-size:12px;line-height:1.45;box-shadow:var(--app-shadow-note);}
+/* from .signup-note (its placement) */
+.vk-note--pinned{position:fixed;left:18px;top:76px;z-index:900;}
+/* from .signup-note b */
+.vk-note b{color:var(--tx-1);font-weight:500;}
+/* from .signup-note a.sn-go */
+.vk-note__go{color:var(--accent);font-family:var(--mono);font-size:var(--fs-ctrl);letter-spacing:0.06em;
+  text-transform:uppercase;text-decoration:none;}
+/* from .signup-note a.sn-go:hover */
+.vk-note__go:hover,
+.vk-note__go.is-hover{text-decoration:underline;}
+
+/* ---------------------------------------------------------------- tooltip */
+
+/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
+.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+/* from .rail-btn .tip b */
+.vk-tip b{display:block;font-weight:700;}
+/* from .rail-btn .tip em */
+.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
+  opacity:0.7;white-space:normal;max-width:190px;}
+/* from .rail-btn:hover .tip */
+.vk-tip.is-shown{opacity:1;}
+
+/* ---------------------------------------------------------------- panels, list rows, kbd */
+
+/* from .crop-bar, .canvas-controls (a lighter FILL, never an outline) */
+.vk-panel{background:var(--bg-2);}
+/* from .crop-bar (floating tool strip over the canvas: layout, padding, shadow) */
+.vk-panel--float{display:flex;align-items:center;gap:8px;padding:8px 12px;box-shadow:var(--app-shadow-float);}
+
+/* from .layer (FX stack row); .motion-item is the same pattern */
+.vk-layer{display:flex;align-items:center;gap:8px;padding:7px 8px;margin:2px 0;background:var(--bg-2);
+  cursor:pointer;border-left:2px solid transparent;}
+/* from .layer:hover */
+.vk-layer:hover,
+.vk-layer.is-hover{background:var(--bg-3);}
+/* from .layer.active */
+.vk-layer.is-active{background:var(--bg-3);border-left-color:var(--accent);}
+/* from .layer.hidden-layer */
+.vk-layer.is-disabled{opacity:0.42;}
+/* from .layer .licon */
+.vk-layer__icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;background:var(--bg-0);color:var(--accent);}
+/* from .layer .licon svg */
+.vk-layer__icon svg{width:13px;height:13px;}
+/* from .layer .lname */
+.vk-layer__name{flex:1;font-size:12px;}
+/* from .layer .lname small */
+.vk-layer__name small{display:block;color:var(--tx-2);font-size:10px;margin-top:1px;}
+
+/* from .kbd */
+.vk-kbd{font-family:var(--mono);font-size:10.5px;background:var(--bg-3);color:var(--tx-1);padding:2px 6px;margin:0 2px;}
+
+/* ---------------------------------------------------------------- specimen helper (NOT from PROCESSOR) */
+.vk-menu-pop.is-inline,
+.vk-cs__list.is-inline{position:static;display:block;}
+.vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
