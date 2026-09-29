@@ -482,6 +482,16 @@
 .vk-cs__list.is-inline{position:static;display:block;}
 .vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
 
+/* ===== app themes (exploration) ===== */
+/* V3KTR app themes · EXPLORATION — NOT IN dist/, NOT LOCKED.
+   Patrick 2026-09-29: each app may get its own theme. Only PROCESSOR aqua is locked;
+   KOMPOSITOR and DIMENSOR values are taken from his lockup board and can change.
+   A theme sets ONLY the signal family (accent, dim, glow, hover, ink). Everything else is core.
+   Hover/dim for the provisional colours are derived (25% toward white / 45% toward the ground), not designed. */
+[data-app="processor"]  { --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,.15);  --hover:#3dffc2; --on-accent:#1c1c1c; }
+[data-app="kompositor"] { --accent:#ff6a43; --accent-dim:#9d4b35; --accent-glow:rgba(255,106,67,.15); --hover:#ff8f72; --on-accent:#1c1c1c; }
+[data-app="dimensor"]   { --accent:#9d64ff; --accent-dim:#6a4a9f; --accent-glow:rgba(157,100,255,.15); --hover:#b58bff; --on-accent:#1c1c1c; }
+
 /* ===== site layer ===== */
 /* V3KTR site layer · v0.2.0 · requires tokens.css (core)
    Reference CSS for the V3KTR website, extracted from site v2 (branch site-v2 @ 5004d53, 2026-09-29):
@@ -1653,6 +1663,17 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .model b{display:block;font:700 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .model p{margin:0;color:var(--tx-1)}
 .src{font:11px var(--mono);color:var(--tx-2)}
+.th-pick button{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--bg-3);color:var(--tx-1);border:0;height:28px;padding:0 12px;cursor:pointer}
+.th-pick button[aria-pressed=true]{background:var(--tx-0);color:var(--bg-0)}
+.th-pick button:focus-visible{outline:2px solid var(--tx-0);outline-offset:2px}
+.th-wrap{overflow-x:auto}
+.th-t{border-collapse:collapse;font:11px var(--mono);font-variant-numeric:tabular-nums;min-width:560px}
+.th-t th,.th-t td{text-align:left;padding:6px 14px 6px 0;border-bottom:1px solid var(--bg-2)}
+.th-t th{color:var(--tx-2);font-weight:600}
+.th-t td{color:var(--tx-1)}
+.th-t td.warn{color:var(--danger)}
+.th-sw{display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px}
+.th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
   <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.2.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
@@ -1679,8 +1700,11 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   </section>
   
 <section class="tab-panel" id="p-app" data-tab="app" hidden>
-  <p class="lede">Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once.</p>
-  <section class="spec-layer" data-layer="app">
+  <p class="lede">Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.</p>
+  <div class="spec-group"><div class="spec-caption">App theme · exploration, not locked (only PROCESSOR aqua is)</div>
+  <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button></div>
+  <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#9d64ff"></span>DIMENSOR</td><td>#9d64ff</td><td class="warn">4.37:1</td><td>4.63:1</td><td>--type-violet · ΔE 48</td></tr></tbody></table></div>
+  <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor"><section class="spec-layer" data-layer="app">
 
   <!-- ============================================================ BUTTONS -->
   <div class="spec-group">
@@ -2013,7 +2037,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   </div>
 
 </section>
-
+</div>
 </section>
   
 <section class="tab-panel" id="p-site" data-tab="site" hidden>
@@ -2260,6 +2284,10 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     [].forEach.call(document.querySelectorAll('.tab-panel'),function(p){p.hidden=p.dataset.tab!==t});
   }
   btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);try{history.replaceState(null,'','#'+b.dataset.t)}catch(e){}})});
+  [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(b,_,all){b.addEventListener('click',function(){
+    document.getElementById('app-themed').setAttribute('data-app',b.dataset.appPick);
+    [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+  })});
   var h=(location.hash||'').slice(1); if(h==='app'||h==='site') show(h);
 })();
 </script>

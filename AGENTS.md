@@ -7,7 +7,7 @@ Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT
 1. **Use tokens, never raw hex.** Every colour, radius, font and row height comes from `tokens.css` (`var(--…)`).
    If a value you need doesn't exist, add it HERE (new version), not in the app.
 2. **Never hand-copy `:root`.** Apps pull `tokens.css` from a pinned release tag at build time (see README).
-3. **One signal colour.** Aqua `--accent #00e5a0` on ground `--bg-0 #212121`, hover `--hover #3dffc2`, for every app. No per-app accents.
+3. **Signal colour.** Aqua `--accent #00e5a0`, hover `--hover #3dffc2`, on ground `--bg-0 #212121`: **locked** (PROCESSOR and the brand). Per-app themes are being explored (Patrick 2026-09-29, not locked): see `themes/themes.css` and the Open decisions. Until they're locked, every app uses aqua.
 4. **Dark only.** No light mode or theming in v1.
 5. A visual change to a live app ships with a before/after sheet.
 
@@ -49,6 +49,7 @@ Rules for differences:
 - Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).
 
 ## Open decisions (Patrick; don't settle these yourself)
+0. **Per-app themes** (exploration). A theme would set only the signal family (accent, dim, glow, hover, ink). Provisional: KOMPOSITOR `#ff6a43`, DIMENSOR `#9d64ff`, from Patrick's lockup board; only aqua is locked. Known problems: the orange sits ΔE 17 from `--danger #ff5b5b` (a delete button and an on-state would look alike); the violet is 4.37:1 on the ground, under 4.5 for small accent text. Not in `dist/`.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
 2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.
 3. **Radius:** `--radius 2px` is declared but PROCESSOR never applies it; its controls are square. The app layer follows PROCESSOR (square).

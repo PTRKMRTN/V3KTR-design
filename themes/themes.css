@@ -1,0 +1,8 @@
+/* V3KTR app themes · EXPLORATION — NOT IN dist/, NOT LOCKED.
+   Patrick 2026-09-29: each app may get its own theme. Only PROCESSOR aqua is locked;
+   KOMPOSITOR and DIMENSOR values are taken from his lockup board and can change.
+   A theme sets ONLY the signal family (accent, dim, glow, hover, ink). Everything else is core.
+   Hover/dim for the provisional colours are derived (25% toward white / 45% toward the ground), not designed. */
+[data-app="processor"]  { --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,.15);  --hover:#3dffc2; --on-accent:#1c1c1c; }
+[data-app="kompositor"] { --accent:#ff6a43; --accent-dim:#9d4b35; --accent-glow:rgba(255,106,67,.15); --hover:#ff8f72; --on-accent:#1c1c1c; }
+[data-app="dimensor"]   { --accent:#9d64ff; --accent-dim:#6a4a9f; --accent-glow:rgba(157,100,255,.15); --hover:#b58bff; --on-accent:#1c1c1c; }
