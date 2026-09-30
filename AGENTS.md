@@ -35,6 +35,7 @@ Rules for differences:
 - Everything else is played down: headings `--site-heading #b3b3b3`, body `--site-text #a3a3a3`, captions `--site-muted #939393`. All pass 4.5:1 on the ground and on panels.
 - **App colour appears only in that app's context.** Wrap the section, card or call-to-action in `data-app="processor"` (etc.); inside it the signal becomes the app's colour.
 - The FX imagery supplies the colour on the site.
+- **Callouts** (where site v2 used aqua for emphasis): `.vs-outline` (outlined letters; takes the app colour inside `[data-app]`) or `.vs-spectrum` (the three app colours as a gradient). **Large text only, 24px+.** Small emphasis stays solid white. `.vs-spectrum-bar` is the same gradient as a rule or bar, any size.
 
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
