@@ -6,7 +6,7 @@
    Every colour passes WCAG 4.5:1 as small text on the ground (#212121), wells (#262626) and panels (#2b2b2b),
    and dark ink (#1c1c1c) on it passes 4.5:1 as a button fill:
      PROCESSOR   #00e5a0  ground 9.75 · panel 8.57 · ink-on 10.32
-     KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 17 from --danger: pair destructive actions with an icon or wording)
+     KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 35 from --danger since v0.10.0, was 17; still pair destructive actions with an icon or wording)
      DIMENSOR    #bb6fff  ground 5.24 · panel 4.61 · ink-on 5.54   (was #9d64ff, 4.37 / 3.84: hue nudged warmer to keep intensity, OKLCH C 0.210 vs 0.220)
    --accent-ink is the shade for LIGHT grounds (site, socials, print): each passes 4.5:1 on #f4f4f4 and #fff. */
 :root {

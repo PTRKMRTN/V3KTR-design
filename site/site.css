@@ -44,8 +44,7 @@
   --site-app-processor: var(--processor);
   --site-app-kompositor: var(--kompositor);
   --site-app-dimensor: var(--dimensor);
-  --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
-                                             this is a text-on-dark red (7.90:1 on --bg-0). */
+  --site-error-ink: var(--status-blocked);   /* one red everywhere (v0.10.0). Was #ff9b8a, a text-only red kept because the old --danger was too dark for text. */
 }
 
 /* ══ SITE LAYER TOKENS ══════════════════════════════════════════════════════ */

@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.0 — 2026-09-30
+Consumers render differently: the danger red.
+- **Status colours LOCKED** (Patrick): ready `#00e540`, caution `#f9c200`, blocked `#ff5e7e`.
+- **`--danger` is the status red**: `#ff5b5b` → `#ff5e7e`, `--danger-dim` `#7a2a2a` → `#7a2d3c`. One red everywhere; it sits ΔE 35 from KOMPOSITOR's mandarin (the old one was 17). Shipped in PROCESSOR v0.575.0.
+- Site: `--site-error-ink` is now `var(--status-blocked)` (was `#ff9b8a`): form error notes use the same red.
+
 ## 0.9.1 — 2026-09-30
 - `.vs-verdict` works as a link and inside article prose: dark ink and no underline for `a.vs-verdict` (the prose link rule outranked it: white, underlined ink on the fill), `<strong>` and inner links inherit the ink, hover = brightness, focus ring in the state colour.
 - `.vs-verdict` weight 700 → 500 (it's a sentence); `<strong>` and links inside are 700.

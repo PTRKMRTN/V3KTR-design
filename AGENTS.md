@@ -47,7 +47,7 @@ outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descenda
 (`:where(.facts dd) { color }`), so they have zero weight and layer classes win. (Found by the site-v2 session, 2026-09-30.)
 
 ## Status (ready / caution / blocked)
-- Tokens: `--status-ready #00e540`, `--status-caution #f9c200`, `--status-blocked #ff5e7e`, ink on a fill `--on-status`. **PROPOSED, awaiting Patrick**; the names are stable.
+- Tokens: `--status-ready #00e540`, `--status-caution #f9c200`, `--status-blocked #ff5e7e`, ink on a fill `--on-status`. **LOCKED 2026-09-30 (Patrick).** `--danger` is the same red as blocked: one red everywhere (delete, errors, blocked).
 - "Ready" is its own green, not PROCESSOR's aqua: on the neutral site aqua means PROCESSOR only.
 - Never colour alone: a status always has an icon (`brand/status/`: Patrick's pixel check / warning / error) and a word.
 - Site: `[data-status]` + `.vs-verdict` (filled strip) and `.vs-status` (coloured word). Apps: use the tokens.
@@ -83,7 +83,7 @@ outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descenda
 ## PROCESSOR spacing pass (shipped v0.571.0, 2026-09-30)
 Patrick's pass set the app standard: `--pad` 22, side panel 400, buttons 8/14, rows 26px 3px apart, option gap 3, sections and heads with more air, 2px `--ctrl-edge` outlines on toggles and all chips. `app/app.css` v0.4.0 follows it. Before/after: `baselines/compare/`; recapture with `scripts/processor-baseline.mjs`.
 7. ~~App outlines~~ **Settled 2026-09-30: 2px `--ctrl-edge`, roomier** (original padding kept, controls grow 2px). Shipped in PROCESSOR v0.571.0.
-0. ~~Per-app themes~~ **Locked 2026-09-30** (rule 3). KOMPOSITOR's mandarin sits ΔE 17 from `--danger`: pair its destructive actions with an icon or wording.
+0. ~~Per-app themes~~ **Locked 2026-09-30** (rule 3). KOMPOSITOR's mandarin sits ΔE 35 from `--danger` (since v0.10.0; it was 17): still pair its destructive actions with an icon or wording.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
 2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.
 3. ~~Radius~~ **Settled 2026-09-30: square corners everywhere** (`--radius: 0`).
