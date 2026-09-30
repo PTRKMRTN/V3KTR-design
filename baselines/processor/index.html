@@ -1,0 +1,167 @@
+<title>PROCESSOR Spacing Baseline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Manrope:wght@400;600;800&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#212121;--p:#2b2b2b;--p2:#3a3a3a;--t0:#f4f4f4;--t1:#cfcfcf;--t2:#8a8a8a;--a:#00e5a0;--ink:#1c1c1c}
+html,body{background:var(--bg);color:var(--t1)}
+body{margin:0;padding-inline:16px;font:14px/1.55 Manrope,system-ui,sans-serif}
+.w{max-width:1240px;margin:0 auto;padding-block:32px 72px}
+h1{font:800 28px/1.15 Manrope,sans-serif;color:var(--t0);margin:0 0 8px;text-wrap:balance}
+.meta{font:12px 'JetBrains Mono',monospace;color:var(--t2);margin:0 0 20px}
+.meta b{color:var(--a);font-weight:600}
+p{max-width:72ch;margin:0 0 12px}
+h2{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--t0);margin:44px 0 6px}
+h2+p{color:var(--t2)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:18px 0 0}
+.steps div{background:var(--p);padding:14px}
+.steps b{display:block;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--a);margin-bottom:4px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;align-items:start}
+.shot{margin:0;background:var(--p)}.shot.wide{grid-column:1/-1}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{font:11px 'JetBrains Mono',monospace;color:var(--t2);padding:8px 10px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px}
+th,td{text-align:left;padding:7px 12px 7px 0;border-bottom:1px solid var(--p);vertical-align:top}
+thead th{font:600 11px 'JetBrains Mono',monospace;color:var(--t2);text-transform:uppercase;letter-spacing:.08em}
+tr.grp th{font:700 11px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--a);padding-top:18px}
+td.num,code{font:12px 'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;color:var(--t0)}
+code{color:var(--t1)}
+td.note{color:var(--t2)}
+td.gap{color:var(--a);font-weight:700}
+.code{position:relative;background:#161616;border:1px solid var(--p2)}
+.code pre{margin:0;padding:14px;max-height:280px;overflow:auto;font:11.5px/1.5 'JetBrains Mono',monospace;color:var(--t1)}
+.copy{position:absolute;top:8px;right:8px;font:700 11px 'JetBrains Mono',monospace;text-transform:uppercase;background:var(--a);color:var(--ink);border:0;padding:6px 10px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--t0);outline-offset:2px}
+.src{font:11px 'JetBrains Mono',monospace;color:var(--t2);margin-top:40px}
+</style>
+<div class="w">
+  <h1>PROCESSOR spacing baseline</h1>
+  <p class="meta">Before the spacing pass · <b>v0.570.0</b> · window 1600x1000 @2x · captured 2026-09-30</p>
+  <p>This is PROCESSOR as it is today, before your spacing pass: what it looks like, the numbers that set its spacing, and where it's tightest. The playground lets you move those numbers live in DevTools and copy back what you settle on.</p>
+  <div class="steps">
+    <div><b>1 · Look</b>The screenshots are the "before". Click one for full size.</div>
+    <div><b>2 · Play</b>Paste the playground into the DevTools console on PROCESSOR. Sliders start at today's values.</div>
+    <div><b>3 · Keep</b>Hit Copy on the panel and paste the list back to Claude. That becomes the spacing change, and the new app standard.</div>
+  </div>
+
+  <h2>Spacing playground</h2>
+  <p>Paste into the console (F12 → Console) on processor.v3ktr.com or a local copy. It only changes what you see in that tab; reload to clear. Slider positions are remembered in your browser, and Reset puts them back. The checkbox turns on the new 2px outlines for toggles and chips.</p>
+  <div class="code"><button class="copy" type="button" id="cp">Copy snippet</button><pre id="snip">/* V3KTR PROCESSOR · spacing playground (baseline v0.570.0)
+   Paste into the DevTools console on PROCESSOR (live or local). Adds a slider panel, bottom left.
+   Every slider drives one of PROCESSOR's real spacing rules; the starting values ARE the live values.
+   Nothing is saved to the app: reload to clear. Your slider positions are remembered in this browser
+   (localStorage) so a reload keeps them; "Reset" puts everything back.
+   "Copy" puts a list of what you changed on the clipboard (and in the console) to paste back to Claude. */
+(() =&gt; {
+  const ID = 'v3ktr-spacing-playground';
+  document.getElementById(ID)?.remove();
+  document.getElementById(ID + '-css')?.remove();
+
+  // [key, label, live value, min, max, CSS it drives (use {v} for the value in px)]
+  const KNOBS = [
+    ['pad', 'Panel padding (--pad)', 12, 6, 28, ':root{--pad:{v}px}'],
+    ['sidew', 'Side panel width', 332, 300, 440, ':root{--side-w:{v}px}'],
+    ['railw', 'Rail width', 128, 110, 190, ':root{--rail-w:{v}px}'],
+    ['btny', 'Button padding · vertical', 5, 2, 12, '.inline-btn,.seg button,.ui-btn,.looks-act-btn{padding-top:{v}px;padding-bottom:{v}px}'],
+    ['btnx', 'Button padding · horizontal', 10, 5, 20, '.inline-btn,.seg button,.ui-btn,.looks-act-btn{padding-left:{v}px;padding-right:{v}px}'],
+    ['seggap', 'Gap between option buttons', 4, 1, 14, '.seg{gap:{v}px}'],
+    ['segm', 'Space above/below option groups', 10, 2, 24, '.seg{margin-top:{v}px;margin-bottom:{v}px}'],
+    ['rowh', 'Row height (sliders, toggles, blend)', 28, 22, 44, '.scrub,.tog-row,.blend-row{height:{v}px}'],
+    ['rowgap', 'Space between rows', 5, 1, 14, '.scrub{margin:{v}px 0}.tog-row,.blend-row{margin:{v}px 0}'],
+    ['secb', 'Space after a section', 10, 2, 32, '.param-section{padding-bottom:{v}px}'],
+    ['labt', 'Space above section heads', 11, 2, 28, '.sec-label{margin-top:{v}px}'],
+    ['labb', 'Space below section heads', 7, 2, 20, '.sec-label{margin-bottom:{v}px}'],
+    ['layy', 'Layer padding · vertical', 7, 3, 16, '.layer{padding-top:{v}px;padding-bottom:{v}px}'],
+    ['laygap', 'Gap between layers', 2, 0, 12, '.layer{margin:{v}px 0}'],
+    ['menux', 'Menu item padding (top bar)', 9, 4, 18, '.menu{padding-left:{v}px;padding-right:{v}px}'],
+  ];
+  const OUTLINE = '.inline-btn.tog,.filter-chip{border:2px solid #757575}'; // the settled app standard: 2px, roomier
+
+  let state = {};
+  try { state = JSON.parse(localStorage.getItem(ID) || '{}'); } catch (e) {}
+  const val = (k) =&gt; (state[k] ?? KNOBS.find((n) =&gt; n[0] === k)[2]);
+
+  const css = document.createElement('style');
+  css.id = ID + '-css';
+  document.head.appendChild(css);
+  const apply = () =&gt; {
+    css.textContent = KNOBS.filter(([k, , live]) =&gt; val(k) !== live).map(([k, , , , , rule]) =&gt; rule.replaceAll('{v}', val(k))).join('\n') + (state.outline ? '\n' + OUTLINE : '');
+    try { localStorage.setItem(ID, JSON.stringify(state)); } catch (e) {}
+    window.dispatchEvent(new Event('resize'));   // let the canvas re-fit if the panels changed width
+  };
+
+  const S = (el, s) =&gt; (Object.assign(el.style, s), el);
+  const box = S(document.createElement('div'), { all: 'initial', position: 'fixed', left: '12px', bottom: '34px', zIndex: 2147483647, width: '330px', maxHeight: '70vh', overflow: 'auto', background: '#161616', color: '#cfcfcf', font: '11px/1.4 "JetBrains Mono", monospace', boxShadow: '0 8px 30px rgba(0,0,0,.6)', border: '1px solid #3a3a3a' });
+  box.id = ID;
+  const head = S(document.createElement('div'), { display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 10px', background: '#212121', position: 'sticky', top: '0', cursor: 'pointer' });
+  head.innerHTML = '&lt;b style="color:#f4f4f4;letter-spacing:.12em;flex:1"&gt;SPACING · v0.570 base&lt;/b&gt;';
+  const btn = (t) =&gt; S(Object.assign(document.createElement('button'), { textContent: t }), { all: 'initial', font: 'inherit', color: '#1c1c1c', background: '#00e5a0', padding: '3px 7px', cursor: 'pointer', textTransform: 'uppercase' });
+  const copy = btn('Copy'), reset = btn('Reset'), fold = btn('–');
+  S(reset, { background: '#3a3a3a', color: '#f4f4f4' }); S(fold, { background: '#3a3a3a', color: '#f4f4f4' });
+  head.append(copy, reset, fold);
+  const body = S(document.createElement('div'), { padding: '6px 10px 10px' });
+  box.append(head, body);
+
+  const rows = {};
+  for (const [k, label, live, min, max] of KNOBS) {
+    const row = S(document.createElement('label'), { display: 'block', margin: '8px 0 0' });
+    const top = S(document.createElement('div'), { display: 'flex', justifyContent: 'space-between' });
+    const name = document.createElement('span'); name.textContent = label;
+    const out = document.createElement('span');
+    const r = Object.assign(document.createElement('input'), { type: 'range', min, max, step: 1, value: val(k) });
+    S(r, { width: '100%', accentColor: '#00e5a0', margin: '2px 0 0' });
+    const show = () =&gt; { const v = +r.value; out.textContent = v === live ? `${v}px` : `${live} → ${v}px`; out.style.color = v === live ? '#8a8a8a' : '#00e5a0'; };
+    r.addEventListener('input', () =&gt; { state[k] = +r.value; if (+r.value === live) delete state[k]; show(); apply(); });
+    top.append(name, out); row.append(top, r); body.append(row); rows[k] = { r, show, live }; show();
+  }
+  const ol = S(document.createElement('label'), { display: 'flex', gap: '6px', alignItems: 'center', margin: '12px 0 0', color: '#f4f4f4' });
+  const cb = Object.assign(document.createElement('input'), { type: 'checkbox', checked: !!state.outline });
+  cb.addEventListener('change', () =&gt; { state.outline = cb.checked || undefined; apply(); });
+  ol.append(cb, document.createTextNode('2px outlines on toggles + chips (new standard)'));
+  body.append(ol);
+
+  reset.onclick = (e) =&gt; { e.stopPropagation(); state = {}; for (const k in rows) { rows[k].r.value = rows[k].live; rows[k].show(); } cb.checked = false; apply(); };
+  copy.onclick = (e) =&gt; {
+    e.stopPropagation();
+    const lines = KNOBS.filter(([k, , live]) =&gt; val(k) !== live).map(([k, label, live]) =&gt; `- ${label}: ${live}px → ${val(k)}px`);
+    if (state.outline) lines.push('- 2px outlines on toggles + chips: on');
+    const text = `PROCESSOR spacing playground (baseline v0.570.0, window ${innerWidth}×${innerHeight})\n` + (lines.join('\n') || '- no changes');
+    console.log(text);
+    navigator.clipboard?.writeText(text).then(() =&gt; (copy.textContent = 'Copied'), () =&gt; (copy.textContent = 'See console'));
+    setTimeout(() =&gt; (copy.textContent = 'Copy'), 1500);
+  };
+  head.onclick = () =&gt; { const hide = body.style.display !== 'none'; body.style.display = hide ? 'none' : ''; fold.textContent = hide ? '+' : '–'; };
+
+  document.body.appendChild(box);
+  apply();
+  console.log('Spacing playground loaded. Remove it: document.getElementById("' + ID + '").remove(); document.getElementById("' + ID + '-css").remove()');
+})();
+</pre></div>
+
+  <h2>Before: screenshots</h2>
+  <p>Sample image, three effects in the stack. Panels at 2× resolution.</p>
+  <div class="gal"><figure class="shot wide"><a href="01-app-empty.png" target="_blank" rel="noopener"><img src="01-app-empty.png" alt="Whole app, no image loaded" loading="lazy"></a><figcaption>Whole app, no image loaded</figcaption></figure><figure class="shot wide"><a href="02-app-loaded.png" target="_blank" rel="noopener"><img src="02-app-loaded.png" alt="Whole app: sample image, three effects in the stack" loading="lazy"></a><figcaption>Whole app: sample image, three effects in the stack</figcaption></figure><figure class="shot"><a href="03-topbar.png" target="_blank" rel="noopener"><img src="03-topbar.png" alt="Top bar: menus, document name, actions" loading="lazy"></a><figcaption>Top bar: menus, document name, actions</figcaption></figure><figure class="shot"><a href="04-ws-tabs.png" target="_blank" rel="noopener"><img src="04-ws-tabs.png" alt="Workspace tabs" loading="lazy"></a><figcaption>Workspace tabs</figcaption></figure><figure class="shot"><a href="05-rail.png" target="_blank" rel="noopener"><img src="05-rail.png" alt="FX rail: group chips and effect buttons" loading="lazy"></a><figcaption>FX rail: group chips and effect buttons</figcaption></figure><figure class="shot"><a href="06-stack.png" target="_blank" rel="noopener"><img src="06-stack.png" alt="FX stack (layers)" loading="lazy"></a><figcaption>FX stack (layers)</figcaption></figure><figure class="shot"><a href="07-params.png" target="_blank" rel="noopener"><img src="07-params.png" alt="Parameter panel as it first shows (selected effect: Dither, chip-heavy)" loading="lazy"></a><figcaption>Parameter panel as it first shows (selected effect: Dither, chip-heavy)</figcaption></figure><figure class="shot"><a href="07b-params-sliders.png" target="_blank" rel="noopener"><img src="07b-params-sliders.png" alt="Parameter panel, slider-heavy effect (Blur)" loading="lazy"></a><figcaption>Parameter panel, slider-heavy effect (Blur)</figcaption></figure><figure class="shot"><a href="07c-params-full.png" target="_blank" rel="noopener"><img src="07c-params-full.png" alt="Parameter panel, full length (window made taller so nothing scrolls)" loading="lazy"></a><figcaption>Parameter panel, full length (window made taller so nothing scrolls)</figcaption></figure><figure class="shot"><a href="08-menu-file.png" target="_blank" rel="noopener"><img src="08-menu-file.png" alt="File menu open" loading="lazy"></a><figcaption>File menu open</figcaption></figure><figure class="shot wide"><a href="09-explorer.png" target="_blank" rel="noopener"><img src="09-explorer.png" alt="FX EXPLORER workspace" loading="lazy"></a><figcaption>FX EXPLORER workspace</figcaption></figure><figure class="shot wide"><a href="10-motion.png" target="_blank" rel="noopener"><img src="10-motion.png" alt="FX MOTION workspace" loading="lazy"></a><figcaption>FX MOTION workspace</figcaption></figure><figure class="shot"><a href="11-motion-panel.png" target="_blank" rel="noopener"><img src="11-motion-panel.png" alt="Motion panel" loading="lazy"></a><figcaption>Motion panel</figcaption></figure></div>
+
+  <h2>Where it's tightest</h2>
+  <p>Neighbouring controls closer than 4px, measured in the browser, and what each means for the pass. Nothing is cut off: no text in the UI is currently truncated.</p>
+  <div class="tw"><table><thead><tr><th>Gap</th><th>Between</th><th>Where</th><th>What it means</th></tr></thead><tbody><tr><td class="num gap">0px</td><td>RANDOMISE ↔ +FEATURES</td><td>Parameter panel</td><td class="note">A joined group (.roll-group), intentional. With 2px outlines the toggles' outline will sit hard against RANDOMISE; give the group a gap of 2–4px.</td></tr><tr><td class="num gap">1px</td><td>Rail icon tiles</td><td>Rail</td><td class="note">The icon grid has a 1px gap on purpose (126 pairs). The rail is 128px for exactly 3 columns: padding added inside the rail shrinks every tile.</td></tr><tr><td class="num gap">1px</td><td>fit · orig · controls · auto</td><td>Canvas controls bar</td><td class="note">The four canvas controls nearly touch. Easy to space; nothing else depends on them.</td></tr><tr><td class="num gap">2px</td><td>Slider ↔ motion dot</td><td>Parameter panel</td><td class="note">The animate dot beside each slider. Wider panel padding squeezes the slider, not the dot.</td></tr><tr><td class="num gap">2px</td><td>Layer ↔ layer</td><td>Stack</td><td class="note">2px margin between layers. More spacing here shows fewer layers before the stack scrolls.</td></tr><tr><td class="num gap">2px</td><td>File ↔ Edit ↔ …</td><td>Top bar</td><td class="note">Spacing comes from the menu items' own padding.</td></tr><tr><td class="num gap">3px</td><td>Rail group chips</td><td>Rail</td><td class="note">ALL / ADJUST / … wrap in pairs inside 116px. Wider chips drop to one per row.</td></tr><tr><td class="num gap">3px</td><td>Slider ↔ slider ↔ toggle row</td><td>Parameter panel</td><td class="note">Rows are 5px (sliders) and 3px (toggles) apart; the playground sets both together.</td></tr></tbody></table></div>
+
+  <h2>The numbers that set the spacing</h2>
+  <p>From PROCESSOR's CSS. Padding is top right bottom left, in px.</p>
+  <div class="tw"><table><thead><tr><th>What</th><th>Rule</th><th>Today</th><th>Note</th></tr></thead><tbody><tr class="grp"><th colspan="4">Layout</th></tr><tr><td>Panel padding</td><td><code>--pad</code></td><td class="num">12px</td><td class="note">Used by the stack list and every parameter section. One number moves both.</td></tr><tr><td>Side panel width</td><td><code>--side-w</code></td><td class="num">332px</td><td class="note">Wider side = smaller canvas.</td></tr><tr><td>Rail width</td><td><code>--rail-w</code></td><td class="num">128px</td><td class="note">3 columns of square icon tiles. Widening makes tiles bigger; it does not add columns.</td></tr><tr><td>Top bar / tabs / status rows</td><td><code>.app grid rows</code></td><td class="num">36 / 40 / 1fr / 22px</td><td class="note"></td></tr><tr class="grp"><th colspan="4">Buttons</th></tr><tr><td>Regular button</td><td><code>.inline-btn, .ui-btn</code></td><td class="num">padding 5 10 · 11px</td><td class="note">The workhorse: RESET, RANDOMISE, stack actions.</td></tr><tr><td>Option button (chips in params)</td><td><code>.seg button</code></td><td class="num">padding 5 10 · 11px · gap 4</td><td class="note">Dither palettes, modes. Wrap onto several rows.</td></tr><tr><td>Large button</td><td><code>.gen-btn</code></td><td class="num">padding 8 14</td><td class="note"></td></tr><tr><td>Small button</td><td><code>.inline-btn.sm</code></td><td class="num">padding 3 7 · 9px</td><td class="note">+ MASK on layers.</td></tr><tr><td>Toggle (latched)</td><td><code>.inline-btn.tog</code></td><td class="num">padding 5 10 · 1px outline</td><td class="note">+FEATURES, +BLENDS. Gets the 2px outline.</td></tr><tr><td>Group filter chip</td><td><code>.filter-chip / .rail-chip</code></td><td class="num">padding 3 5 · 8px · 1px outline</td><td class="note">ALL / ADJUST … on the rail.</td></tr><tr class="grp"><th colspan="4">Parameter panel</th></tr><tr><td>Effect title</td><td><code>.param-title</code></td><td class="num">padding 12 12 8</td><td class="note"></td></tr><tr><td>Section</td><td><code>.param-section</code></td><td class="num">padding 2 12 10</td><td class="note">FX BLEND, FX PARAMETERS.</td></tr><tr><td>Section head</td><td><code>.sec-label</code></td><td class="num">10px · margin 11 0 7</td><td class="note"></td></tr><tr><td>Slider row</td><td><code>.scrub</code></td><td class="num">height 28 · margin 5 0</td><td class="note"></td></tr><tr><td>Toggle / blend row</td><td><code>.tog-row, .blend-row</code></td><td class="num">height 28 · margin 3 0 · padding 0 9</td><td class="note"></td></tr><tr><td>Option group</td><td><code>.seg</code></td><td class="num">gap 4 · margin 10 0</td><td class="note"></td></tr><tr><td>Randomise group</td><td><code>.roll-group</code></td><td class="num">padding 3 · gap 0</td><td class="note">Buttons touch each other by design.</td></tr><tr class="grp"><th colspan="4">Stack</th></tr><tr><td>Stack list</td><td><code>.stack-list</code></td><td class="num">padding 2 12 4</td><td class="note"></td></tr><tr><td>Layer row</td><td><code>.layer</code></td><td class="num">padding 7 8 · gap 8 · margin 2 0</td><td class="note">Height 46.</td></tr><tr class="grp"><th colspan="4">Top bar</th></tr><tr><td>Menu item</td><td><code>.menu</code></td><td class="num">padding 4 9 · 12.5px</td><td class="note"></td></tr><tr><td>Top bar</td><td><code>.topbar</code></td><td class="num">padding 0 12 · gap 2</td><td class="note"></td></tr><tr><td>Workspace tabs</td><td><code>.ws-tabs</code></td><td class="num">gap 22 · 13px</td><td class="note"></td></tr></tbody></table></div>
+
+  <h2>Measured controls</h2>
+  <p>Every visible control, grouped by class, as the browser draws it (sample image, three effects, Edit workspace).</p>
+  <div class="tw"><table><thead><tr><th>Class</th><th>Where</th><th>Count</th><th>Height</th><th>Padding</th><th>Font</th></tr></thead><tbody><tr><td><code>div.rail-btn</code></td><td>rail</td><td class="num">93</td><td class="num">38</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>button</code></td><td>params</td><td class="num">22</td><td class="num">24</td><td class="num">5 10 5 10</td><td class="num">11px</td></tr><tr><td><code>div.rail-chip</code></td><td>rail</td><td class="num">10</td><td class="num">17</td><td class="num">3 5 3 5</td><td class="num">8px</td></tr><tr><td><code>div.menu</code></td><td>topbar</td><td class="num">5</td><td class="num">25</td><td class="num">4 9 4 9</td><td class="num">12.5px</td></tr><tr><td><code>div.scrub</code></td><td>params</td><td class="num">5</td><td class="num">28</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>span.txt-action</code></td><td>stack</td><td class="num">4</td><td class="num">20</td><td class="num">5 10 5 10</td><td class="num">10px</td></tr><tr><td><code>div.layer</code></td><td>stack</td><td class="num">4</td><td class="num">46</td><td class="num">7 8 7 8</td><td class="num">13px</td></tr><tr><td><code>div.eye</code></td><td>stack</td><td class="num">4</td><td class="num">15</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>div.iso-toggle</code></td><td>stack</td><td class="num">4</td><td class="num">14</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>div.lock-toggle</code></td><td>stack</td><td class="num">4</td><td class="num">14</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>div.lname</code></td><td>stack</td><td class="num">4</td><td class="num">32</td><td class="num">0 0 0 0</td><td class="num">12px</td></tr><tr><td><code>div.lmask</code></td><td>stack</td><td class="num">4</td><td class="num">18</td><td class="num">3 7 3 7</td><td class="num">9px</td></tr><tr><td><code>div.del</code></td><td>stack</td><td class="num">4</td><td class="num">17</td><td class="num">0 0 0 0</td><td class="num">12px</td></tr><tr><td><code>button.motion-dot</code></td><td>params</td><td class="num">4</td><td class="num">28</td><td class="num">0 0 0 0</td><td class="num">13.3333px</td></tr><tr><td><code>div.ws-tab</code></td><td>ws-tabs</td><td class="num">3</td><td class="num">20</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr><tr><td><code>button.</code></td><td>params</td><td class="num">3</td><td class="num">24</td><td class="num">5 10 5 10</td><td class="num">11px</td></tr><tr><td><code>div.cc-btn</code></td><td>other</td><td class="num">2</td><td class="num">26</td><td class="num">0 8 0 8</td><td class="num">11px</td></tr><tr><td><code>button.cs-trigger</code></td><td>other params</td><td class="num">2</td><td class="num">24 / 26</td><td class="num">5 9 5 9</td><td class="num">11px</td></tr><tr><td><code>button.inline-btn</code></td><td>params</td><td class="num">2</td><td class="num">24 / 30</td><td class="num">5 10 5 10</td><td class="num">11px</td></tr><tr><td><code>button.inline-btn.tog</code></td><td>params</td><td class="num">2</td><td class="num">24</td><td class="num">5 10 5 10</td><td class="num">11px</td></tr><tr><td><code>div.cc-btn.mono</code></td><td>other</td><td class="num">1</td><td class="num">26</td><td class="num">0 8 0 8</td><td class="num">11px</td></tr><tr><td><code>select.cc-select.mono</code></td><td>other</td><td class="num">1</td><td class="num">1</td><td class="num">0 6 0 6</td><td class="num">11px</td></tr><tr><td><code>input.inline-field</code></td><td>stack</td><td class="num">1</td><td class="num">27</td><td class="num">5 8 5 8</td><td class="num">11.5px</td></tr><tr><td><code>div.inline-btn</code></td><td>stack</td><td class="num">1</td><td class="num">24</td><td class="num">5 10 5 10</td><td class="num">11px</td></tr><tr><td><code>div.inline-btn.ghost</code></td><td>stack</td><td class="num">1</td><td class="num">25</td><td class="num">5 8 5 8</td><td class="num">11px</td></tr><tr><td><code>div.blend-row</code></td><td>params</td><td class="num">1</td><td class="num">28</td><td class="num">0 9 0 9</td><td class="num">13px</td></tr><tr><td><code>select.blend-select</code></td><td>params</td><td class="num">1</td><td class="num">1</td><td class="num">0 22 0 8</td><td class="num">11px</td></tr><tr><td><code>div.tog-row</code></td><td>params</td><td class="num">1</td><td class="num">28</td><td class="num">0 9 0 9</td><td class="num">13px</td></tr><tr><td><code>div.switch</code></td><td>params</td><td class="num">1</td><td class="num">16</td><td class="num">0 0 0 0</td><td class="num">13px</td></tr></tbody></table></div>
+
+  <p class="src">Built from PTRKMRTN/V3KTR-design · baselines/processor · scripts/processor-baseline.mjs captures, scripts/build-baseline-sheet.mjs builds this page.</p>
+</div>
+<script>
+document.getElementById('cp').addEventListener('click', function () {
+  var b = this, t = document.getElementById('snip').textContent;
+  var done = function (m) { b.textContent = m; setTimeout(function () { b.textContent = 'Copy snippet'; }, 1600); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(function () { done('Copied'); }, function () { sel(); done('Selected: Ctrl+C'); });
+  } else { sel(); done('Selected: Ctrl+C'); }
+  function sel() { var r = document.createRange(); r.selectNodeContents(document.getElementById('snip')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+});
+</script>
