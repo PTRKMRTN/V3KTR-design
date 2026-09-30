@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.7.3 — 2026-09-30
+Site layer renders differently: footer.
+- Footer (Patrick): link groups sit together after the logo, columns sized to content (`auto` ×4, `justify-content: start`, column gap `clamp(40px, 5vw, 80px)`); two columns under 900px with the brand full width. Was four fractional columns across the full width.
+- `.vs-callout + .vs-tiers` gets 16px (they touched).
+
 ## 0.7.2 — 2026-09-30
 - **FX group contexts:** `[data-group="adjust|degrade|distort|colour|signal|glitch|type|light|depth"]` sets `--gcol` (themes/themes.css, in both bundles). The group → colour map now lives in one place.
 - **FX-family titles** (Patrick): `.vs-group-title` / `.vk-group-title` colour a family's title, effect names or effect-page title in its group colour. The second exception to the neutral site, after group chips.
