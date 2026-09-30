@@ -35,6 +35,7 @@ Rules for differences:
 - Everything else is played down: headings `--site-heading #b3b3b3`, body `--site-text #a3a3a3`, captions `--site-muted #939393`. All pass 4.5:1 on the ground and on panels.
 - **App colour appears only in that app's context.** Wrap the section, card or call-to-action in `data-app="processor"` (etc.); inside it the signal becomes the app's colour.
 - The FX imagery supplies the colour on the site.
+- **Forms are neutral in every context** (Patrick 2026-09-30): inside an app section a form does not take the app colour (mandarin on a form read as danger). Its focus border, ring and submit button stay white; the only colour in a form is the error red.
 - **Callouts:** on an app's page, colour the word in the app's colour (`[data-app]` + `<em>` in a heading). The gradient (`.vs-spectrum`) is **parked**; if it returns, hero only. Outlined text was tried and dropped: hard to read.
 - **Links are underlined** by default (every text link: in-text, "open" links, breadcrumbs, footer); hover thickens the line. Buttons and navigation bars are the only links without an underline.
 - **One colour per button (web):** an outline button's border and text always match: white (`.vs-btn`) or the app colour (`.vs-btn--signal`). Never a grey border with coloured text.

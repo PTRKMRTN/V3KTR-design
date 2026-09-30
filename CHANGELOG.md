@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.2 — 2026-09-30
+- **Forms are neutral in every context** (Patrick): `.vs-signup` / `.vs-field` reset `--site-signal`, `-hover` and `-ink` to the neutral site values, so inside `[data-app]` the focus border, focus ring and submit button are white, not the app colour (KOMPOSITOR's mandarin read as a danger state). The error red is unchanged.
+
 ## 0.10.1 — 2026-09-30
 - Site focus rings no longer use core `--focus-ring` (it resolves to PROCESSOR's aqua outside `[data-app]`): the email input and card media ring in `--site-signal` (white on a neutral page, the app's colour in an app section).
 - Error state: `.vs-field input[aria-invalid="true"]` takes the error red on its border and focus ring, so the field matches its note.

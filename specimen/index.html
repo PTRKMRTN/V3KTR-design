@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.10.1 ===== */
-/* V3KTR design tokens · v0.10.1
+/* ===== core: tokens.css v0.10.2 ===== */
+/* V3KTR design tokens · v0.10.2
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -52,7 +52,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.10.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.10.2 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -2001,13 +2001,25 @@
 .vs-verdict .vs-status__icon { width: 20px; height: 20px; }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
-   PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
+   The app colours are locked in themes/themes.css. */
 [data-app] {
   --site-signal: var(--accent);
   --site-signal-hover: var(--hover);
   --site-signal-ink: var(--on-accent);
 }
 [data-app] .vs-wordmark { color: var(--accent); }   /* the app's name carries its colour */
+
+/* ══ FORMS ARE NEUTRAL IN EVERY CONTEXT (Patrick 2026-09-30) ═══════════════════
+   A form inside an app section took the app colour on its focus border, ring and submit button. In KOMPOSITOR's
+   mandarin that read as a danger state. So a form resets the signal to the neutral site values, wherever it sits.
+   Colour in a form means one thing only: the error red (aria-invalid + .is-error).
+   Must stay AFTER the [data-app] block: a form can carry data-app itself, and then the later rule wins. */
+.vs-signup,
+.vs-field {
+  --site-signal: var(--tx-0);
+  --site-signal-hover: var(--tx-1);
+  --site-signal-ink: var(--bg-0);
+}
 
 /* ===== specimen page shell (not part of the system) ===== */
 :root{color-scheme:dark}
@@ -2063,7 +2075,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.10.1</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.10.2</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3118,7 +3130,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
       </div>
       <p class="vs-signup__note">Done. We'll write once, when it opens.</p>
     </form>
-    <div class="spec-caption" style="margin-top:20px">Error state · the field's border and its note share the error red (aria-invalid) · neutral / inside KOMPOSITOR</div>
+    <div class="spec-caption" style="margin-top:20px">Error state · border and note share the error red (aria-invalid) · forms stay neutral inside an app section (second form is in KOMPOSITOR)</div>
     <form class="vs-signup" style="max-width:520px">
       <label class="vs-signup__label" for="vs-spec-email-2">Get V3KTR news</label>
       <div class="vs-field">
