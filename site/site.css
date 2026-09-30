@@ -307,18 +307,21 @@
   min-height: 46px;
   padding: 0 20px;
   border-radius: var(--radius);
-  border: var(--site-stroke-strong) solid var(--site-line-2);
+  /* ONE COLOUR PER BUTTON (Patrick 2026-09-30): border and text always match. Outline buttons are white;
+     .vs-btn--signal is the app colour (aqua inside [data-app="processor"]). Never a grey border with coloured text. */
+  border: var(--site-stroke-strong) solid var(--tx-0);
   background: transparent;
-  color: var(--site-signal);
+  color: var(--tx-0);
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
 }
 /* from .v2-btn:hover */
 .vs-btn:hover,
 .vs-btn.is-hover {
-  border-color: var(--site-signal);
+  border-color: var(--site-signal-hover);   /* border and text move together: #cfcfcf on a neutral page, the app's hover inside [data-app] */
+  color: var(--site-signal-hover);
 }
 /* from .v2-btn--primary (+ the .v2-page .v2-btn--primary colour override) */
 .vs-site .vs-btn--primary,
@@ -336,6 +339,7 @@
 /* from .v2-btn--signal */
 .vs-btn--signal {
   border-color: var(--site-signal);
+  color: var(--site-signal);
 }
 /* from .v2-btn[disabled] */
 .vs-btn[disabled] {
