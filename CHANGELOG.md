@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.9.1 — 2026-09-30
+- `.vs-verdict` works as a link and inside article prose: dark ink and no underline for `a.vs-verdict` (the prose link rule outranked it: white, underlined ink on the fill), `<strong>` and inner links inherit the ink, hover = brightness, focus ring in the state colour.
+- `.vs-verdict` weight 700 → 500 (it's a sentence); `<strong>` and links inside are 700.
+
 ## 0.9.0 — 2026-09-30
 Adds status. Nothing existing changes.
 - **Status tokens (PROPOSED, awaiting Patrick; names stable):** `--status-ready #00e540`, `--status-caution #f9c200`, `--status-blocked #ff5e7e`, `--on-status #1c1c1c`. Each passes 4.5:1 as small text on the ground and panels and as a fill under dark ink, and stays clear of the app and FX-group colours.

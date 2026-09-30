@@ -1406,9 +1406,23 @@
   background: var(--status, var(--bg-2));
   color: var(--on-status);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;   /* the strip is a sentence; its lead word (<strong>) and any link are bold */
 }
 .vs-verdict:not([data-status]) { color: var(--site-heading); }   /* no state yet: a neutral panel, never white on white */
+/* Inside an article the prose rules (.vs-article a / strong, 0,1,1) outrank a single class, which turned the ink
+   white and underlined on the fill and the lead word grey. These keep the strip one colour wherever it sits. */
+.vs-site .vs-verdict strong,
+.vs-site .vs-verdict a { color: inherit; font-weight: 700; }
+.vs-site .vs-verdict a { text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+/* The whole strip as a link (e.g. Ready → the app): dark ink, no underline, a brightness lift on hover,
+   and the focus ring in the state colour (the ink is dark, so currentColor would vanish on the ground). */
+.vs-site a.vs-verdict,
+.vs-site a.vs-verdict:hover,
+.vs-site a.vs-verdict:active { color: var(--on-status); text-decoration: none; }
+.vs-site a.vs-verdict:not([data-status]),
+.vs-site a.vs-verdict:not([data-status]):hover { color: var(--site-heading); }
+.vs-site a.vs-verdict:hover, .vs-site a.vs-verdict.is-hover { filter: brightness(1.1); }
+.vs-site a.vs-verdict:focus-visible, .vs-site a.vs-verdict.is-focus { outline-color: var(--status, var(--site-signal)); }
 .vs-status {
   display: inline-flex;
   align-items: center;
