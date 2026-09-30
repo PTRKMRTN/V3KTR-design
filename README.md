@@ -19,8 +19,8 @@ Apps **consume** it; they never hand-copy it.
 **Build-time pull, pinned tag.** An app's build step fetches its bundle at a release tag and inlines it in place of its own `:root`:
 
 ```
-https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.2.0/dist/app.css    # apps
-https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.2.0/dist/site.css   # website
+https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.3.0/dist/app.css    # apps
+https://cdn.jsdelivr.net/gh/PTRKMRTN/V3KTR-design@v0.3.0/dist/site.css   # website
 ```
 
 Don't load it at runtime in a live app: it adds a network dependency and a flash of unstyled page.

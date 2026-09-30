@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.2.0
+/* V3KTR design tokens · v0.3.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -38,7 +38,7 @@
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
-/* V3KTR site layer · v0.2.0 · requires tokens.css (core)
+/* V3KTR site layer · v0.3.0 · requires tokens.css (core)
    Reference CSS for the V3KTR website, extracted from site v2 (branch site-v2 @ 5004d53, 2026-09-29):
    styles/v2-chrome.css, styles/v2.css, styles/v2-article.css.
    The site shares the core (ground, text greys, signal aqua, fonts, radius) and adds what an

@@ -1,4 +1,4 @@
-# Site layer inventory · v0.2.0
+# Site layer inventory · v0.3.0
 
 Source: `V3KTR-SITEV2-WT`, branch `site-v2` @ `5004d53` (2026-09-29): `styles/v2-chrome.css` (387 lines),
 `styles/v2.css` (1022), `styles/v2-article.css` (513). Core: `tokens.css` v0.1.1.

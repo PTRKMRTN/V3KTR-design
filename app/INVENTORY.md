@@ -1,4 +1,4 @@
-# V3KTR app layer: inventory (v0.2.0)
+# V3KTR app layer: inventory (v0.3.0)
 
 Source: the PROCESSOR `<style>` block (1234 lines, the current origin/main extract). Markup context came from the local
 `V3KTR-PROCESSOR/index.html`, which is **older** than that extract: `.signup-note` and `.beta-tag` are not in it.
