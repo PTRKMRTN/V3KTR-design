@@ -46,7 +46,7 @@ Rules for differences:
 ## App components (rules; reference CSS in `app/app.css`)
 - **Buttons:** mono, UPPERCASE, square (`--radius` 0), `--bg-3` fill, 3 sizes. **No border** — only chips have borders.
   Primary = `--accent` fill + `--on-accent` ink; hover = `--hover` fill.
-- **Chips:** the only bordered element: 1px `--ctrl-line` in live PROCESSOR (1.9:1, fails 3:1). PROPOSED: `--stroke` 2px in `--ctrl-edge`, padding 1px less so the outer size doesn't change. Hover turns border + text `--hover`.
+- **Chips:** the only bordered element: 1px `--ctrl-line` in live PROCESSOR (1.9:1, fails 3:1). App standard (settled): `--stroke` 2px in `--ctrl-edge`, original padding kept (roomier). Hover turns border + text `--hover`.
 - **`.tog` (state, not action):** transparent + `--ctrl-line` border + `--tx-2` when off; `--accent` fill + `--on-accent` when on.
   Use `.tog` for anything that latches; use a button for anything that fires once.
 - **Rows / sliders:** `--row-h` 28px, label 11.5px.
@@ -57,8 +57,11 @@ Rules for differences:
 ## Settled (don't reopen)
 - Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).
 
+## PROCESSOR spacing pass (Patrick-led, upcoming)
+Patrick will do an involved pass to space PROCESSOR's UI out a little. **That pass sets the app standard**: afterwards, `app/app.css` is re-extracted from PROCESSOR and KOMPOSITOR/DIMENSOR inherit it. The 2px roomier outlines land in the same pass. Until then, don't change PROCESSOR's spacing or outlines piecemeal.
+
 ## Open decisions (Patrick; don't settle these yourself)
-7. **App outlines 2px** (proposed 2026-09-30): same outer size (padding -1px) vs roomier (+2px). Apps are fragile: adopt only with a before/after sheet and a check that nothing around the controls moves.
+7. ~~App outlines~~ **Settled 2026-09-30: 2px `--ctrl-edge`, roomier** (original padding kept, controls grow 2px). Lands in Patrick's PROCESSOR spacing pass (below).
 0. **Per-app themes** (exploration, not locked). Current picks (Patrick 2026-09-30, judged in the app for vibrance against aqua): KOMPOSITOR hot mandarin `#ff6a43`, DIMENSOR violet `#9d64ff`; aqua is the only locked colour. Known: the mandarin is ΔE 17 from `--danger #ff5b5b` (accepted), so destructive actions in KOMPOSITOR need a second cue (icon or wording), or `--danger` moves; the violet's small text uses `--accent-text #a679ff`. Not in `dist/`; see `themes/themes.css`.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
 2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.

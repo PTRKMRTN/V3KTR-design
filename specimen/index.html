@@ -151,9 +151,9 @@
 /* ---------------------------------------------------------------- .tog (latched STATE, not action) */
 
 /* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
-/* OUTLINE 2px (Patrick 2026-09-30), PROPOSED for the apps: 2px in --ctrl-edge (3:1), padding 1px less so the outer size is
-   unchanged and nothing around it moves. Live PROCESSOR is still 1px --ctrl-line; adopt with a before/after sheet. */
-.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:4px 9px;background:transparent;
+/* OUTLINE 2px, ROOMIER (Patrick 2026-09-30): 2px in --ctrl-edge (3:1) with the original padding kept, so each control
+   grows 2px. Live PROCESSOR is still 1px --ctrl-line; this lands in Patrick's PROCESSOR spacing pass, which sets the app standard. */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:transparent;
   border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
   cursor:pointer;white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn.tog:hover */
@@ -197,7 +197,7 @@
 /* ---------------------------------------------------------------- chips (the only bordered element) */
 
 /* from .filter-chip (+ the shared mono/UPPERCASE rule). background set for use on <button>. */
-.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;   /* 2px outline, same outer size: see .vk-tog */
+.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;   /* 2px outline, roomier: see .vk-tog */
   border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
 /* from .filter-chip:hover */
 .vk-chip:hover,
@@ -1808,19 +1808,14 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#9d64ff"></span>DIMENSOR</td><td>#9d64ff</td><td class="warn">4.37:1</td><td>4.63:1</td><td>--type-violet · ΔE 48</td></tr><tr><td><span class="th-sw" style="background:#f6c400"></span>KOMPOSITOR · GOLD</td><td>#f6c400</td><td>9.83:1</td><td>10.40:1</td><td>--warn (PROCESSOR #e0a33a) · ΔE 26</td></tr></tbody></table></div>
   <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor"><section class="spec-layer" data-layer="app">
   <div class="spec-group">
-    <p class="spec-caption">Outline proposal for the apps · compare · PROCESSOR is still the first row</p>
+    <p class="spec-caption">Outlines · live PROCESSOR vs the app standard (2px, roomier) · lands in the PROCESSOR spacing pass</p>
     <div class="spec-row"><span class="spec-caption" style="margin:0;width:170px">Live · 1px, 1.9:1</span>
-      <button class="vk-tog" type="button" style="border:1px solid var(--ctrl-line);padding:5px 10px">Focus</button><button class="vk-tog is-on" type="button" style="border:1px solid var(--ctrl-line);padding:5px 10px">Wild</button>
-      <button class="vk-chip" type="button" style="border:1px solid var(--ctrl-line);padding:3px 8px">Depth</button><button class="vk-chip is-active" type="button" style="border:1px solid var(--ctrl-line);padding:3px 8px">Pattern</button></div>
-    <div class="spec-row"><span class="spec-caption" style="margin:0;width:170px">2px · same size</span>
+      <button class="vk-tog" type="button" style="border:1px solid var(--ctrl-line)">Focus</button><button class="vk-tog is-on" type="button" style="border:1px solid var(--ctrl-line)">Wild</button>
+      <button class="vk-chip" type="button" style="border:1px solid var(--ctrl-line)">Depth</button><button class="vk-chip is-active" type="button" style="border:1px solid var(--ctrl-line)">Pattern</button></div>
+    <div class="spec-row"><span class="spec-caption" style="margin:0;width:170px">Standard · 2px, 3.5:1</span>
       <button class="vk-tog" type="button">Focus</button><button class="vk-tog is-on" type="button">Wild</button>
       <button class="vk-chip" type="button">Depth</button><button class="vk-chip is-active" type="button">Pattern</button></div>
-    <div class="spec-row"><span class="spec-caption" style="margin:0;width:170px">2px · roomier (+2px)</span>
-      <button class="vk-tog" type="button" style="padding:6px 11px">Focus</button><button class="vk-tog is-on" type="button" style="padding:6px 11px">Wild</button>
-      <button class="vk-chip" type="button" style="padding:4px 9px">Depth</button><button class="vk-chip is-active" type="button" style="padding:4px 9px">Pattern</button></div>
   </div>
-
-  <!-- ============================================================ BUTTONS -->
   <div class="spec-group">
     <p class="spec-caption">.vk-btn.vk-btn--lg · LARGE 8×14 (from .gen-btn) · rest / hover / disabled</p>
     <div class="spec-row">
