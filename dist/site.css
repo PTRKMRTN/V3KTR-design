@@ -44,11 +44,19 @@
    Each rule names the site-v2 selector it came from. See INVENTORY.md for the full mapping. */
 
 /* ══ PENDING CORE ═══════════════════════════════════════════════════════════
-   AGENTS.md layer rule 1: a layer may not own its own greys or inks. The five colours below are
+   AGENTS.md layer rule 1: a layer may not own its own greys or inks. The colours below are
    values the site uses that the core lacks. They live here ONLY so this file renders today;
    on Patrick's approval each moves to tokens.css (core v0.1.2, un-prefixed) and this block goes.
-   Two of them (--site-muted, --site-line-2) are PROPOSALS that change site v2's rendered colour. */
+   --site-line-2 is still a PROPOSAL. */
 :root {
+  /* NEUTRAL SITE (Patrick 2026-09-30): the website is neutral. White is reserved for things you can click
+     (links, buttons, active nav, focus); all other text steps down through three greys so the white stands out.
+     App colour appears only inside an app's context: wrap it in [data-app="processor"] etc. (see the end of this file). */
+  --site-signal: var(--tx-0);             /* links, buttons, active states. Replaces --accent on the site. */
+  --site-signal-hover: var(--tx-1);       /* hover dims white to #cfcfcf: a visible step down from #f4f4f4 */
+  --site-signal-ink: var(--bg-0);         /* text on a white button. Replaces site v2's #04120d. */
+  --site-heading: #b3b3b3;                /* headings: 7.7:1 ground · 6.8:1 panel */
+  --site-text: #a3a3a3;                   /* body copy, = the master-lockup grey: 6.4:1 ground · 5.6:1 panel */
   /* ── fills ─────────────────────────────────────────────────────────────── */
   --site-well: #262626;                  /* was --v2-well. Between core --bg-0 #212121 and --bg-2 #2b2b2b; no core step. */
   /* --v2-panel #2a2a2a → core var(--bg-2) #2b2b2b (1 step off; recommended, used below). */
@@ -59,16 +67,11 @@
                                              (2.30:1 on --bg-0 vs 2.31:1). Alternative: core --ctrl-line (renders #4d4d4d on --bg-0, dimmer). */
 
   /* ── text ──────────────────────────────────────────────────────────────── */
-  /* --v2-fg #f4f6f8 → var(--tx-0) · --v2-fg-2 #c9cdd3 → var(--tx-1) · --v2-muted #a0a6ae → var(--tx-2) */
-  --site-muted: #969696;                  /* PROPOSED, not settled. Core --tx-2 #8a8a8a is 4.66:1 on --bg-0 but FAILS 4.5:1 on
-                                             --site-well (4.38) and --bg-2 (4.10), where site-v2 puts muted captions (pricing tiers,
-                                             credit labels, fact lists). #969696 = 5.44 / 5.12 / 4.79. Until Patrick decides,
-                                             muted text on a panel uses this; on bare ground --tx-2 passes. */
+  /* site v2 cool greys retired (2026-09-29). Neutral site (2026-09-30): white = interactive only, text in three greys. */
+  --site-muted: #939393;                  /* captions, fine print, placeholders: 5.2:1 ground · 4.6:1 panel (core --tx-2 fails on panels) */
 
   /* ── signal ────────────────────────────────────────────────────────────── */
-  /* --v2-signal #00e5a0 → var(--accent) · --v2-signal-hi #3bf0b8 → var(--hover) (settled 2026-09-29) */
-  --site-signal-ink: #04120d;             /* was --v2-signal-ink. Differs from core --on-accent #1c1c1c (both pass: 11.59 vs 10.32
-                                             on --accent). Recommend retiring to --on-accent; kept exact here pending a decision. */
+  /* --v2-signal #00e5a0 retired from the site: neutral --site-signal (white) instead; aqua only inside [data-app="processor"]. */
   --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
                                              this is a text-on-dark red (7.90:1 on --bg-0). */
 }
@@ -126,7 +129,7 @@
   font-family: var(--sans);
   font-size: var(--site-fs-body);
   line-height: 1.55;
-  color: var(--tx-0);
+  color: var(--site-text);
   background: var(--bg-0);
   -webkit-font-smoothing: antialiased;
 }
@@ -152,7 +155,7 @@
   left: 8px;
   top: -60px;
   z-index: 100;
-  background: var(--accent);
+  background: var(--site-signal);
   color: var(--site-signal-ink);
   font-family: var(--mono);
   font-weight: 700;
@@ -169,12 +172,12 @@
   font-size: var(--site-fs-cap);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tx-2);
+  color: var(--site-muted);
   margin: 0;
 }
-/* new modifier: replaces inline style={{color:"var(--v2-signal)"}} on .v2-cap (8 uses in markup) */
+/* new modifier: replaces inline style={{color:"var(--site-signal)"}} on .v2-cap (8 uses in markup) */
 .vs-cap--signal {
-  color: var(--accent);
+  color: var(--site-signal);
 }
 /* PROPOSED: muted text on a panel/well fill uses --site-muted (core --tx-2 fails 4.5:1 there) */
 .vs-panel .vs-cap,
@@ -190,15 +193,15 @@
   font-size: var(--site-fs-eyebrow);
   letter-spacing: var(--head-track);
   text-transform: uppercase;
-  color: var(--tx-2);
+  color: var(--site-muted);
 }
 .vs-eyebrow--signal {
-  color: var(--accent);
+  color: var(--site-signal);
 }
 /* from .v2-lede */
 .vs-lede {
   font-size: var(--site-fs-lede);
-  color: var(--tx-1);
+  color: var(--site-text);
   max-width: 60ch;
   margin: 0;
 }
@@ -206,19 +209,19 @@
 .vs-intro {
   font-size: var(--site-fs-intro);
   line-height: 1.5;
-  color: var(--tx-1);
+  color: var(--site-text);
   max-width: 62ch;
   margin: 0;
 }
 /* from .v2-fine */
 .vs-fine {
   font-size: var(--site-fs-fine);
-  color: var(--tx-2);
+  color: var(--site-muted);
   margin: 0;
 }
 /* from .v2-link (site-v2 needed !important to beat the template's bare-a rules; not needed here). No hover in site v2. */
 .vs-link {
-  color: var(--accent);
+  color: var(--site-signal);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -228,7 +231,7 @@
   font-size: var(--site-fs-eyebrow);
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: var(--site-signal);
   white-space: nowrap;
   padding-block: 4px;
 }
@@ -243,22 +246,25 @@
 .vs-title,
 .vs-h2,
 .vs-sign {
+  color: var(--site-heading);
   margin: 0;
   text-wrap: balance;
   font-weight: var(--site-weight-display);
 }
 /* from .v2-hero h1; em → .v2-hero h1 em */
 .vs-display {
+  color: var(--site-heading);
   font-size: var(--site-fs-display);
   line-height: 0.94;
   letter-spacing: -0.045em;
 }
 .vs-display em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--site-signal);
 }
 /* from .v2-page .v2-shell__title */
 .vs-title {
+  color: var(--site-heading);
   font-size: var(--site-fs-title);
   line-height: 0.98;
   letter-spacing: -0.04em;
@@ -266,6 +272,7 @@
 }
 /* from .v2-page h2 */
 .vs-h2 {
+  color: var(--site-heading);
   font-size: var(--site-fs-h2);
   line-height: 1.02;
   letter-spacing: -0.03em;
@@ -276,6 +283,7 @@
 }
 /* from .v2-apphero__what */
 .vs-subhead {
+  color: var(--site-heading);
   font-size: var(--site-fs-subhead);
   font-weight: var(--site-weight-display);
   letter-spacing: -0.03em;
@@ -284,6 +292,7 @@
 }
 /* from .v2-sign */
 .vs-sign {
+  color: var(--site-heading);
   font-size: var(--site-fs-sign);
   letter-spacing: -0.06em;
   line-height: 0.85;
@@ -323,7 +332,7 @@
   border-radius: var(--radius);
   border: 1px solid var(--site-line-2);
   background: transparent;
-  color: var(--tx-0);
+  color: var(--site-signal);
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
@@ -332,24 +341,24 @@
 /* from .v2-btn:hover */
 .vs-btn:hover,
 .vs-btn.is-hover {
-  border-color: var(--tx-0);
+  border-color: var(--site-signal);
 }
 /* from .v2-btn--primary (+ the .v2-page .v2-btn--primary colour override) */
 .vs-site .vs-btn--primary,
 .vs-btn--primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--site-signal);
+  border-color: var(--site-signal);
   color: var(--site-signal-ink);
 }
 /* from .v2-btn--primary:hover (--v2-signal-hi → --hover) */
 .vs-btn--primary:hover,
 .vs-btn--primary.is-hover {
-  background: var(--hover);
-  border-color: var(--hover);
+  background: var(--site-signal-hover);
+  border-color: var(--site-signal-hover);
 }
 /* from .v2-btn--signal */
 .vs-btn--signal {
-  border-color: var(--accent);
+  border-color: var(--site-signal);
 }
 /* from .v2-btn[disabled] */
 .vs-btn[disabled] {
@@ -369,8 +378,8 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--site-signal);
+  border: 1px solid var(--site-signal);
   padding: 2px 6px;
   border-radius: var(--radius);
   line-height: 1.3;
@@ -384,7 +393,7 @@
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tx-1);
+  color: var(--site-text);
   border: 1px solid var(--site-line-2);
   padding: 4px 8px;
   border-radius: var(--radius);
@@ -392,13 +401,13 @@
 }
 .vs-beta:hover,
 .vs-beta.is-hover {
-  color: var(--tx-0);
-  border-color: var(--tx-1);
+  color: var(--site-signal);
+  border-color: var(--site-signal);
 }
 .vs-beta__dot {
   width: 6px;
   height: 6px;
-  background: var(--accent);
+  background: var(--site-signal);
 }
 /* from .v2-chip (filter toggle; aria-pressed = on) */
 .vs-chip {
@@ -410,17 +419,17 @@
   border: 1px solid var(--site-line-2);
   border-radius: var(--radius);
   background: transparent;
-  color: var(--tx-1);
+  color: var(--site-text);
   cursor: pointer;
   min-height: 44px;
 }
 .vs-chip:hover,
 .vs-chip.is-hover {
-  border-color: var(--tx-1);
+  border-color: var(--site-signal);
 }
 .vs-chip[aria-pressed="true"] {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--site-signal);
+  border-color: var(--site-signal);
   color: var(--site-signal-ink);
 }
 /* from .v2-chips > li, .is-signal (static tags) */
@@ -439,11 +448,11 @@
   text-transform: uppercase;
   padding: 7px 10px;
   border: 1px solid var(--site-line-2);
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 .vs-tags > li.is-signal {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--site-signal);
+  border-color: var(--site-signal);
 }
 
 /* ── dropdown menu ───────────────────────────────────────────────────────── */
@@ -472,7 +481,7 @@
 }
 .vs-menu__what {
   font-size: var(--site-fs-fine);
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 
 /* ── header / nav ────────────────────────────────────────────────────────── */
@@ -515,16 +524,16 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  color: var(--tx-1);
+  color: var(--site-signal);
   padding-block: 6px;
 }
 .vs-nav__links > a:hover,
 .vs-nav__links > a.is-hover,
 .vs-nav__links > a[aria-current="page"] {
-  color: var(--tx-0);
+  color: var(--site-signal);
 }
 .vs-nav__links > a[aria-current="page"] {
-  box-shadow: inset 0 -2px 0 var(--accent);
+  box-shadow: inset 0 -2px 0 var(--site-signal);
 }
 /* from .v2-nav__actions */
 .vs-nav__actions {
@@ -598,14 +607,14 @@
   font-size: var(--site-fs-cap);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tx-2);
+  color: var(--site-muted);
   white-space: nowrap;
   padding-block: 12px;
 }
 .vs-subnav span,
 .vs-subnav a:hover,
 .vs-subnav a.is-hover {
-  color: var(--tx-0);
+  color: var(--site-signal);
 }
 
 /* ── footer ──────────────────────────────────────────────────────────────── */
@@ -637,15 +646,15 @@
   flex-direction: column;
   gap: 10px;
   font-size: var(--site-fs-fine);
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 .vs-foot__nav--quiet {
-  color: var(--tx-2);
+  color: var(--site-muted);
 }
 /* from .v2-foot a:hover */
 .vs-foot a:hover,
 .vs-foot a.is-hover {
-  color: var(--tx-0);
+  color: var(--site-signal);
 }
 @media (max-width: 900px) {
   .vs-foot__grid {
@@ -735,10 +744,10 @@
   bottom: 12px;
   background: var(--site-scrim-label);
   padding: 5px 8px;
-  color: var(--tx-0);
+  color: var(--site-heading);
 }
 .vs-tagline--signal {
-  color: var(--accent);
+  color: var(--site-signal);
 }
 /* from .v2-badge (used with .v2-cap) */
 .vs-badge {
@@ -748,7 +757,7 @@
   z-index: 1;
   background: var(--site-scrim-label);
   padding: 4px 8px;
-  color: var(--tx-0);
+  color: var(--site-heading);
 }
 /* from .v2-play — its cool rgba(13,14,16,.85) is replaced by --site-scrim-label */
 .vs-play {
@@ -762,7 +771,7 @@
   text-transform: uppercase;
   min-height: 32px;
   padding: 0 10px;
-  color: var(--tx-0);
+  color: var(--site-signal);
   background: var(--site-scrim-label);
   border: 1px solid var(--site-line-2);
   cursor: pointer;
@@ -828,7 +837,7 @@
 }
 /* from .v2-empty */
 .vs-empty {
-  color: var(--tx-2);
+  color: var(--site-muted);
   padding-block: 40px;
 }
 
@@ -845,7 +854,7 @@
   background: var(--site-well);
 }
 .vs-panel p {
-  color: var(--tx-1);
+  color: var(--site-text);
   margin: 0;
 }
 /* from .v2-app__what */
@@ -885,7 +894,7 @@
   background: var(--bg-2);
 }
 .vs-tier p {
-  color: var(--tx-1);
+  color: var(--site-text);
   font-size: var(--site-fs-small);
   margin: 0;
 }
@@ -898,7 +907,7 @@
 }
 .vs-tier__price--later {
   font-size: 22px;
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 @media (max-width: 900px) {
   .vs-tiers {
@@ -933,15 +942,16 @@
   background: var(--site-line-2);
 }
 .vs-steps > li:first-child::before {
-  background: var(--accent);
+  background: var(--site-signal);
 }
 .vs-steps h3 {
+  color: var(--site-heading);
   font-size: var(--site-fs-h4);
   line-height: 1.25;
   margin: 0;
 }
 .vs-steps p {
-  color: var(--tx-1);
+  color: var(--site-text);
   font-size: var(--site-fs-small);
   margin: 0;
 }
@@ -968,14 +978,14 @@
   font-size: var(--site-fs-cap);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tx-0);
+  color: var(--site-heading);
 }
 .vs-signup--plain .vs-signup__label {
   font-family: var(--sans);
   font-size: var(--site-fs-body);
   letter-spacing: 0;
   text-transform: none;
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 /* from .v2-field, .v2-field input */
 .vs-field {
@@ -989,24 +999,24 @@
   min-height: 46px;
   background: var(--bg-0);
   border: 1px solid var(--site-line-2);
-  color: var(--tx-0);
+  color: var(--site-signal);
   padding: 0 14px;
   font-family: var(--mono);
   font-size: var(--site-fs-fine);
   border-radius: var(--radius);
 }
 .vs-field input::placeholder {
-  color: var(--tx-2);
+  color: var(--site-muted);
 }
 .vs-field input:focus {
-  border-color: var(--accent);
+  border-color: var(--site-signal);
   outline: none;
 }
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {
   font-family: var(--mono);
   font-size: var(--site-fs-eyebrow);
-  color: var(--accent);
+  color: var(--site-signal);
   min-height: 1.2em;
 }
 .vs-signup__note.is-error {
@@ -1034,19 +1044,19 @@
   font-size: var(--site-fs-cap);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tx-2);
+  color: var(--site-muted);
 }
 .vs-crumbs a:hover,
 .vs-crumbs a.is-hover {
-  color: var(--tx-0);
+  color: var(--site-signal);
 }
 .vs-crumbs [aria-current] {
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 /* from .v2-article (the one reading column) */
 .vs-article {
   max-width: var(--site-read);
-  color: var(--tx-1);
+  color: var(--site-text);
   font-size: var(--site-fs-read);
   line-height: 1.7;
 }
@@ -1056,7 +1066,7 @@
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--tx-0);
+  color: var(--site-heading);
   margin: 0 0 16px;
   scroll-margin-top: calc(var(--site-nav-h) + 16px);
 }
@@ -1064,7 +1074,7 @@
 .vs-article h3 {
   font-size: 20px;
   line-height: 1.3;
-  color: var(--tx-0);
+  color: var(--site-heading);
   margin: 28px 0 10px;
 }
 /* from .v2-page .v2-article p */
@@ -1082,11 +1092,11 @@
 }
 /* from .v2-article strong */
 .vs-article strong {
-  color: var(--tx-0);
+  color: var(--site-heading);
 }
 /* from .v2-page .v2-article a */
 .vs-article a {
-  color: var(--accent);
+  color: var(--site-signal);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1106,7 +1116,7 @@
 .vs-article blockquote {
   margin: 0 0 16px;
   padding-left: 18px;
-  color: var(--tx-0);
+  color: var(--site-heading);
   font-style: italic;
 }
 /* from .v2-article hr (--v2-rule #3a3a3a = --bg-3) */
@@ -1122,7 +1132,7 @@
   font-size: var(--site-fs-cap);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tx-2);
+  color: var(--site-muted);
   margin-top: 10px;
 }
 /* from .v2-prose (shorter prose blocks on product pages) */
@@ -1137,16 +1147,16 @@
   margin: 18px 0 0;
 }
 .vs-prose p {
-  color: var(--tx-1);
+  color: var(--site-text);
   font-size: var(--site-fs-body);
   line-height: 1.65;
   margin: 0;
 }
 .vs-prose strong {
-  color: var(--tx-0);
+  color: var(--site-heading);
 }
 .vs-prose a {
-  color: var(--accent);
+  color: var(--site-signal);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1162,7 +1172,7 @@
   flex-wrap: wrap;
 }
 .vs-specs dt {
-  color: var(--tx-1);
+  color: var(--site-text);
 }
 .vs-specs dd {
   margin: 0;
@@ -1170,3 +1180,13 @@
   font-size: var(--fs-body);
   text-align: right;
 }
+
+
+/* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
+   PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
+[data-app] {
+  --site-signal: var(--accent);
+  --site-signal-hover: var(--hover);
+  --site-signal-ink: var(--on-accent);
+}
+[data-app] .vs-wordmark { color: var(--accent); }   /* the app's name carries its colour */

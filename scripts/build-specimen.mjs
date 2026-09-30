@@ -144,7 +144,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     ${typeHtml}
   </section>
   ${layer('app', 'App layer', 'Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.', appCss, themeHtml + '<div id="app-themed" data-app="processor">' + read('app/specimen.html') + '</div>')}
-  ${layer('site', 'Site layer', 'Taken from site v2 and moved onto the core colours: hover #3dffc2, neutral greys.', siteCss, read('site/specimen.html'))}
+  ${layer('site', 'Site layer', 'Taken from site v2. Neutral: white only for links, buttons and active states; text in three greys (headings #b3b3b3, body #a3a3a3, muted #939393). App colour appears only inside [data-app].', siteCss, read('site/specimen.html'))}
 </div>
 <script>
 (function(){

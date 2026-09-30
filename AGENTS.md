@@ -18,7 +18,7 @@ The system has three layers. Every surface takes the core plus exactly one layer
 |---|---|---|---|
 | **Core** | `tokens.css` | everyone | signal aqua, grounds, text greys, FX-group colours, fonts, radius, focus |
 | **App** | `app/app.css` | PROCESSOR, KOMPOSITOR, DIMENSOR | dense tool UI taken from PROCESSOR: buttons, chips, `.tog`, rows, sliders, menus (`vk-` classes) |
-| **Site** | `site/site.css` | v3ktr.com | display type scale, gutters, nav, feed cards, article prose (`vs-` classes, `--site-*` tokens) |
+| **Site** | `site/site.css` | v3ktr.com | display type scale, gutters, nav, feed cards, article prose (`vs-` classes, `--site-*` tokens). **Neutral** (below). |
 
 Each surface pulls one bundle: `dist/app.css` (core + app) or `dist/site.css` (core + site).
 
@@ -29,6 +29,12 @@ Rules for differences:
 3. **Pure layout of one screen** (PROCESSOR's rail width, a page's grid) stays in the app. It isn't design language.
 4. **If a surface needs a value that isn't here, add it here first**, bump the version, then use it. Never a local hex.
 5. The specimen page (`specimen/index.html`, built by `scripts/build-specimen.mjs`) shows all three layers. If an app looks different from it, the app has drifted.
+
+## The website is neutral (Patrick 2026-09-30)
+- V3KTR the brand is neutral. On the site, **white `--site-signal` is only for things you can click**: links, buttons, active nav, focus.
+- Everything else is played down: headings `--site-heading #b3b3b3`, body `--site-text #a3a3a3`, captions `--site-muted #939393`. All pass 4.5:1 on the ground and on panels.
+- **App colour appears only in that app's context.** Wrap the section, card or call-to-action in `data-app="processor"` (etc.); inside it the signal becomes the app's colour.
+- The FX imagery supplies the colour on the site.
 
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
