@@ -59,6 +59,7 @@ Rules for differences:
 - **Rows / sliders:** `--row-h` 26px, 3px apart, label 11.5px.
 - **Panels:** a lighter fill (`--bg-2`), never an outline.
 - **Focus:** `outline: var(--focus-ring); outline-offset: var(--focus-offset)` on `:focus-visible`.
+- **FX group → colour token** (the same everywhere; PROCESSOR's `GROUPS` is the source): adjust `--adjust` · degrade `--type-sage` · distort `--type-rust` · colour `--type-rose` · signal `--type-teal` · glitch `--type-violet` · type `--type-amber` · light `--type-slate` · depth `--depth`.
 - **FX groups** are identified by the `--type-*` / `--depth` / `--adjust` colours, never by the signal aqua.
 - **Exception to the neutral/one-signal rule (Patrick 2026-09-30): a chip that labels an FX group may use that group's colour**, on the site and in the apps: border and text in the group colour (one colour), selected = filled with dark text. Group colours are LOCKED (v0.7.0) and all pass 4.5:1 as chip text; depth is lime `#b1e800`. App: `.vk-chip--group`; site: `.vs-chip--group`; both take `--gcol`.
 

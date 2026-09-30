@@ -7,6 +7,7 @@
 // PNGs (32, 180, 512) are rendered with Playwright from the PROCESSOR repo's node_modules.
 //   node scripts/build-icons.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { inflateSync, deflateSync } from 'node:zlib';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
@@ -44,6 +45,26 @@ const out = new URL('brand/icons/', root);
 mkdirSync(out, { recursive: true });
 for (const [name, svg] of Object.entries(ICONS)) writeFileSync(new URL(name + '.svg', out), svg + '\n');
 
+// Re-encode an 8-bit RGB PNG as RGBA (alpha 255), same pixels. Chromium writes RGB for opaque images.
+function toRGBA(png) {
+  let p = 8, w, h, type, idat = [];
+  while (p < png.length) { const len = png.readUInt32BE(p), t = png.toString('ascii', p + 4, p + 8), d = png.subarray(p + 8, p + 8 + len);
+    if (t === 'IHDR') { w = d.readUInt32BE(0); h = d.readUInt32BE(4); type = d[9]; } if (t === 'IDAT') idat.push(d); p += 12 + len; }
+  if (type === 6) return png;
+  const bpp = 3, stride = w * bpp, raw = inflateSync(Buffer.concat(idat)), px = Buffer.alloc(h * stride);
+  for (let y = 0; y < h; y++) { const f = raw[y * (stride + 1)], r = raw.subarray(y * (stride + 1) + 1, (y + 1) * (stride + 1));
+    for (let x = 0; x < stride; x++) { const a = x >= bpp ? px[y * stride + x - bpp] : 0, up = y ? px[(y - 1) * stride + x] : 0, c = x >= bpp && y ? px[(y - 1) * stride + x - bpp] : 0;
+      let v = r[x]; if (f === 1) v += a; else if (f === 2) v += up; else if (f === 3) v += (a + up) >> 1; else if (f === 4) { const q = a + up - c, pa = Math.abs(q - a), pb = Math.abs(q - up), pc = Math.abs(q - c); v += pa <= pb && pa <= pc ? a : pb <= pc ? up : c; }
+      px[y * stride + x] = v & 255; } }
+  const out = Buffer.alloc(h * (w * 4 + 1));
+  for (let y = 0; y < h; y++) { out[y * (w * 4 + 1)] = 0; for (let x = 0; x < w; x++) { const s = y * stride + x * 3, d = y * (w * 4 + 1) + 1 + x * 4; out[d] = px[s]; out[d + 1] = px[s + 1]; out[d + 2] = px[s + 2]; out[d + 3] = 255; } }
+  const crcT = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; crcT[n] = c >>> 0; }
+  const crc = (buf) => { let c = 0xffffffff; for (const x of buf) c = crcT[(c ^ x) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+  const chunk = (t, d) => { const l = Buffer.alloc(4); l.writeUInt32BE(d.length); const td = Buffer.concat([Buffer.from(t, 'ascii'), d]); const cc = Buffer.alloc(4); cc.writeUInt32BE(crc(td)); return Buffer.concat([l, td, cc]); };
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 6; ihdr[10] = 0; ihdr[11] = 0; ihdr[12] = 0;
+  return Buffer.concat([png.subarray(0, 8), chunk('IHDR', ihdr), chunk('IDAT', deflateSync(out)), chunk('IEND', Buffer.alloc(0))]);
+}
+
 // PNGs for places that don't take SVG (apple-touch-icon, PWA manifests, socials).
 const require = createRequire('file:///D:/00%20CLAUDE%20APPS/V3KTR-PROCESSOR/package.json');
 const { chromium } = require('playwright');
@@ -52,7 +73,8 @@ for (const [name, svg] of Object.entries(ICONS)) {
   for (const px of [32, 180, 512]) {
     const page = await browser.newPage({ viewport: { width: px, height: px }, deviceScaleFactor: 1 });
     await page.setContent(`<body style="margin:0">${svg.replace('<svg ', `<svg width="${px}" height="${px}" style="display:block" `)}</body>`);
-    await page.screenshot({ path: fileURLToPath(new URL(`${name}-${px}.png`, out)) });
+    const file = fileURLToPath(new URL(`${name}-${px}.png`, out));
+    writeFileSync(file, toRGBA(await page.screenshot()));   // RGBA: some pipelines (Next's .ico) refuse RGB
     await page.close();
   }
 }

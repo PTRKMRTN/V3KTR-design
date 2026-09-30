@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.7.1 — 2026-09-30
+- Icon PNGs are RGBA (were RGB; Next's .ico pipeline refuses RGB). Pixels unchanged.
+- Site: `.vs-tags > li.vs-chip--group` takes the group colour (the tags rule outranked `.vs-chip--group`).
+- AGENTS.md: the FX group → colour token map, so every consumer maps groups the same way.
+
 ## 0.7.0 — 2026-09-30
 Consumers render differently: FX-group colours, chip centring, app focus ring.
 - **FX-group colours LOCKED** (Patrick): all nine pass 4.5:1 as small text on panels. Six lifted in lightness only: amber `#b58d4c`, rust `#cd7f6e`, rose `#c67f93`, sage `#7b9c76`, teal `#6b9ca1`, slate `#8c94a3`, violet `#a386cb`. **Depth is lime `#b1e800`**: it no longer reuses PROCESSOR's aqua. Shipped in PROCESSOR v0.573.0.
