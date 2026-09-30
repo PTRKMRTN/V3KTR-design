@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.5.0 — 2026-09-30
+**App colours locked** (Patrick). Consumers may render differently.
+- PROCESSOR `#00e5a0`, KOMPOSITOR `#ff6a43`, DIMENSOR `#bb6fff`, each with hover, dim and a light-ground ink: tokens `--processor*`, `--kompositor*`, `--dimensor*` in `themes/themes.css`, which is now part of `dist/app.css` and `dist/site.css`. `data-app="…"` switches `--accent` / `--hover` / `--on-accent` / `--accent-ink`.
+- DIMENSOR violet `#9d64ff` → `#bb6fff`: it failed 4.5:1 as small text (4.37 on the ground, 3.84 on panels). The hue moved slightly warmer to keep its intensity (OKLCH chroma 0.210 vs 0.220); it now passes 5.24 / 4.61, and dark text on it 5.54. The separate small-text violet is no longer needed.
+- All three pass 4.5:1 as small text on the ground, wells and panels, and as a fill under dark text; each light-ground ink passes on #f4f4f4 and #fff.
+- Site: `[data-app="kompositor"]` / `"dimensor"` sections now get their colours from the bundle (before, the bundle had no themes, so they fell back to aqua).
+
 ## 0.4.2 — 2026-09-30
 Site layer renders differently: states.
 - **One state system for every site button, link and pill** (Patrick): rest, hover (#cfcfcf), focus (2px ring in the element's own colour, 3px out), pressed (hover colour, 1px down), selected (filled / 2px bar), disabled (40%, no hover). One colour per element in every state.

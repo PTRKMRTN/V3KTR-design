@@ -54,7 +54,9 @@ const layer = (id, title, blurb, css, frag) => `
 
 const appCss = read('app/app.css');
 const themesCss = read('themes/themes.css');
-const themes = [...themesCss.matchAll(/\[data-app="([a-z-]+)"\]\s*\{([^}]*)\}/g)].map(([, id, body]) => ({ id, accent: body.match(/--accent:(#[0-9a-f]{6})/i)[1], hover: body.match(/--hover:(#[0-9a-f]{6})/i)[1] }));
+const themeVars = Object.fromEntries([...themesCss.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
+const resolve = (v) => { const m = v.trim().match(/^var\(--([a-z0-9-]+)\)$/i); return m ? themeVars[m[1]] : v.trim(); };
+const themes = [...themesCss.matchAll(/\[data-app="([a-z-]+)"\]\s*\{([^}]*)\}/g)].map(([, id, body]) => ({ id, accent: resolve(body.match(/--accent:([^;]+);/)[1]), hover: resolve(body.match(/--hover:([^;]+);/)[1]) }));
 const clashWith = { danger: '#ff5b5b', 'warn (PROCESSOR #e0a33a)': '#e0a33a', 'warn-2 (#d4823b)': '#d4823b', 'type-rust': '#a85d4e', 'type-rose': '#9d5a6e', 'type-amber': '#b08847', 'type-violet': '#8a6db0', 'type-slate': '#6a7280', 'type-teal': '#5a8a8f', 'type-sage': '#6e8f6a' };
 const lab = (h) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.substr(i, 2), 16) / 255).map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116); const x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047, y = r * 0.2126 + g * 0.7152 + b * 0.0722, z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883; return [116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z))]; };
 const dE = (a, b) => { const p = lab(a), q = lab(b); return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]); };
@@ -64,7 +66,7 @@ const themeRows = themes.map((t) => {
   const flag = (ok) => (ok ? '' : ' class="warn"');
   return `<tr><td><span class="th-sw" style="background:${t.accent}"></span>${t.id.replace("-", " · ").toUpperCase()}</td><td>${t.accent}</td><td${flag(g >= 4.5)}>${g.toFixed(2)}:1</td><td${flag(ink >= 4.5)}>${ink.toFixed(2)}:1</td><td${flag(nd >= 25)}>--${nn} · ΔE ${nd.toFixed(0)}</td></tr>`;
 }).join('');
-const themeHtml = `<div class="spec-group"><div class="spec-caption">App theme · exploration, not locked (only PROCESSOR aqua is)</div>
+const themeHtml = `<div class="spec-group"><div class="spec-caption">App themes · locked 2026-09-30</div>
   <div class="spec-row th-pick" role="group" aria-label="App theme">${themes.map((t, i) => `<button type="button" data-app-pick="${t.id}" aria-pressed="${i === 0}">${t.id.replace("-", " · ")}</button>`).join('')}</div>
   <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody>${themeRows}</tbody></table></div>
   <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div>`;

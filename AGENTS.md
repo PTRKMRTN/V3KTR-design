@@ -7,7 +7,7 @@ Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT
 1. **Use tokens, never raw hex.** Every colour, radius, font and row height comes from `tokens.css` (`var(--…)`).
    If a value you need doesn't exist, add it HERE (new version), not in the app.
 2. **Never hand-copy `:root`.** Apps pull `tokens.css` from a pinned release tag at build time (see README).
-3. **Signal colour.** Aqua `--accent #00e5a0`, hover `--hover #3dffc2`, on ground `--bg-0 #212121`: **locked** (PROCESSOR and the brand). Per-app themes are being explored (Patrick 2026-09-29, not locked): see `themes/themes.css` and the Open decisions. Until they're locked, every app uses aqua.
+3. **App colours are LOCKED (Patrick 2026-09-30).** PROCESSOR aqua `#00e5a0`, KOMPOSITOR mandarin `#ff6a43`, DIMENSOR violet `#bb6fff`, each with hover / dim / light-ground ink (`themes/themes.css`, tokens `--processor*`, `--kompositor*`, `--dimensor*`). An app sets `data-app="…"` on its root and uses `--accent` / `--hover`; never a raw hex. The V3KTR brand itself is neutral. Don't reopen.
 4. **Dark only.** No light mode or theming in v1.
 5. A visual change to a live app ships with a before/after sheet.
 
@@ -62,7 +62,7 @@ Rules for differences:
 ## PROCESSOR spacing pass (shipped v0.571.0, 2026-09-30)
 Patrick's pass set the app standard: `--pad` 22, side panel 400, buttons 8/14, rows 26px 3px apart, option gap 3, sections and heads with more air, 2px `--ctrl-edge` outlines on toggles and all chips. `app/app.css` v0.4.0 follows it. Before/after: `baselines/compare/`; recapture with `scripts/processor-baseline.mjs`.
 7. ~~App outlines~~ **Settled 2026-09-30: 2px `--ctrl-edge`, roomier** (original padding kept, controls grow 2px). Shipped in PROCESSOR v0.571.0.
-0. **Per-app themes** (exploration, not locked). Current picks (Patrick 2026-09-30, judged in the app for vibrance against aqua): KOMPOSITOR hot mandarin `#ff6a43`, DIMENSOR violet `#9d64ff`; aqua is the only locked colour. Known: the mandarin is ΔE 17 from `--danger #ff5b5b` (accepted), so destructive actions in KOMPOSITOR need a second cue (icon or wording), or `--danger` moves; the violet's small text uses `--accent-text #a679ff`. Not in `dist/`; see `themes/themes.css`.
+0. ~~Per-app themes~~ **Locked 2026-09-30** (rule 3). KOMPOSITOR's mandarin sits ΔE 17 from `--danger`: pair its destructive actions with an icon or wording.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
 2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.
 3. ~~Radius~~ **Settled 2026-09-30: square corners everywhere** (`--radius: 0`).

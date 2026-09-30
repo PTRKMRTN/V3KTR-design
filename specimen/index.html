@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.4.2 ===== */
-/* V3KTR design tokens · v0.4.2
+/* ===== core: tokens.css v0.5.0 ===== */
+/* V3KTR design tokens · v0.5.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -43,7 +43,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.4.2 · requires tokens.css (core)
+/* V3KTR app layer · v0.5.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -489,19 +489,25 @@
 .vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
 
 /* ===== app themes (exploration) ===== */
-/* V3KTR app themes · EXPLORATION — NOT IN dist/, NOT LOCKED.
-   Only PROCESSOR aqua is locked. Current picks (Patrick 2026-09-29, "for now"):
-   KOMPOSITOR = hot mandarin #ff6a43, DIMENSOR = violet #9d64ff (both from his board, 2026-09-30:
-   judged by how they look in the app, matching aqua's vibrance; closeness to --danger accepted).
-   A theme sets ONLY the signal family. --accent-ink = the shade for light grounds (site/socials/print; apps are dark-only).
-   --accent-text = the shade for SMALL accent text on panels, where the base colour is under 4.5:1. Same as --accent when it passes.
-   Hovers are lifted in OKLCH so the step is visible; dims are 45% toward the ground. Derived, not designed. */
-[data-app="processor"]  { --accent:#00e5a0; --accent-text:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,.15);  --hover:#3dffc2; --on-accent:#1c1c1c; --accent-ink:#008058; }
-[data-app="kompositor"] { --accent:#ff6a43; --accent-text:#ff6a43; --accent-dim:#9d4b35; --accent-glow:rgba(255,106,67,.15); --hover:#ff8f72; --on-accent:#1c1c1c; --accent-ink:#cf3700; }
-[data-app="dimensor"]   { --accent:#9d64ff; --accent-text:#a679ff; --accent-dim:#6a4a9f; --accent-glow:rgba(157,100,255,.15); --hover:#b08cff; --on-accent:#1c1c1c; --accent-ink:#8c40f5; }
+/* V3KTR app themes · LOCKED (Patrick 2026-09-30)
+   One colour per app. A theme sets ONLY the signal family; greys, fonts and the FX-group colours are core.
+   Included in dist/app.css and dist/site.css. An app sets data-app="…" on its root; the site sets it on an
+   app's section, card or call-to-action.
 
-/* Alternatives, kept for comparison */
-[data-app="kompositor-gold"] { --accent:#f6c400; --accent-text:#f6c400; --accent-dim:#967b0f; --accent-glow:rgba(246,196,0,.15);   --hover:#ffda74; --on-accent:#1c1c1c; --accent-ink:#896c00; }
+   Every colour passes WCAG 4.5:1 as small text on the ground (#212121), wells (#262626) and panels (#2b2b2b),
+   and dark ink (#1c1c1c) on it passes 4.5:1 as a button fill:
+     PROCESSOR   #00e5a0  ground 9.75 · panel 8.57 · ink-on 10.32
+     KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 17 from --danger: pair destructive actions with an icon or wording)
+     DIMENSOR    #bb6fff  ground 5.24 · panel 4.61 · ink-on 5.54   (was #9d64ff, 4.37 / 3.84: hue nudged warmer to keep intensity, OKLCH C 0.210 vs 0.220)
+   --accent-ink is the shade for LIGHT grounds (site, socials, print): each passes 4.5:1 on #f4f4f4 and #fff. */
+:root {
+  --processor:#00e5a0;  --processor-hover:#3dffc2;  --processor-dim:#0a8f66;  --processor-ink:#008058;
+  --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
+  --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
+}
+[data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
+[data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
+[data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
 
 /* ===== site layer ===== */
 /* V3KTR site layer · v0.3.0 · requires tokens.css (core)
@@ -546,11 +552,10 @@
 
   /* ── signal ────────────────────────────────────────────────────────────── */
   /* --v2-signal #00e5a0 retired from the site: neutral --site-signal (white) instead; aqua only inside [data-app="processor"]. */
-  /* The three app colours as one band, for callouts in neutral space. KOMPOSITOR/DIMENSOR values are exploratory
-     (themes/themes.css); they move to core when locked. Interpolated in OKLCH so the blends stay bright, not muddy. */
-  --site-app-processor: #00e5a0;   /* = core --accent */
-  --site-app-kompositor: #ff6a43;  /* PROVISIONAL */
-  --site-app-dimensor: #9d64ff;    /* PROVISIONAL */
+  /* The three app colours (locked, themes/themes.css), for the parked spectrum callout. */
+  --site-app-processor: var(--processor);
+  --site-app-kompositor: var(--kompositor);
+  --site-app-dimensor: var(--dimensor);
   --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
                                              this is a text-on-dark red (7.90:1 on --bg-0). */
 }
@@ -1915,7 +1920,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.4.2</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.5.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -1940,9 +1945,9 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   
 <section class="tab-panel" id="p-app" data-tab="app" hidden>
   <p class="lede">Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.</p>
-  <div class="spec-group"><div class="spec-caption">App theme · exploration, not locked (only PROCESSOR aqua is)</div>
-  <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button><button type="button" data-app-pick="kompositor-gold" aria-pressed="false">kompositor · gold</button></div>
-  <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#9d64ff"></span>DIMENSOR</td><td>#9d64ff</td><td class="warn">4.37:1</td><td>4.63:1</td><td>--type-violet · ΔE 48</td></tr><tr><td><span class="th-sw" style="background:#f6c400"></span>KOMPOSITOR · GOLD</td><td>#f6c400</td><td>9.83:1</td><td>10.40:1</td><td>--warn (PROCESSOR #e0a33a) · ΔE 26</td></tr></tbody></table></div>
+  <div class="spec-group"><div class="spec-caption">App themes · locked 2026-09-30</div>
+  <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button></div>
+  <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#bb6fff"></span>DIMENSOR</td><td>#bb6fff</td><td>5.24:1</td><td>5.54:1</td><td>--type-violet · ΔE 43</td></tr></tbody></table></div>
   <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor"><section class="spec-layer" data-layer="app">
   <div class="spec-group">
     <p class="spec-caption">.vk-btn.vk-btn--lg · LARGE 8×14 (from .gen-btn) · rest / hover / disabled</p>

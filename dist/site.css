@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.4.2
+/* V3KTR design tokens · v0.5.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -37,6 +37,26 @@
   --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
+
+/* V3KTR app themes · LOCKED (Patrick 2026-09-30)
+   One colour per app. A theme sets ONLY the signal family; greys, fonts and the FX-group colours are core.
+   Included in dist/app.css and dist/site.css. An app sets data-app="…" on its root; the site sets it on an
+   app's section, card or call-to-action.
+
+   Every colour passes WCAG 4.5:1 as small text on the ground (#212121), wells (#262626) and panels (#2b2b2b),
+   and dark ink (#1c1c1c) on it passes 4.5:1 as a button fill:
+     PROCESSOR   #00e5a0  ground 9.75 · panel 8.57 · ink-on 10.32
+     KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 17 from --danger: pair destructive actions with an icon or wording)
+     DIMENSOR    #bb6fff  ground 5.24 · panel 4.61 · ink-on 5.54   (was #9d64ff, 4.37 / 3.84: hue nudged warmer to keep intensity, OKLCH C 0.210 vs 0.220)
+   --accent-ink is the shade for LIGHT grounds (site, socials, print): each passes 4.5:1 on #f4f4f4 and #fff. */
+:root {
+  --processor:#00e5a0;  --processor-hover:#3dffc2;  --processor-dim:#0a8f66;  --processor-ink:#008058;
+  --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
+  --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
+}
+[data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
+[data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
+[data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
 
 /* V3KTR site layer · v0.3.0 · requires tokens.css (core)
    Reference CSS for the V3KTR website, extracted from site v2 (branch site-v2 @ 5004d53, 2026-09-29):
@@ -80,11 +100,10 @@
 
   /* ── signal ────────────────────────────────────────────────────────────── */
   /* --v2-signal #00e5a0 retired from the site: neutral --site-signal (white) instead; aqua only inside [data-app="processor"]. */
-  /* The three app colours as one band, for callouts in neutral space. KOMPOSITOR/DIMENSOR values are exploratory
-     (themes/themes.css); they move to core when locked. Interpolated in OKLCH so the blends stay bright, not muddy. */
-  --site-app-processor: #00e5a0;   /* = core --accent */
-  --site-app-kompositor: #ff6a43;  /* PROVISIONAL */
-  --site-app-dimensor: #9d64ff;    /* PROVISIONAL */
+  /* The three app colours (locked, themes/themes.css), for the parked spectrum callout. */
+  --site-app-processor: var(--processor);
+  --site-app-kompositor: var(--kompositor);
+  --site-app-dimensor: var(--dimensor);
   --site-error-ink: #ff9b8a;              /* was raw #ff9b8a (form error note). Core --danger #ff5b5b is a fill-grade red;
                                              this is a text-on-dark red (7.90:1 on --bg-0). */
 }
