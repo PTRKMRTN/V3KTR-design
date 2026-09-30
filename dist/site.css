@@ -13,6 +13,9 @@
   /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
   --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
   --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+  /* Control outlines (Patrick 2026-09-30). --ctrl-line above is 1.9:1 and fails WCAG 1.4.11 as a control boundary;
+     new outlines use --ctrl-edge (3.5:1 ground, 3.1 panel). --stroke is the standard outline width. */
+  --ctrl-edge:#757575; --stroke:2px;
 
   /* Status */
   --danger:#ff5b5b; --danger-dim:#7a2a2a;
@@ -64,9 +67,11 @@
   /* --v2-rule  #3a3a3a → core var(--bg-3) #3a3a3a (exact; used for the article hr). */
 
   /* ── lines ─────────────────────────────────────────────────────────────── */
-  --site-line-2: #757575;                 /* control outlines (buttons, chips, tags, inputs). 3.5:1 ground · 3.3 well · 3.1 panel:
-                                             passes WCAG 1.4.11 (3:1 for control boundaries). Was #595959 (2.3:1, failed). */
-  --site-stroke: 3px;                     /* control outline width on the web (Patrick 2026-09-30: thicker, up to ~5px). Specimen compares 2/3/5. */
+  --site-line-2: var(--ctrl-edge);        /* control outlines: core #757575, passes 3:1. Was #595959 (2.3:1, failed). */
+  /* OUTLINE RULE (Patrick 2026-09-30): 5px for BUTTONS (things you press to go somewhere or do something);
+     2px for everything you select, filter or type into (chips, tags, fields, the play overlay). */
+  --site-stroke: var(--stroke);           /* 2px */
+  --site-stroke-strong: 5px;              /* buttons */
   --site-link-line: 1px;                  /* text-link underline; 2px on hover */
 
   /* ── text ──────────────────────────────────────────────────────────────── */
@@ -341,7 +346,7 @@
   min-height: 46px;
   padding: 0 20px;
   border-radius: var(--radius);
-  border: var(--site-stroke) solid var(--site-line-2);
+  border: var(--site-stroke-strong) solid var(--site-line-2);
   background: transparent;
   color: var(--site-signal);
   cursor: pointer;

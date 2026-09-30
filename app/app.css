@@ -106,8 +106,10 @@
 /* ---------------------------------------------------------------- .tog (latched STATE, not action) */
 
 /* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
-.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:transparent;
-  border:1px solid var(--ctrl-line);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
+/* OUTLINE 2px (Patrick 2026-09-30), PROPOSED for the apps: 2px in --ctrl-edge (3:1), padding 1px less so the outer size is
+   unchanged and nothing around it moves. Live PROCESSOR is still 1px --ctrl-line; adopt with a before/after sheet. */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:4px 9px;background:transparent;
+  border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
   cursor:pointer;white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn.tog:hover */
 .vk-tog:hover,
@@ -150,8 +152,8 @@
 /* ---------------------------------------------------------------- chips (the only bordered element) */
 
 /* from .filter-chip (+ the shared mono/UPPERCASE rule). background set for use on <button>. */
-.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;
-  border:1px solid var(--ctrl-line);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
+.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;   /* 2px outline, same outer size: see .vk-tog */
+  border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
 /* from .filter-chip:hover */
 .vk-chip:hover,
 .vk-chip.is-hover{color:var(--hover);border-color:var(--hover);}

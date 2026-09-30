@@ -13,6 +13,9 @@
   /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
   --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
   --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+  /* Control outlines (Patrick 2026-09-30). --ctrl-line above is 1.9:1 and fails WCAG 1.4.11 as a control boundary;
+     new outlines use --ctrl-edge (3.5:1 ground, 3.1 panel). --stroke is the standard outline width. */
+  --ctrl-edge:#757575; --stroke:2px;
 
   /* Status */
   --danger:#ff5b5b; --danger-dim:#7a2a2a;
