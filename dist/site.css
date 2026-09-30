@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.4.1
+/* V3KTR design tokens · v0.4.2
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -360,7 +360,11 @@
 /* from .v2-btn:hover */
 .vs-btn:hover,
 .vs-btn.is-hover {
-  border-color: var(--site-signal-hover);   /* border and text move together: #cfcfcf on a neutral page, the app's hover inside [data-app] */
+  border-color: var(--tx-1);   /* the white outline button stays white-family in every context: hover #cfcfcf */
+  color: var(--tx-1);
+}
+.vs-btn--signal:hover, .vs-btn--signal.is-hover {
+  border-color: var(--site-signal-hover);   /* the signal variant hovers in its own colour family */
   color: var(--site-signal-hover);
 }
 /* from .v2-btn--primary (+ the .v2-page .v2-btn--primary colour override) */
@@ -383,7 +387,7 @@
 }
 /* from .v2-btn[disabled] */
 .vs-btn[disabled] {
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: progress;
 }
 /* from .v2-cta-row */
@@ -1257,6 +1261,132 @@
 .vs-crumbs a:hover, .vs-crumbs a.is-hover,
 .vs-foot a:hover, .vs-foot a.is-hover {
   text-decoration-thickness: 2px;
+}
+
+/* ══ STATES (Patrick 2026-09-30) ═══════════════════════════════════════════
+   Every button, link and pill has the same six states, and in every state it is ONE colour
+   (border, text and any dot always match; filled elements use the ground colour for their text).
+     rest      white #f4f4f4 (pills and filter chips rest quieter, #a3a3a3)
+     hover     #cfcfcf (--site-signal-hover)
+     focus     2px ring in the element's own colour, 3px outside it (keyboard only: :focus-visible)
+     pressed   hover colour + nudged 1px down
+     selected  filled with the signal colour, text in the ground colour (chips); a 2px bar (nav)
+     disabled  40% opacity, no hover
+   Inside [data-app] the signal is the app's colour and hover its hover shade.
+   .is-hover / .is-focus / .is-active force a state for the specimen. */
+
+.vs-site :focus-visible,
+.vs-site .is-focus {
+  outline: 2px solid currentColor;   /* the ring is the element's own colour: white around white, aqua around aqua */
+  outline-offset: var(--site-focus-offset);
+}
+.vs-site .vs-btn--primary:focus-visible, .vs-site .vs-btn--primary.is-focus,
+.vs-site .vs-chip[aria-pressed="true"]:focus-visible, .vs-site .vs-chip[aria-pressed="true"].is-focus {
+  outline-color: var(--site-signal);   /* filled: text is the ground colour, so ring in the fill colour */
+}
+
+/* pressed: the hover colour, pushed down a pixel */
+.vs-btn:active, .vs-btn.is-active,
+.vs-chip:active, .vs-chip.is-active,
+.vs-beta:active, .vs-beta.is-active,
+.vs-play:active, .vs-play.is-active {
+  transform: translateY(1px);
+}
+.vs-btn:active, .vs-btn.is-active {
+  border-color: var(--tx-1);
+  color: var(--tx-1);
+}
+.vs-btn--signal:active, .vs-btn--signal.is-active {
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-hover);
+}
+.vs-btn--primary:active, .vs-btn--primary.is-active {
+  background: var(--site-signal-hover);
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-ink);
+}
+.vs-link:active, .vs-link.is-active,
+.vs-open-link:active, .vs-open-link.is-active,
+.vs-article a:active, .vs-prose a:active,
+.vs-crumbs a:active, .vs-foot a:active,
+.vs-nav__links > a:active, .vs-nav__links > a.is-active {
+  color: var(--site-signal-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* text links and nav: hover dims white (and thickens the underline, set above) */
+.vs-link:hover, .vs-link.is-hover,
+.vs-open-link:hover, .vs-open-link.is-hover,
+.vs-article a:hover, .vs-prose a:hover,
+.vs-crumbs a:hover, .vs-crumbs a.is-hover,
+.vs-foot a:hover, .vs-foot a.is-hover,
+.vs-nav__links > a:hover, .vs-nav__links > a.is-hover {
+  color: var(--site-signal-hover);
+}
+
+/* filter chips: one colour at rest (quiet), white on hover, filled when selected */
+.vs-chip {
+  border-color: var(--site-text);
+  color: var(--site-text);
+}
+.vs-chip:hover, .vs-chip.is-hover,
+.vs-chip:active, .vs-chip.is-active {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
+.vs-chip[aria-pressed="true"]:hover, .vs-chip[aria-pressed="true"].is-hover,
+.vs-chip[aria-pressed="true"]:active, .vs-chip[aria-pressed="true"].is-active {
+  background: var(--site-signal-hover);
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-ink);
+}
+
+/* beta pill: border, text and dot share one colour */
+.vs-beta {
+  border-color: var(--site-text);
+  color: var(--site-text);
+}
+.vs-beta .vs-beta__dot { background: currentColor; }
+.vs-beta:hover, .vs-beta.is-hover,
+.vs-beta:active, .vs-beta.is-active {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
+
+/* static pills (not interactive): one colour, no states */
+.vs-tags > li { border-color: var(--site-text); }
+
+/* video play button over media: white border and text */
+.vs-play { border-color: var(--site-signal); }
+.vs-play:hover, .vs-play.is-hover,
+.vs-play:active, .vs-play.is-active {
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-hover);
+}
+
+/* disabled: 40%, and hover does nothing */
+.vs-btn[disabled], .vs-btn[aria-disabled="true"],
+.vs-chip[disabled], .vs-chip[aria-disabled="true"] {
+  opacity: 0.4;
+  transform: none;
+}
+.vs-btn[disabled]:hover, .vs-btn[aria-disabled="true"]:hover {
+  border-color: var(--tx-0);
+  color: var(--tx-0);
+}
+.vs-btn--primary[disabled]:hover, .vs-btn--primary[aria-disabled="true"]:hover {
+  background: var(--site-signal);
+  border-color: var(--site-signal);
+  color: var(--site-signal-ink);
+}
+.vs-chip[disabled]:hover, .vs-chip[aria-disabled="true"]:hover {
+  border-color: var(--site-text);
+  color: var(--site-text);
+}
+@media (prefers-reduced-motion: reduce) {
+  .vs-btn, .vs-chip, .vs-beta, .vs-play { transition: none; }
+  .vs-btn:active, .vs-chip:active, .vs-beta:active, .vs-play:active,
+  .vs-btn.is-active, .vs-chip.is-active, .vs-beta.is-active, .vs-play.is-active { transform: none; }
 }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.

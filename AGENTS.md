@@ -38,6 +38,7 @@ Rules for differences:
 - **Callouts:** on an app's page, colour the word in the app's colour (`[data-app]` + `<em>` in a heading). The gradient (`.vs-spectrum`) is **parked**; if it returns, hero only. Outlined text was tried and dropped: hard to read.
 - **Links are underlined** by default (every text link: in-text, "open" links, breadcrumbs, footer); hover thickens the line. Buttons and navigation bars are the only links without an underline.
 - **One colour per button (web):** an outline button's border and text always match: white (`.vs-btn`) or the app colour (`.vs-btn--signal`). Never a grey border with coloured text.
+- **States (web):** every button, link and pill has rest / hover #cfcfcf / focus (2px ring in its own colour, 3px out) / pressed (hover colour, 1px down) / selected (filled, or a 2px bar for nav) / disabled (40%, no hover), and is one colour in each. White buttons stay white-family in app sections. See `site/site.css` STATES and the specimen's state matrix.
 - **Outline rule (web):** 5px for buttons (things you press to go somewhere or do something); 2px for everything you select, filter or type into (chips, tags, fields). Colour `--ctrl-edge #757575` (passes 3:1).
 
 ## Type

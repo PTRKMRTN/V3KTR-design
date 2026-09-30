@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.4.2 — 2026-09-30
+Site layer renders differently: states.
+- **One state system for every site button, link and pill** (Patrick): rest, hover (#cfcfcf), focus (2px ring in the element's own colour, 3px out), pressed (hover colour, 1px down), selected (filled / 2px bar), disabled (40%, no hover). One colour per element in every state.
+- White outline buttons stay white-family inside app sections too; only `.vs-btn--signal` uses the app colour.
+- Fixed mixed colours: filter chips, the beta pill (border, text and dot) and the video play button were a grey outline around differently coloured text. The focus ring was aqua everywhere, including neutral pages.
+- Specimen: a state matrix, neutral and inside `[data-app="processor"]`.
+
 ## 0.4.1 — 2026-09-30
 Site layer renders differently: outline buttons.
 - **One colour per button** (Patrick): an outline button's border and text always match. `.vs-btn` is white (border + text); `.vs-btn--signal` is the signal colour (border + text), i.e. the app colour inside `[data-app]`. Hover moves border and text together. Before, inside an app section the text turned aqua while the border stayed grey.

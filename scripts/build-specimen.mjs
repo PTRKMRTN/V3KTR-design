@@ -114,6 +114,11 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .model b{display:block;font:700 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .model p{margin:0;color:var(--tx-1)}
 .src{font:11px var(--mono);color:var(--tx-2)}
+.spec-states{display:grid;grid-template-columns:150px repeat(6,minmax(120px,1fr));gap:10px 14px;align-items:center;overflow-x:auto;padding:16px;background:var(--bg-0)}
+.spec-states[data-app]{background:var(--bg-2)}
+.spec-st-h{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-2)}
+.spec-st-n{font:11px var(--mono);color:var(--tx-2)}
+.spec-na{color:var(--bg-4)}
 .th-pick button{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--bg-3);color:var(--tx-1);border:0;height:28px;padding:0 12px;cursor:pointer}
 .th-pick button[aria-pressed=true]{background:var(--tx-0);color:var(--bg-0)}
 .th-pick button:focus-visible{outline:2px solid var(--tx-0);outline-offset:2px}
