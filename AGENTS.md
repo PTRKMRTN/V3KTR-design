@@ -46,6 +46,12 @@ Layer classes are single classes (0,1,0) on purpose. A consumer's own descendant
 outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descendant/element rules in `:where()`
 (`:where(.facts dd) { color }`), so they have zero weight and layer classes win. (Found by the site-v2 session, 2026-09-30.)
 
+## Status (ready / caution / blocked)
+- Tokens: `--status-ready #00e540`, `--status-caution #f9c200`, `--status-blocked #ff5e7e`, ink on a fill `--on-status`. **PROPOSED, awaiting Patrick**; the names are stable.
+- "Ready" is its own green, not PROCESSOR's aqua: on the neutral site aqua means PROCESSOR only.
+- Never colour alone: a status always has an icon (`brand/status/`: Patrick's pixel check / warning / error) and a word.
+- Site: `[data-status]` + `.vs-verdict` (filled strip) and `.vs-status` (coloured word). Apps: use the tokens.
+
 ## Logos (brand/)
 - Master `logo-v3ktr.svg` (wordmark + DIMENSIONAL FX) and solo `logo-v3ktr-solo.svg` are **neutral**: white or grey, any colour as needed, never an app colour.
 - **An app uses its app logo file** (`logo-v3ktr-processor.svg` etc.): never the wordmark plus separate text (Patrick 2026-09-30).

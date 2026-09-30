@@ -26,6 +26,9 @@ The SVG files are CC0, but **each mark is its owner's trademark**: don't distort
 brand's colours or into a V3KTR app colour, and don't imply endorsement. To update, re-download the same names at a newer
 Simple Icons version and note the version here.
 
+**Status icons (`status/`).** Patrick's pixel icons from the v1 site: `check` (ready), `warning` (caution), `error` (blocked) and
+`close`. `currentColor`; his originals are in `status/source/`. A status is never colour alone: pair the icon with a word.
+
 **Rules.**
 - An app uses its **app logo file**. Never rebuild it from the wordmark plus separate text: the lockup's spacing and type are part of the mark.
 - Don't recolour an app logo to another app's colour, and don't put an app colour on the master or solo mark (the V3KTR brand is neutral).

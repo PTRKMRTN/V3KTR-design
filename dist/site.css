@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.8.0
+/* V3KTR design tokens · v0.9.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -19,6 +19,12 @@
 
   /* Status */
   --danger:#ff5b5b; --danger-dim:#7a2a2a;
+  /* Status: ready / caution / blocked. PROPOSED 2026-09-30, awaiting Patrick (names are stable; values may change).
+     Chosen to stay clear of the app colours and FX-group colours: the green sits between PROCESSOR's aqua and
+     depth's lime (ΔE 45 / 40), the yellow is away from KOMPOSITOR's mandarin (ΔE 55+), the red is ΔE 35 from
+     mandarin (--danger is 17). Each passes 4.5:1 as small text on the ground and panels, and --on-status on it
+     as a fill (10.0 / 10.3 / 5.8). Never colour alone: a status always carries an icon and a word. */
+  --status-ready:#00e540; --status-caution:#f9c200; --status-blocked:#ff5e7e; --on-status:#1c1c1c;
 
   /* FX-group identity colours (independent of the signal colour) */
   /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
@@ -1467,6 +1473,44 @@
    and icon, for an FX family, it takes the family colour: the family name, its effect names, an effect page's title
    and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
 .vs-group-title { color: var(--gcol, inherit); }
+
+/* ══ STATUS (ready / caution / blocked) ═══════════════════════════════════════
+   For checks and results (e.g. the browser check). Never colour alone: always an icon (brand/status) and a word.
+   [data-status="ready|caution|blocked"] sets --status; neutral without it.
+   .vs-verdict  a full-width strip FILLED with the state colour, dark ink.
+   .vs-status   a word (PASS / FAILED / SKIPPED) or line in the state colour, on the ground or a panel.
+   .vs-status__icon  the icon: 1em square, takes the text colour (inline SVG or a mask). */
+[data-status="ready"]   { --status: var(--status-ready); }
+[data-status="caution"] { --status: var(--status-caution); }
+[data-status="blocked"] { --status: var(--status-blocked); }
+.vs-verdict {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--status, var(--bg-2));
+  color: var(--on-status);
+  font-size: 18px;
+  font-weight: 700;
+}
+.vs-verdict:not([data-status]) { color: var(--site-heading); }   /* no state yet: a neutral panel, never white on white */
+.vs-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--status, var(--site-muted));
+}
+.vs-status__icon {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+}
+.vs-verdict .vs-status__icon { width: 20px; height: 20px; }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */

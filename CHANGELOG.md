@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.9.0 — 2026-09-30
+Adds status. Nothing existing changes.
+- **Status tokens (PROPOSED, awaiting Patrick; names stable):** `--status-ready #00e540`, `--status-caution #f9c200`, `--status-blocked #ff5e7e`, `--on-status #1c1c1c`. Each passes 4.5:1 as small text on the ground and panels and as a fill under dark ink, and stays clear of the app and FX-group colours.
+- **Site:** `[data-status="ready|caution|blocked"]`, `.vs-verdict` (filled strip; neutral panel with no state), `.vs-status` (coloured word), `.vs-status__icon`.
+- **Status icons:** `brand/status/` check / warning / error / close: Patrick's pixel icons from the v1 site, `currentColor`.
+
 ## 0.8.0 — 2026-09-30
 Adds assets; no CSS changes.
 - `brand/social/`: Instagram, X, YouTube, Bluesky, Facebook, TikTok from Simple Icons v16.33.0 (CC0), `currentColor`. Approved by Patrick. Each mark remains its owner's trademark: neutral colour only, no distortion. Notes in `brand/README.md`.

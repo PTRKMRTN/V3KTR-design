@@ -1389,6 +1389,44 @@
    and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
 .vs-group-title { color: var(--gcol, inherit); }
 
+/* ══ STATUS (ready / caution / blocked) ═══════════════════════════════════════
+   For checks and results (e.g. the browser check). Never colour alone: always an icon (brand/status) and a word.
+   [data-status="ready|caution|blocked"] sets --status; neutral without it.
+   .vs-verdict  a full-width strip FILLED with the state colour, dark ink.
+   .vs-status   a word (PASS / FAILED / SKIPPED) or line in the state colour, on the ground or a panel.
+   .vs-status__icon  the icon: 1em square, takes the text colour (inline SVG or a mask). */
+[data-status="ready"]   { --status: var(--status-ready); }
+[data-status="caution"] { --status: var(--status-caution); }
+[data-status="blocked"] { --status: var(--status-blocked); }
+.vs-verdict {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--status, var(--bg-2));
+  color: var(--on-status);
+  font-size: 18px;
+  font-weight: 700;
+}
+.vs-verdict:not([data-status]) { color: var(--site-heading); }   /* no state yet: a neutral panel, never white on white */
+.vs-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: var(--site-fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--status, var(--site-muted));
+}
+.vs-status__icon {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+}
+.vs-verdict .vs-status__icon { width: 20px; height: 20px; }
+
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
 [data-app] {
