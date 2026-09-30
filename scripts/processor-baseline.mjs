@@ -14,8 +14,9 @@ const URL_ = process.argv[2] || 'http://localhost:5050/';
 const OUT = process.argv[3] || fileURLToPath(new URL('../baselines/processor/', import.meta.url));
 mkdirSync(OUT, { recursive: true });
 
+const [VW, VH] = (process.env.VIEW || '1600x1000').split('x').map(Number);   // window size, e.g. VIEW=1280x800
 const browser = await chromium.launch({ channel: 'msedge' });
-const page = await browser.newPage({ viewport: { width: 1600, height: 1000 }, deviceScaleFactor: 2 });
+const page = await browser.newPage({ viewport: { width: VW, height: VH }, deviceScaleFactor: 2 });
 page.on('pageerror', (e) => console.log('pageerror', e.message));
 await page.goto(URL_, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1500);
@@ -44,7 +45,7 @@ for (const i of [0, 5, 12]) {
   if (i < railCount) { await railBtns.nth(i).click(); await page.waitForTimeout(1500); }
 }
 await page.waitForTimeout(2000);
-await page.mouse.move(700, 980);   // off the rail, so no tooltip is showing
+await page.mouse.move(40, VH - 40);   // off the rail, so no tooltip is showing
 await page.waitForTimeout(400);
 await shot('02-app-loaded', 'Whole app: sample image, three effects in the stack', null);
 await shot('03-topbar', 'Top bar: menus, document name, actions', '.topbar');
@@ -55,14 +56,14 @@ await shot('07-params', 'Parameter panel as it first shows (selected effect: Dit
 
 // an effect with sliders: select the Blur layer
 const blur = page.locator('#stackList .layer', { hasText: 'Blur' }).first();
-if (await blur.count()) { await blur.locator('.lname').click(); await page.waitForTimeout(800); await page.mouse.move(700, 980); await shot('07b-params-sliders', 'Parameter panel, slider-heavy effect (Blur)', '#params'); }
+if (await blur.count()) { await blur.locator('.lname').click(); await page.waitForTimeout(800); await page.mouse.move(40, VH - 40); await shot('07b-params-sliders', 'Parameter panel, slider-heavy effect (Blur)', '#params'); }
 
 // full-length parameter panel: a taller window so the panel doesn't scroll
 await page.locator('#stackList .layer', { hasText: 'Dither' }).first().locator('.lname').click();
-await page.setViewportSize({ width: 1600, height: 2200 });
+await page.setViewportSize({ width: VW, height: 2200 });
 await page.waitForTimeout(800); await page.mouse.move(700, 2100);
 await shot('07c-params-full', 'Parameter panel, full length (window made taller so nothing scrolls)', '#params');
-await page.setViewportSize({ width: 1600, height: 1000 });
+await page.setViewportSize({ width: VW, height: VH });
 await page.waitForTimeout(800);
 
 // a menu open
@@ -70,7 +71,7 @@ await page.click('.menu[data-menu="file"]');
 await page.waitForTimeout(400);
 const tb = await box('.topbar'); const mf = await box('#menuFile');
 if (tb && mf) await shot('08-menu-file', 'File menu open', { x: 0, y: 0, width: Math.max(tb.width * 0.4, mf.x + mf.width + 20), height: mf.y + mf.height + 16 });
-await page.keyboard.press('Escape'); await page.mouse.click(700, 980);
+await page.keyboard.press('Escape'); await page.mouse.click(40, VH - 40);
 await page.waitForTimeout(300);
 
 // Explorer + Motion workspaces
@@ -132,6 +133,6 @@ const data = await page.evaluate(() => {
   return { table, containers, tight: Object.values(tp).sort((a, b) => a.gap - b.gap || b.n - a.n), clipped: clipped.slice(0, 60) };
 });
 
-writeFileSync(OUT + 'baseline.json', JSON.stringify({ version, url: URL_, viewport: '1600x1000 @2x', captured: new Date().toISOString(), shots, ...data }, null, 2));
+writeFileSync(OUT + 'baseline.json', JSON.stringify({ version, url: URL_, viewport: `${VW}x${VH} @2x`, captured: new Date().toISOString(), shots, ...data }, null, 2));
 console.log(`version ${version}: ${shots.length} shots, ${data.table.length} control classes, ${data.tight.length} tight pairs, ${data.clipped.length} clipped`);
 await browser.close();

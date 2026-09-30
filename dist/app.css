@@ -34,7 +34,7 @@
 
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
-  --pad:12px; --row-h:28px;
+  --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
@@ -104,7 +104,7 @@
 /* from the shared mono/UPPERCASE rule (.btn,.gen-btn,.seg button,.filter-chip,.looks-act-btn,.rz-btn,
    .crop-bar-btn,.ui-btn,.dlr-btn,.inline-btn) + .inline-btn / .looks-act-btn / .rz-btn / .ui-btn /
    .dlr-btn / .crop-bar-btn / .topbar .btn / .mask-btn  (REGULAR) */
-.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:var(--bg-3);
+.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:var(--bg-3);
   border:none;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;cursor:pointer;
   white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn:hover, .looks-act-btn:hover, .rz-btn:hover, .ui-btn:hover, .gen-btn:hover ... */
@@ -148,7 +148,7 @@
 /* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
 /* OUTLINE 2px, ROOMIER (Patrick 2026-09-30): 2px in --ctrl-edge (3:1) with the original padding kept, so each control
    grows 2px. Live PROCESSOR is still 1px --ctrl-line; this lands in Patrick's PROCESSOR spacing pass, which sets the app standard. */
-.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:5px 10px;background:transparent;
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:transparent;
   border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
   cursor:pointer;white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn.tog:hover */
@@ -174,10 +174,10 @@
 /* ---------------------------------------------------------------- segmented (one-of-N) */
 
 /* from .seg */
-.vk-seg{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;}
+.vk-seg{display:flex;flex-wrap:wrap;gap:3px;margin:19px 0;}
 /* from .seg button (note: no letter-spacing, unlike the Regular button) */
 .vk-seg button{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
-  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:5px 10px;cursor:pointer;}
+  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:8px 14px;cursor:pointer;}
 /* from .seg button:hover */
 .vk-seg button:hover,
 .vk-seg button.is-hover{background:var(--hover);color:var(--on-accent);}
@@ -238,7 +238,7 @@
 .vk-switch[aria-checked="true"]::after{left:16px;background:var(--accent);}
 
 /* from .scrub (the track: drag anywhere to set; --fill is the value as a %) */
-.vk-scrub{position:relative;height:var(--row-h);background:var(--bg-2);margin:5px 0;display:flex;
+.vk-scrub{position:relative;height:var(--row-h);background:var(--bg-2);margin:3px 0;display:flex;
   align-items:center;cursor:ew-resize;overflow:hidden;--fill:50%;touch-action:none;}
 /* from .scrub .fill */
 .vk-scrub__fill{position:absolute;left:0;top:0;bottom:0;width:var(--fill);
@@ -260,7 +260,7 @@
   text-transform:uppercase;color:var(--tx-0);line-height:1;}
 /* from .sec-label, .gen-secname (sub-section inside a panel) */
 .vk-sec-label{font-size:10px;font-weight:var(--head-weight);letter-spacing:var(--head-track);text-transform:uppercase;
-  color:var(--tx-0);margin:11px 0 7px;display:flex;align-items:center;gap:6px;}
+  color:var(--tx-0);margin:12px 0 14px;display:flex;align-items:center;gap:6px;}
 /* from .sec-sub */
 .vk-sec-sub{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-2);padding:18px 0 11px;opacity:0.85;}
 /* from .rail-group-label (FX-group heading in its group colour via --gcol) */
@@ -289,7 +289,7 @@
 /* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
 .vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
 /* from .menu */
-.vk-menu{color:var(--accent);padding:4px 9px;font-size:12.5px;cursor:default;position:relative;}
+.vk-menu{color:var(--accent);padding:4px 14px;font-size:12.5px;cursor:default;position:relative;}
 /* from .menu:hover */
 .vk-menu:hover,
 .vk-menu.is-hover{color:var(--hover);}
@@ -456,7 +456,7 @@
 .vk-panel--float{display:flex;align-items:center;gap:8px;padding:8px 12px;box-shadow:var(--app-shadow-float);}
 
 /* from .layer (FX stack row); .motion-item is the same pattern */
-.vk-layer{display:flex;align-items:center;gap:8px;padding:7px 8px;margin:2px 0;background:var(--bg-2);
+.vk-layer{display:flex;align-items:center;gap:8px;padding:8px 8px;margin:3px 0;background:var(--bg-2);
   cursor:pointer;border-left:2px solid transparent;}
 /* from .layer:hover */
 .vk-layer:hover,

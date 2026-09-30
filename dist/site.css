@@ -34,7 +34,7 @@
 
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
-  --pad:12px; --row-h:28px;
+  --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 

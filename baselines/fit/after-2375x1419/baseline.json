@@ -1,0 +1,609 @@
+{
+  "version": "v0.571.0",
+  "url": "http://localhost:5058/",
+  "viewport": "2375x1419 @2x",
+  "captured": "2026-09-30T03:44:59.856Z",
+  "shots": [
+    {
+      "name": "01-app-empty",
+      "file": "01-app-empty.png",
+      "what": "Whole app, no image loaded"
+    },
+    {
+      "name": "02-app-loaded",
+      "file": "02-app-loaded.png",
+      "what": "Whole app: sample image, three effects in the stack"
+    },
+    {
+      "name": "03-topbar",
+      "file": "03-topbar.png",
+      "what": "Top bar: menus, document name, actions"
+    },
+    {
+      "name": "04-ws-tabs",
+      "file": "04-ws-tabs.png",
+      "what": "Workspace tabs"
+    },
+    {
+      "name": "05-rail",
+      "file": "05-rail.png",
+      "what": "FX rail: group chips and effect buttons"
+    },
+    {
+      "name": "06-stack",
+      "file": "06-stack.png",
+      "what": "FX stack (layers)"
+    },
+    {
+      "name": "07-params",
+      "file": "07-params.png",
+      "what": "Parameter panel as it first shows (selected effect: Dither, chip-heavy)"
+    },
+    {
+      "name": "07b-params-sliders",
+      "file": "07b-params-sliders.png",
+      "what": "Parameter panel, slider-heavy effect (Blur)"
+    },
+    {
+      "name": "07c-params-full",
+      "file": "07c-params-full.png",
+      "what": "Parameter panel, full length (window made taller so nothing scrolls)"
+    },
+    {
+      "name": "08-menu-file",
+      "file": "08-menu-file.png",
+      "what": "File menu open"
+    },
+    {
+      "name": "09-explorer",
+      "file": "09-explorer.png",
+      "what": "FX EXPLORER workspace"
+    },
+    {
+      "name": "10-motion",
+      "file": "10-motion.png",
+      "what": "FX MOTION workspace"
+    },
+    {
+      "name": "11-motion-panel",
+      "file": "11-motion-panel.png",
+      "what": "Motion panel"
+    }
+  ],
+  "table": [
+    {
+      "key": "div.rail-btn",
+      "regions": "rail",
+      "count": 93,
+      "h": "41",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button",
+      "regions": "params",
+      "count": 22,
+      "h": "30",
+      "pad": "8 14 8 14",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.rail-chip",
+      "regions": "rail",
+      "count": 10,
+      "h": "17",
+      "pad": "3 5 3 5",
+      "gap": "",
+      "fs": "8px",
+      "border": "1px",
+      "margin": ""
+    },
+    {
+      "key": "div.menu",
+      "regions": "topbar",
+      "count": 5,
+      "h": "25",
+      "pad": "4 14 4 14",
+      "gap": "",
+      "fs": "12.5px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.scrub",
+      "regions": "params",
+      "count": 5,
+      "h": "26",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": "3 0 3 0"
+    },
+    {
+      "key": "span.txt-action",
+      "regions": "stack",
+      "count": 4,
+      "h": "20",
+      "pad": "5 10 5 10",
+      "gap": "normal",
+      "fs": "10px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.layer",
+      "regions": "stack",
+      "count": 4,
+      "h": "48",
+      "pad": "8 8 8 8",
+      "gap": "8px",
+      "fs": "13px",
+      "border": "0px",
+      "margin": "3 0 3 0"
+    },
+    {
+      "key": "div.eye",
+      "regions": "stack",
+      "count": 4,
+      "h": "15",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.iso-toggle",
+      "regions": "stack",
+      "count": 4,
+      "h": "14",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.lock-toggle",
+      "regions": "stack",
+      "count": 4,
+      "h": "14",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.lname",
+      "regions": "stack",
+      "count": 4,
+      "h": "32",
+      "pad": "0 0 0 0",
+      "gap": "",
+      "fs": "12px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.lmask",
+      "regions": "stack",
+      "count": 4,
+      "h": "18",
+      "pad": "3 7 3 7",
+      "gap": "",
+      "fs": "9px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.del",
+      "regions": "stack",
+      "count": 4,
+      "h": "17",
+      "pad": "0 0 0 0",
+      "gap": "",
+      "fs": "12px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button.motion-dot",
+      "regions": "params",
+      "count": 4,
+      "h": "28",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13.3333px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.ws-tab",
+      "regions": "ws-tabs",
+      "count": 3,
+      "h": "20",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button.",
+      "regions": "params",
+      "count": 3,
+      "h": "30",
+      "pad": "8 14 8 14",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.cc-btn",
+      "regions": "other",
+      "count": 2,
+      "h": "26",
+      "pad": "0 8 0 8",
+      "gap": "5px",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button.cs-trigger",
+      "regions": "other params",
+      "count": 2,
+      "h": "24 / 26",
+      "pad": "5 9 5 9",
+      "gap": "10px",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button.inline-btn",
+      "regions": "params",
+      "count": 2,
+      "h": "34 / 40",
+      "pad": "8 14 8 14",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "button.inline-btn.tog",
+      "regions": "params",
+      "count": 2,
+      "h": "34",
+      "pad": "8 14 8 14",
+      "gap": "",
+      "fs": "11px",
+      "border": "2px",
+      "margin": "0 0 0 -2"
+    },
+    {
+      "key": "div.cc-btn.mono",
+      "regions": "other",
+      "count": 1,
+      "h": "26",
+      "pad": "0 8 0 8",
+      "gap": "5px",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "select.cc-select.mono",
+      "regions": "other",
+      "count": 1,
+      "h": "1",
+      "pad": "0 6 0 6",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "input.inline-field",
+      "regions": "stack",
+      "count": 1,
+      "h": "27",
+      "pad": "5 8 5 8",
+      "gap": "",
+      "fs": "11.5px",
+      "border": "1px",
+      "margin": ""
+    },
+    {
+      "key": "div.inline-btn",
+      "regions": "stack",
+      "count": 1,
+      "h": "30",
+      "pad": "8 14 8 14",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.inline-btn.ghost",
+      "regions": "stack",
+      "count": 1,
+      "h": "25",
+      "pad": "5 8 5 8",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.blend-row",
+      "regions": "params",
+      "count": 1,
+      "h": "26",
+      "pad": "0 9 0 9",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": "3 0 3 0"
+    },
+    {
+      "key": "select.blend-select",
+      "regions": "params",
+      "count": 1,
+      "h": "1",
+      "pad": "0 22 0 8",
+      "gap": "",
+      "fs": "11px",
+      "border": "0px",
+      "margin": ""
+    },
+    {
+      "key": "div.tog-row",
+      "regions": "params",
+      "count": 1,
+      "h": "26",
+      "pad": "0 9 0 9",
+      "gap": "normal",
+      "fs": "13px",
+      "border": "0px",
+      "margin": "3 0 3 0"
+    },
+    {
+      "key": "div.switch",
+      "regions": "params",
+      "count": 1,
+      "h": "16",
+      "pad": "0 0 0 0",
+      "gap": "",
+      "fs": "13px",
+      "border": "0px",
+      "margin": ""
+    }
+  ],
+  "containers": [
+    {
+      "sel": ".topbar",
+      "pad": "0 22 0 22",
+      "gap": "2px",
+      "w": 1798
+    },
+    {
+      "sel": "#wsTabs",
+      "pad": "0 0 0 0",
+      "gap": "22px",
+      "w": 577
+    },
+    {
+      "sel": "#rail",
+      "pad": "8 12 12 0",
+      "gap": "6px",
+      "w": 177
+    },
+    {
+      "sel": ".rail-section",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "w": 165
+    },
+    {
+      "sel": ".rail-grid",
+      "pad": "0 0 0 0",
+      "gap": "1px",
+      "w": 165
+    },
+    {
+      "sel": ".side",
+      "pad": "0 0 0 0",
+      "gap": "normal",
+      "w": 400
+    },
+    {
+      "sel": ".stack",
+      "pad": "0 0 12 0",
+      "gap": "normal",
+      "w": 400
+    },
+    {
+      "sel": "#stackList",
+      "pad": "2 22 4 22",
+      "gap": "normal",
+      "w": 400
+    },
+    {
+      "sel": "#params",
+      "pad": "0 0 8 0",
+      "gap": "normal",
+      "w": 400
+    },
+    {
+      "sel": ".roll-group",
+      "pad": "3 3 3 3",
+      "gap": "0px",
+      "w": 272
+    },
+    {
+      "sel": ".seg",
+      "pad": "0 0 0 0",
+      "gap": "3px",
+      "w": 356
+    }
+  ],
+  "tight": [
+    {
+      "a": "button.inline-btn",
+      "b": "button.inline-btn.tog",
+      "gap": 0,
+      "where": "params",
+      "text": "Randomise | +Features",
+      "n": 1
+    },
+    {
+      "a": "div.rail-btn",
+      "b": "div.rail-btn",
+      "gap": 1,
+      "where": "rail",
+      "text": "Brightness/ContrastAdjus | ExposureBrighten or dark",
+      "n": 124
+    },
+    {
+      "a": "div.cc-btn.mono",
+      "b": "div.cc-btn",
+      "gap": 1,
+      "where": "other",
+      "text": "fit | ◐ orig",
+      "n": 1
+    },
+    {
+      "a": "div.cc-btn",
+      "b": "div.cc-btn",
+      "gap": 1,
+      "where": "other",
+      "text": "◐ orig | controls",
+      "n": 1
+    },
+    {
+      "a": "div.cc-btn",
+      "b": "button.cs-trigger",
+      "gap": 1,
+      "where": "other",
+      "text": "controls | auto",
+      "n": 1
+    },
+    {
+      "a": "div.menu",
+      "b": "div.menu",
+      "gap": 2,
+      "where": "topbar",
+      "text": "File\n      \n        New  | Edit\n      \n        Undo",
+      "n": 4
+    },
+    {
+      "a": "div.scrub",
+      "b": "button.motion-dot",
+      "gap": 2,
+      "where": "params",
+      "text": "Pixel Scale\n        4px | ",
+      "n": 4
+    },
+    {
+      "a": "button",
+      "b": "button",
+      "gap": 3,
+      "where": "params",
+      "text": "Bayer 2x2 | Blue Noise",
+      "n": 34
+    },
+    {
+      "a": "div.rail-chip",
+      "b": "div.rail-chip",
+      "gap": 3,
+      "where": "rail",
+      "text": "All | Adjust",
+      "n": 17
+    },
+    {
+      "a": "button.",
+      "b": "button",
+      "gap": 3,
+      "where": "params",
+      "text": "Bayer 4x4 | Bayer 8x8",
+      "n": 5
+    },
+    {
+      "a": "div.layer",
+      "b": "div.layer",
+      "gap": 3,
+      "where": "stack",
+      "text": "Dither #2Mono · Bayer 4x | Blurgaussian · r 8.4\n   ",
+      "n": 3
+    },
+    {
+      "a": "button.motion-dot",
+      "b": "button.motion-dot",
+      "gap": 3,
+      "where": "params",
+      "text": " | ",
+      "n": 3
+    },
+    {
+      "a": "div.scrub",
+      "b": "div.blend-row",
+      "gap": 3,
+      "where": "params",
+      "text": "Mix\n      100% | Mode\n      \n        Norm",
+      "n": 1
+    },
+    {
+      "a": "button",
+      "b": "button.",
+      "gap": 3,
+      "where": "params",
+      "text": "Bayer 2x2 | Bayer 4x4",
+      "n": 1
+    },
+    {
+      "a": "button.motion-dot",
+      "b": "div.tog-row",
+      "gap": 3,
+      "where": "params",
+      "text": " | Invert",
+      "n": 1
+    },
+    {
+      "a": "div.scrub",
+      "b": "select.blend-select",
+      "gap": 3.8,
+      "where": "params",
+      "text": "Mix\n      100% | NormalMultiplyScreenOver",
+      "n": 1
+    },
+    {
+      "a": "div.scrub",
+      "b": "button.cs-trigger",
+      "gap": 3.8,
+      "where": "params",
+      "text": "Mix\n      100% | Normal",
+      "n": 1
+    }
+  ],
+  "clipped": [
+    {
+      "el": "h1.sr-only",
+      "where": "topbar",
+      "text": "V3KTR — Dimensional Image FX Processor",
+      "shown": 1,
+      "needs": 520
+    }
+  ]
+}
