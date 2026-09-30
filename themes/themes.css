@@ -14,6 +14,9 @@
   --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
   --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
 }
+/* The focus ring is declared in core as `2px solid var(--accent)`; a custom property resolves var() where it is
+   declared (:root), so it would stay aqua inside every app. Each theme restates it so the ring is the app's colour. */
+[data-app] { --focus-ring: 2px solid var(--accent); }
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }

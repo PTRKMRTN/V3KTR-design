@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.6.0
+/* V3KTR design tokens · v0.7.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -21,10 +21,13 @@
   --danger:#ff5b5b; --danger-dim:#7a2a2a;
 
   /* FX-group identity colours (independent of the signal colour) */
-  --depth:#00e5a0; --adjust:#9aa0a6; --rust:#a85d4e;
-  --type-amber:#b08847; --type-rust:#a85d4e; --type-rose:#9d5a6e;
-  --type-sage:#6e8f6a; --type-teal:#5a8a8f; --type-slate:#6a7280;
-  --type-violet:#8a6db0;
+  /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
+     labels and group chips can use it. Depth is lime: all three apps use depth, so it no longer reuses
+     PROCESSOR's aqua. Six were lifted in lightness only (same hue and intensity) to pass. */
+  --depth:#b1e800; --adjust:#9aa0a6; --rust:#cd7f6e;
+  --type-amber:#b58d4c; --type-rust:#cd7f6e; --type-rose:#c67f93;
+  --type-sage:#7b9c76; --type-teal:#6b9ca1; --type-slate:#8c94a3;
+  --type-violet:#a386cb;
 
   /* Type */
   --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
@@ -54,6 +57,9 @@
   --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
   --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
 }
+/* The focus ring is declared in core as `2px solid var(--accent)`; a custom property resolves var() where it is
+   declared (:root), so it would stay aqua inside every app. Each theme restates it so the ring is the app's colour. */
+[data-app] { --focus-ring: 2px solid var(--accent); }
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
@@ -1420,6 +1426,15 @@
   .vs-chip{text-box:trim-both cap alphabetic;}   /* a <button> with min-height: it centres the trimmed line itself */
   .vs-tags > li{text-box:trim-both cap alphabetic;padding-block:calc(7px + (1lh - 0.73em) / 2);}
 }
+
+/* ══ FX-GROUP CHIPS (Patrick 2026-09-30) ═══════════════════════════════════════
+   The one exception to the neutral site: a chip that labels an FX group may use the group's colour. Set --gcol
+   to var(--depth) / var(--adjust) / var(--type-*). One colour at rest; filled with dark ink when selected. */
+.vs-chip--group { border-color: var(--gcol, var(--site-text)); color: var(--gcol, var(--site-text)); }
+.vs-chip--group:hover, .vs-chip--group.is-hover,
+.vs-chip--group:active, .vs-chip--group.is-active { border-color: var(--gcol, var(--site-signal)); color: var(--gcol, var(--site-signal)); filter: brightness(1.25); }
+.vs-chip--group[aria-pressed="true"] { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); }
+.vs-chip--group[aria-pressed="true"]:hover, .vs-chip--group[aria-pressed="true"].is-hover { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); filter: brightness(1.15); }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */

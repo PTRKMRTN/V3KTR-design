@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.6.0
+/* V3KTR design tokens · v0.7.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -21,10 +21,13 @@
   --danger:#ff5b5b; --danger-dim:#7a2a2a;
 
   /* FX-group identity colours (independent of the signal colour) */
-  --depth:#00e5a0; --adjust:#9aa0a6; --rust:#a85d4e;
-  --type-amber:#b08847; --type-rust:#a85d4e; --type-rose:#9d5a6e;
-  --type-sage:#6e8f6a; --type-teal:#5a8a8f; --type-slate:#6a7280;
-  --type-violet:#8a6db0;
+  /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
+     labels and group chips can use it. Depth is lime: all three apps use depth, so it no longer reuses
+     PROCESSOR's aqua. Six were lifted in lightness only (same hue and intensity) to pass. */
+  --depth:#b1e800; --adjust:#9aa0a6; --rust:#cd7f6e;
+  --type-amber:#b58d4c; --type-rust:#cd7f6e; --type-rose:#c67f93;
+  --type-sage:#7b9c76; --type-teal:#6b9ca1; --type-slate:#8c94a3;
+  --type-violet:#a386cb;
 
   /* Type */
   --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;

@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.7.0 — 2026-09-30
+Consumers render differently: FX-group colours, chip centring, app focus ring.
+- **FX-group colours LOCKED** (Patrick): all nine pass 4.5:1 as small text on panels. Six lifted in lightness only: amber `#b58d4c`, rust `#cd7f6e`, rose `#c67f93`, sage `#7b9c76`, teal `#6b9ca1`, slate `#8c94a3`, violet `#a386cb`. **Depth is lime `#b1e800`**: it no longer reuses PROCESSOR's aqua. Shipped in PROCESSOR v0.573.0.
+- **FX-group chips use their group colour** (the one exception to the neutral site): app `.vk-chip--group` and new site `.vs-chip--group`, both via `--gcol`. Rest = border and text in the group colour; selected = filled with dark ink.
+- **Chip labels centred**: `text-box: trim-both cap alphabetic` with `(1lh − 0.73em)/2` added back, so heights are unchanged; `.vs-beta` takes a 1px padding shift.
+- **Focus ring in app themes**: `--focus-ring` resolved to aqua everywhere (a custom property resolves `var()` where it's declared). Each `[data-app]` now restates it, so the ring is the app's colour.
+- **Icons**: `brand/icons/` website V3 (white on the ground), app V (dark ink on the app colour); SVG + PNG 32/180/512.
+
 ## 0.6.0 — 2026-09-30
 Adds brand assets; no CSS changes for consumers.
 - `brand/`: Patrick's logos. Master (wordmark + DIMENSIONAL FX), solo wordmark, and the PROCESSOR / KOMPOSITOR / DIMENSOR logos. All `fill: currentColor`; `brand/colour/` has the app logos with their locked colours baked in. Originals untouched in `brand/source/`.

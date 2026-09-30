@@ -1361,6 +1361,15 @@
   .vs-tags > li{text-box:trim-both cap alphabetic;padding-block:calc(7px + (1lh - 0.73em) / 2);}
 }
 
+/* ══ FX-GROUP CHIPS (Patrick 2026-09-30) ═══════════════════════════════════════
+   The one exception to the neutral site: a chip that labels an FX group may use the group's colour. Set --gcol
+   to var(--depth) / var(--adjust) / var(--type-*). One colour at rest; filled with dark ink when selected. */
+.vs-chip--group { border-color: var(--gcol, var(--site-text)); color: var(--gcol, var(--site-text)); }
+.vs-chip--group:hover, .vs-chip--group.is-hover,
+.vs-chip--group:active, .vs-chip--group.is-active { border-color: var(--gcol, var(--site-signal)); color: var(--gcol, var(--site-signal)); filter: brightness(1.25); }
+.vs-chip--group[aria-pressed="true"] { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); }
+.vs-chip--group[aria-pressed="true"]:hover, .vs-chip--group[aria-pressed="true"].is-hover { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); filter: brightness(1.15); }
+
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
 [data-app] {
