@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.10.2
+/* V3KTR design tokens · v0.10.3
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -1554,3 +1554,7 @@
   --site-signal-hover: var(--tx-1);
   --site-signal-ink: var(--bg-0);
 }
+/* The success note is white and the error note red wherever the form sits (Patrick 2026-09-30). Inside a .vs-panel
+   the panel's paragraph rule (.vs-panel p, 0,1,1) outranked the single class and turned the success note grey. */
+.vs-site .vs-signup__note { color: var(--site-signal); }
+.vs-site .vs-signup__note.is-error { color: var(--site-error-ink); }

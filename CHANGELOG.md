@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.3 — 2026-09-30
+- The sign-up success note is white wherever the form sits (Patrick); inside a `.vs-panel` the panel's paragraph rule had turned it grey. The error note stays the status red.
+
 ## 0.10.2 — 2026-09-30
 - **Forms are neutral in every context** (Patrick): `.vs-signup` / `.vs-field` reset `--site-signal`, `-hover` and `-ink` to the neutral site values, so inside `[data-app]` the focus border, focus ring and submit button are white, not the app colour (KOMPOSITOR's mandarin read as a danger state). The error red is unchanged.
 
