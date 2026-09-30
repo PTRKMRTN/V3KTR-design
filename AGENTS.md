@@ -41,6 +41,11 @@ Rules for differences:
 - **States (web):** every button, link and pill has rest / hover #cfcfcf / focus (2px ring in its own colour, 3px out) / pressed (hover colour, 1px down) / selected (filled, or a 2px bar for nav) / disabled (40%, no hover), and is one colour in each. White buttons stay white-family in app sections. See `site/site.css` STATES and the specimen's state matrix.
 - **Outline rule (web):** 5px for buttons (things you press to go somewhere or do something); 2px for everything you select, filter or type into (chips, tags, fields). Colour `--ctrl-edge #757575` (passes 3:1).
 
+## Consumer CSS: let layer classes win
+Layer classes are single classes (0,1,0) on purpose. A consumer's own descendant rule such as `.facts dd { color }` (0,1,1)
+outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descendant/element rules in `:where()`
+(`:where(.facts dd) { color }`), so they have zero weight and layer classes win. (Found by the site-v2 session, 2026-09-30.)
+
 ## Logos (brand/)
 - Master `logo-v3ktr.svg` (wordmark + DIMENSIONAL FX) and solo `logo-v3ktr-solo.svg` are **neutral**: white or grey, any colour as needed, never an app colour.
 - **An app uses its app logo file** (`logo-v3ktr-processor.svg` etc.): never the wordmark plus separate text (Patrick 2026-09-30).
