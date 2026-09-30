@@ -20,3 +20,16 @@
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+
+/* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
+   chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline
+   styles. The map is PROCESSOR's GROUPS; it is the only place it lives. Every group colour passes 4.5:1 as text. */
+[data-group="adjust"]  { --gcol: var(--adjust); }
+[data-group="degrade"] { --gcol: var(--type-sage); }
+[data-group="distort"] { --gcol: var(--type-rust); }
+[data-group="colour"]  { --gcol: var(--type-rose); }
+[data-group="signal"]  { --gcol: var(--type-teal); }
+[data-group="glitch"]  { --gcol: var(--type-violet); }
+[data-group="type"]    { --gcol: var(--type-amber); }
+[data-group="light"]   { --gcol: var(--type-slate); }
+[data-group="depth"]   { --gcol: var(--depth); }

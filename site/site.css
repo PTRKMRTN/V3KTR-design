@@ -1371,6 +1371,11 @@
 .vs-chip--group[aria-pressed="true"] { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); }
 .vs-chip--group[aria-pressed="true"]:hover, .vs-chip--group[aria-pressed="true"].is-hover { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); filter: brightness(1.15); }
 
+/* FX-family titles (Patrick 2026-09-30): the second exception to the neutral site. Where there is a title, or a title
+   and icon, for an FX family, it takes the family colour: the family name, its effect names, an effect page's title
+   and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
+.vs-group-title { color: var(--gcol, inherit); }
+
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
 [data-app] {

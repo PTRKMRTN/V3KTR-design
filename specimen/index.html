@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.7.1 ===== */
-/* V3KTR design tokens · v0.7.1
+/* ===== core: tokens.css v0.7.2 ===== */
+/* V3KTR design tokens · v0.7.2
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -46,7 +46,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.7.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.7.2 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -501,6 +501,10 @@
   .vk-chip,.vk-chip--group{text-box:trim-both cap alphabetic;padding-block:calc(3px + (1lh - 0.73em) / 2);}   /* 1lh = its own line height, wherever it sits */
 }
 
+/* FX-family title in its group colour (Patrick 2026-09-30): a title, or a title with its icon, takes the family colour.
+   Set --gcol, or put it inside [data-group="…"]. */
+.vk-group-title{color:var(--gcol,inherit);}
+
 /* ===== app themes (exploration) ===== */
 /* V3KTR app themes · LOCKED (Patrick 2026-09-30)
    One colour per app. A theme sets ONLY the signal family; greys, fonts and the FX-group colours are core.
@@ -524,6 +528,19 @@
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+
+/* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
+   chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline
+   styles. The map is PROCESSOR's GROUPS; it is the only place it lives. Every group colour passes 4.5:1 as text. */
+[data-group="adjust"]  { --gcol: var(--adjust); }
+[data-group="degrade"] { --gcol: var(--type-sage); }
+[data-group="distort"] { --gcol: var(--type-rust); }
+[data-group="colour"]  { --gcol: var(--type-rose); }
+[data-group="signal"]  { --gcol: var(--type-teal); }
+[data-group="glitch"]  { --gcol: var(--type-violet); }
+[data-group="type"]    { --gcol: var(--type-amber); }
+[data-group="light"]   { --gcol: var(--type-slate); }
+[data-group="depth"]   { --gcol: var(--depth); }
 
 /* ===== site layer ===== */
 /* V3KTR site layer · v0.3.0 · requires tokens.css (core)
@@ -1899,6 +1916,11 @@
 .vs-chip--group[aria-pressed="true"] { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); }
 .vs-chip--group[aria-pressed="true"]:hover, .vs-chip--group[aria-pressed="true"].is-hover { background: var(--gcol, var(--site-signal)); border-color: var(--gcol, var(--site-signal)); color: var(--site-signal-ink); filter: brightness(1.15); }
 
+/* FX-family titles (Patrick 2026-09-30): the second exception to the neutral site. Where there is a title, or a title
+   and icon, for an FX family, it takes the family colour: the family name, its effect names, an effect page's title
+   and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
+.vs-group-title { color: var(--gcol, inherit); }
+
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
 [data-app] {
@@ -1961,7 +1983,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.7.1</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.7.2</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

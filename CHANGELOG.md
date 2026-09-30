@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.7.2 — 2026-09-30
+- **FX group contexts:** `[data-group="adjust|degrade|distort|colour|signal|glitch|type|light|depth"]` sets `--gcol` (themes/themes.css, in both bundles). The group → colour map now lives in one place.
+- **FX-family titles** (Patrick): `.vs-group-title` / `.vk-group-title` colour a family's title, effect names or effect-page title in its group colour. The second exception to the neutral site, after group chips.
+- AGENTS.md: "chips are one colour" and "family titles take the family colour" (Patrick).
+
 ## 0.7.1 — 2026-09-30
 - Icon PNGs are RGBA (were RGB; Next's .ico pipeline refuses RGB). Pixels unchanged.
 - Site: `.vs-tags > li.vs-chip--group` takes the group colour (the tags rule outranked `.vs-chip--group`).
