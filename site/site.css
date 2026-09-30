@@ -271,7 +271,8 @@
   color: var(--site-heading);
   font-size: var(--site-fs-sign);
   letter-spacing: -0.06em;
-  line-height: 0.85;
+  line-height: 0.9;
+  padding-bottom: 0.08em; /* the descender (the p of "deep") must clear the line below (2026-09-30) */
 }
 /* from .v2-page .v2-apphero h1 (app name set in mono) */
 .vs-wordmark {
@@ -646,16 +647,16 @@
 .vs-section {
   padding-block: var(--site-section-y);
 }
-/* from .v2-head-row (section head: title left, lede/action right) */
+/* from .v2-head-row. Section head: the title, then its lede/action UNDER it, all left.
+   Patrick 2026-09-30: no right-aligned or right-pushed text on the site (readability). */
 .vs-head-row {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
 }
 .vs-head-row .vs-lede {
-  max-width: 44ch;
+  max-width: 60ch;
 }
 /* from .v2-stack */
 .vs-stack {
@@ -792,12 +793,10 @@
   height: auto;
   display: block;
 }
-/* from .v2-card__body */
+/* from .v2-card__body. Title and tags only; the per-card "OPEN" link on the right was removed
+   (Patrick 2026-09-30, left-align pass). */
 .vs-card__body {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
+  display: block;
 }
 /* from .v2-page .v2-card h2, h3 */
 .vs-card__title {
@@ -1143,12 +1142,12 @@
 .vs-specs {
   margin: 20px 0 0;
 }
+/* label above value, both left (Patrick 2026-09-30) */
 .vs-specs > div {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  flex-direction: column;
+  gap: 2px;
   padding: 10px 0;
-  flex-wrap: wrap;
 }
 .vs-specs dt {
   color: var(--site-text);
@@ -1157,7 +1156,6 @@
   margin: 0;
   font-family: var(--mono);
   font-size: var(--fs-body);
-  text-align: right;
 }
 
 
