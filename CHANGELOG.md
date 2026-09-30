@@ -4,7 +4,7 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
 ## Unreleased
 - Site layer is **neutral** (Patrick 2026-09-30): white only for links/buttons/active states; headings #b3b3b3, body #a3a3a3, muted #939393; `--site-signal` family replaces `--accent` on the site; `[data-app]` switches it to the app's colour. `--site-signal-ink` is now the ground (site v2's #04120d retires).
-- Site callouts: `.vs-outline`, `.vs-spectrum` (OKLCH gradient of the three app colours), `.vs-spectrum-bar`. Large text only.
+- Site callouts: app-coloured words on app pages (`[data-app]` + `<em>`); `.vs-spectrum` / `.vs-spectrum-bar` under review. `.vs-outline` dropped (hard to read).
 - Themes (exploration): current picks KOMPOSITOR hot mandarin #ff6a43, DIMENSOR violet #9d64ff.
 
 ## 0.2.0 — 2026-09-29

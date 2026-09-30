@@ -227,7 +227,10 @@
   line-height: 0.94;
   letter-spacing: -0.045em;
 }
-.vs-display em {
+.vs-display em,
+.vs-title em,
+.vs-h2 em,
+.vs-subhead em {   /* emphasis in any heading: white on a neutral page, the app colour inside [data-app] */
   font-style: normal;
   color: var(--site-signal);
 }
@@ -1152,26 +1155,13 @@
 
 
 /* ══ CALLOUTS IN NEUTRAL SPACE (Patrick 2026-09-30) ══════════════════════════
-   Where site v2 used aqua for emphasis, the neutral site uses one of two treatments.
-   LARGE TEXT ONLY (24px+): a 1-2px outline or a gradient is not readable at body size, and the violet end of
-   the gradient is 4.4:1, which passes WCAG's 3:1 for large text but not 4.5:1 for small text.
+   Where site v2 used aqua for emphasis:
+   1. On an app's page: colour the word in that app's colour. Wrap the page or section in [data-app="…"];
+      an <em> inside a heading then takes the app colour (via --site-signal). This is the default.
+   2. Where all three apps are the subject: .vs-spectrum (UNDER REVIEW, Patrick 2026-09-30: "pops, maybe too much").
+      Use at most once per page. LARGE TEXT ONLY (24px+): the violet end is 4.4:1, which passes 3:1 for large text only.
+   Outlined text was tried and dropped (hard to read).
    Small emphasis (captions, eyebrows, tags) stays solid white: .vs-cap--signal, .vs-eyebrow--signal. */
-
-/* Outlined: the letters drawn as a stroke. Takes --site-signal, so inside [data-app] it becomes the app colour. */
-.vs-outline,
-.vs-display .vs-outline {   /* beats .vs-display em */
-  font-style: normal;
-  /* Manrope's glyphs are built from overlapping shapes, so a plain stroke draws their inner seams.
-     Instead: stroke at double width, then paint the fill over it in the colour behind the text,
-     leaving only the outer half of the stroke. On a panel, set --site-outline-bg: var(--bg-2). */
-  color: var(--site-outline-bg, var(--bg-0));
-  -webkit-text-stroke: max(2px, .05em) var(--site-signal);
-  paint-order: stroke fill;
-  letter-spacing: -.01em;   /* the display sizes track tighter than this; overlapping letters would merge outlines */
-}
-@supports not (-webkit-text-stroke: 1px black) {
-  .vs-outline, .vs-display .vs-outline { color: var(--site-signal); }   /* no stroke support: fall back to solid white */
-}
 
 /* Spectrum: the three app colours across the words. Solid white first, so a browser without
    background-clip:text still shows readable text. */
