@@ -29,5 +29,10 @@ To take a change, bump the pinned tag in the app and rebuild. A weekly drift che
 
 **Referencing it.** Each app repo's `CLAUDE.md` points here, so any design build reads `AGENTS.md` and uses tokens instead of raw values.
 
+## Who pulls what
+- **PROCESSOR:** `design.json` + `scripts/pull-design.mjs` write `tokens.css` + `themes/themes.css` at a pinned tag into a generated block in `index.html`; the build checks it.
+- **Website (site-v2):** `design.json` + `scripts/pull-design.mjs` vendor `dist/site.css` and `brand/` at a pinned tag, with a prebuild check.
+- **KOMPOSITOR, DIMENSOR:** not yet; their CLAUDE.md points design work here.
+
 ## Changing something
 Edit `tokens.css` or a layer → `node scripts/build-json.mjs && node scripts/build-dist.mjs && node scripts/build-specimen.mjs` → CHANGELOG entry → bump the version in the `tokens.css` header → tag `vX.Y.Z`. Layer rules are in `AGENTS.md`.

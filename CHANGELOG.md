@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.4 — 2026-10-01
+- **Workspace separators are 2px in every app** (Patrick): `--stroke` in `--line`; new `.vk-sep` / `.vk-sep--v` in the app layer. Shipped in PROCESSOR v0.578.0.
+- PROCESSOR now pulls its tokens from this repo (v0.577.0, pinned to v0.10.3 in its design.json), pixel-identical.
+
 ## 0.10.3 — 2026-09-30
 - The sign-up success note is white wherever the form sits (Patrick); inside a `.vs-panel` the panel's paragraph rule had turned it grey. The error note stays the status red.
 

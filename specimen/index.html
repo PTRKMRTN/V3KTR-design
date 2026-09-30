@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.10.3 ===== */
-/* V3KTR design tokens · v0.10.3
+/* ===== core: tokens.css v0.10.4 ===== */
+/* V3KTR design tokens · v0.10.4
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -52,7 +52,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.10.3 · requires tokens.css (core)
+/* V3KTR app layer · v0.10.4 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -510,6 +510,12 @@
 /* FX-family title in its group colour (Patrick 2026-09-30): a title, or a title with its icon, takes the family colour.
    Set --gcol, or put it inside [data-group="…"]. */
 .vk-group-title{color:var(--gcol,inherit);}
+
+/* WORKSPACE SEPARATORS (Patrick 2026-10-01): the lines that divide the workspace into areas (panel ↔ panel,
+   stack ↔ parameters, section ↔ section) are --stroke (2px) in --line, in every app. As shipped in PROCESSOR
+   v0.578.0. Control outlines (inputs, cards, menus) are not separators and keep their own widths. */
+.vk-sep{height:var(--stroke);background:var(--line);border:0;margin:0;flex:0 0 auto;}
+.vk-sep--v{width:var(--stroke);height:auto;align-self:stretch;}
 
 /* ===== app themes (exploration) ===== */
 /* V3KTR app themes · LOCKED (Patrick 2026-09-30)
@@ -2079,7 +2085,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.10.3</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.10.4</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
