@@ -862,6 +862,10 @@
   background: var(--bg-2);
   font-size: 18px;
   font-weight: 700;
+  margin-top: 48px;   /* Patrick 2026-09-30 (standard): room between a section's lede or head and the callout under it */
+}
+.vs-callout:first-child {
+  margin-top: 0;      /* a callout that opens its container has nothing above it to separate from */
 }
 /* from .v2-tiers */
 .vs-tiers {

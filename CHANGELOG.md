@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.7.4 — 2026-09-30
+- `.vs-callout` gets 48px above it (Patrick: the lede → callout gap is the standard); none when it's the first child of its container.
+
 ## 0.7.3 — 2026-09-30
 Site layer renders differently: footer.
 - Footer (Patrick): link groups sit together after the logo, columns sized to content (`auto` ×4, `justify-content: start`, column gap `clamp(40px, 5vw, 80px)`); two columns under 900px with the brand full width. Was four fractional columns across the full width.
