@@ -49,6 +49,7 @@ outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descenda
 ## Logos (brand/)
 - Master `logo-v3ktr.svg` (wordmark + DIMENSIONAL FX) and solo `logo-v3ktr-solo.svg` are **neutral**: white or grey, any colour as needed, never an app colour.
 - **An app uses its app logo file** (`logo-v3ktr-processor.svg` etc.): never the wordmark plus separate text (Patrick 2026-09-30).
+- Social links use the icons in `brand/social/` (Simple Icons, CC0; third-party trademarks: neutral colour only, never an app colour).
 - All files use `currentColor`; `brand/colour/` has the app logos with their colour baked in for places CSS can't reach. Rules in `brand/README.md`.
 
 ## Type

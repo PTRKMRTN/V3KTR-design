@@ -18,6 +18,14 @@ set `color` on the element (inline SVG), or use the file as a CSS mask over `bac
 The master and solo marks are neutral: white (`--tx-0`) or grey (`#a3a3a3`) on the dark ground, or any colour a context needs.
 App logos take their app colour: `color: var(--accent)` inside `[data-app="…"]`, or the `--processor` / `--kompositor` / `--dimensor` tokens.
 
+**Social icons (`social/`).** `instagram`, `x`, `youtube`, `bluesky`, `facebook`, `tiktok`: the platform marks from
+[Simple Icons](https://simpleicons.org) v16.33.0 (CC0), one path each on a 24×24 grid, `fill: currentColor` added, otherwise
+untouched. Order on the site: Instagram, X, YouTube, Bluesky, Facebook, TikTok. Use them neutral (white or grey, the site's
+`--site-text` / `--site-signal`), about a 20px glyph in a 40px target, with the platform name as the accessible label.
+The SVG files are CC0, but **each mark is its owner's trademark**: don't distort them, don't recolour one into another
+brand's colours or into a V3KTR app colour, and don't imply endorsement. To update, re-download the same names at a newer
+Simple Icons version and note the version here.
+
 **Rules.**
 - An app uses its **app logo file**. Never rebuild it from the wordmark plus separate text: the lockup's spacing and type are part of the mark.
 - Don't recolour an app logo to another app's colour, and don't put an app colour on the master or solo mark (the V3KTR brand is neutral).

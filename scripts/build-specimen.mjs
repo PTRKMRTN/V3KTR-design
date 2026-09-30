@@ -61,6 +61,10 @@ const brandHtml = `<section class="tab-panel" id="p-brand" data-tab="brand" hidd
   <div class="spec-group"><div class="spec-caption">App logos · in their locked colours (data-app sets --accent)</div>
     ${['processor','kompositor','dimensor'].map((a) => `<div class="lg-app" data-app="${a}" style="color:var(--accent)">${logo('logo-v3ktr-' + a + '.svg')}</div>`).join('')}
   </div>
+  <div class="spec-group"><div class="spec-caption">Social icons · brand/social · Simple Icons (CC0), third-party trademarks · neutral only · rest #a3a3a3 / hover white</div>
+    <div class="lg-social">${['instagram','x','youtube','bluesky','facebook','tiktok'].map((n) => `<span class="lg-soc" title="${n}">${read('brand/social/' + n + '.svg')}</span>`).join('')}</div>
+    <div class="lg-social" style="color:var(--tx-0)">${['instagram','x','youtube','bluesky','facebook','tiktok'].map((n) => `<span class="lg-soc" title="${n}">${read('brand/social/' + n + '.svg')}</span>`).join('')}</div>
+  </div>
 </section>`;
 const themesCss = read('themes/themes.css');
 const themeVars = Object.fromEntries([...themesCss.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
@@ -132,6 +136,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .spec-na{color:var(--bg-4)}
 .lg-row{display:flex;flex-wrap:wrap;gap:12px}.lg-box{background:var(--bg-2);padding:24px}.lg-big .lg{width:min(420px,70vw);height:auto;display:block}
 .lg-app{background:var(--bg-2);padding:18px 24px;margin:0 0 10px}.lg-app .lg{height:40px;width:auto;display:block;max-width:100%}
+.lg-social{display:flex;gap:0;color:#a3a3a3;margin:0 0 6px}.lg-soc{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center}.lg-soc svg{width:20px;height:20px;display:block}
 .th-pick button{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--bg-3);color:var(--tx-1);border:0;height:28px;padding:0 12px;cursor:pointer}
 .th-pick button[aria-pressed=true]{background:var(--tx-0);color:var(--bg-0)}
 .th-pick button:focus-visible{outline:2px solid var(--tx-0);outline-offset:2px}

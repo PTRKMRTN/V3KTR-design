@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.8.0 — 2026-09-30
+Adds assets; no CSS changes.
+- `brand/social/`: Instagram, X, YouTube, Bluesky, Facebook, TikTok from Simple Icons v16.33.0 (CC0), `currentColor`. Approved by Patrick. Each mark remains its owner's trademark: neutral colour only, no distortion. Notes in `brand/README.md`.
+
 ## 0.7.4 — 2026-09-30
 - `.vs-callout` gets 48px above it (Patrick: the lede → callout gap is the standard); none when it's the first child of its container.
 
