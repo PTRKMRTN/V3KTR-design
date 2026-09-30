@@ -326,6 +326,22 @@
         <button class="vs-btn vs-btn--primary" type="button">Notify me</button>
       </div>
       <p class="vs-signup__note">Done. We'll write once, when it opens.</p>
+    </form>
+    <div class="spec-caption" style="margin-top:20px">Error state · the field's border and its note share the error red (aria-invalid) · neutral / inside KOMPOSITOR</div>
+    <form class="vs-signup" style="max-width:520px">
+      <label class="vs-signup__label" for="vs-spec-email-2">Get V3KTR news</label>
+      <div class="vs-field">
+        <input id="vs-spec-email-2" type="email" value="patrick@" aria-invalid="true">
+        <button class="vs-btn vs-btn--primary" type="button">Sign up</button>
+      </div>
+      <p class="vs-signup__note is-error">That address doesn't look right.</p>
+    </form>
+    <form class="vs-signup" style="max-width:520px;margin-top:16px" data-app="kompositor">
+      <label class="vs-signup__label" for="vs-spec-email-3">Hear when Kompositor opens</label>
+      <div class="vs-field">
+        <input id="vs-spec-email-3" type="email" value="patrick@" aria-invalid="true">
+        <button class="vs-btn vs-btn--primary" type="button">Notify me</button>
+      </div>
       <p class="vs-signup__note is-error">That address doesn't look right.</p>
     </form>
   </div>

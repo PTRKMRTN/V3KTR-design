@@ -111,7 +111,7 @@
 }
 /* from .v2-chrome :focus-visible, .v2-page :focus-visible */
 .vs-site :focus-visible {
-  outline: var(--focus-ring);
+  outline: 2px solid currentColor;   /* never core --focus-ring here: it resolves to PROCESSOR's aqua outside [data-app] */
   outline-offset: var(--site-focus-offset);
 }
 /* from .v2-wrap */
@@ -795,7 +795,7 @@
   background: var(--site-well);
 }
 .vs-card__media:focus-visible {
-  outline: var(--focus-ring);
+  outline: 2px solid var(--site-signal);
   outline-offset: var(--site-focus-offset);
 }
 .vs-card__media img,
@@ -993,7 +993,7 @@
   min-height: 46px;
   background: var(--bg-0);
   border: var(--site-stroke) solid var(--site-line-2);
-  color: var(--site-signal);
+  color: var(--tx-0);   /* what the visitor types is always white, never the app colour */
   padding: 0 14px;
   font-family: var(--mono);
   font-size: var(--site-fs-fine);
@@ -1006,8 +1006,17 @@
   border-color: var(--site-signal);
 }
 .vs-field input:focus-visible {
-  outline: var(--focus-ring);
+  outline: 2px solid var(--site-signal);   /* white on a neutral page, the app's colour inside [data-app] (was aqua everywhere) */
   outline-offset: var(--site-focus-offset);
+}
+/* Error state: the field's border takes the error red too, so the field and its note read as one thing
+   (inside [data-app="kompositor"] a red note under a mandarin border was close). Set aria-invalid="true" on the input. */
+.vs-field input[aria-invalid="true"],
+.vs-field input[aria-invalid="true"]:focus {
+  border-color: var(--status-blocked);
+}
+.vs-field input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--status-blocked);
 }
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {

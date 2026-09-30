@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.1 — 2026-09-30
+- Site focus rings no longer use core `--focus-ring` (it resolves to PROCESSOR's aqua outside `[data-app]`): the email input and card media ring in `--site-signal` (white on a neutral page, the app's colour in an app section).
+- Error state: `.vs-field input[aria-invalid="true"]` takes the error red on its border and focus ring, so the field matches its note.
+- `.vs-field input` text is always white (`--tx-0`); inside `[data-app]` it had taken the app colour.
+
 ## 0.10.0 — 2026-09-30
 Consumers render differently: the danger red.
 - **Status colours LOCKED** (Patrick): ready `#00e540`, caution `#f9c200`, blocked `#ff5e7e`.
