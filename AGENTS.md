@@ -35,7 +35,9 @@ Rules for differences:
 - Everything else is played down: headings `--site-heading #b3b3b3`, body `--site-text #a3a3a3`, captions `--site-muted #939393`. All pass 4.5:1 on the ground and on panels.
 - **App colour appears only in that app's context.** Wrap the section, card or call-to-action in `data-app="processor"` (etc.); inside it the signal becomes the app's colour.
 - The FX imagery supplies the colour on the site.
-- **Callouts** (where site v2 used aqua for emphasis): on an app's page, colour the word in the app's colour (`[data-app]` + `<em>` in a heading). Where all three apps are the subject, `.vs-spectrum` (gradient of the three; **under review**, at most once per page, 24px+) or `.vs-spectrum-bar`. Outlined text was tried and dropped: hard to read.
+- **Callouts:** on an app's page, colour the word in the app's colour (`[data-app]` + `<em>` in a heading). The gradient (`.vs-spectrum`) is **parked**; if it returns, hero only. Outlined text was tried and dropped: hard to read.
+- **Links are underlined** by default (every text link: in-text, "open" links, breadcrumbs, footer); hover thickens the line. Buttons and navigation bars are the only links without an underline.
+- **Control outlines** (buttons, chips, inputs) are `--site-stroke` thick, 3px by default (up to ~5px on the web), in `#757575`, which passes 3:1.
 
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
@@ -59,7 +61,7 @@ Rules for differences:
 0. **Per-app themes** (exploration, not locked). Current picks (Patrick 2026-09-30, judged in the app for vibrance against aqua): KOMPOSITOR hot mandarin `#ff6a43`, DIMENSOR violet `#9d64ff`; aqua is the only locked colour. Known: the mandarin is ΔE 17 from `--danger #ff5b5b` (accepted), so destructive actions in KOMPOSITOR need a second cue (icon or wording), or `--danger` moves; the violet's small text uses `--accent-text #a679ff`. Not in `dist/`; see `themes/themes.css`.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.
 2. **Section-head colour:** this file said `--tx-2`; PROCESSOR renders heads `--tx-0`. The app layer follows PROCESSOR.
-3. **Radius:** `--radius 2px` is declared but PROCESSOR never applies it; its controls are square. The app layer follows PROCESSOR (square).
+3. ~~Radius~~ **Settled 2026-09-30: square corners everywhere** (`--radius: 0`).
 4. **Site buttons:** site v2 uses outlined buttons on transparent; the app rule is filled `--bg-3`, no border. Different by design, or align?
 5. **Primary-button ink:** site `#04120d` vs core `--on-accent #1c1c1c`.
 6. **Pending core colours** (marked PROPOSED in the layers): popup `#262626`, neutral rule `#595959`, error ink `#ff9b8a`, a neutral scrim/toast (PROCESSOR's are blue-tinted).

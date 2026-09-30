@@ -30,7 +30,8 @@
   --head-weight:700; --head-track:.16em;
 
   /* Shape + spacing */
-  --radius:2px; --pad:12px; --row-h:28px;
+  --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
+  --pad:12px; --row-h:28px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 

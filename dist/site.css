@@ -30,7 +30,8 @@
   --head-weight:700; --head-track:.16em;
 
   /* Shape + spacing */
-  --radius:2px; --pad:12px; --row-h:28px;
+  --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
+  --pad:12px; --row-h:28px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
@@ -63,8 +64,10 @@
   /* --v2-rule  #3a3a3a → core var(--bg-3) #3a3a3a (exact; used for the article hr). */
 
   /* ── lines ─────────────────────────────────────────────────────────────── */
-  --site-line-2: #595959;                 /* was --v2-rule-2 #555a60 (cool). PROPOSED neutral: luminance-matched
-                                             (2.30:1 on --bg-0 vs 2.31:1). Alternative: core --ctrl-line (renders #4d4d4d on --bg-0, dimmer). */
+  --site-line-2: #757575;                 /* control outlines (buttons, chips, tags, inputs). 3.5:1 ground · 3.3 well · 3.1 panel:
+                                             passes WCAG 1.4.11 (3:1 for control boundaries). Was #595959 (2.3:1, failed). */
+  --site-stroke: 3px;                     /* control outline width on the web (Patrick 2026-09-30: thicker, up to ~5px). Specimen compares 2/3/5. */
+  --site-link-line: 1px;                  /* text-link underline; 2px on hover */
 
   /* ── text ──────────────────────────────────────────────────────────────── */
   /* site v2 cool greys retired (2026-09-29). Neutral site (2026-09-30): white = interactive only, text in three greys. */
@@ -139,7 +142,7 @@
   -webkit-font-smoothing: antialiased;
 }
 /* from .v2-chrome a, .v2-page a */
-.vs-site a {
+:where(.vs-site) a {   /* zero class weight, so .vs-link and the underline rules below win */
   color: inherit;
   text-decoration: none;
 }
@@ -338,7 +341,7 @@
   min-height: 46px;
   padding: 0 20px;
   border-radius: var(--radius);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   background: transparent;
   color: var(--site-signal);
   cursor: pointer;
@@ -387,7 +390,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--site-signal);
-  border: 1px solid var(--site-signal);
+  border: var(--site-stroke) solid var(--site-signal);
   padding: 2px 6px;
   border-radius: var(--radius);
   line-height: 1.3;
@@ -402,7 +405,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--site-text);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   padding: 4px 8px;
   border-radius: var(--radius);
   white-space: nowrap;
@@ -424,7 +427,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 9px 12px;
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   border-radius: var(--radius);
   background: transparent;
   color: var(--site-text);
@@ -455,7 +458,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 7px 10px;
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   color: var(--site-text);
 }
 .vs-tags > li.is-signal {
@@ -781,7 +784,7 @@
   padding: 0 10px;
   color: var(--site-signal);
   background: var(--site-scrim-label);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   cursor: pointer;
 }
 
@@ -1006,7 +1009,7 @@
   min-width: 0;
   min-height: 46px;
   background: var(--bg-0);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   color: var(--site-signal);
   padding: 0 14px;
   font-family: var(--mono);
@@ -1018,7 +1021,10 @@
 }
 .vs-field input:focus {
   border-color: var(--site-signal);
-  outline: none;
+}
+.vs-field input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
 }
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {
@@ -1194,8 +1200,8 @@
    Where site v2 used aqua for emphasis:
    1. On an app's page: colour the word in that app's colour. Wrap the page or section in [data-app="…"];
       an <em> inside a heading then takes the app colour (via --site-signal). This is the default.
-   2. Where all three apps are the subject: .vs-spectrum (UNDER REVIEW, Patrick 2026-09-30: "pops, maybe too much").
-      Use at most once per page. LARGE TEXT ONLY (24px+): the violet end is 4.4:1, which passes 3:1 for large text only.
+   2. PARKED (Patrick 2026-09-30): .vs-spectrum / .vs-spectrum-bar, the three app colours as a gradient. May return,
+      and if it does, for the hero only. Kept below so it can come back; do not use it. LARGE TEXT ONLY (24px+): the violet end is 4.4:1, which passes 3:1 for large text only.
    Outlined text was tried and dropped (hard to read).
    Small emphasis (captions, eyebrows, tags) stays solid white: .vs-cap--signal, .vs-eyebrow--signal. */
 
@@ -1220,6 +1226,30 @@
   border: 0;
   background: linear-gradient(90deg, var(--site-app-processor), var(--site-app-kompositor), var(--site-app-dimensor));
   background: linear-gradient(in oklch 90deg, var(--site-app-processor), var(--site-app-kompositor), var(--site-app-dimensor));
+}
+
+/* ══ LINKS ARE UNDERLINED (Patrick 2026-09-30) ══════════════════════════════
+   On a neutral site, colour alone can't mark a link (WCAG 1.4.1), so every TEXT link is underlined by default:
+   in-text links, "open" links, breadcrumbs and the footer. Hover thickens the line.
+   Not underlined: buttons (their outline/fill marks them) and navigation bars (.vs-nav, .vs-subnav, .vs-menu),
+   where position already says "these are links" and the current page has its own marker. */
+.vs-link,
+.vs-open-link,
+.vs-article a,
+.vs-prose a,
+.vs-crumbs a,
+.vs-foot a {
+  color: var(--site-signal);
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--site-link-line);
+  text-underline-offset: 0.22em;
+}
+.vs-link:hover, .vs-link.is-hover,
+.vs-open-link:hover, .vs-open-link.is-hover,
+.vs-article a:hover, .vs-prose a:hover,
+.vs-crumbs a:hover, .vs-crumbs a.is-hover,
+.vs-foot a:hover, .vs-foot a.is-hover {
+  text-decoration-thickness: 2px;
 }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.

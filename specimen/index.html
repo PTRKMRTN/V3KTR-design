@@ -34,7 +34,8 @@
   --head-weight:700; --head-track:.16em;
 
   /* Shape + spacing */
-  --radius:2px; --pad:12px; --row-h:28px;
+  --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
+  --pad:12px; --row-h:28px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
@@ -527,8 +528,10 @@
   /* --v2-rule  #3a3a3a → core var(--bg-3) #3a3a3a (exact; used for the article hr). */
 
   /* ── lines ─────────────────────────────────────────────────────────────── */
-  --site-line-2: #595959;                 /* was --v2-rule-2 #555a60 (cool). PROPOSED neutral: luminance-matched
-                                             (2.30:1 on --bg-0 vs 2.31:1). Alternative: core --ctrl-line (renders #4d4d4d on --bg-0, dimmer). */
+  --site-line-2: #757575;                 /* control outlines (buttons, chips, tags, inputs). 3.5:1 ground · 3.3 well · 3.1 panel:
+                                             passes WCAG 1.4.11 (3:1 for control boundaries). Was #595959 (2.3:1, failed). */
+  --site-stroke: 3px;                     /* control outline width on the web (Patrick 2026-09-30: thicker, up to ~5px). Specimen compares 2/3/5. */
+  --site-link-line: 1px;                  /* text-link underline; 2px on hover */
 
   /* ── text ──────────────────────────────────────────────────────────────── */
   /* site v2 cool greys retired (2026-09-29). Neutral site (2026-09-30): white = interactive only, text in three greys. */
@@ -603,7 +606,7 @@
   -webkit-font-smoothing: antialiased;
 }
 /* from .v2-chrome a, .v2-page a */
-.vs-site a {
+:where(.vs-site) a {   /* zero class weight, so .vs-link and the underline rules below win */
   color: inherit;
   text-decoration: none;
 }
@@ -802,7 +805,7 @@
   min-height: 46px;
   padding: 0 20px;
   border-radius: var(--radius);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   background: transparent;
   color: var(--site-signal);
   cursor: pointer;
@@ -851,7 +854,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--site-signal);
-  border: 1px solid var(--site-signal);
+  border: var(--site-stroke) solid var(--site-signal);
   padding: 2px 6px;
   border-radius: var(--radius);
   line-height: 1.3;
@@ -866,7 +869,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--site-text);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   padding: 4px 8px;
   border-radius: var(--radius);
   white-space: nowrap;
@@ -888,7 +891,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 9px 12px;
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   border-radius: var(--radius);
   background: transparent;
   color: var(--site-text);
@@ -919,7 +922,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 7px 10px;
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   color: var(--site-text);
 }
 .vs-tags > li.is-signal {
@@ -1245,7 +1248,7 @@
   padding: 0 10px;
   color: var(--site-signal);
   background: var(--site-scrim-label);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   cursor: pointer;
 }
 
@@ -1470,7 +1473,7 @@
   min-width: 0;
   min-height: 46px;
   background: var(--bg-0);
-  border: 1px solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-line-2);
   color: var(--site-signal);
   padding: 0 14px;
   font-family: var(--mono);
@@ -1482,7 +1485,10 @@
 }
 .vs-field input:focus {
   border-color: var(--site-signal);
-  outline: none;
+}
+.vs-field input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--site-focus-offset);
 }
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {
@@ -1658,8 +1664,8 @@
    Where site v2 used aqua for emphasis:
    1. On an app's page: colour the word in that app's colour. Wrap the page or section in [data-app="…"];
       an <em> inside a heading then takes the app colour (via --site-signal). This is the default.
-   2. Where all three apps are the subject: .vs-spectrum (UNDER REVIEW, Patrick 2026-09-30: "pops, maybe too much").
-      Use at most once per page. LARGE TEXT ONLY (24px+): the violet end is 4.4:1, which passes 3:1 for large text only.
+   2. PARKED (Patrick 2026-09-30): .vs-spectrum / .vs-spectrum-bar, the three app colours as a gradient. May return,
+      and if it does, for the hero only. Kept below so it can come back; do not use it. LARGE TEXT ONLY (24px+): the violet end is 4.4:1, which passes 3:1 for large text only.
    Outlined text was tried and dropped (hard to read).
    Small emphasis (captions, eyebrows, tags) stays solid white: .vs-cap--signal, .vs-eyebrow--signal. */
 
@@ -1684,6 +1690,30 @@
   border: 0;
   background: linear-gradient(90deg, var(--site-app-processor), var(--site-app-kompositor), var(--site-app-dimensor));
   background: linear-gradient(in oklch 90deg, var(--site-app-processor), var(--site-app-kompositor), var(--site-app-dimensor));
+}
+
+/* ══ LINKS ARE UNDERLINED (Patrick 2026-09-30) ══════════════════════════════
+   On a neutral site, colour alone can't mark a link (WCAG 1.4.1), so every TEXT link is underlined by default:
+   in-text links, "open" links, breadcrumbs and the footer. Hover thickens the line.
+   Not underlined: buttons (their outline/fill marks them) and navigation bars (.vs-nav, .vs-subnav, .vs-menu),
+   where position already says "these are links" and the current page has its own marker. */
+.vs-link,
+.vs-open-link,
+.vs-article a,
+.vs-prose a,
+.vs-crumbs a,
+.vs-foot a {
+  color: var(--site-signal);
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--site-link-line);
+  text-underline-offset: 0.22em;
+}
+.vs-link:hover, .vs-link.is-hover,
+.vs-open-link:hover, .vs-open-link.is-hover,
+.vs-article a:hover, .vs-prose a:hover,
+.vs-crumbs a:hover, .vs-crumbs a.is-hover,
+.vs-foot a:hover, .vs-foot a.is-hover {
+  text-decoration-thickness: 2px;
 }
 
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
@@ -1754,7 +1784,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
       <div><b>App layer</b><p>Dense tool UI taken from PROCESSOR: buttons, chips, toggles, rows, sliders. Used by PROCESSOR, KOMPOSITOR and DIMENSOR.</p></div>
       <div><b>Site layer</b><p>The website's own scale: display type, gutters, nav, feed cards, article prose. Same core, different shape.</p></div>
     </div>
-    <div class="spec-group"><div class="spec-caption">Ground</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--bg-0)"></div><div class="tk-n">--bg-0</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-1)"></div><div class="tk-n">--bg-1</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-2)"></div><div class="tk-n">--bg-2</div><div class="tk-v">#2b2b2b · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-3)"></div><div class="tk-n">--bg-3</div><div class="tk-v">#3a3a3a · 1.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-4)"></div><div class="tk-n">--bg-4</div><div class="tk-v">#444444 · 1.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--line)"></div><div class="tk-n">--line</div><div class="tk-v">#171717 · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Text</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--tx-0)"></div><div class="tk-n">--tx-0</div><div class="tk-v">#f4f4f4 · 14.6:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-1)"></div><div class="tk-n">--tx-1</div><div class="tk-v">#cfcfcf · 10.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-2)"></div><div class="tk-n">--tx-2</div><div class="tk-v">#8a8a8a · 4.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Signal</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--accent)"></div><div class="tk-n">--accent</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-dim)"></div><div class="tk-n">--accent-dim</div><div class="tk-v">#0a8f66 · 3.9:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-glow)"></div><div class="tk-n">--accent-glow</div><div class="tk-v">rgba(0,229,160,0.15)</div></div><div class="tk"><div class="tk-sw" style="background:var(--hover)"></div><div class="tk-n">--hover</div><div class="tk-v">#3dffc2 · 12.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-accent)"></div><div class="tk-n">--on-accent</div><div class="tk-v">#1c1c1c · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--ctrl-line)"></div><div class="tk-n">--ctrl-line</div><div class="tk-v">rgba(255,255,255,.20)</div></div></div></div><div class="spec-group"><div class="spec-caption">Status</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--danger)"></div><div class="tk-n">--danger</div><div class="tk-v">#ff5b5b · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--danger-dim)"></div><div class="tk-n">--danger-dim</div><div class="tk-v">#7a2a2a · 1.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">FX-group identity colours</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--depth)"></div><div class="tk-n">--depth</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--adjust)"></div><div class="tk-n">--adjust</div><div class="tk-v">#9aa0a6 · 6.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--rust)"></div><div class="tk-n">--rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-amber)"></div><div class="tk-n">--type-amber</div><div class="tk-v">#b08847 · 5.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rust)"></div><div class="tk-n">--type-rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rose)"></div><div class="tk-n">--type-rose</div><div class="tk-v">#9d5a6e · 3.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-sage)"></div><div class="tk-n">--type-sage</div><div class="tk-v">#6e8f6a · 4.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-teal)"></div><div class="tk-n">--type-teal</div><div class="tk-v">#5a8a8f · 4.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-slate)"></div><div class="tk-n">--type-slate</div><div class="tk-v">#6a7280 · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-violet)"></div><div class="tk-n">--type-violet</div><div class="tk-v">#8a6db0 · 3.8:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Type</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--sans</div><div class="tk-v">'Manrope',ui-sans-serif,system-ui,sans-serif</div></div><div class="tk tk-plain"><div class="tk-n">--mono</div><div class="tk-v">'JetBrains Mono',ui-monospace,monospace</div></div><div class="tk tk-plain"><div class="tk-n">--fs-body</div><div class="tk-v">13px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-ctrl</div><div class="tk-v">11px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-row</div><div class="tk-v">11.5px</div></div><div class="tk tk-plain"><div class="tk-n">--head-weight</div><div class="tk-v">700</div></div><div class="tk tk-plain"><div class="tk-n">--head-track</div><div class="tk-v">.16em</div></div></div></div><div class="spec-group"><div class="spec-caption">Shape + spacing</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--radius</div><div class="tk-v">2px</div></div><div class="tk tk-plain"><div class="tk-n">--pad</div><div class="tk-v">12px</div></div><div class="tk tk-plain"><div class="tk-n">--row-h</div><div class="tk-v">28px</div></div><div class="tk tk-plain"><div class="tk-n">--focus-ring</div><div class="tk-v">2px solid var(--accent)</div></div><div class="tk tk-plain"><div class="tk-n">--focus-offset</div><div class="tk-v">2px</div></div></div></div>
+    <div class="spec-group"><div class="spec-caption">Ground</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--bg-0)"></div><div class="tk-n">--bg-0</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-1)"></div><div class="tk-n">--bg-1</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-2)"></div><div class="tk-n">--bg-2</div><div class="tk-v">#2b2b2b · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-3)"></div><div class="tk-n">--bg-3</div><div class="tk-v">#3a3a3a · 1.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-4)"></div><div class="tk-n">--bg-4</div><div class="tk-v">#444444 · 1.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--line)"></div><div class="tk-n">--line</div><div class="tk-v">#171717 · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Text</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--tx-0)"></div><div class="tk-n">--tx-0</div><div class="tk-v">#f4f4f4 · 14.6:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-1)"></div><div class="tk-n">--tx-1</div><div class="tk-v">#cfcfcf · 10.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-2)"></div><div class="tk-n">--tx-2</div><div class="tk-v">#8a8a8a · 4.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Signal</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--accent)"></div><div class="tk-n">--accent</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-dim)"></div><div class="tk-n">--accent-dim</div><div class="tk-v">#0a8f66 · 3.9:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-glow)"></div><div class="tk-n">--accent-glow</div><div class="tk-v">rgba(0,229,160,0.15)</div></div><div class="tk"><div class="tk-sw" style="background:var(--hover)"></div><div class="tk-n">--hover</div><div class="tk-v">#3dffc2 · 12.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-accent)"></div><div class="tk-n">--on-accent</div><div class="tk-v">#1c1c1c · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--ctrl-line)"></div><div class="tk-n">--ctrl-line</div><div class="tk-v">rgba(255,255,255,.20)</div></div></div></div><div class="spec-group"><div class="spec-caption">Status</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--danger)"></div><div class="tk-n">--danger</div><div class="tk-v">#ff5b5b · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--danger-dim)"></div><div class="tk-n">--danger-dim</div><div class="tk-v">#7a2a2a · 1.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">FX-group identity colours</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--depth)"></div><div class="tk-n">--depth</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--adjust)"></div><div class="tk-n">--adjust</div><div class="tk-v">#9aa0a6 · 6.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--rust)"></div><div class="tk-n">--rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-amber)"></div><div class="tk-n">--type-amber</div><div class="tk-v">#b08847 · 5.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rust)"></div><div class="tk-n">--type-rust</div><div class="tk-v">#a85d4e · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rose)"></div><div class="tk-n">--type-rose</div><div class="tk-v">#9d5a6e · 3.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-sage)"></div><div class="tk-n">--type-sage</div><div class="tk-v">#6e8f6a · 4.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-teal)"></div><div class="tk-n">--type-teal</div><div class="tk-v">#5a8a8f · 4.2:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-slate)"></div><div class="tk-n">--type-slate</div><div class="tk-v">#6a7280 · 3.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-violet)"></div><div class="tk-n">--type-violet</div><div class="tk-v">#8a6db0 · 3.8:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Type</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--sans</div><div class="tk-v">'Manrope',ui-sans-serif,system-ui,sans-serif</div></div><div class="tk tk-plain"><div class="tk-n">--mono</div><div class="tk-v">'JetBrains Mono',ui-monospace,monospace</div></div><div class="tk tk-plain"><div class="tk-n">--fs-body</div><div class="tk-v">13px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-ctrl</div><div class="tk-v">11px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-row</div><div class="tk-v">11.5px</div></div><div class="tk tk-plain"><div class="tk-n">--head-weight</div><div class="tk-v">700</div></div><div class="tk tk-plain"><div class="tk-n">--head-track</div><div class="tk-v">.16em</div></div></div></div><div class="spec-group"><div class="spec-caption">Shape + spacing</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--radius</div><div class="tk-v">0</div></div><div class="tk tk-plain"><div class="tk-n">--pad</div><div class="tk-v">12px</div></div><div class="tk tk-plain"><div class="tk-n">--row-h</div><div class="tk-v">28px</div></div><div class="tk tk-plain"><div class="tk-n">--focus-ring</div><div class="tk-v">2px solid var(--accent)</div></div><div class="tk tk-plain"><div class="tk-n">--focus-offset</div><div class="tk-v">2px</div></div></div></div>
     
 <div class="spec-group"><div class="spec-caption">Type in use</div>
   <div class="ty"><span class="ty-l">Manrope 800 · display</span><span style="font:800 40px/1.1 var(--sans);color:var(--tx-0)">Effects that see depth.</span></div>
@@ -2179,11 +2209,26 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     </div>
   </div>
   <div class="spec-group">
-    <div class="spec-caption">Spectrum · under review · all three apps as the subject, once per page, 24px+ · .vs-spectrum / .vs-spectrum-bar</div>
-    <div class="vs-stack">
-      <h2 class="vs-h2"><span class="vs-spectrum">Make the look.</span> Make the edit.</h2>
-      <hr class="vs-spectrum-bar" style="max-width:320px">
+    <div class="spec-caption">Outline thickness · compare · the layer default is 3px (--site-stroke) · outline grey #757575 = 3.5:1</div>
+    <div class="spec-row" style="--site-stroke:2px"><span class="spec-caption" style="margin:0;width:40px">2px</span>
+      <a class="vs-btn" href="#">See the looks</a><a class="vs-btn is-hover" href="#">See the looks</a>
+      <button class="vs-chip" type="button">Depth</button><button class="vs-chip" type="button" aria-pressed="true">Pattern</button>
+      <span class="vs-field" style="display:inline-flex;min-width:220px"><input type="email" placeholder="you@example.com" aria-label="Email (example)"></span>
     </div>
+    <div class="spec-row" style="--site-stroke:3px"><span class="spec-caption" style="margin:0;width:40px">3px</span>
+      <a class="vs-btn" href="#">See the looks</a><a class="vs-btn is-hover" href="#">See the looks</a>
+      <button class="vs-chip" type="button">Depth</button><button class="vs-chip" type="button" aria-pressed="true">Pattern</button>
+      <span class="vs-field" style="display:inline-flex;min-width:220px"><input type="email" placeholder="you@example.com" aria-label="Email (example)"></span>
+    </div>
+    <div class="spec-row" style="--site-stroke:5px"><span class="spec-caption" style="margin:0;width:40px">5px</span>
+      <a class="vs-btn" href="#">See the looks</a><a class="vs-btn is-hover" href="#">See the looks</a>
+      <button class="vs-chip" type="button">Depth</button><button class="vs-chip" type="button" aria-pressed="true">Pattern</button>
+      <span class="vs-field" style="display:inline-flex;min-width:220px"><input type="email" placeholder="you@example.com" aria-label="Email (example)"></span>
+    </div>
+  </div>
+  <div class="spec-group">
+    <div class="spec-caption">Text links · underlined by default, thicker on hover · nav bars excepted</div>
+    <p class="vs-lede">Everything in Processor is free for your own work. <a class="vs-link" href="#">Read the licence</a>, or <a class="vs-link is-hover" href="#">see what counts as commercial</a>.</p>
   </div>
   <div class="spec-group">
     <div class="spec-caption">App context · [data-app] switches the neutral signal to that app's colour (KOMPOSITOR and DIMENSOR are exploratory)</div>
