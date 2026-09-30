@@ -442,3 +442,12 @@
 .vk-menu-pop.is-inline,
 .vk-cs__list.is-inline{position:static;display:block;}
 .vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
+
+/* ══ CAP CENTRING (Patrick 2026-09-30) ══════════════════════════════════════
+   These labels are all capitals. JetBrains Mono keeps room below the baseline for descenders, and
+   centring centres the line box, so capitals sat 0.25–1.1px high. text-box trims the line to the
+   capitals (cap height 0.73em); the padding adds back exactly what was trimmed, (1lh − 0.73em)/2 (the lh unit is the element's own line height),
+   so every element keeps its height. Browsers without text-box (Firefox today) keep the old look. */
+@supports (text-box: trim-both cap alphabetic) {
+  .vk-chip,.vk-chip--group{text-box:trim-both cap alphabetic;padding-block:calc(3px + (1lh - 0.73em) / 2);}   /* 1lh = its own line height, wherever it sits */
+}

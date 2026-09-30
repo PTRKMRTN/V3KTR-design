@@ -1408,6 +1408,19 @@
   .vs-btn.is-active, .vs-chip.is-active, .vs-beta.is-active, .vs-play.is-active { transform: none; }
 }
 
+/* ══ CAP CENTRING (Patrick 2026-09-30) ══════════════════════════════════════
+   These labels are all capitals. JetBrains Mono keeps room below the baseline for descenders, and
+   centring centres the line box, so capitals sat 0.25–1.1px high. text-box trims the line to the
+   capitals (cap height 0.73em); the padding adds back exactly what was trimmed, (1lh − 0.73em)/2 (the lh unit is the element's own line height),
+   so every element keeps its height. Browsers without text-box (Firefox today) keep the old look.
+   text-box doesn't reach into flex layouts: .vs-btn was already within 0.25px; .vs-beta takes a 1px padding
+   shift instead (same height, text 0.5px lower). */
+.vs-beta { padding-top: 5px; padding-bottom: 3px; }
+@supports (text-box: trim-both cap alphabetic) {
+  .vs-chip{text-box:trim-both cap alphabetic;}   /* a <button> with min-height: it centres the trimmed line itself */
+  .vs-tags > li{text-box:trim-both cap alphabetic;padding-block:calc(7px + (1lh - 0.73em) / 2);}
+}
+
 /* App contexts: an app's page, card or call-to-action takes its colour from the app theme.
    PROCESSOR's --accent is core aqua; other apps' values come from themes/themes.css while those are exploratory. */
 [data-app] {
