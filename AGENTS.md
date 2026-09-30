@@ -60,6 +60,7 @@ Rules for differences:
 - **Panels:** a lighter fill (`--bg-2`), never an outline.
 - **Focus:** `outline: var(--focus-ring); outline-offset: var(--focus-offset)` on `:focus-visible`.
 - **FX groups** are identified by the `--type-*` / `--depth` / `--adjust` colours, never by the signal aqua.
+- **Exception to the neutral/one-signal rule (Patrick 2026-09-30): a chip that labels an FX group may use that group's colour**, on the site and in the apps: border and text in the group colour (one colour), selected = filled with dark text. PENDING: six group colours fail 4.5:1 as chip text; compliant lifts are proposed, not yet applied.
 
 ## Settled (don't reopen)
 - Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).
