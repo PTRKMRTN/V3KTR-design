@@ -10,6 +10,7 @@ Apps **consume** it; they never hand-copy it.
 | `site/site.css` | **Site layer**: website scale and components from site v2 (`vs-` classes, `--site-*`). `site/INVENTORY.md` likewise. |
 | `dist/app.css`, `dist/site.css` | What consumers pull: core + one layer (`node scripts/build-dist.mjs`). |
 | `specimen/index.html` | The whole system on one page (`node scripts/build-specimen.mjs`). |
+| `brand/` | Logos: master, solo, and one per app (`currentColor`; `brand/colour/` has baked-in colours). Rules in `brand/README.md`. |
 | `tokens.json` | Generated from `tokens.css` (`node scripts/build-json.mjs`). |
 | `AGENTS.md` | Rules for any session doing design work. Read before building UI. |
 | `CHANGELOG.md` | Semver history. |

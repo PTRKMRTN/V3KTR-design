@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.6.0 — 2026-09-30
+Adds brand assets; no CSS changes for consumers.
+- `brand/`: Patrick's logos. Master (wordmark + DIMENSIONAL FX), solo wordmark, and the PROCESSOR / KOMPOSITOR / DIMENSOR logos. All `fill: currentColor`; `brand/colour/` has the app logos with their locked colours baked in. Originals untouched in `brand/source/`.
+- Rule: an app uses its app logo file, never the wordmark plus separate text. The master and solo marks are neutral. `brand/README.md`, AGENTS.md.
+- Specimen: a Logos tab.
+
 ## 0.5.0 — 2026-09-30
 **App colours locked** (Patrick). Consumers may render differently.
 - PROCESSOR `#00e5a0`, KOMPOSITOR `#ff6a43`, DIMENSOR `#bb6fff`, each with hover, dim and a light-ground ink: tokens `--processor*`, `--kompositor*`, `--dimensor*` in `themes/themes.css`, which is now part of `dist/app.css` and `dist/site.css`. `data-app="…"` switches `--accent` / `--hover` / `--on-accent` / `--accent-ink`.

@@ -41,6 +41,11 @@ Rules for differences:
 - **States (web):** every button, link and pill has rest / hover #cfcfcf / focus (2px ring in its own colour, 3px out) / pressed (hover colour, 1px down) / selected (filled, or a 2px bar for nav) / disabled (40%, no hover), and is one colour in each. White buttons stay white-family in app sections. See `site/site.css` STATES and the specimen's state matrix.
 - **Outline rule (web):** 5px for buttons (things you press to go somewhere or do something); 2px for everything you select, filter or type into (chips, tags, fields). Colour `--ctrl-edge #757575` (passes 3:1).
 
+## Logos (brand/)
+- Master `logo-v3ktr.svg` (wordmark + DIMENSIONAL FX) and solo `logo-v3ktr-solo.svg` are **neutral**: white or grey, any colour as needed, never an app colour.
+- **An app uses its app logo file** (`logo-v3ktr-processor.svg` etc.): never the wordmark plus separate text (Patrick 2026-09-30).
+- All files use `currentColor`; `brand/colour/` has the app logos with their colour baked in for places CSS can't reach. Rules in `brand/README.md`.
+
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
 - Body 13px. Controls 11px mono UPPERCASE. Section heads: 11px / 700 / letter-spacing .16em, uppercase, `--tx-2`.

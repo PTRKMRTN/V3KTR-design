@@ -53,6 +53,15 @@ const layer = (id, title, blurb, css, frag) => `
 </section>`;
 
 const appCss = read('app/app.css');
+const logo = (f) => read('brand/' + f).replace(/<svg /, '<svg class="lg" ');
+const brandHtml = `<section class="tab-panel" id="p-brand" data-tab="brand" hidden>
+  <p class="lede">From Patrick's files. Every logo takes the colour it's placed in (currentColor). Apps use their app logo, never the wordmark plus separate text. Rules: brand/README.md.</p>
+  <div class="spec-group"><div class="spec-caption">Master · logo-v3ktr.svg · neutral: white or grey</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)">${logo('logo-v3ktr.svg')}</div><div class="lg-box lg-big" style="color:#a3a3a3">${logo('logo-v3ktr.svg')}</div></div></div>
+  <div class="spec-group"><div class="spec-caption">Solo · logo-v3ktr-solo.svg</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)">${logo('logo-v3ktr-solo.svg')}</div><div class="lg-box lg-big" style="color:#a3a3a3">${logo('logo-v3ktr-solo.svg')}</div></div></div>
+  <div class="spec-group"><div class="spec-caption">App logos · in their locked colours (data-app sets --accent)</div>
+    ${['processor','kompositor','dimensor'].map((a) => `<div class="lg-app" data-app="${a}" style="color:var(--accent)">${logo('logo-v3ktr-' + a + '.svg')}</div>`).join('')}
+  </div>
+</section>`;
 const themesCss = read('themes/themes.css');
 const themeVars = Object.fromEntries([...themesCss.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
 const resolve = (v) => { const m = v.trim().match(/^var\(--([a-z0-9-]+)\)$/i); return m ? themeVars[m[1]] : v.trim(); };
@@ -121,6 +130,8 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .spec-st-h{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-2)}
 .spec-st-n{font:11px var(--mono);color:var(--tx-2)}
 .spec-na{color:var(--bg-4)}
+.lg-row{display:flex;flex-wrap:wrap;gap:12px}.lg-box{background:var(--bg-2);padding:24px}.lg-big .lg{width:min(420px,70vw);height:auto;display:block}
+.lg-app{background:var(--bg-2);padding:18px 24px;margin:0 0 10px}.lg-app .lg{height:40px;width:auto;display:block;max-width:100%}
 .th-pick button{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--bg-3);color:var(--tx-1);border:0;height:28px;padding:0 12px;cursor:pointer}
 .th-pick button[aria-pressed=true]{background:var(--tx-0);color:var(--bg-0)}
 .th-pick button:focus-visible{outline:2px solid var(--tx-0);outline-offset:2px}
@@ -140,6 +151,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
     <button role="tab" id="t-app" data-t="app" aria-selected="false">App layer</button>
     <button role="tab" id="t-site" data-t="site" aria-selected="false">Site layer</button>
+    <button role="tab" id="t-brand" data-t="brand" aria-selected="false">Logos</button>
   </div>
   <section class="tab-panel" id="p-core" data-tab="core">
     <div class="model">
@@ -151,6 +163,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     ${typeHtml}
   </section>
   ${layer('app', 'App layer', 'Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.', appCss, themeHtml + '<div id="app-themed" data-app="processor">' + read('app/specimen.html') + '</div>')}
+  ${brandHtml}
   ${layer('site', 'Site layer', 'Taken from site v2. Neutral: white only for links, buttons and active states; text in three greys (headings #b3b3b3, body #a3a3a3, muted #939393). App colour appears only inside [data-app].', siteCss, read('site/specimen.html'))}
 </div>
 <script>
@@ -165,7 +178,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     document.getElementById('app-themed').setAttribute('data-app',b.dataset.appPick);
     [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
   })});
-  var h=(location.hash||'').slice(1); if(h==='app'||h==='site') show(h);
+  var h=(location.hash||'').slice(1); if(h==='app'||h==='site'||h==='brand') show(h);
 })();
 </script>
 `;
