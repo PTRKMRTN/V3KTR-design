@@ -11,6 +11,8 @@ From Patrick, 2026-09-30. `source/` holds his files exactly as supplied; the fil
 | `logo-v3ktr-dimensor.svg` | DIMENSOR logo | DIMENSOR |
 | `colour/logo-v3ktr-*.svg` | The app logos with their locked colour baked in | where CSS can't set a colour (email, a standalone `<img>`, exports) |
 
+**Sizing.** The master and solo files share the same viewBox (1377×537) and the same outer bounds: the DIMENSIONAL FX line sits inside the wordmark's box. Sized by height, both give the same wordmark size; the master is not taller.
+
 **Colour.** Every file in this folder uses `fill: currentColor`, so it takes whatever colour it's placed in:
 set `color` on the element (inline SVG), or use the file as a CSS mask over `background-color` (as PROCESSOR does).
 The master and solo marks are neutral: white (`--tx-0`) or grey (`#a3a3a3`) on the dark ground, or any colour a context needs.
