@@ -58,7 +58,7 @@ Rules for differences:
 - Hover `#3dffc2`. Foreground white `#f4f4f4` with the neutral grey family (`--tx-1 #cfcfcf`, `--tx-2 #8a8a8a`): no blue-tinted greys (Patrick 2026-09-29).
 
 ## PROCESSOR spacing pass (shipped v0.571.0, 2026-09-30)
-Patrick's pass set the app standard: `--pad` 22, side panel 400, buttons 8/14, rows 26px 3px apart, option gap 3, sections and heads with more air, 2px `--ctrl-edge` outlines on toggles and all chips. `app/app.css` v0.3.0 follows it. Before/after: `baselines/compare/`; recapture with `scripts/processor-baseline.mjs`.
+Patrick's pass set the app standard: `--pad` 22, side panel 400, buttons 8/14, rows 26px 3px apart, option gap 3, sections and heads with more air, 2px `--ctrl-edge` outlines on toggles and all chips. `app/app.css` v0.4.0 follows it. Before/after: `baselines/compare/`; recapture with `scripts/processor-baseline.mjs`.
 7. ~~App outlines~~ **Settled 2026-09-30: 2px `--ctrl-edge`, roomier** (original padding kept, controls grow 2px). Shipped in PROCESSOR v0.571.0.
 0. **Per-app themes** (exploration, not locked). Current picks (Patrick 2026-09-30, judged in the app for vibrance against aqua): KOMPOSITOR hot mandarin `#ff6a43`, DIMENSOR violet `#9d64ff`; aqua is the only locked colour. Known: the mandarin is ΔE 17 from `--danger #ff5b5b` (accepted), so destructive actions in KOMPOSITOR need a second cue (icon or wording), or `--danger` moves; the violet's small text uses `--accent-text #a679ff`. Not in `dist/`; see `themes/themes.css`.
 1. **Muted text on panels:** `--tx-2 #8a8a8a` passes 4.5:1 on the ground (4.66) but not on `--bg-2` panels (4.10). Proposed `#969696` for muted text on fills. Affects apps too.

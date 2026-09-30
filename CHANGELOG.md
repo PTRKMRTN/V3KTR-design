@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.4.0 — 2026-09-30
+Consumers may render differently: the app layer takes PROCESSOR's new spacing.
+- **App layer follows PROCESSOR v0.571.0 (Patrick's spacing pass):** buttons 8/14, `.vk-seg` gap 3 / margin 19, rows 26px and 3px apart, section heads 12/14, menus 14, layers 8 + 3. Core `--pad` 12 → 22, `--row-h` 28 → 26.
+- Baselines: `baselines/processor` (v0.570.0 before), `baselines/processor-after` (v0.571.0), `baselines/compare` (before/after sheet), `baselines/fit` (1280 and 2375 wide).
+
 ## 0.3.0 — 2026-09-30
 Consumers may render differently: square corners, a neutral site layer, underlined site links.
 - Core: `--ctrl-edge #757575` (control outline, 3:1) and `--stroke 2px`. Site outline rule: buttons 5px, chips/tags/fields 2px. App layer: `.vk-tog`/`.vk-chip` 2px `--ctrl-edge`, roomier (settled); lands in the PROCESSOR spacing pass.
