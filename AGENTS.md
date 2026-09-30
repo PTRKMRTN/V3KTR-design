@@ -44,7 +44,7 @@ Rules for differences:
 - Body 13px. Controls 11px mono UPPERCASE. Section heads: 11px / 700 / letter-spacing .16em, uppercase, `--tx-2`.
 
 ## App components (rules; reference CSS in `app/app.css`)
-- **Buttons:** mono, UPPERCASE, square (`--radius` 2px), `--bg-3` fill, 3 sizes. **No border** — only chips have borders.
+- **Buttons:** mono, UPPERCASE, square (`--radius` 0), `--bg-3` fill, 3 sizes. **No border** — only chips have borders.
   Primary = `--accent` fill + `--on-accent` ink; hover = `--hover` fill.
 - **Chips:** the only bordered element: 1px `--ctrl-line`; hover turns border + text `--hover`.
 - **`.tog` (state, not action):** transparent + `--ctrl-line` border + `--tx-2` when off; `--accent` fill + `--on-accent` when on.
