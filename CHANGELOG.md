@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.16.2 — 2026-10-01
+
+- Paragraphs inside `.vs-form` / `.vs-signup` (hints, error notes) have no margin, whatever prose they sit in. On /contact, `.vs-article p` was adding 16px under the topic hint (44px to the next label instead of 28). Found by site-v2.
+
 ## 0.16.1 — 2026-10-01
 
 Fix to 0.16.0: the label gap is measured to the visible control, and it is 14px (found by site-v2).

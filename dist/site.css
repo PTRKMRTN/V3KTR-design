@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.16.1
+/* V3KTR design tokens · v0.16.2
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -1183,6 +1183,11 @@
   align-self: stretch;
 }
 .vs-form__group .vs-signup__note:empty { display: none; }
+/* A form spaces itself with gaps, so paragraphs inside it (hints, notes) carry no margin of their own. Without this,
+   prose rules such as .vs-article p (0,1,1) added 16px under a hint inside an article (site-v2, /contact). (0,2,1) wins. */
+.vs-site :is(.vs-form, .vs-signup) p {
+  margin: 0;
+}
 
 /* Tick boxes (v0.14.0; asked for by site-v2 for "Hear it first", one box per list). A square box in the field rule:
    2px white outline at rest, filled white with a dark tick when checked (like a selected chip), hover grey, focus
