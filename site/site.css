@@ -530,7 +530,16 @@
   width: 46px;
   padding: 0;
 }
-@media (max-width: 860px) {
+/* Nav width (2026-10-01): with five links (Processor · Kompositor SOON · Dimensor SOON · Looks · Pricing) plus the Open
+   button, the bar overflowed sideways between 861 and 1099px (203px at 880, 10px at 1080; measured by the site-v2
+   session). So the bar tightens its link gap just above the collapse and collapses into the menu below 1100px.
+   ⚠️ If links are added or renamed, re-measure: the breakpoint is set by the row's width, not by a device. */
+@media (max-width: 1279px) {
+  .vs-nav__links {
+    gap: 24px;
+  }
+}
+@media (max-width: 1099px) {
   .vs-nav__links {
     display: none;
     position: absolute;
@@ -1417,6 +1426,9 @@
   font-weight: 500;   /* the strip is a sentence; its lead word (<strong>) and any link are bold */
 }
 .vs-verdict:not([data-status]) { color: var(--site-heading); }   /* no state yet: a neutral panel, never white on white */
+/* Safe as any element anywhere: inside a panel, `.vs-panel p` (0,1,1) out-ranked the verdict's ink (grey on green). */
+.vs-site .vs-verdict { color: var(--on-status); }
+.vs-site .vs-verdict:not([data-status]) { color: var(--site-heading); }
 /* Inside an article the prose rules (.vs-article a / strong, 0,1,1) outrank a single class, which turned the ink
    white and underlined on the fill and the lead word grey. These keep the strip one colour wherever it sits. */
 .vs-site .vs-verdict strong,

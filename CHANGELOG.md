@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.10.5 — 2026-10-01
+Site layer renders differently: nav.
+- `.vs-nav` collapses into the menu below **1100px** (was 860px), and tightens its link gap to 24px from 1100 to 1279px. With five links the bar overflowed sideways between 861 and 1099px.
+- `.vs-verdict` keeps its ink as a `<p>` inside a `.vs-panel` (`.vs-panel p` had turned it grey on green).
+
 ## 0.10.4 — 2026-10-01
 - **Workspace separators are 2px in every app** (Patrick): `--stroke` in `--line`; new `.vk-sep` / `.vk-sep--v` in the app layer. Shipped in PROCESSOR v0.578.0.
 - PROCESSOR now pulls its tokens from this repo (v0.577.0, pinned to v0.10.3 in its design.json), pixel-identical.
