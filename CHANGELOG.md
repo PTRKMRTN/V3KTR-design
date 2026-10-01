@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.12.0 — 2026-10-01
+
+Fields are white and thicken on focus (Patrick, option B).
+- `.vs-field` input, textarea and select: 2px white border at rest (was 2px grey `--ctrl-edge`), 5px while focused (the border is the focus indicator; no separate ring). Padding drops by 3px on focus so the text doesn't move. Error stays a red border. Inside forms the white holds in app sections too (forms are neutral).
+- New `.vs-form` / `.vs-form__group` / `.vs-form__label` for forms with several fields: one column, left-aligned, label above, note under its field, one button at the end. Added to the neutral-form reset.
+- Textarea: 140px minimum, vertical resize.
+- A form's submit button is now solid (white fill, dark ink, hover grey), automatically for any submit button in `.vs-signup` / `.vs-form`; it was a white outline, which read as another field next to white fields. Stays white inside app sections.
+
 ## 0.11.0 — 2026-10-01
 Site layer renders differently: app-card buttons.
 - **Inside `[data-app]`, the outline `.vs-btn` takes the app colour** (Patrick): a card's buttons share one colour, e.g. an aqua "How it works" outline next to the solid aqua "Open Processor". Was white in every context (v0.4.2). Hover = the app's hover colour.

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.11.0
+/* V3KTR design tokens · v0.12.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -1061,7 +1061,8 @@
   flex-direction: column;
   gap: 10px;
 }
-.vs-signup__label {
+.vs-signup__label,
+.vs-form__label {
   font-family: var(--mono);
   font-size: var(--site-fs-cap);
   letter-spacing: 0.1em;
@@ -1081,37 +1082,68 @@
   gap: 8px;
   flex-wrap: wrap;
 }
-.vs-field input {
+/* Fields (Patrick 2026-10-01, option B): white at rest because a field is something you act on, 2px because you
+   type into it (the 2px/5px rule), 5px while focused, so where you're typing shows without a colour. The submit
+   button stays 5px, which keeps "type here" and "press here" apart. Padding shrinks by the extra 3px on focus so
+   the text doesn't move. Same rule for input, textarea and select. */
+.vs-field :is(input, textarea, select) {
   flex: 1 1 200px;
   min-width: 0;
   min-height: 46px;
+  box-sizing: border-box;
   background: var(--bg-0);
-  border: var(--site-stroke) solid var(--site-line-2);
+  border: var(--site-stroke) solid var(--site-signal);
   color: var(--tx-0);   /* what the visitor types is always white, never the app colour */
   padding: 0 14px;
   font-family: var(--mono);
   font-size: var(--site-fs-fine);
   border-radius: var(--radius);
 }
-.vs-field input::placeholder {
+.vs-field textarea {
+  min-height: 140px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.vs-field :is(input, textarea, select)::placeholder {
   color: var(--site-muted);
 }
-.vs-field input:focus {
-  border-color: var(--site-signal);
+.vs-field :is(input, textarea, select):focus {
+  border-width: var(--site-stroke-strong);
+  padding-inline: 11px;   /* 14 - (5 - 2) */
+  outline: none;          /* the 5px border IS the focus indicator */
 }
-.vs-field input:focus-visible {
-  outline: 2px solid var(--site-signal);   /* white on a neutral page, the app's colour inside [data-app] (was aqua everywhere) */
-  outline-offset: var(--site-focus-offset);
+.vs-field textarea:focus {
+  padding-block: 9px;
 }
 /* Error state: the field's border takes the error red too, so the field and its note read as one thing
    (inside [data-app="kompositor"] a red note under a mandarin border was close). Set aria-invalid="true" on the input. */
-.vs-field input[aria-invalid="true"],
-.vs-field input[aria-invalid="true"]:focus {
+.vs-field :is(input, textarea, select)[aria-invalid="true"] {
   border-color: var(--status-blocked);
 }
-.vs-field input[aria-invalid="true"]:focus-visible {
-  outline-color: var(--status-blocked);
+.vs-field :is(input, textarea, select)[disabled] {
+  opacity: 0.4;
 }
+
+/* Forms with several fields: one column, left-aligned, a label above each field, an error note under the field it
+   belongs to (.vs-signup__note), one button at the end.
+   <form class="vs-form"><div class="vs-form__group"><label class="vs-form__label" for="n">Name</label>
+   <div class="vs-field"><input id="n"></div><p class="vs-signup__note"></p></div> … <button class="vs-btn">Send</button></form> */
+.vs-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 640px;
+}
+.vs-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+}
+.vs-form__group .vs-signup__note:empty { display: none; }
+
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {
   font-family: var(--mono);
@@ -1583,6 +1615,7 @@
    Colour in a form means one thing only: the error red (aria-invalid + .is-error).
    Must stay AFTER the [data-app] block: a form can carry data-app itself, and then the later rule wins. */
 .vs-signup,
+.vs-form,
 .vs-field {
   --site-signal: var(--tx-0);
   --site-signal-hover: var(--tx-1);
@@ -1592,3 +1625,26 @@
    the panel's paragraph rule (.vs-panel p, 0,1,1) outranked the single class and turned the success note grey. */
 .vs-site .vs-signup__note { color: var(--site-signal); }
 .vs-site .vs-signup__note.is-error { color: var(--site-error-ink); }
+
+/* A form's submit button is SOLID (Patrick 2026-10-01): fields are white outlines, so an outline button beside them
+   read as one more field. Filled white with dark ink, hover/pressed the hover grey, ring in the fill colour.
+   Automatic for any submit button in .vs-signup / .vs-form (a <button> in a form submits unless type="button"),
+   so consumers don't need --primary. White in every context: the form reset above makes the signal white. */
+:is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]) {
+  background: var(--site-signal);
+  border-color: var(--site-signal);
+  color: var(--site-signal-ink);
+}
+:is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]):hover, :is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]).is-hover,
+:is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]):active, :is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]).is-active {
+  background: var(--site-signal-hover);
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-ink);
+}
+:is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]):focus-visible, :is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"]).is-focus {
+  outline-color: var(--site-signal);
+}
+:is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"])[disabled]:hover, :is(.vs-signup, .vs-form) .vs-btn:not([type="button"]):not([type="reset"])[aria-disabled="true"]:hover {
+  background: var(--site-signal);
+  border-color: var(--site-signal);
+}
