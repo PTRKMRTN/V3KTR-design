@@ -73,6 +73,7 @@ outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descenda
 - **Rows / sliders:** `--row-h` 26px, 3px apart, label 11.5px.
 - **Panels:** a lighter fill (`--bg-2`), never an outline.
 - **Workspace separators are 2px** (Patrick 2026-10-01): lines that divide the workspace into areas use `--stroke` (2px) in `--line`; `.vk-sep` / `.vk-sep--v`. Control outlines aren't separators.
+- **Floating viewport toolbars** (Patrick 2026-10-01): the bottom toolbar sits at `bottom: var(--vp-bar-bottom)` (50px, one toolbar-height higher than the old 14px); each bar stacked above it adds `var(--vp-bar-step)` (36px): timeline at `calc(var(--vp-bar-bottom) + var(--vp-bar-step))`. Same in every app.
 - **Focus:** `outline: var(--focus-ring); outline-offset: var(--focus-offset)` on `:focus-visible`.
 - **FX group → colour token** (the same everywhere; PROCESSOR's `GROUPS` is the source): adjust `--adjust` · degrade `--type-sage` · distort `--type-rust` · colour `--type-rose` · signal `--type-teal` · glitch `--type-violet` · type `--type-amber` · light `--type-slate` · depth `--depth`.
 - **Chips are one colour** (Patrick 2026-09-30): text = outline, or filled with dark ink when selected. Never an outline in one colour with text in another.

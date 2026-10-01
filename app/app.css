@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.12.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.13.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -376,7 +376,7 @@
   color:var(--tx-1);font-size:var(--fs-row);letter-spacing:0.03em;pointer-events:none;
   box-shadow:var(--app-shadow-toast);}
 /* from .depth-status (its placement over the canvas) */
-.vk-toast--pinned{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);z-index:7;}
+.vk-toast--pinned{position:absolute;bottom:calc(var(--vp-bar-bottom) + var(--vp-bar-step) + 4px);left:50%;transform:translateX(-50%);z-index:7;}
 /* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
 .vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:vk-ds-pulse 1.1s ease-in-out infinite;}
 /* from @keyframes dsPulse */

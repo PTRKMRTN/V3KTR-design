@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.13.0 — 2026-10-01
+
+Viewport toolbars sit higher (Patrick: "the height of the single toolbar away further", all apps).
+- New core tokens `--vp-bar-bottom: 50px` (the bottom floating toolbar; apps had 14px) and `--vp-bar-step: 36px` (each bar stacked above it; apps had the timeline at 50px, now 86px).
+- `.vk-toast--pinned` follows them (54px → 90px), so it still clears the bottom bar.
+
 ## 0.12.0 — 2026-10-01
 
 Fields are white and thicken on focus (Patrick, option B).
