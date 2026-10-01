@@ -34,7 +34,9 @@
   --site-stroke-strong: 5px;              /* buttons */
   /* Form spacing (Patrick 2026-10-01): one gap from a label to its control everywhere ("use the first as the rule"),
      and a larger gap between the groups of a form (was 20px). */
-  --site-label-gap: 8px;
+  --site-label-gap: 14px;                 /* label bottom to the VISIBLE control's top (v0.16.0 had 8, measured to the tick row, not the box) */
+  --site-check-box: 20px;
+  --site-check-row: 32px;
   --site-form-gap: 28px;
   --site-link-line: 1px;                  /* text-link underline; 2px on hover */
 
@@ -1110,15 +1112,20 @@
   flex-direction: column;
   gap: 2px;
 }
+/* The last box also sits 6px above the bottom of its row; pull the next group up by that so box → next label is the
+   same 28px as field → next label. */
+.vs-form > .vs-choices {
+  margin-bottom: calc((var(--site-check-row) - var(--site-check-box)) / -2);
+}
 .vs-choices > legend {
   padding: 0;
-  margin-bottom: var(--site-label-gap);
+  margin-bottom: calc(var(--site-label-gap) - (var(--site-check-row) - var(--site-check-box)) / 2);   /* the box sits centred in its row */
 }
 .vs-check {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 32px;
+  min-height: var(--site-check-row);
   font-family: var(--sans);
   font-size: var(--site-fs-body);
   color: var(--site-text);
@@ -1128,8 +1135,8 @@
   appearance: none;
   -webkit-appearance: none;
   flex: 0 0 auto;
-  width: 20px;
-  height: 20px;
+  width: var(--site-check-box);
+  height: var(--site-check-box);
   margin: 0;
   box-sizing: border-box;
   border: var(--site-stroke) solid var(--site-signal);

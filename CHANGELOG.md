@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.16.1 — 2026-10-01
+
+Fix to 0.16.0: the label gap is measured to the visible control, and it is 14px (found by site-v2).
+- Patrick's "first" gap was the tick-box legend, and to the eye that was 14px: an 8px margin plus the 6px the 20px box sits below the top of its 32px row. 0.16.0 measured to the row, so fields got 8px and the boxes still looked 14px.
+- `--site-label-gap` is now 14px (field labels: `.vs-form__group`, `.vs-signup`). The legend's margin subtracts the row's slack, `calc(gap - (row - box) / 2)` = 8px, so the box is 14px below it too. New `--site-check-box` 20px and `--site-check-row` 32px make that sum explicit.
+- Groups stay 28px apart, measured to what you see: a tick-box group in a `.vs-form` pulls the next group up by the same 6px, so the last box → next label is 28px like field → next label.
+
 ## 0.16.0 — 2026-10-01
 
 Form spacing (Patrick: "consistent spacing after the label and before the control … use the first as the rule. And the space between form elements a little larger").
