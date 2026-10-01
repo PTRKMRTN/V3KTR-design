@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.14.0 — 2026-10-01
+
+Tick boxes (requested by site-v2 for the "Hear it first" sign-up: one box per list).
+- New `.vs-choices` (fieldset) + `.vs-check` (label + checkbox). Square 20px box in the field rule: 2px white outline; checked = white fill with a dark tick (like a selected chip); hover = the hover grey; keyboard focus = 2px ring 3px out; disabled 40%. Row 32px, label in body text.
+- Invalid group: `aria-invalid="true"` or `.is-error` on the fieldset turns every box outline red; pair it with `.vs-signup__note.is-error`.
+- Neutral in every context (added to the form reset), so it stays white inside an app card.
+
 ## 0.13.0 — 2026-10-01
 
 Viewport toolbars sit higher (Patrick: "the height of the single toolbar away further", all apps).

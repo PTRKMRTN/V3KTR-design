@@ -1059,6 +1059,86 @@
 }
 .vs-form__group .vs-signup__note:empty { display: none; }
 
+/* Tick boxes (v0.14.0; asked for by site-v2 for "Hear it first", one box per list). A square box in the field rule:
+   2px white outline at rest, filled white with a dark tick when checked (like a selected chip), hover grey, focus
+   = the 2px ring 3px out that every selectable control uses. Invalid group: every box's outline goes red.
+   <fieldset class="vs-choices"><legend class="vs-form__label">Lists</legend>
+     <label class="vs-check"><input type="checkbox" name="lists" value="kompositor"><span>Kompositor opens</span></label> …
+   </fieldset><p class="vs-signup__note is-error">Pick at least one.</p>
+   Mark the group invalid with aria-invalid="true" or .is-error on the fieldset. */
+.vs-choices {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.vs-choices > legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+.vs-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+  font-family: var(--sans);
+  font-size: var(--site-fs-body);
+  color: var(--site-text);
+  cursor: pointer;
+}
+.vs-check input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  box-sizing: border-box;
+  border: var(--site-stroke) solid var(--site-signal);
+  border-radius: var(--radius);
+  background: transparent;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+.vs-check input::before {
+  content: "";
+  width: 5px;
+  height: 10px;
+  margin-top: -2px;
+  border: solid var(--site-signal-ink);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+  visibility: hidden;
+}
+.vs-check input:checked {
+  background: var(--site-signal);
+}
+.vs-check input:checked::before {
+  visibility: visible;
+}
+.vs-check:hover input:not([disabled]) {
+  border-color: var(--site-signal-hover);
+}
+.vs-check:hover input:not([disabled]):checked {
+  background: var(--site-signal-hover);
+}
+.vs-check:hover { color: var(--site-heading); }
+.vs-site .vs-check input:focus-visible {
+  outline: 2px solid var(--site-signal);
+  outline-offset: var(--site-focus-offset);
+}
+.vs-choices:is([aria-invalid="true"], .is-error) .vs-check input {
+  border-color: var(--status-blocked);
+}
+.vs-check:has(input[disabled]) {
+  opacity: 0.4;
+  cursor: default;
+}
+
 /* from .v2-signup__note, .is-error */
 .vs-signup__note {
   font-family: var(--mono);
@@ -1531,6 +1611,7 @@
    Must stay AFTER the [data-app] block: a form can carry data-app itself, and then the later rule wins. */
 .vs-signup,
 .vs-form,
+.vs-choices,
 .vs-field {
   --site-signal: var(--tx-0);
   --site-signal-hover: var(--tx-1);
