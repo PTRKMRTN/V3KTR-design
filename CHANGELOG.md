@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.15.0 — 2026-10-01
+
+Select arrow (Patrick: "spacing the carat to match the padding of the text").
+- `.vs-field select` draws its own arrow, a solid ▾ in the signal colour (the app's dropdown mark), with its right edge 16px inside the outer edge, the same as the text on the left. Measured: text 17px from the left edge, arrow 17px from the right, at rest and focused (the arrow is positioned from the border box, so it doesn't move when the border thickens). The browser's arrow sat 6px from the edge (9px focused).
+- The select's text now lines up with the other fields: 17px in, where the browser's own select padding put it at 21px.
+- Browser autofill no longer paints fields blue-grey: an autofilled field keeps the ground colour and white text.
+
 ## 0.14.0 — 2026-10-01
 
 Tick boxes (requested by site-v2 for the "Hear it first" sign-up: one box per list).

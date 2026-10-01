@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.14.0
+/* V3KTR design tokens · v0.15.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -1118,6 +1118,37 @@
 }
 .vs-field textarea:focus {
   padding-block: 9px;
+}
+/* Select (Patrick 2026-10-01): the browser's arrow sat ~6px from the edge while the text sits 16px in (2px border +
+   14px padding). Our own arrow: a solid ▾ (the app's dropdown mark), 10x5, its right edge 16px from the outer edge,
+   positioned from the border box so it doesn't move when the border thickens on focus. Drawn with two gradients so
+   it takes the signal colour from a token. Padding-right leaves 12px between the text and the arrow. */
+.vs-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 38px;   /* 16 to the arrow's edge + 10 arrow + 12 gap = 38 from the outer edge, minus the 2px border, rounded up */
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--site-signal) 50%),
+    linear-gradient(135deg, var(--site-signal) 50%, transparent 50%);
+  background-origin: border-box;
+  background-position: right 21px center, right 16px center;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+.vs-field select:focus {
+  padding-right: 35px;   /* the border grew 3px */
+}
+/* Browser autofill painted the field blue-grey (Chrome's own colour), off the neutral greys. Keep our ground. */
+.vs-field input:-webkit-autofill {
+  box-shadow: inset 0 0 0 100px var(--bg-0);
+  -webkit-text-fill-color: var(--tx-0);
+  caret-color: var(--tx-0);
+}
+.vs-field input:autofill {
+  box-shadow: inset 0 0 0 100px var(--bg-0);
+  -webkit-text-fill-color: var(--tx-0);
+  caret-color: var(--tx-0);
 }
 /* Error state: the field's border takes the error red too, so the field and its note read as one thing
    (inside [data-app="kompositor"] a red note under a mandarin border was close). Set aria-invalid="true" on the input. */

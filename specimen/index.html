@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.14.0 ===== */
-/* V3KTR design tokens · v0.14.0
+/* ===== core: tokens.css v0.15.0 ===== */
+/* V3KTR design tokens · v0.15.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -55,7 +55,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.14.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.15.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1591,6 +1591,37 @@
 .vs-field textarea:focus {
   padding-block: 9px;
 }
+/* Select (Patrick 2026-10-01): the browser's arrow sat ~6px from the edge while the text sits 16px in (2px border +
+   14px padding). Our own arrow: a solid ▾ (the app's dropdown mark), 10x5, its right edge 16px from the outer edge,
+   positioned from the border box so it doesn't move when the border thickens on focus. Drawn with two gradients so
+   it takes the signal colour from a token. Padding-right leaves 12px between the text and the arrow. */
+.vs-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 38px;   /* 16 to the arrow's edge + 10 arrow + 12 gap = 38 from the outer edge, minus the 2px border, rounded up */
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--site-signal) 50%),
+    linear-gradient(135deg, var(--site-signal) 50%, transparent 50%);
+  background-origin: border-box;
+  background-position: right 21px center, right 16px center;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+.vs-field select:focus {
+  padding-right: 35px;   /* the border grew 3px */
+}
+/* Browser autofill painted the field blue-grey (Chrome's own colour), off the neutral greys. Keep our ground. */
+.vs-field input:-webkit-autofill {
+  box-shadow: inset 0 0 0 100px var(--bg-0);
+  -webkit-text-fill-color: var(--tx-0);
+  caret-color: var(--tx-0);
+}
+.vs-field input:autofill {
+  box-shadow: inset 0 0 0 100px var(--bg-0);
+  -webkit-text-fill-color: var(--tx-0);
+  caret-color: var(--tx-0);
+}
 /* Error state: the field's border takes the error red too, so the field and its note read as one thing
    (inside [data-app="kompositor"] a red note under a mandarin border was close). Set aria-invalid="true" on the input. */
 .vs-field :is(input, textarea, select)[aria-invalid="true"] {
@@ -2259,7 +2290,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.14.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.15.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
