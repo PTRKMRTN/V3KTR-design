@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.16.0 — 2026-10-01
+
+Form spacing (Patrick: "consistent spacing after the label and before the control … use the first as the rule. And the space between form elements a little larger").
+- New site tokens `--site-label-gap: 8px` (label or legend to its control) and `--site-form-gap: 28px` (between the groups of a `.vs-form`, was 20px).
+- `.vs-form__group`, `.vs-choices > legend` and `.vs-signup` all use `--site-label-gap`. `.vs-signup` was 10px, so a single sign-up's label sits 2px closer to its field.
+
 ## 0.15.0 — 2026-10-01
 
 Select arrow (Patrick: "spacing the carat to match the padding of the text").

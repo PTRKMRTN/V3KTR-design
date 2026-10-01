@@ -32,6 +32,10 @@
      2px for everything you select, filter or type into (chips, tags, fields, the play overlay). */
   --site-stroke: var(--stroke);           /* 2px */
   --site-stroke-strong: 5px;              /* buttons */
+  /* Form spacing (Patrick 2026-10-01): one gap from a label to its control everywhere ("use the first as the rule"),
+     and a larger gap between the groups of a form (was 20px). */
+  --site-label-gap: 8px;
+  --site-form-gap: 28px;
   --site-link-line: 1px;                  /* text-link underline; 2px on hover */
 
   /* ── text ──────────────────────────────────────────────────────────────── */
@@ -974,7 +978,7 @@
 .vs-signup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--site-label-gap);
 }
 .vs-signup__label,
 .vs-form__label {
@@ -1079,13 +1083,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: var(--site-form-gap);
   max-width: 640px;
 }
 .vs-form__group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--site-label-gap);
   align-self: stretch;
 }
 .vs-form__group .vs-signup__note:empty { display: none; }
@@ -1108,7 +1112,7 @@
 }
 .vs-choices > legend {
   padding: 0;
-  margin-bottom: 8px;
+  margin-bottom: var(--site-label-gap);
 }
 .vs-check {
   display: flex;
