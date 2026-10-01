@@ -66,8 +66,14 @@ function toRGBA(png) {
 }
 
 // PNGs for places that don't take SVG (apple-touch-icon, PWA manifests, socials).
-const require = createRequire('file:///D:/00%20CLAUDE%20APPS/V3KTR-PROCESSOR/package.json');
-const { chromium } = require('playwright');
+// Playwright is borrowed from a sibling checkout (this repo has no dependencies). Other sessions reinstall those
+// checkouts' node_modules, so try each in turn.
+const { chromium } = (() => {
+  for (const repo of ['V3KTR-PROCESSOR', 'V3KTR-kompositor', 'V3KTR-SPACING-WT']) {
+    try { return createRequire(`file:///D:/00%20CLAUDE%20APPS/${repo}/package.json`)('playwright'); } catch (e) {}
+  }
+  throw new Error('playwright not found in any sibling checkout (npm install in one of them)');
+})();
 const browser = await chromium.launch({ channel: 'msedge' });
 for (const [name, svg] of Object.entries(ICONS)) {
   for (const px of [32, 180, 512]) {

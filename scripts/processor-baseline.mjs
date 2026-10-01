@@ -7,8 +7,14 @@ import { createRequire } from 'node:module';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-const require = createRequire('file:///D:/00%20CLAUDE%20APPS/V3KTR-PROCESSOR/package.json');
-const { chromium } = require('playwright');
+// Playwright is borrowed from a sibling checkout (this repo has no dependencies). Other sessions reinstall those
+// checkouts' node_modules, so try each in turn.
+const { chromium } = (() => {
+  for (const repo of ['V3KTR-PROCESSOR', 'V3KTR-kompositor', 'V3KTR-SPACING-WT']) {
+    try { return createRequire(`file:///D:/00%20CLAUDE%20APPS/${repo}/package.json`)('playwright'); } catch (e) {}
+  }
+  throw new Error('playwright not found in any sibling checkout (npm install in one of them)');
+})();
 
 const URL_ = process.argv[2] || 'http://localhost:5050/';
 const OUT = process.argv[3] || fileURLToPath(new URL('../baselines/processor/', import.meta.url));

@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.11.0 — 2026-10-01
+Site layer renders differently: app-card buttons.
+- **Inside `[data-app]`, the outline `.vs-btn` takes the app colour** (Patrick): a card's buttons share one colour, e.g. an aqua "How it works" outline next to the solid aqua "Open Processor". Was white in every context (v0.4.2). Hover = the app's hover colour.
+- Buttons inside a form stay neutral (forms are neutral in every context, Patrick-confirmed).
+
 ## 0.10.5 — 2026-10-01
 Site layer renders differently: nav.
 - `.vs-nav` collapses into the menu below **1100px** (was 860px), and tightens its link gap to 24px from 1100 to 1279px. With five links the bar overflowed sideways between 861 and 1099px.

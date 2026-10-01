@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.10.5
+/* V3KTR design tokens · v0.11.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -403,7 +403,7 @@
 /* from .v2-btn:hover */
 .vs-btn:hover,
 .vs-btn.is-hover {
-  border-color: var(--tx-1);   /* the white outline button stays white-family in every context: hover #cfcfcf */
+  border-color: var(--tx-1);   /* hover #cfcfcf on a neutral page; inside [data-app] see APP-CARD BUTTONS below */
   color: var(--tx-1);
 }
 .vs-btn--signal:hover, .vs-btn--signal.is-hover {
@@ -1554,6 +1554,28 @@
   --site-signal-ink: var(--on-accent);
 }
 [data-app] .vs-wordmark { color: var(--accent); }   /* the app's name carries its colour */
+
+/* ══ APP-CARD BUTTONS (Patrick 2026-10-01) ═════════════════════════════════════════
+   Inside an app section the plain outline button takes the app colour too, so a card's buttons share one colour:
+   "How it works" is an aqua outline next to the solid aqua "Open Processor". Border and text follow --site-signal,
+   which [data-app] sets to the app colour, and the forms block below resets to neutral, so a button in a form
+   stays white. Same states: hover = the app's hover colour, pressed = hover colour + 1px. */
+[data-app] .vs-btn:not(.vs-btn--primary) {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
+[data-app] .vs-btn:not(.vs-btn--primary):hover,
+[data-app] .vs-btn:not(.vs-btn--primary).is-hover,
+[data-app] .vs-btn:not(.vs-btn--primary):active,
+[data-app] .vs-btn:not(.vs-btn--primary).is-active {
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-hover);
+}
+[data-app] .vs-btn:not(.vs-btn--primary)[disabled]:hover,
+[data-app] .vs-btn:not(.vs-btn--primary)[aria-disabled="true"]:hover {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
 
 /* ══ FORMS ARE NEUTRAL IN EVERY CONTEXT (Patrick 2026-09-30) ═══════════════════
    A form inside an app section took the app colour on its focus border, ring and submit button. In KOMPOSITOR's

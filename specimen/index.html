@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.10.5 ===== */
-/* V3KTR design tokens · v0.10.5
+/* ===== core: tokens.css v0.11.0 ===== */
+/* V3KTR design tokens · v0.11.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -52,7 +52,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.10.5 · requires tokens.css (core)
+/* V3KTR app layer · v0.11.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -875,7 +875,7 @@
 /* from .v2-btn:hover */
 .vs-btn:hover,
 .vs-btn.is-hover {
-  border-color: var(--tx-1);   /* the white outline button stays white-family in every context: hover #cfcfcf */
+  border-color: var(--tx-1);   /* hover #cfcfcf on a neutral page; inside [data-app] see APP-CARD BUTTONS below */
   color: var(--tx-1);
 }
 .vs-btn--signal:hover, .vs-btn--signal.is-hover {
@@ -2027,6 +2027,28 @@
 }
 [data-app] .vs-wordmark { color: var(--accent); }   /* the app's name carries its colour */
 
+/* ══ APP-CARD BUTTONS (Patrick 2026-10-01) ═════════════════════════════════════════
+   Inside an app section the plain outline button takes the app colour too, so a card's buttons share one colour:
+   "How it works" is an aqua outline next to the solid aqua "Open Processor". Border and text follow --site-signal,
+   which [data-app] sets to the app colour, and the forms block below resets to neutral, so a button in a form
+   stays white. Same states: hover = the app's hover colour, pressed = hover colour + 1px. */
+[data-app] .vs-btn:not(.vs-btn--primary) {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
+[data-app] .vs-btn:not(.vs-btn--primary):hover,
+[data-app] .vs-btn:not(.vs-btn--primary).is-hover,
+[data-app] .vs-btn:not(.vs-btn--primary):active,
+[data-app] .vs-btn:not(.vs-btn--primary).is-active {
+  border-color: var(--site-signal-hover);
+  color: var(--site-signal-hover);
+}
+[data-app] .vs-btn:not(.vs-btn--primary)[disabled]:hover,
+[data-app] .vs-btn:not(.vs-btn--primary)[aria-disabled="true"]:hover {
+  border-color: var(--site-signal);
+  color: var(--site-signal);
+}
+
 /* ══ FORMS ARE NEUTRAL IN EVERY CONTEXT (Patrick 2026-09-30) ═══════════════════
    A form inside an app section took the app colour on its focus border, ring and submit button. In KOMPOSITOR's
    mandarin that read as a danger state. So a form resets the signal to the neutral site values, wherever it sits.
@@ -2097,7 +2119,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.10.5</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.11.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
