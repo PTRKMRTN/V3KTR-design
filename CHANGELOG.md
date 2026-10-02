@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.26.1 — 2026-10-03
+
+- `.vk-link` moves to its own file, `app/link.css`, so PROCESSOR (which pulls files, not the bundle) can pull the link light without carrying a copy, the same way as `app/help.css`. `dist/app.css` includes it; its rule set is unchanged.
+
 ## 0.26.0 — 2026-10-03
 
 The link light, one pattern for all three apps (brief from the PC1 connectivity session; CONNECTIVITY.md W2.3 + W4.5). DIMENSOR built its own (a dot, a word, linked names); PROCESSOR and KOMPOSITOR need one.

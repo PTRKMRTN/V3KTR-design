@@ -1,0 +1,15 @@
+/* V3KTR link light (v0.26.1): .vk-link on its own, so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   it; dist/app.css includes it after app/app.css and app/help.css. Behaviour: interactions/link-light.js. */
+/* ══ LINK LIGHT (v0.26.0; CONNECTIVITY.md W2.3/W4.5): which V3KTR apps are open and linked in this browser, at the top
+   bar's right end, the same in every app. Behaviour: interactions/link-light.js. P · K · D always in that order.
+   This app = its letter in its own colour; linked = a solid tile in that app's colour with a dark letter (a button:
+   switch to it); not open = a grey letter. Flat: no outlines. Never colour alone: each mark has a tip and a label. */
+.vk-link{margin-left:auto;display:flex;align-items:center;gap:3px;}
+.vk-link__mark{display:inline-grid;place-items:center;width:18px;height:18px;padding:0;border:0;background:transparent;
+  font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;color:var(--tx-2);cursor:default;}
+.vk-link__mark[data-app="processor"]{--app:var(--processor);--app-hover:var(--processor-hover);}
+.vk-link__mark[data-app="kompositor"]{--app:var(--kompositor);--app-hover:var(--kompositor-hover);}
+.vk-link__mark[data-app="dimensor"]{--app:var(--dimensor);--app-hover:var(--dimensor-hover);}
+.vk-link__mark.is-self{color:var(--app);}
+.vk-link__mark.is-linked{background:var(--app);color:var(--on-accent);cursor:pointer;}
+.vk-link__mark.is-linked:hover{background:var(--app-hover);}
