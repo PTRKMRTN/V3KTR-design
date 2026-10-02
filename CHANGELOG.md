@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.19.0 — 2026-10-02
+
+File starts at the same x in every app (Patrick: "this will avoid any shudder if cycling through the apps").
+- New core token `--brand-slot` 142.35px: the widest app logo (KOMPOSITOR 128.35px) + 14px. `.vk-brand` uses it instead of its own logo + 14px.
+- File's left edge is 166.35px in all three (22 padding + 142.35 + 2 gap). It was PROCESSOR 159, DIMENSOR 151.5, KOMPOSITOR 166.35 under 0.18.0. PROCESSOR's name is now followed by 23.4px more space before File, DIMENSOR's by 30.9px more.
+
 ## 0.18.0 — 2026-10-02
 
 The app top bar is shared (Patrick: "the logo and file menus will need to be brought into line in terms of size, position and spacing").

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.18.0
+/* V3KTR design tokens · v0.19.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -52,5 +52,8 @@
      capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
      top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
   --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
+  /* The brand slot is ONE width in every app (Patrick 2026-10-02: "start file in the same spot across the board", so
+     nothing shudders when cycling between the apps): the widest app logo (KOMPOSITOR, 128.35px) + 14px. */
+  --brand-slot:142.35px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
