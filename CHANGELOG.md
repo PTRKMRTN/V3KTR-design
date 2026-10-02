@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.26.0 — 2026-10-03
+
+The link light, one pattern for all three apps (brief from the PC1 connectivity session; CONNECTIVITY.md W2.3 + W4.5). DIMENSOR built its own (a dot, a word, linked names); PROCESSOR and KOMPOSITOR need one.
+- New `interactions/link-light.js` (`mountLinkLight`, `update({ state, peers })`) and `.vk-link` in the app layer. Three marks P · K · D in a fixed order: this app in its own colour; a linked app as a solid tile in its colour (a button: switch to it); an app that isn't open as a grey letter; no link reads as not open, with the reason in the tip.
+- Every mark carries a tip (`data-tip`, for installTips) and an aria-label with the word. All pass 4.5:1 against the top bar (lowest 4.66).
+- `test/link-light.test.mjs`: 10 checks in Edge, plus a sheet of every state in all three apps; a linked mark that isn't a button makes it fail.
+- Later (W1.5): the depth side-view Adjust panel waits for KOMPOSITOR's first version (M119 / K24).
+
 ## 0.25.2 — 2026-10-03
 
 From DIMENSOR adopting v0.25.1.
