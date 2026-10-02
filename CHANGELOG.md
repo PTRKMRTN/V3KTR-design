@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.20.0 — 2026-10-02
+
+The menu icons are shared (KOMPOSITOR is the third app with the set; PROCESSOR v0.585.0 said it moves here then).
+- `icons/menu-icons.js` (ESM: `MENU_ICONS`, `menuIconSvg(name, size = 14)`) is the source; `scripts/build-menu-icons.mjs` writes `icons/menu-icons.json` for single-file builds and `icons/menu-icons.html`, a contact sheet.
+- 51 icons: PROCESSOR's 31 and KOMPOSITOR's 24 (its new freeze, reverse, snap, markin, markout, zoomin, zoomout, actual) plus DIMENSOR's generic verbs (cursor, dice, eye, eyeOff, paste, play, unlock …). Merged by name with no conflicts: every name shared between apps had the same path. Aliases share a drawing: compare = split, rotcw = rotate, fliph = flip, pan = move, undo = reset. DIMENSOR's object and FX concept icons stay in DIMENSOR.
+- App layer: `.vk-menu-ic` (a 14px column shared with `.vk-menu-check`, `--tx-2` at rest, the row colour on hover), 9px to the label, the shortcut 18px clear. This is the row the three apps already draw.
+
 ## 0.19.0 — 2026-10-02
 
 File starts at the same x in every app (Patrick: "this will avoid any shudder if cycling through the apps").

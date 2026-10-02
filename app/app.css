@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.19.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.20.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -292,6 +292,16 @@
 .vk-menu-check{display:inline-block;width:14px;color:var(--accent);flex-shrink:0;}
 /* from #menuImage .mi, #menuView .mi (check-led menus: left-aligned) */
 .vk-menu-pop--checks .vk-menu-item{justify-content:flex-start;gap:4px;}
+/* Menu icons (v0.20.0; the same row in all three apps). An icon from icons/menu-icons.js leads every action row, in
+   a 14px column that a state check (.vk-menu-check) shares, so a menu scans as shapes. Icon --tx-2 at rest, the
+   row's colour on hover; 9px to the label; the shortcut keeps 18px clear of the label.
+   <div class="vk-menu-item"><span class="vk-menu-ic">{menuIconSvg('save')}</span><span>Save</span><span class="vk-menu-kbd">⌘S</span></div> */
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check){justify-content:flex-start;gap:9px;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) > span:not(.vk-menu-ic):not(.vk-menu-check):not(.vk-menu-kbd){flex:1;text-align:left;}
+.vk-menu-ic{display:flex;flex:0 0 14px;width:14px;color:var(--tx-2);}
+.vk-menu-item:hover .vk-menu-ic,.vk-menu-item.is-hover .vk-menu-ic{color:inherit;}
+.vk-menu-item.is-disabled .vk-menu-ic{opacity:.5;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) .vk-menu-kbd{padding-left:18px;}
 
 /* ---------------------------------------------------------------- selects */
 

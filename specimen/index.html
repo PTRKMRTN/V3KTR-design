@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.19.0 ===== */
-/* V3KTR design tokens · v0.19.0
+/* ===== core: tokens.css v0.20.0 ===== */
+/* V3KTR design tokens · v0.20.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -63,7 +63,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.19.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.20.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -357,6 +357,16 @@
 .vk-menu-check{display:inline-block;width:14px;color:var(--accent);flex-shrink:0;}
 /* from #menuImage .mi, #menuView .mi (check-led menus: left-aligned) */
 .vk-menu-pop--checks .vk-menu-item{justify-content:flex-start;gap:4px;}
+/* Menu icons (v0.20.0; the same row in all three apps). An icon from icons/menu-icons.js leads every action row, in
+   a 14px column that a state check (.vk-menu-check) shares, so a menu scans as shapes. Icon --tx-2 at rest, the
+   row's colour on hover; 9px to the label; the shortcut keeps 18px clear of the label.
+   <div class="vk-menu-item"><span class="vk-menu-ic">{menuIconSvg('save')}</span><span>Save</span><span class="vk-menu-kbd">⌘S</span></div> */
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check){justify-content:flex-start;gap:9px;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) > span:not(.vk-menu-ic):not(.vk-menu-check):not(.vk-menu-kbd){flex:1;text-align:left;}
+.vk-menu-ic{display:flex;flex:0 0 14px;width:14px;color:var(--tx-2);}
+.vk-menu-item:hover .vk-menu-ic,.vk-menu-item.is-hover .vk-menu-ic{color:inherit;}
+.vk-menu-item.is-disabled .vk-menu-ic{opacity:.5;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) .vk-menu-kbd{padding-left:18px;}
 
 /* ---------------------------------------------------------------- selects */
 
@@ -2331,7 +2341,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.19.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.20.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
