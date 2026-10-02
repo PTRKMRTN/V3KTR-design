@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.21.2
+/* V3KTR design tokens · v0.22.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -58,7 +58,7 @@
   /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
      Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
   --tint-hover:12%;    /* a hovered row */
-  --tint-sel:26%;      /* a selected row */
+  --tint-sel:42%;      /* a selected row (v0.22.0, Patrick: option C; was 26%). Everything on it goes --tx-0: white measures 4.86:1 at worst (PROCESSOR), grey fails */
   --tint-ctrl:28%;     /* a hovered toggle */
   --tint-field:18%;    /* a field being typed in */
   --thumb-wash:.32;    /* a hovered thumbnail */
@@ -105,7 +105,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.21.2 · requires tokens.css (core)
+/* V3KTR app layer · v0.22.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -610,6 +610,14 @@
 .vk-row{display:flex;align-items:center;gap:8px;background:var(--bg-2);color:var(--tx-1);cursor:pointer;}
 .vk-row:hover,.vk-row.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
 .vk-row.is-selected,.vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));color:var(--tx-0);}
+/* On a selected row everything that was grey is --tx-0, secondary text and icons too: --tx-1/--tx-2 fail on the 42% tint. */
+.vk-row.is-selected,.vk-row[aria-selected="true"],.vk-layer.is-active{--tx-1:var(--tx-0);--tx-2:var(--tx-0);}   /* the greys become white inside the row, so nothing else needs a rule */
+/* A control inside a row hands the hover over: while the pointer is on it the row drops back to rest and the control
+   takes the row's hover colour (Patrick 2026-10-02). On a selected row the row stays selected and the control previews
+   in the solid app colour (any tint brighter than 42% fails contrast in one app or another). Mark such controls .vk-row__ctl. */
+.vk-row:has(.vk-row__ctl:hover):not(.is-selected),.vk-layer:has(.vk-row__ctl:hover):not(.is-active){background:var(--bg-2);}
+.vk-row__ctl:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
+.vk-row.is-selected .vk-row__ctl:hover,.vk-layer.is-active .vk-row__ctl:hover{background:var(--accent);color:var(--on-accent);}
 
 /* Thumbnails (Looks, roll cells, media, materials): the colour goes over the picture. Hover = a 32% wash;
    selected = the app colour in "color" blend (recolours the image in the app hue) + a solid check square.
@@ -625,6 +633,11 @@
    label is SOLID app colour with dark text, so selection reads even on a picture that is already the app colour.
    Put .vk-thumb on the card and .vk-thumb__label on the name; the wash/blend covers the picture via .vk-thumb__pic. */
 .vk-thumb--card::after{display:none;}
+/* One unit (Patrick 2026-10-02): picture and label meet with no gap, and the label sits on --bg-2 at rest so the card
+   reads as one block. The label's text is centred on its capitals (text-box trim), not on the line box. */
+.vk-thumb--card{display:flex;flex-direction:column;gap:0;}
+.vk-thumb__label{display:block;background:var(--bg-2);color:var(--tx-1);padding:6px 6px;line-height:1.2;
+  text-box:trim-both cap alphabetic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .vk-thumb__pic{position:relative;isolation:isolate;}
 .vk-thumb__pic::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;}
 .vk-thumb--card:hover .vk-thumb__pic::after,.vk-thumb--card.is-hover .vk-thumb__pic::after{opacity:var(--thumb-wash);}

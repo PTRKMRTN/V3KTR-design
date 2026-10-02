@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.21.2
+/* V3KTR design tokens · v0.22.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -58,7 +58,7 @@
   /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
      Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
   --tint-hover:12%;    /* a hovered row */
-  --tint-sel:26%;      /* a selected row */
+  --tint-sel:42%;      /* a selected row (v0.22.0, Patrick: option C; was 26%). Everything on it goes --tx-0: white measures 4.86:1 at worst (PROCESSOR), grey fails */
   --tint-ctrl:28%;     /* a hovered toggle */
   --tint-field:18%;    /* a field being typed in */
   --thumb-wash:.32;    /* a hovered thumbnail */

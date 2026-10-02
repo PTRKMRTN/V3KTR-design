@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.22.0 — 2026-10-02
+
+Patrick's follow-ups on the flat states.
+- Selected rows are a 42% tint (`--tint-sel`, was 26%; his option C). Everything on a selected row is `--tx-0`, secondary text and icons included: `--tx-1`/`--tx-2` fail on the tint. White measures 4.86:1 (PROCESSOR), 6.62 (KOMPOSITOR), 6.73 (DIMENSOR).
+- Hover hand-off for controls inside a row (`.vk-row__ctl`): on the control, the row drops back to rest and the control takes the row's hover tint; on a selected row the control previews in the solid app colour.
+- Thumbnail cards are one unit: picture and label meet with no gap, the label sits on `--bg-2` at rest, and its text is centred on its capitals (`text-box: trim-both cap alphabetic`).
+
 ## 0.21.2 — 2026-10-02
 
 Two of Patrick's notes on the flat states.
