@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.24.0
+/* V3KTR design tokens · v0.25.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -105,7 +105,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.24.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.25.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -535,34 +535,8 @@
 .vk-note__go:hover,
 .vk-note__go.is-hover{text-decoration:underline;}
 
-/* ---------------------------------------------------------------- tooltip */
+/* The tooltip and help components moved to app/help.css (v0.25.0); dist/app.css still includes them. */
 
-/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
-.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
-/* from .rail-btn .tip b */
-.vk-tip b{display:block;font-weight:700;}
-/* from .rail-btn .tip em */
-.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
-  opacity:0.7;white-space:normal;max-width:190px;}
-/* from .rail-btn:hover .tip */
-.vk-tip.is-shown{opacity:1;}
-/* Help (v0.24.0; V3KTR-PROJEKT/strategy/HELP-PATTERN.md, approved 2026-10-02). Behaviour (when a tip opens and closes)
-   lives in interactions/help.js. ⛔ None of these adds anything to the default view: a tip shows only on hover, focus or
-   long-press; a parameter description only while View → Helper Text is on; hints and empty states REPLACE existing text. */
-.vk-tip kbd{font-family:var(--mono);font-weight:400;margin-left:8px;opacity:0.7;}   /* the key hint after the name, platform-aware via keyLabel() */
-@media (prefers-reduced-motion:reduce){.vk-tip{transition:none;}}
-/* T2 parameter description: one short line under the parameter's row, only while Helper Text is on. */
-.vk-param-desc{display:none;font-size:10.5px;line-height:1.4;color:var(--tx-2);padding:2px 9px 6px;max-width:44ch;}
-[data-helper-text="on"] .vk-param-desc{display:block;}
-/* T3 hint: what's missing and what to do, in a sentence, where the missing thing would be. Real text, never an image. */
-.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2);}
-.vk-hint b{color:var(--tx-1);font-weight:500;}
-/* T3 empty state: a short title and one line saying how to start, in place of the missing content. An existing icon
-   may lead it; don't add one. */
-.vk-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:24px 16px;text-align:center;color:var(--tx-2);}
-.vk-empty__title{font-size:12px;color:var(--tx-1);}
-.vk-empty__body{font-size:11px;line-height:1.45;max-width:30ch;}
 
 /* ---------------------------------------------------------------- panels, list rows, kbd */
 
@@ -686,3 +660,38 @@
 .vk-swatch > i{display:block;width:100%;height:100%;min-width:16px;min-height:16px;}
 .vk-swatch:hover,.vk-swatch.is-hover{background:color-mix(in srgb,var(--accent) 45%,var(--bg-3));}
 .vk-swatch.is-selected{background:var(--accent);}
+
+/* V3KTR help layer (v0.25.0): the shared tip and the help components, as their own file so an app that pulls only
+   tokens (PROCESSOR, via design.json) can pull this too. dist/app.css includes it after app/app.css, so nothing moves
+   for apps that use the bundle. Behaviour: interactions/help.js. Rules: AGENTS.md "Help and copy". */
+/* ---------------------------------------------------------------- tooltip */
+
+/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
+.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+/* from .rail-btn .tip b */
+.vk-tip b{display:block;font-weight:700;}
+/* from .rail-btn .tip em */
+.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
+  opacity:0.7;white-space:normal;max-width:190px;}
+/* from .rail-btn:hover .tip */
+.vk-tip.is-shown{opacity:1;}
+/* Help (v0.24.0; V3KTR-PROJEKT/strategy/HELP-PATTERN.md, approved 2026-10-02). Behaviour (when a tip opens and closes)
+   lives in interactions/help.js. ⛔ None of these adds anything to the default view: a tip shows only on hover, focus or
+   long-press; a parameter description only while View → Helper Text is on; hints and empty states REPLACE existing text. */
+.vk-tip kbd{font-family:var(--mono);font-weight:400;margin-left:8px;opacity:0.7;}   /* the key hint after the name, platform-aware via keyLabel() */
+@media (prefers-reduced-motion:reduce){.vk-tip{transition:none;}}
+/* T2 parameter description: one short line under the parameter's row, only while Helper Text is on. */
+.vk-param-desc{display:none;font-size:10.5px;line-height:1.4;color:var(--tx-2);padding:2px 9px 6px;max-width:44ch;}
+[data-helper-text="on"] .vk-param-desc{display:block;}
+/* T3 hint: what's missing and what to do, in a sentence, where the missing thing would be. Real text, never an image. */
+.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2);}
+.vk-hint b{color:var(--tx-1);font-weight:500;}
+/* T3 empty state: a short title and one line saying how to start, in place of the missing content. An existing icon
+   may lead it; don't add one. */
+.vk-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:24px 16px;text-align:center;color:var(--tx-2);}
+.vk-empty__title{font-size:12px;color:var(--tx-1);}
+.vk-empty__body{font-size:11px;line-height:1.45;max-width:30ch;}
+/* T4 toast for an error (interactions/toast.js, kind 'error'): a red tint across the toast, not a red outline. */
+.vk-toast--error{background:color-mix(in srgb,var(--danger) 18%,var(--bg-2));color:var(--tx-0);}
+.vk-toast .vk-btn{margin-left:4px;}

@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.25.0 — 2026-10-03
+
+The three gaps the PROCESSOR session found while adopting the help pattern.
+- New `interactions/menu.js`: `installMenubar()`, the WAI-ARIA menubar keyboard (arrows, Home/End, Enter/Space, Esc, roving tabindex, aria-expanded/-checked/-disabled, handled keys stop), lifted from PROCESSOR v0.617.0 (its test/menubar-keys.mjs 33/33) and made generic: defaults are the shared `vk-` classes, and an app passes its own names and open class.
+- New `interactions/toast.js`: `toast()`, the behaviour behind `.vk-toast`: the "What happened. What to do." template (`{ what, todo }`), one at a time, `role=status` / `role=alert`, held while hovered or focused, Esc closes, an optional action button. New `.vk-toast--error` (a red tint).
+- The tip and help components move to their own file, `app/help.css`, so PROCESSOR (which pulls tokens, not the bundle) can pull them; `dist/app.css` includes it after `app/app.css`, and its rule set is unchanged (210 rules before and after).
+- `test/interactions.test.mjs`: 23 checks in Edge (menu + toast); breaking the wrap-around makes it fail.
+
 ## 0.24.0 — 2026-10-02
 
 In-app help, step 1 of the approved help pattern (V3KTR-PROJEKT/strategy/HELP-PATTERN.md; Patrick, 2026-10-02: "whole pattern, all 3 apps"; the default UI gains no visual complexity).
