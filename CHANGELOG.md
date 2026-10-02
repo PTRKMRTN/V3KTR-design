@@ -2,6 +2,20 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.21.0 — 2026-10-02
+
+Flat states instead of outlines (Patrick: "im bigger on solid or flatter styles… the app colour as a full overlay instead of a hover outline"). From the outline audit (173 rules across the three apps and this layer, 15 patterns) and his review of it.
+- New core tokens: `--tint-hover` 12% (hovered row), `--tint-sel` 26% (selected row), `--tint-ctrl` 28% (hovered toggle), `--tint-field` 18% (field being typed in), `--thumb-wash` .32 (hovered thumbnail). Text on every tint measured in all three app colours: lowest 5.79:1 (white on a hovered toggle, PROCESSOR).
+- `.vk-tog`: off is a `--bg-3` fill (was a 2px `--ctrl-edge` outline on transparent); hover is the `--tint-ctrl` tint with white text (was an outline + text in `--hover`).
+- `.vk-menu-pop` and `.vk-cs__list`: `--bg-3`, no keyline; a hovered `.vk-menu-item` fills with the app colour, dark text and shortcut (was `--bg-4` + app-colour text).
+- `.vk-input`: no keyline; hover `--bg-4`; focus tints toward the app colour (was an `--accent-dim` border). Keyboard focus keeps its ring (an exception).
+- `.vk-modal`, `.vk-toast`, `.vk-note`: no keyline (`.vk-note` moves to `--bg-3`); a danger modal's title is a solid red band (was a red outline).
+- `.vk-layer`: hover and active are tints; the 2px accent edge bar goes.
+- New: `.vk-row`, `.vk-thumb` (+ `__chk`), `.vk-tag`, `.vk-note--warn` (+ `.vk-note__ic` for the warning icon), `.vk-drop`, `.vk-swatch`.
+- Every border that went keeps its space as `transparent`: measured, every existing component is the same size as in 0.20.0.
+- Unchanged by decision: chips, tabs and rail buttons, keyboard focus, on-canvas handles and guides, dividers.
+- One tint was lowered to pass 4.5:1: `.vk-tag` is an 8% tint (amber text on 20% measures 3.84:1).
+
 ## 0.20.0 — 2026-10-02
 
 The menu icons are shared (KOMPOSITOR is the third app with the set; PROCESSOR v0.585.0 said it moves here then).

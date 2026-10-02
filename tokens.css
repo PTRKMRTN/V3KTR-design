@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.20.0
+/* V3KTR design tokens · v0.21.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -55,5 +55,12 @@
   /* The brand slot is ONE width in every app (Patrick 2026-10-02: "start file in the same spot across the board", so
      nothing shudders when cycling between the apps): the widest app logo (KOMPOSITOR, 128.35px) + 14px. */
   --brand-slot:142.35px;
+  /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
+     Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
+  --tint-hover:12%;    /* a hovered row */
+  --tint-sel:26%;      /* a selected row */
+  --tint-ctrl:28%;     /* a hovered toggle */
+  --tint-field:18%;    /* a field being typed in */
+  --thumb-wash:.32;    /* a hovered thumbnail */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }

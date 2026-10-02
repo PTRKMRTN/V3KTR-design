@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* ===== core: tokens.css v0.20.0 ===== */
-/* V3KTR design tokens · v0.20.0
+/* ===== core: tokens.css v0.21.0 ===== */
+/* V3KTR design tokens · v0.21.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -59,11 +59,18 @@
   /* The brand slot is ONE width in every app (Patrick 2026-10-02: "start file in the same spot across the board", so
      nothing shudders when cycling between the apps): the widest app logo (KOMPOSITOR, 128.35px) + 14px. */
   --brand-slot:142.35px;
+  /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
+     Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
+  --tint-hover:12%;    /* a hovered row */
+  --tint-sel:26%;      /* a selected row */
+  --tint-ctrl:28%;     /* a hovered toggle */
+  --tint-field:18%;    /* a field being typed in */
+  --thumb-wash:.32;    /* a hovered thumbnail */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.20.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.21.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -173,20 +180,22 @@
 /* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
 /* OUTLINE 2px, ROOMIER (Patrick 2026-09-30): 2px in --ctrl-edge (3:1) with the original padding kept, so each control
    grows 2px. Live PROCESSOR is still 1px --ctrl-line; this lands in Patrick's PROCESSOR spacing pass, which sets the app standard. */
-.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:transparent;
-  border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);font-size:var(--fs-ctrl);letter-spacing:0.04em;
+/* FLAT (v0.21.0, Patrick 2026-10-02: fills, not outlines). Off = a grey fill; hover tints the whole toggle toward the
+   app colour; on = the solid app colour. The 2px border stays as transparent space so nothing changes size. */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:var(--bg-3);
+  border:var(--stroke) solid transparent;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;
   cursor:pointer;white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn.tog:hover */
 .vk-tog:hover,
-.vk-tog.is-hover{background:transparent;border-color:var(--hover);color:var(--hover);}
+.vk-tog.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-ctrl),var(--bg-3));border-color:transparent;color:var(--tx-0);}
 /* from .inline-btn.tog.on */
 .vk-tog.is-on,
 .vk-tog[aria-checked="true"],
-.vk-tog[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);}
+.vk-tog[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent);}
 /* from .inline-btn.tog.on:hover */
 .vk-tog.is-on:hover,.vk-tog.is-on.is-hover,
 .vk-tog[aria-checked="true"]:hover,
-.vk-tog[aria-pressed="true"]:hover{background:var(--hover);border-color:var(--hover);color:var(--on-accent);}
+.vk-tog[aria-pressed="true"]:hover{background:var(--hover);border-color:transparent;color:var(--on-accent);}
 
 /* from .roll-group (Randomise + its latched modifiers as ONE control, in a --bg-2 tray) */
 .vk-roll-group{display:flex;gap:0;padding:3px;background:var(--bg-2);}
@@ -333,7 +342,9 @@
 .vk-menu:hover,
 .vk-menu.is-hover{color:var(--hover);}
 /* from .menu-pop */
-.vk-menu-pop{position:absolute;top:100%;left:0;background:var(--app-pop-bg);border:1px solid var(--line);
+/* FLAT (v0.21.0): no keyline; the popup is one step lighter than what it opens over, and a hovered item fills with
+   the app colour. The 1px stays as transparent space. */
+.vk-menu-pop{position:absolute;top:100%;left:0;background:var(--bg-3);border:1px solid transparent;
   min-width:228px;box-shadow:var(--app-shadow-pop);z-index:100;display:none;padding:4px;}
 /* from .menu.open .menu-pop */
 .vk-menu.is-open .vk-menu-pop{display:block;}
@@ -342,7 +353,8 @@
   display:flex;align-items:center;gap:18px;justify-content:space-between;}
 /* from .mi:hover (text goes --accent here, not --hover) */
 .vk-menu-item:hover,
-.vk-menu-item.is-hover{background:var(--bg-4);color:var(--accent);}
+.vk-menu-item.is-hover{background:var(--accent);color:var(--on-accent);}
+.vk-menu-item:hover .vk-menu-kbd,.vk-menu-item.is-hover .vk-menu-kbd{color:var(--on-accent);}
 /* from .mi.disabled */
 .vk-menu-item.is-disabled{color:var(--tx-2);pointer-events:none;}
 /* from .mi.disabled .mi-kbd */
@@ -400,7 +412,7 @@
 /* from .cs-wrap.open .cs-trigger */
 .vk-cs.is-open .vk-cs__trigger{color:var(--hover);}
 /* from .cs-list */
-.vk-cs__list{position:absolute;top:calc(100% + 2px);left:0;right:0;min-width:100%;background:var(--app-pop-bg);
+.vk-cs__list{position:absolute;top:calc(100% + 2px);left:0;right:0;min-width:100%;background:var(--bg-3);
   z-index:200;display:none;box-shadow:var(--app-shadow-pop);max-height:260px;overflow-y:auto;}
 /* from .cs-wrap.open .cs-list */
 .vk-cs.is-open .vk-cs__list{display:block;}
@@ -419,13 +431,15 @@
    Not carried over: the border tint is kept, the :focus-visible ring above still applies. */
 
 /* from input.ctl / .ctl */
-.vk-input{height:var(--row-h);background:var(--bg-3);color:var(--tx-0);border:1px solid var(--line);
+/* FLAT (v0.21.0): a filled well; hover lifts it a step, typing tints it toward the app colour. */
+.vk-input{height:var(--row-h);background:var(--bg-3);color:var(--tx-0);border:1px solid transparent;
   font-family:inherit;font-size:var(--fs-row);padding:0 9px;}
 /* from input.ctl::placeholder */
 .vk-input::placeholder{color:var(--tx-2);}
 /* from .ctl:focus, .text-input:focus, .inline-field:focus (border only) */
 .vk-input:focus,
-.vk-input.is-focus{border-color:var(--accent-dim);}
+.vk-input.is-focus{background:color-mix(in srgb,var(--accent) var(--tint-field),var(--bg-3));}
+.vk-input:hover:not(:focus),.vk-input.is-hover{background:var(--bg-4);}
 /* from .text-input (mono entry: Type FX text, hex) */
 .vk-input--mono{font-family:var(--mono);font-size:12px;letter-spacing:0.05em;}
 /* from .inline-field (name field in an inline-expand row) */
@@ -439,17 +453,18 @@
 /* from .ui-overlay.on */
 .vk-scrim.is-on{display:flex;}
 /* from .ui-card */
-.vk-modal{background:var(--bg-2);border:1px solid var(--line);min-width:300px;max-width:min(440px,90vw);
+/* FLAT (v0.21.0): no keyline; a danger modal's title is a solid red band instead of a red outline. */
+.vk-modal{background:var(--bg-2);border:1px solid transparent;min-width:300px;max-width:min(440px,90vw);
   box-shadow:var(--app-shadow-modal);animation:vk-ui-pop 0.13s ease-out;}
 /* from .ui-card.danger */
-.vk-modal--danger{border-color:var(--danger-dim);}
+.vk-modal--danger{border-color:transparent;}
 /* from @keyframes uiPop */
 @keyframes vk-ui-pop{from{opacity:0;transform:translateY(6px) scale(0.985);}to{opacity:1;transform:none;}}
 /* from .ui-title */
 .vk-modal__title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);
   font-family:var(--mono);padding:15px 18px 0;}
 /* from .ui-card.danger .ui-title */
-.vk-modal--danger .vk-modal__title{color:var(--danger);}
+.vk-modal--danger .vk-modal__title{color:var(--on-accent);background:var(--danger);padding:9px 18px;}
 /* from .ui-msg */
 .vk-modal__msg{font-size:12.5px;line-height:1.55;color:var(--tx-1);padding:8px 18px 16px;white-space:pre-wrap;}
 /* from .ui-actions */
@@ -460,7 +475,7 @@
 
 /* from .depth-status */
 .vk-toast{display:flex;align-items:center;gap:9px;padding:7px 14px;
-  background:var(--app-toast-bg);border:1px solid var(--line);backdrop-filter:blur(8px);
+  background:var(--app-toast-bg);border:1px solid transparent;backdrop-filter:blur(8px);
   color:var(--tx-1);font-size:var(--fs-row);letter-spacing:0.03em;pointer-events:none;
   box-shadow:var(--app-shadow-toast);}
 /* from .depth-status (its placement over the canvas) */
@@ -471,7 +486,8 @@
 @keyframes vk-ds-pulse{0%,100%{opacity:0.35;transform:scale(0.8);}50%{opacity:1;transform:scale(1.1);}}
 
 /* from .signup-note (post-export footnote: not modal, no backdrop, no focus steal) */
-.vk-note{max-width:320px;padding:12px 14px 10px;background:var(--bg-2);border:1px solid var(--bg-4);
+/* FLAT (v0.21.0): a lighter panel, no keyline. */
+.vk-note{max-width:320px;padding:12px 14px 10px;background:var(--bg-3);border:1px solid transparent;
   color:var(--tx-2);font-size:12px;line-height:1.45;box-shadow:var(--app-shadow-note);}
 /* from .signup-note (its placement) */
 .vk-note--pinned{position:fixed;left:18px;top:76px;z-index:900;}
@@ -506,12 +522,12 @@
 
 /* from .layer (FX stack row); .motion-item is the same pattern */
 .vk-layer{display:flex;align-items:center;gap:8px;padding:8px 8px;margin:3px 0;background:var(--bg-2);
-  cursor:pointer;border-left:2px solid transparent;}
+  cursor:pointer;border-left:2px solid transparent;}   /* FLAT (v0.21.0): the row carries the state; no edge bar */
 /* from .layer:hover */
 .vk-layer:hover,
-.vk-layer.is-hover{background:var(--bg-3);}
+.vk-layer.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
 /* from .layer.active */
-.vk-layer.is-active{background:var(--bg-3);border-left-color:var(--accent);}
+.vk-layer.is-active{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));color:var(--tx-0);}
 /* from .layer.hidden-layer */
 .vk-layer.is-disabled{opacity:0.42;}
 /* from .layer .licon */
@@ -550,6 +566,51 @@
    v0.578.0. Control outlines (inputs, cards, menus) are not separators and keep their own widths. */
 .vk-sep{height:var(--stroke);background:var(--line);border:0;margin:0;flex:0 0 auto;}
 .vk-sep--v{width:var(--stroke);height:auto;align-self:stretch;}
+
+/* ══ FLAT COMPONENTS (v0.21.0, Patrick 2026-10-02: "solid or flatter styles… the app colour as a full overlay
+   instead of a hover outline"). Exceptions that keep their lines: chips, tabs and rail buttons, keyboard focus,
+   on-canvas handles and guides, workspace dividers. Audit: claude.ai/artifact/1aBdDVtGjLsjE6BkwsYniw */
+
+/* Selectable rows (presets, masks, ramp stops, list items): hover a light tint, selected a stronger one. */
+.vk-row{display:flex;align-items:center;gap:8px;background:var(--bg-2);color:var(--tx-1);cursor:pointer;}
+.vk-row:hover,.vk-row.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
+.vk-row.is-selected,.vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));color:var(--tx-0);}
+
+/* Thumbnails (Looks, roll cells, media, materials): the colour goes over the picture. Hover = a 32% wash;
+   selected = the app colour in "color" blend (recolours the image in the app hue) + a solid check square.
+   <div class="vk-thumb is-selected"><img ...><span class="vk-thumb__chk">✓</span></div> */
+.vk-thumb{position:relative;cursor:pointer;isolation:isolate;}
+.vk-thumb::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;z-index:1;}
+.vk-thumb:hover::after,.vk-thumb.is-hover::after{opacity:var(--thumb-wash);}
+.vk-thumb.is-selected::after{opacity:1;mix-blend-mode:color;}
+.vk-thumb__chk{position:absolute;top:0;right:0;z-index:2;width:18px;height:18px;display:none;place-items:center;
+  background:var(--accent);color:var(--on-accent);font:700 11px/1 var(--mono);}
+.vk-thumb.is-selected .vk-thumb__chk{display:grid;}
+
+/* Tags (HEAVY, NEW ...): an 8% tint of the meaning colour with the word in that colour. 8% is the strongest tint
+   amber keeps 4.5:1 on (20% measures 3.84:1). Set --tag for another colour. */
+.vk-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
+  padding:3px 6px;color:var(--tag,var(--type-amber));background:color-mix(in srgb,var(--tag,var(--type-amber)) 8%,var(--bg-0));}
+
+/* Warning note: an amber tint across the whole note, led by the warning icon (brand/status/warning.svg, inlined,
+   currentColor) instead of a bar down the side. */
+.vk-note--warn,.vk-callout--warn{display:flex;gap:9px;align-items:flex-start;background:color-mix(in srgb,var(--type-amber) 16%,var(--bg-0));color:var(--tx-0);}
+.vk-note__ic{flex:0 0 auto;display:flex;width:12px;height:12px;margin-top:2px;color:var(--status-caution);}
+.vk-note__ic svg{width:100%;height:100%;}
+
+/* Drop zones: a panel with the canvas's faint diagonal texture; dragging over floods it with the app colour.
+   (An insertion line between rows stays a 2px solid marker: it marks a position, it isn't an outline.) */
+.vk-drop{display:grid;place-items:center;color:var(--tx-2);font-family:var(--mono);font-size:var(--fs-ctrl);
+  letter-spacing:0.06em;text-transform:uppercase;
+  background:var(--bg-2) repeating-linear-gradient(135deg,transparent 0 7px,rgba(255,255,255,.035) 7px 8px);}
+.vk-drop.is-over{background:color-mix(in srgb,var(--accent) 22%,var(--bg-0));color:var(--accent);}
+
+/* Colour swatches: the swatch sits on a 3px grey tile (a dark colour still needs an edge); the tile tints on hover
+   and turns solid when selected. <span class="vk-swatch is-selected"><i style="background:#c0392b"></i></span> */
+.vk-swatch{display:inline-block;padding:3px;background:var(--bg-3);cursor:pointer;}
+.vk-swatch > i{display:block;width:100%;height:100%;min-width:16px;min-height:16px;}
+.vk-swatch:hover,.vk-swatch.is-hover{background:color-mix(in srgb,var(--accent) 45%,var(--bg-3));}
+.vk-swatch.is-selected{background:var(--accent);}
 
 /* ===== app themes (exploration) ===== */
 /* V3KTR app themes · LOCKED (Patrick 2026-09-30)
@@ -2341,7 +2402,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.20.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.21.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -2355,7 +2416,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
       <div><b>App layer</b><p>Dense tool UI taken from PROCESSOR: buttons, chips, toggles, rows, sliders. Used by PROCESSOR, KOMPOSITOR and DIMENSOR.</p></div>
       <div><b>Site layer</b><p>The website's own scale: display type, gutters, nav, feed cards, article prose. Same core, different shape.</p></div>
     </div>
-    <div class="spec-group"><div class="spec-caption">Ground</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--bg-0)"></div><div class="tk-n">--bg-0</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-1)"></div><div class="tk-n">--bg-1</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-2)"></div><div class="tk-n">--bg-2</div><div class="tk-v">#2b2b2b · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-3)"></div><div class="tk-n">--bg-3</div><div class="tk-v">#3a3a3a · 1.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-4)"></div><div class="tk-n">--bg-4</div><div class="tk-v">#444444 · 1.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--line)"></div><div class="tk-n">--line</div><div class="tk-v">#171717 · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Text</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--tx-0)"></div><div class="tk-n">--tx-0</div><div class="tk-v">#f4f4f4 · 14.6:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-1)"></div><div class="tk-n">--tx-1</div><div class="tk-v">#cfcfcf · 10.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-2)"></div><div class="tk-n">--tx-2</div><div class="tk-v">#8a8a8a · 4.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Signal</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--accent)"></div><div class="tk-n">--accent</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-dim)"></div><div class="tk-n">--accent-dim</div><div class="tk-v">#0a8f66 · 3.9:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-glow)"></div><div class="tk-n">--accent-glow</div><div class="tk-v">rgba(0,229,160,0.15)</div></div><div class="tk"><div class="tk-sw" style="background:var(--hover)"></div><div class="tk-n">--hover</div><div class="tk-v">#3dffc2 · 12.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-accent)"></div><div class="tk-n">--on-accent</div><div class="tk-v">#1c1c1c · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--ctrl-line)"></div><div class="tk-n">--ctrl-line</div><div class="tk-v">rgba(255,255,255,.20)</div></div></div></div><div class="spec-group"><div class="spec-caption">Control outlines</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--ctrl-edge)"></div><div class="tk-n">--ctrl-edge</div><div class="tk-v">#757575 · 3.5:1</div></div><div class="tk tk-plain"><div class="tk-n">--stroke</div><div class="tk-v">2px</div></div></div></div><div class="spec-group"><div class="spec-caption">Status</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--danger)"></div><div class="tk-n">--danger</div><div class="tk-v">#ff5e7e · 5.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--danger-dim)"></div><div class="tk-n">--danger-dim</div><div class="tk-v">#7a2d3c · 1.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Status: ready / caution / blocked. LOCKED 2026-09-30</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--status-ready)"></div><div class="tk-n">--status-ready</div><div class="tk-v">#00e540 · 9.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--status-caution)"></div><div class="tk-n">--status-caution</div><div class="tk-v">#f9c200 · 9.8:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--status-blocked)"></div><div class="tk-n">--status-blocked</div><div class="tk-v">#ff5e7e · 5.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-status)"></div><div class="tk-n">--on-status</div><div class="tk-v">#1c1c1c · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">FX-group identity colours</div><div class="tk-grid"></div></div><div class="spec-group"><div class="spec-caption">LOCKED 2026-09-30</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--depth)"></div><div class="tk-n">--depth</div><div class="tk-v">#b1e800 · 11.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--adjust)"></div><div class="tk-n">--adjust</div><div class="tk-v">#9aa0a6 · 6.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--rust)"></div><div class="tk-n">--rust</div><div class="tk-v">#cd7f6e · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-amber)"></div><div class="tk-n">--type-amber</div><div class="tk-v">#b58d4c · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rust)"></div><div class="tk-n">--type-rust</div><div class="tk-v">#cd7f6e · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rose)"></div><div class="tk-n">--type-rose</div><div class="tk-v">#c67f93 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-sage)"></div><div class="tk-n">--type-sage</div><div class="tk-v">#7b9c76 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-teal)"></div><div class="tk-n">--type-teal</div><div class="tk-v">#6b9ca1 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-slate)"></div><div class="tk-n">--type-slate</div><div class="tk-v">#8c94a3 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-violet)"></div><div class="tk-n">--type-violet</div><div class="tk-v">#a386cb · 5.2:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Type</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--sans</div><div class="tk-v">'Manrope',ui-sans-serif,system-ui,sans-serif</div></div><div class="tk tk-plain"><div class="tk-n">--mono</div><div class="tk-v">'JetBrains Mono',ui-monospace,monospace</div></div><div class="tk tk-plain"><div class="tk-n">--fs-body</div><div class="tk-v">13px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-ctrl</div><div class="tk-v">11px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-row</div><div class="tk-v">11.5px</div></div><div class="tk tk-plain"><div class="tk-n">--head-weight</div><div class="tk-v">700</div></div><div class="tk tk-plain"><div class="tk-n">--head-track</div><div class="tk-v">.16em</div></div></div></div><div class="spec-group"><div class="spec-caption">Shape + spacing</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--radius</div><div class="tk-v">0</div></div><div class="tk tk-plain"><div class="tk-n">--pad</div><div class="tk-v">22px</div></div><div class="tk tk-plain"><div class="tk-n">--row-h</div><div class="tk-v">26px</div></div></div></div><div class="spec-group"><div class="spec-caption">Floating viewport toolbars</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--vp-bar-step</div><div class="tk-v">36px</div></div><div class="tk tk-plain"><div class="tk-n">--vp-bar-bottom</div><div class="tk-v">50px</div></div></div></div><div class="spec-group"><div class="spec-caption">Top bar</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--bar-h</div><div class="tk-v">36px</div></div><div class="tk tk-plain"><div class="tk-n">--brand-logo-h</div><div class="tk-v">21.05px</div></div><div class="tk tk-plain"><div class="tk-n">--brand-logo-top</div><div class="tk-v">10.61px</div></div></div></div><div class="spec-group"><div class="spec-caption">The brand slot is ONE width in every app</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--brand-slot</div><div class="tk-v">142.35px</div></div><div class="tk tk-plain"><div class="tk-n">--focus-ring</div><div class="tk-v">2px solid var(--accent)</div></div><div class="tk tk-plain"><div class="tk-n">--focus-offset</div><div class="tk-v">2px</div></div></div></div>
+    <div class="spec-group"><div class="spec-caption">Ground</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--bg-0)"></div><div class="tk-n">--bg-0</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-1)"></div><div class="tk-n">--bg-1</div><div class="tk-v">#212121 · 1.0:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-2)"></div><div class="tk-n">--bg-2</div><div class="tk-v">#2b2b2b · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-3)"></div><div class="tk-n">--bg-3</div><div class="tk-v">#3a3a3a · 1.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--bg-4)"></div><div class="tk-n">--bg-4</div><div class="tk-v">#444444 · 1.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--line)"></div><div class="tk-n">--line</div><div class="tk-v">#171717 · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Text</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--tx-0)"></div><div class="tk-n">--tx-0</div><div class="tk-v">#f4f4f4 · 14.6:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-1)"></div><div class="tk-n">--tx-1</div><div class="tk-v">#cfcfcf · 10.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--tx-2)"></div><div class="tk-n">--tx-2</div><div class="tk-v">#8a8a8a · 4.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Signal</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--accent)"></div><div class="tk-n">--accent</div><div class="tk-v">#00e5a0 · 9.7:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-dim)"></div><div class="tk-n">--accent-dim</div><div class="tk-v">#0a8f66 · 3.9:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--accent-glow)"></div><div class="tk-n">--accent-glow</div><div class="tk-v">rgba(0,229,160,0.15)</div></div><div class="tk"><div class="tk-sw" style="background:var(--hover)"></div><div class="tk-n">--hover</div><div class="tk-v">#3dffc2 · 12.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-accent)"></div><div class="tk-n">--on-accent</div><div class="tk-v">#1c1c1c · 1.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--ctrl-line)"></div><div class="tk-n">--ctrl-line</div><div class="tk-v">rgba(255,255,255,.20)</div></div></div></div><div class="spec-group"><div class="spec-caption">Control outlines</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--ctrl-edge)"></div><div class="tk-n">--ctrl-edge</div><div class="tk-v">#757575 · 3.5:1</div></div><div class="tk tk-plain"><div class="tk-n">--stroke</div><div class="tk-v">2px</div></div></div></div><div class="spec-group"><div class="spec-caption">Status</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--danger)"></div><div class="tk-n">--danger</div><div class="tk-v">#ff5e7e · 5.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--danger-dim)"></div><div class="tk-n">--danger-dim</div><div class="tk-v">#7a2d3c · 1.7:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Status: ready / caution / blocked. LOCKED 2026-09-30</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--status-ready)"></div><div class="tk-n">--status-ready</div><div class="tk-v">#00e540 · 9.4:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--status-caution)"></div><div class="tk-n">--status-caution</div><div class="tk-v">#f9c200 · 9.8:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--status-blocked)"></div><div class="tk-n">--status-blocked</div><div class="tk-v">#ff5e7e · 5.5:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--on-status)"></div><div class="tk-n">--on-status</div><div class="tk-v">#1c1c1c · 1.1:1</div></div></div></div><div class="spec-group"><div class="spec-caption">FX-group identity colours</div><div class="tk-grid"></div></div><div class="spec-group"><div class="spec-caption">LOCKED 2026-09-30</div><div class="tk-grid"><div class="tk"><div class="tk-sw" style="background:var(--depth)"></div><div class="tk-n">--depth</div><div class="tk-v">#b1e800 · 11.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--adjust)"></div><div class="tk-n">--adjust</div><div class="tk-v">#9aa0a6 · 6.1:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--rust)"></div><div class="tk-n">--rust</div><div class="tk-v">#cd7f6e · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-amber)"></div><div class="tk-n">--type-amber</div><div class="tk-v">#b58d4c · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rust)"></div><div class="tk-n">--type-rust</div><div class="tk-v">#cd7f6e · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-rose)"></div><div class="tk-n">--type-rose</div><div class="tk-v">#c67f93 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-sage)"></div><div class="tk-n">--type-sage</div><div class="tk-v">#7b9c76 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-teal)"></div><div class="tk-n">--type-teal</div><div class="tk-v">#6b9ca1 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-slate)"></div><div class="tk-n">--type-slate</div><div class="tk-v">#8c94a3 · 5.3:1</div></div><div class="tk"><div class="tk-sw" style="background:var(--type-violet)"></div><div class="tk-n">--type-violet</div><div class="tk-v">#a386cb · 5.2:1</div></div></div></div><div class="spec-group"><div class="spec-caption">Type</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--sans</div><div class="tk-v">'Manrope',ui-sans-serif,system-ui,sans-serif</div></div><div class="tk tk-plain"><div class="tk-n">--mono</div><div class="tk-v">'JetBrains Mono',ui-monospace,monospace</div></div><div class="tk tk-plain"><div class="tk-n">--fs-body</div><div class="tk-v">13px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-ctrl</div><div class="tk-v">11px</div></div><div class="tk tk-plain"><div class="tk-n">--fs-row</div><div class="tk-v">11.5px</div></div><div class="tk tk-plain"><div class="tk-n">--head-weight</div><div class="tk-v">700</div></div><div class="tk tk-plain"><div class="tk-n">--head-track</div><div class="tk-v">.16em</div></div></div></div><div class="spec-group"><div class="spec-caption">Shape + spacing</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--radius</div><div class="tk-v">0</div></div><div class="tk tk-plain"><div class="tk-n">--pad</div><div class="tk-v">22px</div></div><div class="tk tk-plain"><div class="tk-n">--row-h</div><div class="tk-v">26px</div></div></div></div><div class="spec-group"><div class="spec-caption">Floating viewport toolbars</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--vp-bar-step</div><div class="tk-v">36px</div></div><div class="tk tk-plain"><div class="tk-n">--vp-bar-bottom</div><div class="tk-v">50px</div></div></div></div><div class="spec-group"><div class="spec-caption">Top bar</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--bar-h</div><div class="tk-v">36px</div></div><div class="tk tk-plain"><div class="tk-n">--brand-logo-h</div><div class="tk-v">21.05px</div></div><div class="tk tk-plain"><div class="tk-n">--brand-logo-top</div><div class="tk-v">10.61px</div></div></div></div><div class="spec-group"><div class="spec-caption">The brand slot is ONE width in every app</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--brand-slot</div><div class="tk-v">142.35px</div></div></div></div><div class="spec-group"><div class="spec-caption">Flat states</div><div class="tk-grid"><div class="tk tk-plain"><div class="tk-n">--tint-hover</div><div class="tk-v">12%</div></div><div class="tk tk-plain"><div class="tk-n">--tint-sel</div><div class="tk-v">26%</div></div><div class="tk tk-plain"><div class="tk-n">--tint-ctrl</div><div class="tk-v">28%</div></div><div class="tk tk-plain"><div class="tk-n">--tint-field</div><div class="tk-v">18%</div></div><div class="tk tk-plain"><div class="tk-n">--thumb-wash</div><div class="tk-v">.32</div></div><div class="tk tk-plain"><div class="tk-n">--focus-ring</div><div class="tk-v">2px solid var(--accent)</div></div><div class="tk tk-plain"><div class="tk-n">--focus-offset</div><div class="tk-v">2px</div></div></div></div>
     
 <div class="spec-group"><div class="spec-caption">Type in use</div>
   <div class="ty"><span class="ty-l">Manrope 800 · display</span><span style="font:800 40px/1.1 var(--sans);color:var(--tx-0)">Effects that see depth.</span></div>
