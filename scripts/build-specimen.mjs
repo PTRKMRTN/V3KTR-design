@@ -69,7 +69,7 @@ const brandHtml = `<section class="tab-panel" id="p-brand" data-tab="brand" hidd
 const themesCss = read('themes/themes.css');
 const themeVars = Object.fromEntries([...themesCss.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
 const resolve = (v) => { const m = v.trim().match(/^var\(--([a-z0-9-]+)\)$/i); return m ? themeVars[m[1]] : v.trim(); };
-const themes = [...themesCss.matchAll(/\[data-app="([a-z-]+)"\]\s*\{([^}]*)\}/g)].map(([, id, body]) => ({ id, accent: resolve(body.match(/--accent:([^;]+);/)[1]), hover: resolve(body.match(/--hover:([^;]+);/)[1]) }));
+const themes = [...themesCss.matchAll(/\[data-app="([a-z-]+)"\]\s*\{([^}]*)\}/g)].filter(([, , body]) => body.includes('--accent:')).map(([, id, body]) => ({ id, accent: resolve(body.match(/--accent:([^;]+);/)[1]), hover: resolve(body.match(/--hover:([^;]+);/)[1]) }));
 const clashWith = { danger: '#ff5b5b', 'warn (PROCESSOR #e0a33a)': '#e0a33a', 'warn-2 (#d4823b)': '#d4823b', 'type-rust': '#a85d4e', 'type-rose': '#9d5a6e', 'type-amber': '#b08847', 'type-violet': '#8a6db0', 'type-slate': '#6a7280', 'type-teal': '#5a8a8f', 'type-sage': '#6e8f6a' };
 const lab = (h) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.substr(i, 2), 16) / 255).map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116); const x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047, y = r * 0.2126 + g * 0.7152 + b * 0.0722, z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883; return [116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z))]; };
 const dE = (a, b) => { const p = lab(a), q = lab(b); return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]); };

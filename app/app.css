@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.17.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.18.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -250,6 +250,19 @@
 /* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
 .vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
 /* from .menu */
+/* ══ TOP BAR (v0.18.0, Patrick 2026-10-02: the logo and menus the same size, position and spacing in every app).
+   PROCESSOR's bar is the reference. Logo at the bar's left padding (--pad), sized and placed so its app-name capitals
+   sit on the menu's baseline at the menu's cap height. The brand slot is the logo + 14px, so the name is followed by
+   the same 30px (14 + 2 gap + 14) that separates the menu words. The document name follows the menus, 31px on.
+   <div class="vk-topbar"><div class="vk-brand"><div class="vk-brand-logo"></div></div>
+     <div class="vk-menu">File</div>… <div class="vk-doc"><b>untitled</b> 1 object</div></div>
+   The logo is either a masked element (set mask-image to the app logo file) or the inline SVG (currentColor). */
+.vk-topbar{display:flex;align-items:center;gap:2px;height:var(--bar-h);padding:0 var(--pad);background:var(--bg-1);position:relative;}
+.vk-brand{position:relative;flex:0 0 auto;width:calc(var(--brand-logo-w) + 14px);height:100%;}
+.vk-brand-logo{position:absolute;top:var(--brand-logo-top);left:0;display:block;width:var(--brand-logo-w);height:var(--brand-logo-h);color:var(--accent);}
+.vk-brand-logo:not(svg){background-color:var(--accent);-webkit-mask:var(--brand-logo-url) left center/contain no-repeat;mask:var(--brand-logo-url) left center/contain no-repeat;}
+.vk-doc{margin-left:29px;color:var(--tx-2);font-size:11.5px;letter-spacing:.04em;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-doc b{color:var(--tx-1);font-weight:500;}
 .vk-menu{color:var(--accent);padding:4px 14px;font-size:12.5px;cursor:default;position:relative;}
 /* from .menu:hover */
 .vk-menu:hover,

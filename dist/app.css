@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.17.0
+/* V3KTR design tokens · v0.18.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -47,6 +47,11 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
+     every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
+     capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
+     top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
+  --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
@@ -72,6 +77,10 @@
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+/* App logo widths at --brand-logo-h (viewBox width / 154 x 21.05). */
+[data-app="processor"]  { --brand-logo-w:120.95px; }
+[data-app="kompositor"] { --brand-logo-w:128.35px; }
+[data-app="dimensor"]   { --brand-logo-w:113.45px; }
 
 /* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
    chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline
@@ -86,7 +95,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.17.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.18.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -338,6 +347,19 @@
 /* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
 .vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
 /* from .menu */
+/* ══ TOP BAR (v0.18.0, Patrick 2026-10-02: the logo and menus the same size, position and spacing in every app).
+   PROCESSOR's bar is the reference. Logo at the bar's left padding (--pad), sized and placed so its app-name capitals
+   sit on the menu's baseline at the menu's cap height. The brand slot is the logo + 14px, so the name is followed by
+   the same 30px (14 + 2 gap + 14) that separates the menu words. The document name follows the menus, 31px on.
+   <div class="vk-topbar"><div class="vk-brand"><div class="vk-brand-logo"></div></div>
+     <div class="vk-menu">File</div>… <div class="vk-doc"><b>untitled</b> 1 object</div></div>
+   The logo is either a masked element (set mask-image to the app logo file) or the inline SVG (currentColor). */
+.vk-topbar{display:flex;align-items:center;gap:2px;height:var(--bar-h);padding:0 var(--pad);background:var(--bg-1);position:relative;}
+.vk-brand{position:relative;flex:0 0 auto;width:calc(var(--brand-logo-w) + 14px);height:100%;}
+.vk-brand-logo{position:absolute;top:var(--brand-logo-top);left:0;display:block;width:var(--brand-logo-w);height:var(--brand-logo-h);color:var(--accent);}
+.vk-brand-logo:not(svg){background-color:var(--accent);-webkit-mask:var(--brand-logo-url) left center/contain no-repeat;mask:var(--brand-logo-url) left center/contain no-repeat;}
+.vk-doc{margin-left:29px;color:var(--tx-2);font-size:11.5px;letter-spacing:.04em;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-doc b{color:var(--tx-1);font-weight:500;}
 .vk-menu{color:var(--accent);padding:4px 14px;font-size:12.5px;cursor:default;position:relative;}
 /* from .menu:hover */
 .vk-menu:hover,

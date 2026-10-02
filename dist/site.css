@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.17.0
+/* V3KTR design tokens · v0.18.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -47,6 +47,11 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
+     every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
+     capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
+     top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
+  --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }
 
@@ -72,6 +77,10 @@
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+/* App logo widths at --brand-logo-h (viewBox width / 154 x 21.05). */
+[data-app="processor"]  { --brand-logo-w:120.95px; }
+[data-app="kompositor"] { --brand-logo-w:128.35px; }
+[data-app="dimensor"]   { --brand-logo-w:113.45px; }
 
 /* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
    chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline

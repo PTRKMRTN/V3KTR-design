@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.17.0
+/* V3KTR design tokens · v0.18.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -47,5 +47,10 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
+     every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
+     capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
+     top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
+  --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
 }

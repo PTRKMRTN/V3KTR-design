@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.18.0 — 2026-10-02
+
+The app top bar is shared (Patrick: "the logo and file menus will need to be brought into line in terms of size, position and spacing").
+- Measured before: PROCESSOR and DIMENSOR already matched to half a pixel (same hand-copied rules). KOMPOSITOR differed: bar padding 12px (others 22), logo 22px high at top 7px (others 21.05 at 10.61, so its name sat higher and larger than the menu text), 18px + 4px after the logo (others 14 + 2), menu words 28px apart with no padding (others 14px padding + 2px gap), document name centred (others follow the menus).
+- New core tokens `--bar-h` 36px, `--brand-logo-h` 21.05px, `--brand-logo-top` 10.61px (the derivation is in tokens.css), and per-app `--brand-logo-w` in themes.css (PROCESSOR 120.95, KOMPOSITOR 128.35, DIMENSOR 113.45).
+- New app-layer classes `.vk-topbar`, `.vk-brand`, `.vk-brand-logo` (masked element via `--brand-logo-url`, or the inline SVG), `.vk-doc`. PROCESSOR's bar is the reference; `.vk-menu` is unchanged.
+
 ## 0.17.0 — 2026-10-01
 
 Step icons, a TRIAL (Patrick: "we will see how they look. we dont need to include them if they dont work").
