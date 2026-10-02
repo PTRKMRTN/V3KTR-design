@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.21.1 — 2026-10-02
+
+- `.vk-drop` no longer sets type: it forced mono capitals onto every line inside a drop zone, so KOMPOSITOR's secondary line wrapped in a 288px panel (found by the KOMPOSITOR session). The type moves to an opt-in `.vk-drop__label`.
+
 ## 0.21.0 — 2026-10-02
 
 Flat states instead of outlines (Patrick: "im bigger on solid or flatter styles… the app colour as a full overlay instead of a hover outline"). From the outline audit (173 rules across the three apps and this layer, 15 patterns) and his review of it.
