@@ -7,13 +7,14 @@
 // TIPS (T1). Mark any control with data attributes; one shared .vk-tip element shows them:
 //   <button data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="R">…</button>
 //   data-tip-side="left|right|top|bottom" (default bottom, flipped to fit). Rail tips use the side AWAY from the panel.
-//   - mouse / pen: opens after ~400 ms of hover; closes on leave.
+//   - mouse / pen: opens after ~400 ms of hover; closes on leave. Warm mode (v0.25.1): once a tip has opened, the next
+//     control's tip opens at once, until the pointer has been off every tip target for 500 ms (`warm`, 0 = off).
 //   - keyboard: opens IMMEDIATELY when the control gets keyboard focus (:focus-visible); closes on blur.
 //   - touch: opens on a 500 ms long-press (the press then does NOT also activate the control); closes on a tap elsewhere.
 //   - Esc closes. While open the control gets aria-describedby → the tip, so screen readers read it too.
 //   Retire native title= on anything that gets a data-tip (title is invisible on touch and to keyboard users).
 //
-//   installTips({ root, delay, longPress }) → uninstall()
+//   installTips({ root, delay, longPress, warm }) → uninstall()
 //
 // HELPER TEXT (T2). View → Helper Text, off by default, remembered per app. While on, <html data-helper-text="on"> and the
 // parameter descriptions (.vk-param-desc) show.
@@ -32,11 +33,11 @@ export function keyLabel(combo, mac = isMac()) {
 }
 
 /** Install the shared tip behaviour on a root (default: the document). Returns a function that removes it. */
-export function installTips({ root = document, delay = 400, longPress = 500, doc = root.ownerDocument || root } = {}) {
+export function installTips({ root = document, delay = 400, longPress = 500, warm = 500, doc = root.ownerDocument || root } = {}) {
   const tip = doc.createElement('div');
   tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip');
   (doc.body || doc.documentElement).appendChild(tip);
-  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false;
+  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
   function fill(el) {
@@ -67,6 +68,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, doc
   }
   function hide() {
     clearTimeout(timer); pending = null;
+    if (target) lastHidden = Date.now();   // warm mode starts counting from here
     if (target) {
       const d = (target.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== tip.id);
       d.length ? target.setAttribute('aria-describedby', d.join(' ')) : target.removeAttribute('aria-describedby');
@@ -79,7 +81,10 @@ export function installTips({ root = document, delay = 400, longPress = 500, doc
   listen(root, 'pointerover', (e) => {
     if (e.pointerType === 'touch') return;
     const el = find(e.target); if (!el || el === target || el === pending) return;   // crossing a control's own children doesn't restart the delay
-    clearTimeout(timer); pending = el; timer = setTimeout(() => { pending = null; show(el); }, delay);
+    // WARM MODE: once a tip has been open, the next control shows its tip at once, so scanning a row of tiles (an FX
+    // rail) doesn't wait 400 ms on every one. It cools after `warm` ms with the pointer off every tip target.
+    const isWarm = warm > 0 && (target || Date.now() - lastHidden < warm);
+    clearTimeout(timer); pending = el; timer = setTimeout(() => { pending = null; show(el); }, isWarm ? 0 : delay);
   });
   listen(root, 'pointerout', (e) => {
     if (e.pointerType === 'touch') return;

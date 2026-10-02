@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.25.1 — 2026-10-03
+
+- Tip **warm mode** (asked for by the content session, from PROCESSOR's FX rail): once a tip has opened, the next control's tip opens at once, so scanning a row of tiles doesn't wait 400 ms on each; it cools after 500 ms with the pointer off every tip target (`installTips({ warm })`, 0 = off). Keyboard focus and long-press are unchanged. `test/help.test.mjs` now 24 checks; with warm mode off it fails.
+
 ## 0.25.0 — 2026-10-03
 
 The three gaps the PROCESSOR session found while adopting the help pattern.

@@ -1,5 +1,6 @@
 // node test/help.test.mjs: drives interactions/help.js in a real browser (Edge via Playwright from a sibling checkout).
-// Checks the approved behaviour: hover opens after ~400 ms (not before), keyboard focus opens at once, a 500 ms touch
+// Checks the approved behaviour: hover opens after ~400 ms (not before), warm mode (the next tip at once, cold again
+// after 500 ms off every target), keyboard focus opens at once, a 500 ms touch
 // long-press opens it WITHOUT pressing the control, a tap elsewhere / leave / blur / Esc close it, aria-describedby is
 // set while open, Helper Text is off by default and shows .vk-param-desc only while on, and keyLabel is platform-aware.
 import { createRequire } from 'node:module';
@@ -45,6 +46,11 @@ try {
   ok((await text()).includes('Randomise') && (await text()).includes('Roll new settings'), 'tip has name + description');
   ok(await p.evaluate(() => document.getElementById('a').getAttribute('aria-describedby')?.startsWith('vk-tip-')), 'aria-describedby set while open');
   await p.mouse.move(5, 300); await p.waitForTimeout(60); ok(!(await shown()), 'leave closes');
+  // warm mode: straight after one tip, the next control's tip opens at once; after 600 ms off every target it's cold again
+  await p.hover('#b'); await p.waitForTimeout(80); ok((await shown()) && (await text()).startsWith('Reset'), 'warm: the next tip opens at once');
+  await p.mouse.move(5, 300); await p.waitForTimeout(650); await p.hover('#a'); await p.waitForTimeout(150); ok(!(await shown()), 'cold again after 650 ms off every target');
+  await p.waitForTimeout(400); ok(await shown(), 'cold: opens after the full delay');
+  await p.mouse.move(5, 300); await p.waitForTimeout(650);
   ok(!(await p.evaluate(() => document.getElementById('a').hasAttribute('aria-describedby'))), 'aria-describedby removed on close');
   // keyboard focus: immediate
   await p.mouse.click(5, 300); await p.keyboard.press('Tab'); await p.waitForTimeout(30);
