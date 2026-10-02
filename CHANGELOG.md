@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.23.0 — 2026-10-02
+
+Slider behaviour is shared (Patrick: "holding shift while scrubbing a slider input does a fine control. and any sliders that have an angle or centre type value can have the snapping feature").
+- New `interactions/scrub.js`: `fineDrag` (Shift = a tenth of the pointer's movement; Shift at the press starts from the current value; release resumes 1:1), `snap` (detents every 45° for `angle` params, at the centre for `mid` params; pull 1.4% of the range; off while Shift is held or keyboard-stepping) and `keyStep` (arrow = one displayed unit, Shift+arrow = 10%).
+- A port of PROCESSOR's fineDrag / snapAngle / snapMid, which stays the reference. `test/scrub.test.mjs` checks `snap` against PROCESSOR's functions at 1001 points in both modes (4018 checks; a wider pull radius makes it fail).
+- Today: PROCESSOR already behaves this way. DIMENSOR's sliders had Shift only on the arrow keys (a tenth of a step, the opposite of PROCESSOR's Shift+arrow) and no detents; KOMPOSITOR has no sliders yet.
+
 ## 0.22.0 — 2026-10-02
 
 Patrick's follow-ups on the flat states.
