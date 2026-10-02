@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.24.0 — 2026-10-02
+
+In-app help, step 1 of the approved help pattern (V3KTR-PROJEKT/strategy/HELP-PATTERN.md; Patrick, 2026-10-02: "whole pattern, all 3 apps"; the default UI gains no visual complexity).
+- New `interactions/help.js`: `installTips()` (the shared `.vk-tip` behaviour: ~400 ms hover, immediately on keyboard focus, a 500 ms touch long-press that doesn't also press, closes on leave / blur / tap elsewhere / Esc, `aria-describedby` while open, placement by `data-tip-side` with flip-to-fit), `helperText(app)` (View → Helper Text, off by default, remembered per app, `<html data-helper-text="on">`) and `keyLabel()` (platform key hints).
+- New app-layer components: `.vk-param-desc` (hidden unless Helper Text is on), `.vk-hint`, `.vk-empty` (+ `__title`, `__body`); `.vk-tip kbd` for the key hint; no tip transition under reduced motion.
+- AGENTS.md "Help and copy": the tiers, the alert template ("What happened. What to do."), the Help menu (Guide · Shortcuts · Contact · Privacy · Terms · About <APP>), the Helper Text toggle, key hints and voice, pointing to MESSAGING.md §5–§6.
+- Default view unchanged: the existing components render pixel-identical to 0.23.1 (0 differing pixels). `test/help.test.mjs`: 21 checks in Edge; a 100 ms hover delay or a 100 ms long-press makes it fail.
+
 ## 0.23.1 — 2026-10-02
 
 - `snap()` puts angle detents at every 45° OF THE VALUE when the param gives `min`/`max` in degrees. Before, it used 1/8 of the range, which is 45° only for a 360° range: on DIMENSOR's Twist (−720…720) that was 180°, on Tilt (−90…90) 22.5° (found by the DIMENSOR session). Without `min`/`max` nothing changes: the 0..1 fraction is a full turn, PROCESSOR's case. Tests: 45° detents on six ranges, and 0..360 in degrees matching PROCESSOR (5174 checks; 90° detents make it fail).
