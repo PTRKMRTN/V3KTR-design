@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.21.2 — 2026-10-02
+
+Two of Patrick's notes on the flat states.
+- Drop zones: the diagonal stripes are the colour of the ground the zone sits on (`--drop-ground`, default `--bg-1`), cut into the `--bg-2` panel, instead of lighter lines ("make the brighter lines the same colour as the background under it").
+- Thumbnail cards: the whole card carries hover and selection. New `.vk-thumb--card` with `.vk-thumb__pic` and `.vk-thumb__label`: hover washes the picture and tints the label; selected blends the picture and makes the label SOLID app colour with dark text, so selection reads on a picture that is already the app colour.
+
 ## 0.21.1 — 2026-10-02
 
 - `.vk-drop` no longer sets type: it forced mono capitals onto every line inside a drop zone, so KOMPOSITOR's secondary line wrapped in a 288px panel (found by the KOMPOSITOR session). The type moves to an opt-in `.vk-drop__label`.
