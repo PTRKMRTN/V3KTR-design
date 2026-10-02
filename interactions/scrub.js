@@ -9,7 +9,8 @@
 //     - Shift pressed mid-drag: fine from there. Released: back to 1:1 from wherever the value now is.
 //     - A drag that never touches Shift reads the pointer as-is.
 //   SNAPPING (detents), only for params that declare it:
-//     - angle: true  → detents every 45° (every 1/8 of the range), so 0°, 45°, 90° … are easy to land.
+//     - angle: true  → detents at every 45° of the value (0°, 45°, 90° …). Give min/max in degrees when the range isn't one
+//                      full turn; without them the 0..1 fraction is taken as a full turn (PROCESSOR's case).
 //     - mid: true    → a detent at the centre of the range (position, light direction, shift: "no offset").
 //     Pull radius 1.4% of the range. Detents are OFF while Shift is held and during keyboard stepping: fine control
 //     must be able to reach values right next to a detent.
@@ -29,7 +30,15 @@ const PULL = 0.014;   // detent pull radius, as a fraction of the range
 /** Snap a 0..1 fraction to the param's detents. `off` = precision mode (Shift held, or keyboard stepping). */
 export function snap(f, param, off = false) {
   if (off || !param) return f;
-  if (param.angle) { const s = 1 / 8, n = Math.round(f / s) * s; if (Math.abs(f - n) < PULL) return n; }
+  if (param.angle) {
+    // Detents fall on every 45° OF THE VALUE. With min/max (in degrees) given, a range that isn't 360° wide still snaps at
+    // 45°: Twist -720..720, Tilt -90..90 (v0.23.1, found by DIMENSOR). Without them the fraction IS a full turn, which is
+    // PROCESSOR's case: 1/8 of the range = 45°.
+    if (isFinite(param.min) && isFinite(param.max) && param.max !== param.min) {
+      const span = param.max - param.min, deg = param.min + f * span, n = Math.round(deg / 45) * 45;
+      if (n >= Math.min(param.min, param.max) && n <= Math.max(param.min, param.max) && Math.abs(deg - n) / Math.abs(span) < PULL) return (n - param.min) / span;
+    } else { const s = 1 / 8, n = Math.round(f / s) * s; if (Math.abs(f - n) < PULL) return n; }
+  }
   if (param.mid && Math.abs(f - 0.5) < PULL) return 0.5;
   return f;
 }

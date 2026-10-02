@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.23.1 — 2026-10-02
+
+- `snap()` puts angle detents at every 45° OF THE VALUE when the param gives `min`/`max` in degrees. Before, it used 1/8 of the range, which is 45° only for a 360° range: on DIMENSOR's Twist (−720…720) that was 180°, on Tilt (−90…90) 22.5° (found by the DIMENSOR session). Without `min`/`max` nothing changes: the 0..1 fraction is a full turn, PROCESSOR's case. Tests: 45° detents on six ranges, and 0..360 in degrees matching PROCESSOR (5174 checks; 90° detents make it fail).
+
 ## 0.23.0 — 2026-10-02
 
 Slider behaviour is shared (Patrick: "holding shift while scrubbing a slider input does a fine control. and any sliders that have an angle or centre type value can have the snapping feature").
