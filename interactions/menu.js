@@ -13,7 +13,9 @@
 //   bar      the element holding the menu titles; it gets role="menubar"
 //   options  selectors and class names, defaulting to the shared vk- classes:
 //     menu: ':scope > .vk-menu'   pop: '.vk-menu-pop'   item: '.vk-menu-item'   sep: '.vk-menu-sep'   label: '.vk-menu-label'
-//     check: '.vk-menu-check' (a row whose check has data-* attributes is a menuitemcheckbox)
+//     check: '.vk-menu-check'. A row is a menuitemcheckbox (a STATE row: Helper Text, a format) when its check element
+//            carries any data-* attribute, e.g. <span class="vk-menu-check" data-check>✓</span>; aria-checked follows
+//            whether the check shows text. A check with no data-* is a plain placeholder column.
 //     openClass: 'is-open'   disabledClass: 'is-disabled'   staticClass: 'is-static' (reference rows: read, not run)
 //     open(menu): how to open a menu (default: menu.click(), i.e. the app's own click handler)
 //   PROCESSOR passes its own names: { menu: ':scope > .menu[data-menu]', pop: '.menu-pop', item: '.mi', sep: '.mi-sep',
@@ -49,7 +51,9 @@ export function installMenubar(bar, o = {}) {
         if (!mi.classList.contains(opt.staticClass)) mi.setAttribute('aria-disabled', mi.classList.contains(opt.disabledClass) ? 'true' : 'false');
       }); }
     });
-    mo.observe(m, { attributes: true, attributeFilter: ['class'] }); observers.push(mo);
+    // Watch the whole menu, not just its title: a check mark or a row's disabled class can change while the menu is open
+    // (v0.25.2, found by DIMENSOR). Only class changes and text/child changes count, so our own aria-* writes don't loop.
+    mo.observe(m, { attributes: true, attributeFilter: ['class'], subtree: true, childList: true, characterData: true }); observers.push(mo);
   });
   const anyOpen = () => menus.some(isOpen);
   const closeAll = () => menus.forEach((x) => x.classList.remove(opt.openClass));

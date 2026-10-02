@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.25.2 — 2026-10-03
+
+From DIMENSOR adopting v0.25.1.
+- Toasts: `setToastHost(el)` / `{ host }` centres the toast above the viewport bars of the canvas area. It was fixed to the whole window, 291 px off the canvas centre in DIMENSOR, contradicting its own comment. Without a host it still falls back to the window.
+- Menu: `aria-checked` and `aria-disabled` now follow a check mark or a disabled class that changes WHILE the menu is open (the observer watched only the title's class). The rule that a check with a `data-*` attribute makes a row a `menuitemcheckbox` is now in the code comment and AGENTS.md.
+- AGENTS.md: a shown toast catches the pointer where it sits.
+- `test/interactions.test.mjs`: 26 checks (clicks the page before Tab; live aria-checked; host centring). Watching only the title makes it fail.
+
 ## 0.25.1 — 2026-10-03
 
 - Tip **warm mode** (asked for by the content session, from PROCESSOR's FX rail): once a tip has opened, the next control's tip opens at once, so scanning a row of tiles doesn't wait 400 ms on each; it cools after 500 ms with the pointer off every tip target (`installTips({ warm })`, 0 = off). Keyboard focus and long-press are unchanged. `test/help.test.mjs` now 24 checks; with warm mode off it fails.

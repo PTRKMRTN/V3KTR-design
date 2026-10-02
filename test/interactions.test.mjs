@@ -48,6 +48,7 @@ try {
   ok(await attr('bar', 'role') === 'menubar' && await attr('m-File', 'role') === 'menuitem' && await attr('f-new', 'role') === 'menuitem', 'roles');
   ok(await attr('v-help', 'role') === 'menuitemcheckbox', 'a row with a data-* check is a menuitemcheckbox');
   ok(await attr('m-File', 'tabindex') === '0' && await attr('m-Edit', 'tabindex') === '-1', 'roving tabindex: one title in the tab order');
+  await p.mouse.click(5, 300);   // Tab starts from the last click point (found by DIMENSOR): start from the page, not wherever the cursor was
   await p.keyboard.press('Tab'); ok(await focus() === 'm-File', 'Tab reaches File');
   await p.keyboard.press('ArrowRight'); ok(await focus() === 'm-Edit' && await attr('m-Edit', 'tabindex') === '0', '→ moves along the bar');
   await p.keyboard.press('End'); ok(await focus() === 'm-View', 'End');
@@ -64,6 +65,12 @@ try {
   await p.keyboard.press('Enter'); ok(!(await p.evaluate(() => window.ran.includes('f-dis'))), 'a disabled row does not run');
   await p.keyboard.press('ArrowDown'); await p.keyboard.press('Enter');
   ok(await p.evaluate(() => window.ran.includes('f-save')) && await focus() === 'm-File', 'Enter runs the row; focus is back on the title');
+  // aria-checked follows a check mark that changes while the menu is open
+  await p.keyboard.press('End'); await p.keyboard.press('ArrowDown');
+  ok(await attr('v-help', 'aria-checked') === 'true', 'checked row reads aria-checked=true');
+  await p.evaluate(() => { document.querySelector('#v-help .vk-menu-check').textContent = ''; }); await p.waitForTimeout(30);
+  ok(await attr('v-help', 'aria-checked') === 'false', 'aria-checked updates while the menu is open');
+  await p.keyboard.press('Escape'); await p.mouse.click(5, 300);
   // toast
   await p.evaluate(() => window.toast({ what: "Couldn't read that file.", todo: 'Try a PNG, JPG or WebP.' }, { kind: 'error', ms: 400 }));
   const t = () => p.evaluate(() => [...document.querySelectorAll('.vk-toast')].map((x) => [x.getAttribute('role'), x.textContent]));
@@ -73,5 +80,10 @@ try {
   await p.evaluate(() => window.toast('Held', { ms: 250 })); await p.hover('.vk-toast'); await p.waitForTimeout(400); ok((await t()).length === 1, 'held while hovered');
   await p.mouse.move(2, 2); await p.waitForTimeout(350); ok((await t()).length === 0, 'closes after the pointer leaves');
   await p.evaluate(() => window.toast('Esc me', { ms: 5000 })); await p.keyboard.press('Escape'); ok((await t()).length === 0, 'Esc closes');
+  // a host: centred on the host, not the window
+  await p.evaluate(() => { const v = document.createElement('div'); v.id = 'vp'; v.style.cssText = 'position:absolute;left:300px;top:60px;width:400px;height:300px'; document.body.appendChild(v); });
+  const box = await p.evaluate(async () => { const { setToastHost, toast } = await import('/interactions/toast.js'); setToastHost(document.getElementById('vp')); toast('Hosted', { ms: 2000 }); await new Promise((r) => requestAnimationFrame(r));
+    const t = document.querySelector('.vk-toast').getBoundingClientRect(), h = document.getElementById('vp').getBoundingClientRect(); return { tc: t.left + t.width / 2, hc: h.left + h.width / 2, inside: t.bottom <= h.bottom && t.top >= h.top }; });
+  ok(Math.abs(box.tc - box.hc) < 1 && box.inside, 'with a host, the toast is centred on the host and inside it (' + Math.round(box.tc) + ' vs ' + Math.round(box.hc) + ')');
   console.log(`interactions: ${n} checks passed`);
 } finally { await b.close(); srv.close(); }
