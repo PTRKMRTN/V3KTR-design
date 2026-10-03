@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.30.0
+/* V3KTR design tokens · v0.31.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -44,6 +44,9 @@
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
   --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
+  /* Panel sections (v0.31.0, Patrick 2026-10-03: KOMPOSITOR's rhythm in every app): a section is padded --sec-pad on all
+     sides, a 2px --line divides one from the next, and its title sits --sec-head-gap above its first control. */
+  --sec-pad:var(--pad); --sec-head-gap:14px;
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
@@ -105,7 +108,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.30.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.31.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -333,6 +336,14 @@
   color:var(--tx-0);margin:12px 0 14px;display:flex;align-items:center;gap:6px;}
 /* from .sec-sub */
 .vk-sec-sub{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-2);padding:18px 0 11px;opacity:0.85;}
+/* Panel sections (v0.31.0, Patrick 2026-10-03; KOMPOSITOR's .sec, which he picked as the model). Every panel is a run of
+   .vk-section blocks: each padded --sec-pad (22px; an app may narrow it on small screens), a 2px --line between one
+   section and the next, and the title (.vk-sec-head or .vk-sec-label) --sec-head-gap (14px) above its first control.
+   So a title always sits with the controls below it, never against the section above. The panel itself adds no
+   padding around the sections. A section with no title is fine (the line and padding still group it). */
+.vk-section{padding:var(--sec-pad);}
+.vk-section + .vk-section{box-shadow:inset 0 var(--stroke) var(--line);}
+.vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
 /* from .rail-group-label (FX-group heading in its group colour via --gcol) */
 .vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
   text-transform:uppercase;line-height:1;padding:8px 0 6px;}
