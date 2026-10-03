@@ -82,16 +82,20 @@ export function mountSideView(el, { onInput = () => {}, onCommit = () => {}, onR
     const c = canvas.getContext('2d');
     c.setTransform(g.dpr, 0, 0, g.dpr, 0, 0);
     c.fillStyle = css(el, '--bg-1'); c.fillRect(0, 0, g.w, g.h);
+    // the block: the asset's box over the rows it covers. Drawn BEHIND the plate (v0.27.1, found by PROCESSOR): a wide box
+    // (PROCESSOR's Auto box often spans 5–87 % of the levels) used to cover the depth it sits in. Now a light tint first,
+    // the plate on top, then the two ends as solid handles, so the distribution stays readable at any width.
+    const [x0, x1] = blockX(g), y0 = Math.max(0, st.rect.y) * g.h, y1 = Math.min(1, st.rect.y + st.rect.h) * g.h;
+    const accent = css(el, '--accent');
+    c.fillStyle = accent; c.globalAlpha = drag ? 0.24 : 0.16; c.fillRect(x0, y0, Math.max(2, x1 - x0), y1 - y0);
+    c.globalAlpha = 1;
     const d = build(st.plate, st.box);
     c.fillStyle = css(el, '--tx-2');
     const cw = g.w / d.B, ch = g.h / d.R;
     for (let r = 0; r < d.R; r++) for (let b = 0; b < d.B; b++) { const a = d.n[r * d.B + b]; if (a) { c.globalAlpha = a; c.fillRect(b * cw, r * ch, cw + 0.5, ch + 0.5); } }
     c.globalAlpha = 1;
     if (!st.plate) { c.fillStyle = css(el, '--tx-2'); c.font = `11px ${css(el, '--sans') || 'sans-serif'}`; c.fillText(emptyText, 8, g.h / 2); }
-    // the block: the asset's box, over the rows it covers
-    const [x0, x1] = blockX(g), y0 = Math.max(0, st.rect.y) * g.h, y1 = Math.min(1, st.rect.y + st.rect.h) * g.h;
-    c.fillStyle = css(el, '--accent'); c.globalAlpha = drag ? 0.55 : 0.4; c.fillRect(x0, y0, Math.max(2, x1 - x0), y1 - y0);
-    c.globalAlpha = 1; c.fillRect(x0, y0, 2, y1 - y0); c.fillRect(Math.max(x0, x1 - 2), y0, 2, y1 - y0); // the ends: handles
+    c.fillStyle = accent; c.fillRect(x0, y0, 2, y1 - y0); c.fillRect(Math.max(x0, x1 - 2), y0, 2, y1 - y0); // the ends: handles
     if (st.auto && Number.isFinite(st.auto.subject)) { const sx = xOf(st.auto.subject, g); c.fillStyle = css(el, '--tx-1'); c.fillRect(sx - 0.5, 0, 1, 6); c.fillRect(sx - 0.5, g.h - 6, 1, 6); }
   }
 

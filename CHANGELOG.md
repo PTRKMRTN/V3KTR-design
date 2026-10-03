@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.27.1 — 2026-10-03
+
+- Side view: the block is drawn BEHIND the plate (found by PROCESSOR, whose Auto box often spans 5–87 % of the levels): a 16 % tint of the app colour (24 % while dragging) first, the plate's density on top, then the two ends as solid handles. Before, a 40 % fill on top hid the depth it sits in. `test/side-view.test.mjs` now checks the plate still reads grey under the block (16 checks); the v0.27.0 code fails it.
+
 ## 0.27.0 — 2026-10-03
 
 The depth side view, shared (CONNECTIVITY.md W1.5; DEPTH-BOX.md §6; asked for by the connectivity session once KOMPOSITOR K24 merged at 47bc101).

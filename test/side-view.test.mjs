@@ -49,7 +49,13 @@ try {
   if (SHEET) await p.locator('#well').screenshot({ path: SHEET });
   // the block draws in the app's colour (mandarin) at its centre
   const px = await p.evaluate(([x, y]) => { const c = document.querySelector('.vk-side-view'), r = c.getBoundingClientRect(), s = c.width / r.width; return [...c.getContext('2d').getImageData(Math.round((x - r.left) * s), Math.round((y - r.top) * s), 1, 1).data]; }, [X(0.5), Y]);
-  ok(px[0] > px[1] + 40 && px[0] > px[2] + 40, 'the block is drawn in the app colour: rgba ' + px.join(','));
+  ok(px[0] > px[1] + 15 && px[0] > px[2] + 15 && px[0] < 120, 'the block is a light tint of the app colour (the plate stays readable over it): rgba ' + px.join(','));
+  // the plate stays readable under the block (v0.27.1): put the block over the subject (0.82) and the subject's density
+  // must still read grey there, not be swallowed by the app colour
+  await p.evaluate(() => window.sv.update({ place: { depth: 0.82, thickness: 0.3 } }));
+  const under = await p.evaluate(([x, y]) => { const c = document.querySelector('.vk-side-view'), r = c.getBoundingClientRect(), s = c.width / r.width; return [...c.getContext('2d').getImageData(Math.round((x - r.left) * s), Math.round((y - r.top) * s), 1, 1).data]; }, [X(0.828), Y]);   // inside the subject's depth bin (0.823–0.833)
+  ok(under[0] - under[1] < 30 && under[0] > 90, 'the plate under the block still reads grey (the block sits behind it): rgba ' + under.join(','));
+  await p.evaluate(() => window.reset());
   // drag the block 40 px to the right (farther): depth 0.5 → 0.4, thickness unchanged
   await p.mouse.move(X(0.5), Y); await p.mouse.down(); await p.mouse.move(X(0.5) + 40, Y, { steps: 4 });
   let i = await last('input'); ok(near(i[1], 0.4) && near(i[2], 0.3), `drag moves depth (0.5 → ${i[1]}), thickness stays (${i[2]})`);
