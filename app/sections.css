@@ -1,0 +1,10 @@
+/* V3KTR panel sections (v0.31.1): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   them; dist/app.css includes them. Rule: AGENTS.md "Panel sections"; tested by test/sections.test.mjs. */
+/* Panel sections (v0.31.0, Patrick 2026-10-03; KOMPOSITOR's .sec, which he picked as the model). Every panel is a run of
+   .vk-section blocks: each padded --sec-pad (22px; an app may narrow it on small screens), a 2px --line between one
+   section and the next, and the title (.vk-sec-head or .vk-sec-label) --sec-head-gap (14px) above its first control.
+   So a title always sits with the controls below it, never against the section above. The panel itself adds no
+   padding around the sections. A section with no title is fine (the line and padding still group it). */
+.vk-section{padding:var(--sec-pad);}
+.vk-section + .vk-section{box-shadow:inset 0 var(--stroke) var(--line);}
+.vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}

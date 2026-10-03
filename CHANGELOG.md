@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.31.1 — 2026-10-03
+
+- Panel sections moved into their own pullable file, `app/sections.css` (like help / link / side-view / link-badge), at PROCESSOR's request: it pulls files rather than the bundle and was mirroring the rules. `dist/app.css` has the same rule set as v0.31.0 (240 rules, compared), so there's no visual change.
+
 ## 0.31.0 — 2026-10-03
 
 - **Panel sections** (Patrick: "make sure the ui spacing is consistent, particularly the before and after section titles"; he picked KOMPOSITOR's rhythm with its lines over a line-free variant): `.vk-section` with new tokens `--sec-pad` (= `--pad`, 22px) and `--sec-head-gap` (14px). Each section is padded 22px with a 2px `--line` between sections, and its title sits 14px above its first control. Before this, PROCESSOR and DIMENSOR put a title 12px under the section above and 14px over its own controls, so titles read as belonging to the wrong section. `.vk-sec-label` outside a section keeps its old margins until each app moves to sections. `test/sections.test.mjs`: 4 checks; with the title's margin left out it fails (a 34px top).
