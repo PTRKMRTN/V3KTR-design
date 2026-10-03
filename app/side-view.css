@@ -1,0 +1,4 @@
+/* V3KTR depth side view (v0.27.0): the canvas from interactions/side-view.js. Pullable on its own (like app/help.css);
+   dist/app.css includes it. The well that holds it is the app's own (KOMPOSITOR: 132px high on --bg-1). */
+.vk-side-view{display:block;width:100%;height:100%;touch-action:none;}
+.vk-side-view:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}

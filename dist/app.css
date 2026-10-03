@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.26.1
+/* V3KTR design tokens · v0.27.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -105,7 +105,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.26.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.27.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -713,3 +713,8 @@
 .vk-link__mark.is-self{color:var(--app);}
 .vk-link__mark.is-linked{background:var(--app);color:var(--on-accent);cursor:pointer;}
 .vk-link__mark.is-linked:hover{background:var(--app-hover);}
+
+/* V3KTR depth side view (v0.27.0): the canvas from interactions/side-view.js. Pullable on its own (like app/help.css);
+   dist/app.css includes it. The well that holds it is the app's own (KOMPOSITOR: 132px high on --bg-1). */
+.vk-side-view{display:block;width:100%;height:100%;touch-action:none;}
+.vk-side-view:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}

@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.27.0 — 2026-10-03
+
+The depth side view, shared (CONNECTIVITY.md W1.5; DEPTH-BOX.md §6; asked for by the connectivity session once KOMPOSITOR K24 merged at 47bc101).
+- New `interactions/side-view.js`, lifted from KOMPOSITOR's ui/side-view.js as built (no app imports): the plate as a depth density seen from the side, the box as a block in the app colour, drag to move, drag an end to change thickness about the centre, Shift = a tenth, ← → / ↑ ↓ keys, double-click or Home back to auto, an update during a drag ignored. Its wording is now options (`label`, `tip`, `tipDesc`, `emptyText`) so PROCESSOR (Image ▸ Depth custom box) and DIMENSOR (box modes) can say it their way; `toRange` / `fromRange` convert a placement to and from a near/far pair. Class `vk-side-view`, CSS in its own pullable `app/side-view.css`.
+- It stays the optional Adjust: it draws and drags a placement and never decides it.
+- `test/side-view.test.mjs`: 15 checks in Edge with a real mouse; dropping Shift-fine makes it fail.
+
 ## 0.26.1 — 2026-10-03
 
 - `.vk-link` moves to its own file, `app/link.css`, so PROCESSOR (which pulls files, not the bundle) can pull the link light without carrying a copy, the same way as `app/help.css`. `dist/app.css` includes it; its rule set is unchanged.
