@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.33.0 ===== */
-/* V3KTR design tokens · v0.33.0
+/* ===== core: tokens.css v0.33.1 ===== */
+/* V3KTR design tokens · v0.33.1
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -74,7 +74,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.33.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.33.1 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -631,6 +631,101 @@
 .vk-swatch.is-selected{background:var(--accent);}
 
 /* The link light moved to app/link.css (v0.26.1); dist/app.css still includes it. */
+
+/* V3KTR help layer (v0.25.0): the shared tip and the help components, as their own file so an app that pulls only
+   tokens (PROCESSOR, via design.json) can pull this too. dist/app.css includes it after app/app.css, so nothing moves
+   for apps that use the bundle. Behaviour: interactions/help.js. Rules: AGENTS.md "Help and copy". */
+/* ---------------------------------------------------------------- tooltip */
+
+/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
+.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+/* from .rail-btn .tip b */
+.vk-tip b{display:block;font-weight:700;}
+/* from .rail-btn .tip em */
+.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
+  opacity:0.7;white-space:normal;max-width:190px;}
+/* from .rail-btn:hover .tip */
+.vk-tip.is-shown{opacity:1;}
+/* Help (v0.24.0; V3KTR-PROJEKT/strategy/HELP-PATTERN.md, approved 2026-10-02). Behaviour (when a tip opens and closes)
+   lives in interactions/help.js. ⛔ None of these adds anything to the default view: a tip shows only on hover, focus or
+   long-press; a parameter description only while View → Helper Text is on; hints and empty states REPLACE existing text. */
+.vk-tip kbd{font-family:var(--mono);font-weight:400;margin-left:8px;opacity:0.7;}   /* the key hint after the name, platform-aware via keyLabel() */
+@media (prefers-reduced-motion:reduce){.vk-tip{transition:none;}}
+/* T2 parameter description: one short line under the parameter's row, only while Helper Text is on. */
+.vk-param-desc{display:none;font-size:10.5px;line-height:1.4;color:var(--tx-2);padding:2px 9px 6px;max-width:44ch;}
+[data-helper-text="on"] .vk-param-desc{display:block;}
+/* T3 hint: what's missing and what to do, in a sentence, where the missing thing would be. Real text, never an image. */
+.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2);}
+.vk-hint b{color:var(--tx-1);font-weight:500;}
+/* T3 empty state: a short title and one line saying how to start, in place of the missing content. An existing icon
+   may lead it; don't add one. */
+.vk-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:24px 16px;text-align:center;color:var(--tx-2);}
+.vk-empty__title{font-size:12px;color:var(--tx-1);}
+.vk-empty__body{font-size:11px;line-height:1.45;max-width:30ch;}
+/* T4 toast for an error (interactions/toast.js, kind 'error'): a red tint across the toast, not a red outline. */
+.vk-toast--error{background:color-mix(in srgb,var(--danger) 18%,var(--bg-2));color:var(--tx-0);}
+.vk-toast .vk-btn{margin-left:4px;}
+
+/* V3KTR link light (v0.26.1): .vk-link on its own, so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   it; dist/app.css includes it after app/app.css and app/help.css. Behaviour: interactions/link-light.js. */
+/* ══ LINK LIGHT (v0.26.0; CONNECTIVITY.md W2.3/W4.5): which V3KTR apps are open and linked in this browser, at the top
+   bar's right end, the same in every app. Behaviour: interactions/link-light.js. P · K · D always in that order.
+   This app = its letter in its own colour; linked = a solid tile in that app's colour with a dark letter (a button:
+   switch to it); not open = a grey letter. Flat: no outlines. Never colour alone: each mark has a tip and a label. */
+.vk-link{margin-left:auto;display:flex;align-items:center;gap:3px;}
+.vk-link__mark{display:inline-grid;place-items:center;width:18px;height:18px;padding:0;border:0;background:transparent;
+  font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;color:var(--tx-2);cursor:default;}
+.vk-link__mark[data-app="processor"]{--app:var(--processor);--app-hover:var(--processor-hover);}
+.vk-link__mark[data-app="kompositor"]{--app:var(--kompositor);--app-hover:var(--kompositor-hover);}
+.vk-link__mark[data-app="dimensor"]{--app:var(--dimensor);--app-hover:var(--dimensor-hover);}
+.vk-link__mark.is-self{color:var(--app);}
+.vk-link__mark.is-linked{background:var(--app);color:var(--on-accent);cursor:pointer;}
+.vk-link__mark.is-linked:hover{background:var(--app-hover);}
+
+/* V3KTR depth side view (v0.27.0): the canvas from interactions/side-view.js. Pullable on its own (like app/help.css);
+   dist/app.css includes it. The well that holds it is the app's own (KOMPOSITOR: 132px high on --bg-1). */
+.vk-side-view{display:block;width:100%;height:100%;touch-action:none;}
+.vk-side-view:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR linked-asset badge (v0.28.0; CONNECTIVITY.md W4.5): on its own so an app that pulls files rather than the bundle
+   (PROCESSOR) can pull it; dist/app.css includes it. Behaviour and states: interactions/link-badge.js. Lifted from
+   KOMPOSITOR K25's .bdg.lnk (mono, a 10px chain) with the owner colour from data-owner. Flat: tints and fills, no
+   outlines (keyboard focus keeps its ring). Always the mark + a word. */
+.vk-lnk{display:inline-flex;align-items:center;gap:4px;height:17px;padding:0 6px;border:0;margin:0;vertical-align:middle;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;line-height:1;white-space:nowrap;
+  color:var(--tx-1);background:color-mix(in srgb,var(--owner) 10%,var(--bg-0));cursor:default;}
+.vk-lnk svg{flex:0 0 auto;width:10px;height:10px;color:var(--owner);}
+.vk-lnk[data-owner="processor"]{--owner:var(--processor);--owner-hover:var(--processor-hover);}
+.vk-lnk[data-owner="kompositor"]{--owner:var(--kompositor);--owner-hover:var(--kompositor-hover);}
+.vk-lnk[data-owner="dimensor"]{--owner:var(--dimensor);--owner-hover:var(--dimensor-hover);}
+button.vk-lnk{cursor:pointer;}
+button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),var(--bg-0));color:var(--tx-0);}
+/* Update available: the one state with an action of its own, so a solid fill in the owner's colour */
+.vk-lnk[data-state="update"],
+.vk-lnk[data-state="update"] svg{color:var(--on-accent);}
+.vk-lnk[data-state="update"]{background:var(--owner);}
+.vk-lnk[data-state="update"]:hover{background:var(--owner-hover);color:var(--on-accent);}
+/* Source not responding: caution, as the status rule says (an icon and a word, the yellow tint of a warning note) */
+.vk-lnk[data-state="stale"]{background:color-mix(in srgb,var(--status-caution) 16%,var(--bg-0));color:var(--tx-0);}
+.vk-lnk[data-state="stale"] svg{color:var(--status-caution);}
+/* Source closed and Frozen: nothing will change, so a grey mark (3.3:1, a non-text mark) with a --tx-1 word (7.3:1; --tx-2 text on --bg-3 fails 4.5) */
+.vk-lnk[data-state="closed"],.vk-lnk[data-state="frozen"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
+.vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR panel sections (v0.32.0): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   them; dist/app.css includes them. Rule: AGENTS.md "Panel sections"; tested by test/sections.test.mjs.
+   Every panel is a run of .vk-section blocks. Space alone groups them (Patrick 2026-10-03: no divider lines, which
+   turn to noise when there are many): --sec-pad (22px) at the sides and at the top and bottom of the panel,
+   --sec-gap (33px) from one section's last control to the next section's title, and the title (.vk-sec-head or
+   .vk-sec-label) --sec-head-gap (14px) above its first control. A title always reads with the controls below it.
+   The panel adds no padding of its own around the sections. (v0.31.x drew a 2px line between sections: retired.) */
+.vk-section{padding:0 var(--sec-pad);}
+.vk-section:first-child{padding-top:var(--sec-pad);}
+.vk-section:last-child{padding-bottom:var(--sec-pad);}
+.vk-section + .vk-section{margin-top:var(--sec-gap);}
+.vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
 
 /* ===== app themes (exploration) ===== */
 /* V3KTR app themes · LOCKED (Patrick 2026-09-30)
@@ -2422,7 +2517,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.33.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.33.1</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -2451,7 +2546,19 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   <div class="spec-group"><div class="spec-caption">App themes · locked 2026-09-30</div>
   <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button></div>
   <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#bb6fff"></span>DIMENSOR</td><td>#bb6fff</td><td>5.24:1</td><td>5.54:1</td><td>--type-violet · ΔE 43</td></tr></tbody></table></div>
-  <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor"><section class="spec-layer" data-layer="app">
+  <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor">
+<div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>
+  <div class="sp-demo"><div class="vk-section"><div class="vk-sec-label">Render</div><div class="vk-scrub" style="--fill:0%"><span class="vk-scrub__label">Shading</span><span class="vk-scrub__val">Render ▾</span></div></div><div class="vk-section"><div class="vk-sec-label">Quality</div><div class="vk-scrub" style="--fill:40%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Denoise</span><span class="vk-scrub__val">On</span></div></div></div>
+  <p class="th-note">33px from a section's last control to the next title; 14px from a title to its controls; 22px at the panel's sides and ends.</p></div>
+<div class="spec-group"><div class="spec-caption">Linked-asset badge · v0.28.0 · app/link-badge.css · owner colour</div>
+  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <button type="button" class="vk-lnk" data-owner="dimensor" data-state="update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Update available</span></button>
+  <span class="vk-lnk" data-owner="processor" data-state="stale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Source not responding</span></span>
+  <span class="vk-lnk" data-owner="kompositor" data-state="closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/></svg><span>Source closed</span></span>
+  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div></div>
+<div class="spec-group"><div class="spec-caption">Link light · v0.26.0 · app/link.css</div>
+  <div class="sp-demo"><span class="vk-link" style="margin-left:0"><span class="vk-link__mark is-self" data-app="processor">P</span><button type="button" class="vk-link__mark is-linked" data-app="kompositor">K</button><span class="vk-link__mark is-absent" data-app="dimensor">D</span></span></div></div>
+<section class="spec-layer" data-layer="app">
   <div class="spec-group">
     <p class="spec-caption">.vk-btn.vk-btn--lg · LARGE 8×14 (from .gen-btn) · rest / hover / disabled</p>
     <div class="spec-row">

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.33.1 — 2026-10-03
+
+- Specimen page: loads the self-hosted fonts (it still pulled Google Fonts, breaking the no-outside-request rule); shows the panel sections (v0.32.0), the linked-asset badge (v0.28.0) and the link light (v0.26.0), and renders every pullable app file (help, link, side view, link badge, sections) so the page shows what an app gets. No token or component changed.
+
 ## 0.33.0 — 2026-10-03
 
 - **Self-hosted fonts** (connectivity session, from KOMPOSITOR K21: the apps and the engine core's glyph FX loaded JetBrains Mono from Google Fonts): `fonts/fonts.css` + 18 woff2 files (288 KB with licences). JetBrains Mono 400/500/600/700 and Manrope 400–800, latin + latin-ext with @fontsource 5.3.0's unicode ranges, `font-display: swap`, SIL OFL 1.1 licences beside them. Families are named as in tokens.css, so swapping the Google `<link>` for `fonts/fonts.css` changes nothing else. One visible difference: mono 700 (link light, badge, section labels) is now the real bold; PROCESSOR's Google URL stopped at 600, so the browser was synthesising it. Built by `scripts/build-fonts.mjs` from a DIMENSOR checkout's @fontsource. `test/fonts.test.mjs`: 5 checks with every request off the test server blocked; a broken path for one weight fails it.

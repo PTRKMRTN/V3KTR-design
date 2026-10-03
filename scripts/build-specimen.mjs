@@ -52,8 +52,22 @@ const layer = (id, title, blurb, css, frag) => `
   ${frag || `<p class="empty">Not extracted yet.</p>`}
 </section>`;
 
-const appCss = read('app/app.css');
+// every pullable app file (help, link, side view, link badge, sections), so the page shows what an app gets
+const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css'].map(read).join('\n');
 const logo = (f) => read('brand/' + f).replace(/<svg /, '<svg class="lg" ');
+const compHtml = `
+<div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>
+  <div class="sp-demo"><div class="vk-section"><div class="vk-sec-label">Render</div><div class="vk-scrub" style="--fill:0%"><span class="vk-scrub__label">Shading</span><span class="vk-scrub__val">Render ▾</span></div></div><div class="vk-section"><div class="vk-sec-label">Quality</div><div class="vk-scrub" style="--fill:40%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Denoise</span><span class="vk-scrub__val">On</span></div></div></div>
+  <p class="th-note">33px from a section's last control to the next title; 14px from a title to its controls; 22px at the panel's sides and ends.</p></div>
+<div class="spec-group"><div class="spec-caption">Linked-asset badge · v0.28.0 · app/link-badge.css · owner colour</div>
+  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <button type="button" class="vk-lnk" data-owner="dimensor" data-state="update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Update available</span></button>
+  <span class="vk-lnk" data-owner="processor" data-state="stale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Source not responding</span></span>
+  <span class="vk-lnk" data-owner="kompositor" data-state="closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/></svg><span>Source closed</span></span>
+  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div></div>
+<div class="spec-group"><div class="spec-caption">Link light · v0.26.0 · app/link.css</div>
+  <div class="sp-demo"><span class="vk-link" style="margin-left:0"><span class="vk-link__mark is-self" data-app="processor">P</span><button type="button" class="vk-link__mark is-linked" data-app="kompositor">K</button><span class="vk-link__mark is-absent" data-app="dimensor">D</span></span></div></div>
+`;
 const brandHtml = `<section class="tab-panel" id="p-brand" data-tab="brand" hidden>
   <p class="lede">From Patrick's files. Every logo takes the colour it's placed in (currentColor). Apps use their app logo, never the wordmark plus separate text. Rules: brand/README.md.</p>
   <div class="spec-group"><div class="spec-caption">Master · logo-v3ktr.svg · neutral: white or grey</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)">${logo('logo-v3ktr.svg')}</div><div class="lg-box lg-big" style="color:#a3a3a3">${logo('logo-v3ktr.svg')}</div></div></div>
@@ -86,7 +100,7 @@ const themeHtml = `<div class="spec-group"><div class="spec-caption">App themes 
 const siteCss = read('site/site.css');
 
 const html = `<title>V3KTR Design</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <style>
 /* ===== core: tokens.css v${version} ===== */
 ${core}
@@ -167,7 +181,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     ${coreHtml}
     ${typeHtml}
   </section>
-  ${layer('app', 'App layer', 'Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.', appCss, themeHtml + '<div id="app-themed" data-app="processor">' + read('app/specimen.html') + '</div>')}
+  ${layer('app', 'App layer', 'Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.', appCss, themeHtml + '<div id="app-themed" data-app="processor">' + compHtml + read('app/specimen.html') + '</div>')}
   ${brandHtml}
   ${layer('site', 'Site layer', 'Taken from site v2. Neutral: white only for links, buttons and active states; text in three greys (headings #b3b3b3, body #a3a3a3, muted #939393). App colour appears only inside [data-app].', siteCss, read('site/specimen.html'))}
 </div>
