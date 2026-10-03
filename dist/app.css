@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.27.1
+/* V3KTR design tokens · v0.28.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -105,7 +105,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.27.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.28.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -718,3 +718,29 @@
    dist/app.css includes it. The well that holds it is the app's own (KOMPOSITOR: 132px high on --bg-1). */
 .vk-side-view{display:block;width:100%;height:100%;touch-action:none;}
 .vk-side-view:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR linked-asset badge (v0.28.0; CONNECTIVITY.md W4.5): on its own so an app that pulls files rather than the bundle
+   (PROCESSOR) can pull it; dist/app.css includes it. Behaviour and states: interactions/link-badge.js. Lifted from
+   KOMPOSITOR K25's .bdg.lnk (mono, a 10px chain) with the owner colour from data-owner. Flat: tints and fills, no
+   outlines (keyboard focus keeps its ring). Always the mark + a word. */
+.vk-lnk{display:inline-flex;align-items:center;gap:4px;height:17px;padding:0 6px;border:0;margin:0;vertical-align:middle;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;line-height:1;white-space:nowrap;
+  color:var(--tx-1);background:color-mix(in srgb,var(--owner) 10%,var(--bg-0));cursor:default;}
+.vk-lnk svg{flex:0 0 auto;width:10px;height:10px;color:var(--owner);}
+.vk-lnk[data-owner="processor"]{--owner:var(--processor);--owner-hover:var(--processor-hover);}
+.vk-lnk[data-owner="kompositor"]{--owner:var(--kompositor);--owner-hover:var(--kompositor-hover);}
+.vk-lnk[data-owner="dimensor"]{--owner:var(--dimensor);--owner-hover:var(--dimensor-hover);}
+button.vk-lnk{cursor:pointer;}
+button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),var(--bg-0));color:var(--tx-0);}
+/* Update available: the one state with an action of its own, so a solid fill in the owner's colour */
+.vk-lnk[data-state="update"],
+.vk-lnk[data-state="update"] svg{color:var(--on-accent);}
+.vk-lnk[data-state="update"]{background:var(--owner);}
+.vk-lnk[data-state="update"]:hover{background:var(--owner-hover);color:var(--on-accent);}
+/* Source not responding: caution, as the status rule says (an icon and a word, the yellow tint of a warning note) */
+.vk-lnk[data-state="stale"]{background:color-mix(in srgb,var(--status-caution) 16%,var(--bg-0));color:var(--tx-0);}
+.vk-lnk[data-state="stale"] svg{color:var(--status-caution);}
+/* Source closed and Frozen: nothing will change, so a grey mark (3.3:1, a non-text mark) with a --tx-1 word (7.3:1; --tx-2 text on --bg-3 fails 4.5) */
+.vk-lnk[data-state="closed"],.vk-lnk[data-state="frozen"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
+.vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}

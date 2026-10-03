@@ -1,4 +1,4 @@
-// V3KTR menu icons (v0.20.0). THE SOURCE: edit this file, then run scripts/build-menu-icons.mjs (writes the JSON + sheet).
+// V3KTR menu icons (v0.28.0: + link, unlink from KOMPOSITOR K25). THE SOURCE: edit this file, then run scripts/build-menu-icons.mjs (writes the JSON + sheet).
 // Promoted once a third app wanted the set (KOMPOSITOR, 2026-10-02): DIMENSOR drew the first ones (src/ui/icons.js),
 // PROCESSOR v0.585.0 and KOMPOSITOR copied them character for character and added their own verbs in the same
 // language. Apps take them from here now instead of copying.
@@ -27,6 +27,7 @@ export const MENU_ICONS = {
   freeze: '<rect x="4" y="5" width="16" height="14"/><path d="M10 9v6M14 9v6"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.5"/>',
   keys: '<rect x="3" y="6" width="18" height="12"/><path d="M7 10h1M11 10h1M15 10h1M7 14h10"/>',
+  link: '<path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/>',
   lock: '<rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/>',
   mail: '<rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>',
   markin: '<path d="M10 4H7v16h3"/><path d="M12 12h8M16 8l4 4-4 4"/>',
@@ -52,6 +53,7 @@ export const MENU_ICONS = {
   split: '<path d="M12 3v18" stroke-dasharray="2 2"/><rect x="3" y="7" width="6" height="10"/><rect x="15" y="7" width="6" height="10"/>',
   trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
   undo: '<path d="M5 12a7 7 0 107-7H7"/><path d="M10 2L7 5l3 3"/>',
+  unlink: '<path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/>',
   unlock: '<rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 016.800-1"/>',
   up: '<path d="M6 14l6-6 6 6"/>',
   x: '<path d="M6 6l12 12M18 6L6 18"/>',

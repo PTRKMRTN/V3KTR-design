@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.28.0 — 2026-10-03
+
+- **Linked-asset badge** (CONNECTIVITY.md W4.5), lifted from KOMPOSITOR K25 and generalised: `interactions/link-badge.js` (`badgeOf`, `linkBadge`, `linkBadgeHtml`, `linkBadgeMenu`, `NOT_RESPONDING_MS`) + `app/link-badge.css` (pullable; in `dist/app.css`). Always the chain + a word, with the chain in the OWNER app's colour via `data-owner` (K25 hard-coded `--dimensor`). Five states: Linked · Update available (the one solid button) · Source not responding (new: the protocol's 30 s silence, caution yellow) · Source closed · Frozen. The actions are in a menu: Go to source · Update now · Update policy · Freeze. Grey states keep a `--tx-1` word, because `--tx-2` on `--bg-3` measures 3.3:1.
+- Menu icons: + `link`, `unlink` (K25's chain paths).
+- `test/link-badge.test.mjs`: 17 checks, including the owner colour, the click wiring (a badge click never reaches its row), state precedence, the menu, and 4.5:1 for every word. Negative control: the hard-coded `--dimensor` icon colour fails the owner check.
+
 ## 0.27.1 — 2026-10-03
 
 - Side view: the block is drawn BEHIND the plate (found by PROCESSOR, whose Auto box often spans 5–87 % of the levels): a 16 % tint of the app colour (24 % while dragging) first, the plate's density on top, then the two ends as solid handles. Before, a 40 % fill on top hid the depth it sits in. `test/side-view.test.mjs` now checks the plate still reads grey under the block (16 checks); the v0.27.0 code fails it.
