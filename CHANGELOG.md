@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.32.0 — 2026-10-03
+
+- **Panel sections: no lines** (Patrick, after a mockup of inset and thinner variants: "lets ditch the sub dividers, when there are lots it creates noise"). Space alone groups sections now: 22px at the sides and the panel's ends, a new token `--sec-gap` (1.5 × `--pad`, 33px) from a section's last control to the next title, and 14px from title to controls. These are the numbers of the line-free option he first picked. Replaces v0.31.x's 22px padding with a 2px `--line` between sections (44px gap). `test/sections.test.mjs`: 5 checks; v0.31's lines and v0.31's padding each fail it. Main workspace dividers are unchanged (2px).
+
 ## 0.31.1 — 2026-10-03
 
 - Panel sections moved into their own pullable file, `app/sections.css` (like help / link / side-view / link-badge), at PROCESSOR's request: it pulls files rather than the bundle and was mirroring the rules. `dist/app.css` has the same rule set as v0.31.0 (240 rules, compared), so there's no visual change.

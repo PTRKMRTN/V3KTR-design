@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.31.1
+/* V3KTR design tokens · v0.32.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -44,9 +44,10 @@
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
   --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
-  /* Panel sections (v0.31.0, Patrick 2026-10-03: KOMPOSITOR's rhythm in every app): a section is padded --sec-pad on all
-     sides, a 2px --line divides one from the next, and its title sits --sec-head-gap above its first control. */
-  --sec-pad:var(--pad); --sec-head-gap:14px;
+  /* Panel sections (v0.32.0, Patrick 2026-10-03): space alone groups them, no divider lines ("when there are lots it
+     creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
+     between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */
+  --sec-pad:var(--pad); --sec-gap:calc(var(--pad) * 1.5); --sec-head-gap:14px;
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;

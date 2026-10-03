@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.31.1
+/* V3KTR design tokens · v0.32.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -44,9 +44,10 @@
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
   --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
-  /* Panel sections (v0.31.0, Patrick 2026-10-03: KOMPOSITOR's rhythm in every app): a section is padded --sec-pad on all
-     sides, a 2px --line divides one from the next, and its title sits --sec-head-gap above its first control. */
-  --sec-pad:var(--pad); --sec-head-gap:14px;
+  /* Panel sections (v0.32.0, Patrick 2026-10-03): space alone groups them, no divider lines ("when there are lots it
+     creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
+     between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */
+  --sec-pad:var(--pad); --sec-gap:calc(var(--pad) * 1.5); --sec-head-gap:14px;
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
@@ -108,7 +109,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.31.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.32.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -748,13 +749,15 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
 .vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
 
-/* V3KTR panel sections (v0.31.1): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
-   them; dist/app.css includes them. Rule: AGENTS.md "Panel sections"; tested by test/sections.test.mjs. */
-/* Panel sections (v0.31.0, Patrick 2026-10-03; KOMPOSITOR's .sec, which he picked as the model). Every panel is a run of
-   .vk-section blocks: each padded --sec-pad (22px; an app may narrow it on small screens), a 2px --line between one
-   section and the next, and the title (.vk-sec-head or .vk-sec-label) --sec-head-gap (14px) above its first control.
-   So a title always sits with the controls below it, never against the section above. The panel itself adds no
-   padding around the sections. A section with no title is fine (the line and padding still group it). */
-.vk-section{padding:var(--sec-pad);}
-.vk-section + .vk-section{box-shadow:inset 0 var(--stroke) var(--line);}
+/* V3KTR panel sections (v0.32.0): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   them; dist/app.css includes them. Rule: AGENTS.md "Panel sections"; tested by test/sections.test.mjs.
+   Every panel is a run of .vk-section blocks. Space alone groups them (Patrick 2026-10-03: no divider lines, which
+   turn to noise when there are many): --sec-pad (22px) at the sides and at the top and bottom of the panel,
+   --sec-gap (33px) from one section's last control to the next section's title, and the title (.vk-sec-head or
+   .vk-sec-label) --sec-head-gap (14px) above its first control. A title always reads with the controls below it.
+   The panel adds no padding of its own around the sections. (v0.31.x drew a 2px line between sections: retired.) */
+.vk-section{padding:0 var(--sec-pad);}
+.vk-section:first-child{padding-top:var(--sec-pad);}
+.vk-section:last-child{padding-bottom:var(--sec-pad);}
+.vk-section + .vk-section{margin-top:var(--sec-gap);}
 .vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
