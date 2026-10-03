@@ -17,7 +17,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SHEET = process.argv[2];
 const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="/dist/app.css">
 <body data-app="kompositor" style="margin:0;padding:20px;background:#212121;color:#cfcfcf;font:11px sans-serif">
-<div id="sheet" style="display:grid;grid-template-columns:auto auto auto;gap:10px 18px;align-items:center;width:max-content;padding:16px;background:var(--bg-2)"></div>
+<div id="sheet" style="display:grid;grid-template-columns:auto auto auto;justify-items:start;gap:10px 18px;align-items:center;width:max-content;padding:16px;background:var(--bg-2)"></div>
 <div id="row" style="margin-top:12px;padding:6px;background:var(--bg-2)"></div>
 <script type="module">
 import { linkBadge, linkBadgeHtml, linkBadgeMenu, badgeOf } from '/interactions/link-badge.js';
