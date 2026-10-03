@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.29.1 — 2026-10-03
+
+- Docs only: the step icons are for the apps. The site doesn't use them (Patrick chose animated step scenes on /processor, 2026-10-01; found by the site-v2 session). Corrected in brand/README.md, AGENTS.md and the step-icons module header. No asset changed.
+
 ## 0.29.0 — 2026-10-03
 
 - **App favicons are now the link light's tiles** (Patrick): a dark P / K / D on the app's colour, replacing the V. `brand/icons/icon-{processor,kompositor,dimensor}.svg` + PNG 32 / 180 / 512. The letter is JetBrains Mono Bold cut to outlines (borrowed opentype.js + @fontsource from DIMENSOR at build time; the icons need no font), cap height 60 % of the tile so it reads in a 16px tab. The site icon (V3) is unchanged. The before/after sheet went to Patrick.
