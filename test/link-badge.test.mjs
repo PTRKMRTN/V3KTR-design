@@ -20,7 +20,9 @@ const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="
 <div id="sheet" style="display:grid;grid-template-columns:auto auto auto;justify-items:start;gap:10px 18px;align-items:center;width:max-content;padding:16px;background:var(--bg-2)"></div>
 <div id="row" style="margin-top:12px;padding:6px;background:var(--bg-2)"></div>
 <script type="module">
-import { linkBadge, linkBadgeHtml, linkBadgeMenu, badgeOf } from '/interactions/link-badge.js';
+import { linkBadge, linkBadgeHtml, linkBadgeMenu, badgeOf, BADGE_ICONS } from '/interactions/link-badge.js';
+import { MENU_ICONS } from '/icons/menu-icons.js';
+window.iconsMatch = Object.keys(BADGE_ICONS).every((k) => BADGE_ICONS[k] === MENU_ICONS[k]);
 window.log = []; window.badgeOf = badgeOf; window.linkBadgeMenu = linkBadgeMenu; window.linkBadgeHtml = linkBadgeHtml;
 const S = [['linked', { state: 'linked' }], ['update', { state: 'updateAvailable' }], ['stale', { state: 'linked', notResponding: true }],
   ['closed', { state: 'sourceClosed' }], ['frozen', { state: 'frozen' }]];
@@ -80,5 +82,7 @@ try {
   ok(!m[0][1].disabled && m[1][1].disabled, 'Update now only when an update is waiting and not frozen');
   ok(m[0][2].items.find((x) => x.checked).id === 'policy:live' && m[1][2].items.every((x) => x.disabled), 'the policy shows its current choice and is locked while frozen');
   ok(m[1][3].label === 'Unfreeze' && m[1][3].checked, 'Freeze toggles to Unfreeze');
+  ok(await p.evaluate(() => window.iconsMatch), "the badge's inlined marks match menu-icons' link / unlink / lock");
+  ok(!/^\s*import\s/m.test(await readFile(ROOT + 'interactions/link-badge.js', 'utf8')), 'link-badge.js imports nothing (vendors flat)');
   console.log(`link-badge: ${n} checks passed`);
 } finally { await b.close(); srv.close(); }

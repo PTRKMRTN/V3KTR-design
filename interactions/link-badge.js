@@ -1,4 +1,4 @@
-// V3KTR linked-asset badge (v0.28.0; CONNECTIVITY.md W4.5, LINK-PROTOCOL.md): an asset that came from another V3KTR app
+// V3KTR linked-asset badge (v0.28.1: no imports; CONNECTIVITY.md W4.5, LINK-PROTOCOL.md): an asset that came from another V3KTR app
 // (a DIMENSOR logo in a KOMPOSITOR timeline, a PROCESSOR piece in a DIMENSOR scene) says so, the same in every app.
 // Lifted from KOMPOSITOR K25 (link/record.js badgeOf + ui/timeline-ui.js linkBadge) and generalised: the chain takes
 // the OWNER app's colour from data-owner instead of a hard-coded one, and the protocol's 30 s silence has a state.
@@ -23,7 +23,14 @@
 // A record: { ownerApp: 'dimensor', state: 'linked' | 'updateAvailable' | 'sourceClosed' | 'frozen', policy:
 // 'onRequest' | 'live' | 'manual', notResponding?: true }. notResponding is set by the app's link code when a renderReq
 // gets no renderProgress for NOT_RESPONDING_MS, and cleared by a later renderProgress or asset (LINK-PROTOCOL.md).
-import { MENU_ICONS } from '../icons/menu-icons.js';
+// The three marks are inlined (v0.28.1, found by KOMPOSITOR K27): importing ../icons/menu-icons.js broke apps that
+// vendor the design files flat. They are copies of menu-icons' link / unlink / lock; test/link-badge.test.mjs checks
+// they still match.
+export const BADGE_ICONS = {
+  link: '<path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/>',
+  unlink: '<path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/>',
+  lock: '<rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/>',
+};
 
 export const NOT_RESPONDING_MS = 30000;
 export const LINK_POLICIES = [['onRequest', 'On request'], ['live', 'Live'], ['manual', 'Manual']];
@@ -40,7 +47,7 @@ export function badgeOf(rec = {}) {
 }
 
 const ICON = { linked: 'link', update: 'link', stale: 'link', closed: 'unlink', frozen: 'lock' };
-const svg = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MENU_ICONS[name]}</svg>`;
+const svg = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${BADGE_ICONS[name]}</svg>`;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 export function linkBadgeHtml(rec, { actionable = false } = {}) {

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.28.1 — 2026-10-03
+
+- Linked-asset badge: `interactions/link-badge.js` imports nothing now (found by KOMPOSITOR K27). It imported `../icons/menu-icons.js`, which broke apps that vendor the design files flat. Its three marks are inlined as `BADGE_ICONS`, and the test checks they still match menu-icons' link / unlink / lock (19 checks; an edited mark fails). No visual change.
+
 ## 0.28.0 — 2026-10-03
 
 - **Linked-asset badge** (CONNECTIVITY.md W4.5), lifted from KOMPOSITOR K25 and generalised: `interactions/link-badge.js` (`badgeOf`, `linkBadge`, `linkBadgeHtml`, `linkBadgeMenu`, `NOT_RESPONDING_MS`) + `app/link-badge.css` (pullable; in `dist/app.css`). Always the chain + a word, with the chain in the OWNER app's colour via `data-owner` (K25 hard-coded `--dimensor`). Five states: Linked · Update available (the one solid button) · Source not responding (new: the protocol's 30 s silence, caution yellow) · Source closed · Frozen. The actions are in a menu: Go to source · Update now · Update policy · Freeze. Grey states keep a `--tx-1` word, because `--tx-2` on `--bg-3` measures 3.3:1.
