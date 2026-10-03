@@ -63,6 +63,7 @@ outranks them silently, e.g. a `.vs-group-title` going grey. Wrap local descenda
 
 ## Type
 - Manrope (`--sans`) for UI and headings; JetBrains Mono (`--mono`) for captions, controls and values (tabular numbers).
+- **Fonts are self-hosted** (v0.33.0): pull `fonts/` (`fonts.css` + woff2, SIL OFL licences beside them) and link `fonts/fonts.css` before `tokens.css`. Never load Google Fonts: the apps and the engine core must work offline and make no third-party font request. JetBrains Mono 400–700, Manrope 400–800, latin + latin-ext. Rebuilt by `scripts/build-fonts.mjs`; tested by `node test/fonts.test.mjs` (with the network blocked).
 - Body 13px. Controls 11px mono UPPERCASE. Section heads: 11px / 700 / letter-spacing .16em, uppercase, `--tx-2`.
 
 ## App components (rules; reference CSS in `app/app.css`)

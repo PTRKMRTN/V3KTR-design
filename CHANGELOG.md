@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.33.0 — 2026-10-03
+
+- **Self-hosted fonts** (connectivity session, from KOMPOSITOR K21: the apps and the engine core's glyph FX loaded JetBrains Mono from Google Fonts): `fonts/fonts.css` + 18 woff2 files (288 KB with licences). JetBrains Mono 400/500/600/700 and Manrope 400–800, latin + latin-ext with @fontsource 5.3.0's unicode ranges, `font-display: swap`, SIL OFL 1.1 licences beside them. Families are named as in tokens.css, so swapping the Google `<link>` for `fonts/fonts.css` changes nothing else. One visible difference: mono 700 (link light, badge, section labels) is now the real bold; PROCESSOR's Google URL stopped at 600, so the browser was synthesising it. Built by `scripts/build-fonts.mjs` from a DIMENSOR checkout's @fontsource. `test/fonts.test.mjs`: 5 checks with every request off the test server blocked; a broken path for one weight fails it.
+
 ## 0.32.0 — 2026-10-03
 
 - **Panel sections: no lines** (Patrick, after a mockup of inset and thinner variants: "lets ditch the sub dividers, when there are lots it creates noise"). Space alone groups sections now: 22px at the sides and the panel's ends, a new token `--sec-gap` (1.5 × `--pad`, 33px) from a section's last control to the next title, and 14px from title to controls. These are the numbers of the line-free option he first picked. Replaces v0.31.x's 22px padding with a 2px `--line` between sections (44px gap). `test/sections.test.mjs`: 5 checks; v0.31's lines and v0.31's padding each fail it. Main workspace dividers are unchanged (2px).
