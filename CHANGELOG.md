@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.33.2 — 2026-10-04
+
+- Tooling: `scripts/check-drift.mjs` (`node scripts/check-drift.mjs`). Exits 1 when a pullable app file isn't whole in `dist/app.css`, when `dist/app.css` or the specimen is stale against its sources, when a surface loads Google Fonts, or when a `vk-` class named by `interactions/` has no rule in `app/`. Hook-only classes (`vk-toast-region`, the `vk-tip-` id prefix) are allowlisted with the reason. Negative controls: renaming a class the modules use fails it; a stale bundle fails it. No visual change.
+
 ## 0.33.1 — 2026-10-03
 
 - Specimen page: loads the self-hosted fonts (it still pulled Google Fonts, breaking the no-outside-request rule); shows the panel sections (v0.32.0), the linked-asset badge (v0.28.0) and the link light (v0.26.0), and renders every pullable app file (help, link, side view, link badge, sections) so the page shows what an app gets. No token or component changed.
