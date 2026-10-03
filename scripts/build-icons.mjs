@@ -1,7 +1,9 @@
-// Builds brand/icons/ from Patrick's solo wordmark (brand/logo-v3ktr-solo.svg): the glyphs are cut out
-// of it, never redrawn.
-//   website  : V3 (the V + the lightning 3), white on the ground          icon-site.svg
-//   each app : V, dark ink on the app's colour                            icon-processor.svg …
+// Builds brand/icons/.
+//   website  : V3 (the V + the lightning 3) cut from Patrick's solo wordmark (brand/logo-v3ktr-solo.svg), never
+//              redrawn; white on the ground                                icon-site.svg
+//   each app : its letter, dark ink on the app's colour: P · K · D, the link light's tiles (v0.29.0, Patrick
+//              2026-10-03; was the V). The letter is JetBrains Mono Bold (the link light's face, --mono 700) cut
+//              to outlines, so the icon needs no font                     icon-processor.svg …
 // Dark ink, not white: white on aqua is 1.65:1 and on mandarin 2.84:1 (icons need 3:1); #1c1c1c passes
 // on all three (10.3 / 6.0 / 5.5). Square tiles, no radius (core --radius 0).
 // PNGs (32, 180, 512) are rendered with Playwright from the PROCESSOR repo's node_modules.
@@ -10,6 +12,10 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { inflateSync, deflateSync } from 'node:zlib';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+// opentype.js and the font are borrowed from a sibling checkout too (DIMENSOR has both); only needed to rebuild.
+const borrow = (mod) => { for (const repo of ['V3KTR-dimensor', 'V3KTR-dimensor-wt']) { try { return createRequire(`file:///D:/00%20CLAUDE%20APPS/${repo}/package.json`)(mod); } catch (e) {} } throw new Error(mod + ' not found in a DIMENSOR checkout'); };
+const opentype = borrow('opentype.js');
+const MONO = opentype.parse(readFileSync(createRequire('file:///D:/00%20CLAUDE%20APPS/V3KTR-dimensor/package.json').resolve('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff')).buffer);
 
 const root = new URL('../', import.meta.url);
 const solo = readFileSync(new URL('brand/logo-v3ktr-solo.svg', root), 'utf8');
@@ -18,7 +24,6 @@ const outerG = inner.match(/<g transform="matrix\(1,0,0,1,[^"]*\)">/)[0];
 const glyphs = [...inner.matchAll(/<g transform="[^"]*">\s*<path[^>]*\/>\s*<\/g>/g)].map((m) => m[0]);
 // Measured in the solo file's 1377×537 box: glyph 4 = V (x 0–258, y 66–408), glyph 0 = the "3" (x 265–516, y −10–548).
 const MARKS = {
-  v: { keep: [4], box: [0, 66, 258, 408] },
   v3: { keep: [4, 0], box: [0, -10, 516, 548] },
 };
 
@@ -34,11 +39,22 @@ function icon(mark, tile, ink, fill) {
     `<g fill="${ink}">${outerG}${g}</g></g></svg>`;
 }
 
+// An app icon: its letter on a 100-unit square tile, the letter's cap height CAP of the side, centred on its own
+// outline (not the advance width, so P and K sit visually centred). Bigger than in the link light (10px type on an
+// 18px tile) so it still reads at 16px in a tab.
+const CAP = 0.6;
+function letterIcon(ch, tile, ink) {
+  const probe = MONO.getPath(ch, 0, 0, 1000).getBoundingBox(), size = 1000 * (CAP * 100) / (probe.y2 - probe.y1);
+  const b = MONO.getPath(ch, 0, 0, size).getBoundingBox();
+  const p = MONO.getPath(ch, 50 - (b.x1 + b.x2) / 2, 50 - (b.y1 + b.y2) / 2, size).toPathData(2);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${tile}"/><path fill="${ink}" d="${p}"/></svg>`;
+}
+
 const ICONS = {
   'icon-site': icon('v3', '#212121', '#f4f4f4', 0.8),
-  'icon-processor': icon('v', '#00e5a0', '#1c1c1c', 0.72),
-  'icon-kompositor': icon('v', '#ff6a43', '#1c1c1c', 0.72),
-  'icon-dimensor': icon('v', '#bb6fff', '#1c1c1c', 0.72),
+  'icon-processor': letterIcon('P', '#00e5a0', '#1c1c1c'),
+  'icon-kompositor': letterIcon('K', '#ff6a43', '#1c1c1c'),
+  'icon-dimensor': letterIcon('D', '#bb6fff', '#1c1c1c'),
 };
 
 const out = new URL('brand/icons/', root);

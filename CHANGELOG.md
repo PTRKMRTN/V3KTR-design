@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.29.0 — 2026-10-03
+
+- **App favicons are now the link light's tiles** (Patrick): a dark P / K / D on the app's colour, replacing the V. `brand/icons/icon-{processor,kompositor,dimensor}.svg` + PNG 32 / 180 / 512. The letter is JetBrains Mono Bold cut to outlines (borrowed opentype.js + @fontsource from DIMENSOR at build time; the icons need no font), cap height 60 % of the tile so it reads in a 16px tab. The site icon (V3) is unchanged. The before/after sheet went to Patrick.
+- **Step icons approved for every surface** (Patrick; trial since v0.17.0): `icons/step-icons.js` (`STEP_ICONS`, `stepIconSvg(name, size, { decorative })`) + `.json`, generated with the SVGs by `scripts/build-step-icons.mjs`. The moving parts are classes in the module (ids in the files), so an app can show one twice. The SVG files are unchanged.
+
 ## 0.28.1 — 2026-10-03
 
 - Linked-asset badge: `interactions/link-badge.js` imports nothing now (found by KOMPOSITOR K27). It imported `../icons/menu-icons.js`, which broke apps that vendor the design files flat. Its three marks are inlined as `BADGE_ICONS`, and the test checks they still match menu-icons' link / unlink / lock (19 checks; an edited mark fails). No visual change.
