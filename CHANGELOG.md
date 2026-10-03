@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.30.0 — 2026-10-03
+
+- **Step icons retired** (Patrick: "we don't need these now, we have progressed the design on these"). Removed `brand/icons/steps/`, `icons/step-icons.js` + `.json` and `scripts/build-step-icons.mjs`; they stay in git history (v0.17.0–v0.29.1). v0.29.0 had shared them with the apps on a misread of Patrick's approval, which was for the favicons. No app had placed them; KOMPOSITOR had vendored the module and drops it. The site never used them (it has the animated step scenes).
+- The P · K · D favicons (v0.29.0) stay.
+
 ## 0.29.1 — 2026-10-03
 
 - Docs only: the step icons are for the apps. The site doesn't use them (Patrick chose animated step scenes on /processor, 2026-10-01; found by the site-v2 session). Corrected in brand/README.md, AGENTS.md and the step-icons module header. No asset changed.
