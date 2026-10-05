@@ -25,7 +25,7 @@ import { MENU_ICONS } from '/icons/menu-icons.js';
 window.iconsMatch = Object.keys(BADGE_ICONS).every((k) => BADGE_ICONS[k] === MENU_ICONS[k]);
 window.log = []; window.badgeOf = badgeOf; window.linkBadgeMenu = linkBadgeMenu; window.linkBadgeHtml = linkBadgeHtml;
 const S = [['linked', { state: 'linked' }], ['update', { state: 'updateAvailable' }], ['stale', { state: 'linked', notResponding: true }],
-  ['closed', { state: 'sourceClosed' }], ['frozen', { state: 'frozen' }]];
+  ['closed', { state: 'sourceClosed' }], ['frozen', { state: 'frozen' }], ['file', { state: 'linked', via: 'file' }]];
 const sheet = document.getElementById('sheet');
 for (const [k, r] of S) for (const owner of ['dimensor', 'processor', 'kompositor']) {
   const el = linkBadge({ ownerApp: owner, policy: 'onRequest', ...r }, { onUpdate: (x) => window.log.push(['update', x.ownerApp]), onMenu: (_, items) => window.log.push(['menu', items.length]) });
@@ -52,7 +52,7 @@ try {
     return { c: el.dataset.case, tag: el.tagName, word: el.querySelector('span').textContent, svg: !!el.querySelector('svg path'), icon: ic.color, bg: cs.backgroundColor, ink: cs.color, outline: cs.borderTopWidth, h: el.getBoundingClientRect().height, label: el.getAttribute('aria-label'), tip: el.dataset.tip };
   }));
   const by = Object.fromEntries(info.map((x) => [x.c, x]));
-  ok(info.length === 15 && info.every((x) => x.svg && x.word.trim() && x.label && x.tip), 'every state is the mark + a word, with a tip and a label');
+  ok(info.length === 18 && info.every((x) => x.svg && x.word.trim() && x.label && x.tip), 'every state is the mark + a word, with a tip and a label');
   ok(info.every((x) => x.outline === '0px'), 'flat: no borders');
   ok(info.every((x) => x.h === 17), 'one height (17px) for every state');
   ok(by['linked:dimensor'].icon === 'rgb(187, 111, 255)' && by['linked:processor'].icon === 'rgb(0, 229, 160)' && by['linked:kompositor'].icon === 'rgb(255, 106, 67)',
@@ -65,6 +65,13 @@ try {
   const cr = (a, c) => { const [x, y] = [lum(a), lum(c)].sort((m, k) => k - m); return (x + 0.05) / (y + 0.05); };
   const worst = info.map((x) => [x.c, cr(x.ink, x.bg)]).sort((a, c) => a[1] - c[1])[0];
   ok(worst[1] >= 4.5, `every word passes 4.5:1 on its ground (lowest: ${worst[0]} ${worst[1].toFixed(2)})`);
+  // File (v0.34.0): a neutral document mark + "File", never the chain; old / relay records are untouched
+  ok(by['file:dimensor'].word === 'File' && by['file:dimensor'].icon === 'rgb(138, 138, 138)' && by['file:dimensor'].bg === by['closed:dimensor'].bg, 'File: a grey word + document mark, not the owner colour');
+  const fb = await p.evaluate(() => [window.badgeOf({ ownerApp: 'processor', state: 'linked', via: 'file' }), window.badgeOf({ state: 'linked', via: 'link' }).state, window.badgeOf({ state: 'linked' }).state,
+    window.badgeOf({ state: 'updateAvailable', via: 'file' }).state, window.badgeOf({ state: 'frozen', via: 'file' }).state, window.badgeOf({ state: 'sourceClosed', via: 'file' }).state, window.badgeOf({ state: 'linked', via: 'file', notResponding: true }).state]);
+  ok(fb[0].state === 'file' && fb[0].desc === 'Dropped as files from PROCESSOR. Drop a newer export to update.', 'File words: ' + fb[0].desc);
+  ok(JSON.stringify(fb.slice(1)) === '["linked","linked","update","frozen","closed","stale"]', 'via link / no via stay Linked; a waiting re-drop, Frozen, closed and stale still win over File: ' + fb.slice(1));
+  ok(await p.evaluate(() => !window.linkBadgeHtml({ ownerApp: 'processor', state: 'linked', via: 'file' }).includes('M14 10a4')), 'File does not use the chain mark');
   // clicks
   await p.click('#row .vk-lnk[data-state="update"]'); await p.click('#row .vk-lnk[data-state="linked"]');
   const log = await p.evaluate(() => window.log);

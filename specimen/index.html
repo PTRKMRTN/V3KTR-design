@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.33.2 ===== */
-/* V3KTR design tokens · v0.33.2
+/* ===== core: tokens.css v0.34.0 ===== */
+/* V3KTR design tokens · v0.34.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -712,6 +712,9 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 /* Source closed and Frozen: nothing will change, so a grey mark (3.3:1, a non-text mark) with a --tx-1 word (7.3:1; --tx-2 text on --bg-3 fails 4.5) */
 .vk-lnk[data-state="closed"],.vk-lnk[data-state="frozen"]{background:var(--bg-3);color:var(--tx-1);}
 .vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
+/* File (v0.34.0): dropped as files, no live link: neutral like Source closed, and a document mark, never the chain */
+.vk-lnk[data-state="file"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="file"] svg{color:var(--tx-2);}
 .vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
 
 /* V3KTR panel sections (v0.32.0): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
@@ -2517,7 +2520,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.33.2</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.34.0</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

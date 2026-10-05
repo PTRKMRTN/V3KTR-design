@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.34.0 — 2026-10-05
+
+- **Link badge: a `file` state** (Patrick 2026-10-05, from KOMPOSITOR: a depth asset that arrived as dropped files said "Linked", which is meant for live links). A record with `via: 'file'` that is otherwise linked now reads **"File"** with a grey document mark (never the chain) and the line "Dropped as files from <APP>. Drop a newer export to update." Backward compatible: a new state only. A record without `via`, or with `via: 'link'`, is unchanged; Update available, Source closed, Source not responding and Frozen still win over File. `interactions/link-badge.js` (`badgeOf`, `BADGE_ICONS.doc`), `app/link-badge.css` (`.vk-lnk[data-state="file"]`, neutral like closed), `test/link-badge.test.mjs`.
+
 ## 0.33.2 — 2026-10-04
 
 - Tooling: `scripts/check-drift.mjs` (`node scripts/check-drift.mjs`). Exits 1 when a pullable app file isn't whole in `dist/app.css`, when `dist/app.css` or the specimen is stale against its sources, when a surface loads Google Fonts, or when a `vk-` class named by `interactions/` has no rule in `app/`. Hook-only classes (`vk-toast-region`, the `vk-tip-` id prefix) are allowlisted with the reason. Negative controls: renaming a class the modules use fails it; a stale bundle fails it. No visual change.

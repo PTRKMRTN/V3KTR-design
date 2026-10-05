@@ -22,4 +22,7 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 /* Source closed and Frozen: nothing will change, so a grey mark (3.3:1, a non-text mark) with a --tx-1 word (7.3:1; --tx-2 text on --bg-3 fails 4.5) */
 .vk-lnk[data-state="closed"],.vk-lnk[data-state="frozen"]{background:var(--bg-3);color:var(--tx-1);}
 .vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
+/* File (v0.34.0): dropped as files, no live link: neutral like Source closed, and a document mark, never the chain */
+.vk-lnk[data-state="file"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="file"] svg{color:var(--tx-2);}
 .vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
