@@ -8,7 +8,8 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const root = new URL('../', import.meta.url);
-const read = (p) => readFileSync(new URL(p, root), 'utf8');
+// Line endings are normalised: on Windows git (autocrlf) checks files out as CRLF, the committed bundle is LF.
+const read = (p) => readFileSync(new URL(p, root), 'utf8').replace(/\r\n/g, '\n');
 const fails = [];
 const check = (ok, msg) => { if (!ok) fails.push(msg); };
 

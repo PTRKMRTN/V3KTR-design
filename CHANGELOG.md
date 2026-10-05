@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.34.1 — 2026-10-06
+
+- Tooling: `scripts/check-drift.mjs` normalises line endings before comparing. On Windows (git autocrlf) the working copy is CRLF and the committed bundles are LF, so the check reported a stale bundle and five "not whole" files that were only line endings. No CSS changed.
+
 ## 0.34.0 — 2026-10-05
 
 - **Link badge: a `file` state** (Patrick 2026-10-05, from KOMPOSITOR: a depth asset that arrived as dropped files said "Linked", which is meant for live links). A record with `via: 'file'` that is otherwise linked now reads **"File"** with a grey document mark (never the chain) and the line "Dropped as files from <APP>. Drop a newer export to update." Backward compatible: a new state only. A record without `via`, or with `via: 'link'`, is unchanged; Update available, Source closed, Source not responding and Frozen still win over File. `interactions/link-badge.js` (`badgeOf`, `BADGE_ICONS.doc`), `app/link-badge.css` (`.vk-lnk[data-state="file"]`, neutral like closed), `test/link-badge.test.mjs`.
