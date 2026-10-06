@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.3 — 2026-10-06
+
+- Docs: the Livelink rules are in AGENTS.md, including the link-off behaviour Patrick approved for DIMENSOR (Send to ▸ stays visible with the link off, because it falls back to saving files; LINKED ASSETS hides; LINK and CONNECTED stay). No visual or token change.
+
 ## 0.35.2 — 2026-10-06
 
 - Version lines: `tokens.css` and `app/app.css` headers were not bumped at 0.34.0, 0.34.1, 0.35.0 or 0.35.1, so `design:pull` in KOMPOSITOR refused the pin (dist/app.css "does not carry its own version line"). Both headers now read v0.35.2, the bundle and specimen are rebuilt, and `check-drift` fails when a header differs from the newest CHANGELOG version. No visual change.
