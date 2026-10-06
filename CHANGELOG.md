@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.4 — 2026-10-06
+
+- Docs: a send row that falls back to files with the link off is labelled with its save form, "Save stage files…" (KOMPOSITOR's stage row), and the same pattern for other save fallbacks. AGENTS.md "Livelink". No visual or token change.
+
 ## 0.35.3 — 2026-10-06
 
 - Docs: the Livelink rules are in AGENTS.md, including the link-off behaviour Patrick approved for DIMENSOR (Send to ▸ stays visible with the link off, because it falls back to saving files; LINKED ASSETS hides; LINK and CONNECTED stay). No visual or token change.
