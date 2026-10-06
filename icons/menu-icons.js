@@ -1,4 +1,4 @@
-// V3KTR menu icons (v0.28.0: + link, unlink from KOMPOSITOR K25). THE SOURCE: edit this file, then run scripts/build-menu-icons.mjs (writes the JSON + sheet).
+// V3KTR menu icons (v0.35.0: + sync for Update policy, Live link menu). THE SOURCE: edit this file, then run scripts/build-menu-icons.mjs (writes the JSON + sheet).
 // Promoted once a third app wanted the set (KOMPOSITOR, 2026-10-02): DIMENSOR drew the first ones (src/ui/icons.js),
 // PROCESSOR v0.585.0 and KOMPOSITOR copied them character for character and added their own verbs in the same
 // language. Apps take them from here now instead of copying.
@@ -27,6 +27,7 @@ export const MENU_ICONS = {
   freeze: '<rect x="4" y="5" width="16" height="14"/><path d="M10 9v6M14 9v6"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.5"/>',
   keys: '<rect x="3" y="6" width="18" height="12"/><path d="M7 10h1M11 10h1M15 10h1M7 14h10"/>',
+  sync: '<path d="M4 12a8 8 0 0113.7-5.6L20 8M20 4v4h-4"/><path d="M20 12a8 8 0 01-13.7 5.6L4 16M4 20v-4h4"/>',
   link: '<path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/>',
   lock: '<rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/>',
   mail: '<rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>',

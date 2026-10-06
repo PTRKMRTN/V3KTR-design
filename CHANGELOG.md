@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.0 — 2026-10-06
+
+- Menu icon `sync` (two arrows) for Update policy in the Live link menu (CONNECTIVITY W4.6). Live link's other actions already had icons: Go to source = link, Update now = down, Send to = send, Freeze = freeze, Import/Export stay in File. No other change.
+
 ## 0.34.1 — 2026-10-06
 
 - Tooling: `scripts/check-drift.mjs` normalises line endings before comparing. On Windows (git autocrlf) the working copy is CRLF and the committed bundles are LF, so the check reported a stale bundle and five "not whole" files that were only line endings. No CSS changed.
