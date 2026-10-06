@@ -45,10 +45,10 @@ const nameOf = (app) => NAMES[app] || String(app || 'its app').toUpperCase();
 export function badgeOf(rec = {}) {
   const app = nameOf(rec.ownerApp);
   if (rec.state === 'frozen') return { state: 'frozen', word: 'Frozen', desc: 'Kept as it is: updates from its source are ignored' };
-  if (rec.state === 'sourceClosed') return { state: 'closed', word: 'Source closed', desc: `Plays from its saved copy. Open it in ${app} to link it again` };
-  if (rec.notResponding) return { state: 'stale', word: 'Source not responding', desc: `${app} hasn't answered for 30 s. Showing the last good version` };
+  if (rec.state === 'sourceClosed') return { state: 'closed', word: 'Source closed', desc: 'The source app is closed. Open it to update.' };
+  if (rec.notResponding) return { state: 'stale', word: 'Source not responding', desc: "The source app is open but isn't answering. Try again, or check it." };
   if (rec.state === 'updateAvailable' && rec.policy !== 'manual') return { state: 'update', word: 'Update available', desc: `${app} has a newer version. Click to use it` };
-  if (rec.via === 'file') return { state: 'file', word: 'File', desc: `Dropped as files from ${app}. Drop a newer export to update.` };
+  if (rec.via === 'file') return { state: 'file', word: 'Sent as files', desc: 'This asset came in as files, not as a live link.' };
   return { state: 'linked', word: 'Linked', desc: `Linked to ${app}. ${rec.policy === 'live' ? 'Updates as it changes' : 'Updates when you ask'}` };
 }
 
@@ -81,9 +81,9 @@ export function linkBadge(rec, { onUpdate = () => {}, onMenu = null } = {}) {
 export function linkBadgeMenu(rec = {}) {
   const app = nameOf(rec.ownerApp), frozen = rec.state === 'frozen', closed = rec.state === 'sourceClosed';
   return [
-    { id: 'source', label: closed ? `Open in ${app}` : `Go to source (${app})`, icon: 'link' },
-    { id: 'update', label: 'Update now', icon: 'down', disabled: frozen || rec.state !== 'updateAvailable' },
-    { id: 'policy', label: 'Update policy', items: LINK_POLICIES.map(([id, label]) => ({ id: 'policy:' + id, label, checked: (rec.policy || 'onRequest') === id, disabled: frozen })) },
-    { id: 'freeze', label: frozen ? 'Unfreeze' : 'Freeze', icon: frozen ? 'unlock' : 'lock', checked: frozen },
+    { id: 'source', label: closed ? `Open in ${app}` : `Go to source (${app})`, icon: 'link', tip: 'Open the original this copy came from.' },
+    { id: 'update', label: 'Update now', icon: 'down', tip: 'Pull the latest from the source now.', disabled: frozen || rec.state !== 'updateAvailable' },
+    { id: 'policy', label: 'Update policy', tip: 'How this copy updates when its source changes.', items: LINK_POLICIES.map(([id, label]) => ({ id: 'policy:' + id, label, checked: (rec.policy || 'onRequest') === id, disabled: frozen })) },
+    { id: 'freeze', label: frozen ? 'Unfreeze' : 'Freeze', icon: frozen ? 'unlock' : 'lock', checked: frozen, tip: 'Keep this copy as it is. It stops following the source.' },
   ];
 }

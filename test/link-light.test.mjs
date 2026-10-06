@@ -42,7 +42,7 @@ try {
   let m = await marks(0);
   ok(m.map((x) => x.text).join('') === 'PKD', 'order is always P K D');
   ok(m[0].cls.includes('is-self') && m[0].tag === 'SPAN' && m[0].label === 'PROCESSOR (this app)', 'this app: marked, not a button, labelled');
-  ok(m[1].cls.includes('is-linked') && m[1].tag === 'BUTTON' && /KOMPOSITOR is open and linked/.test(m[1].label), 'linked peer: a button with a word');
+  ok(m[1].cls.includes('is-linked') && m[1].tag === 'BUTTON' && /KOMPOSITOR is connected/.test(m[1].label), 'linked peer: a button with a word');
   ok(m[2].cls.includes('is-absent') && m[2].tag === 'SPAN' && /DIMENSOR isn't open/.test(m[2].label), 'not open: grey, labelled');
   ok(m.every((x) => x.tip === x.label), 'every mark has a tip (for installTips) matching its label');
   m = await marks(4); ok(m[2].cls.includes('is-self') && m.slice(0, 2).every((x) => x.cls.includes('is-absent') && /No link to/.test(x.label)), 'no link (DIMENSOR): the others read not open, and say why');

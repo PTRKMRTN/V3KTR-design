@@ -45,7 +45,7 @@ await new Promise((r) => srv.listen(0, r));
 const b = await chromium.launch({ channel: 'msedge' });
 let n = 0; const ok = (c, m) => { assert.ok(c, m); n++; };
 try {
-  const p = await b.newPage({ deviceScaleFactor: 2 }); await p.goto(`http://localhost:${srv.address().port}/`); await p.waitForFunction(() => window.ready);
+  const p = await b.newPage({ deviceScaleFactor: 2 }); p.on('pageerror', (e) => console.log('PAGEERR', e.message)); await p.goto(`http://localhost:${srv.address().port}/`); await p.waitForFunction(() => window.ready);
   if (SHEET) await p.locator('#sheet').screenshot({ path: SHEET });
   const info = await p.evaluate(() => [...document.querySelectorAll('#sheet .vk-lnk')].map((el) => {
     const cs = getComputedStyle(el), ic = getComputedStyle(el.querySelector('svg'));
@@ -66,10 +66,10 @@ try {
   const worst = info.map((x) => [x.c, cr(x.ink, x.bg)]).sort((a, c) => a[1] - c[1])[0];
   ok(worst[1] >= 4.5, `every word passes 4.5:1 on its ground (lowest: ${worst[0]} ${worst[1].toFixed(2)})`);
   // File (v0.34.0): a neutral document mark + "File", never the chain; old / relay records are untouched
-  ok(by['file:dimensor'].word === 'File' && by['file:dimensor'].icon === 'rgb(138, 138, 138)' && by['file:dimensor'].bg === by['closed:dimensor'].bg, 'File: a grey word + document mark, not the owner colour');
+  ok(by['file:dimensor'].word === 'Sent as files' && by['file:dimensor'].icon === 'rgb(138, 138, 138)' && by['file:dimensor'].bg === by['closed:dimensor'].bg, 'Sent as files: a grey word + document mark, not the owner colour');
   const fb = await p.evaluate(() => [window.badgeOf({ ownerApp: 'processor', state: 'linked', via: 'file' }), window.badgeOf({ state: 'linked', via: 'link' }).state, window.badgeOf({ state: 'linked' }).state,
     window.badgeOf({ state: 'updateAvailable', via: 'file' }).state, window.badgeOf({ state: 'frozen', via: 'file' }).state, window.badgeOf({ state: 'sourceClosed', via: 'file' }).state, window.badgeOf({ state: 'linked', via: 'file', notResponding: true }).state]);
-  ok(fb[0].state === 'file' && fb[0].desc === 'Dropped as files from PROCESSOR. Drop a newer export to update.', 'File words: ' + fb[0].desc);
+  ok(fb[0].state === 'file' && fb[0].desc === 'This asset came in as files, not as a live link.' && fb[0].word === 'Sent as files', 'Sent as files: ' + fb[0].desc);
   ok(JSON.stringify(fb.slice(1)) === '["linked","linked","update","frozen","closed","stale"]', 'via link / no via stay Linked; a waiting re-drop, Frozen, closed and stale still win over File: ' + fb.slice(1));
   ok(await p.evaluate(() => !window.linkBadgeHtml({ ownerApp: 'processor', state: 'linked', via: 'file' }).includes('M14 10a4')), 'File does not use the chain mark');
   // clicks

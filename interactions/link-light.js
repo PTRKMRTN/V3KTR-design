@@ -17,7 +17,7 @@ export const LINK_APPS = [['processor', 'P', 'PROCESSOR'], ['kompositor', 'K', '
 
 const TIPS = {
   self: (n) => `${n} (this app)`,
-  linked: (n) => `${n} is open and linked. Click to switch to it.`,
+  linked: (n) => `${n} is connected. Switch to ${n}.`,
   absent: (n) => `${n} isn't open in this browser.`,
   off: (n) => `No link to ${n} here. Apps link when they're opened on a V3KTR address.`,
   connecting: () => 'Connecting to the V3KTR link…',

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.1 — 2026-10-06
+
+- Livelink wording (the content session's review, applied): state "File" is now **"Sent as files"** (tip "This asset came in as files, not as a live link."). Source closed and Source not responding have the reviewed tips. Apps are **"connected"** in the light's tips ("KOMPOSITOR is connected. Switch to KOMPOSITOR."); assets stay "Linked". The menu's Go to source, Update now, Update policy and Freeze rows carry their reviewed tips. Tests updated: 23 badge, 10 light, 26 interactions.
+
 ## 0.35.0 — 2026-10-06
 
 - Menu icon `sync` (two arrows) for Update policy in the Live link menu (CONNECTIVITY W4.6). Live link's other actions already had icons: Go to source = link, Update now = down, Send to = send, Freeze = freeze, Import/Export stay in File. No other change.
