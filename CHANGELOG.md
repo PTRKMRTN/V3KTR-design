@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.2 — 2026-10-06
+
+- Version lines: `tokens.css` and `app/app.css` headers were not bumped at 0.34.0, 0.34.1, 0.35.0 or 0.35.1, so `design:pull` in KOMPOSITOR refused the pin (dist/app.css "does not carry its own version line"). Both headers now read v0.35.2, the bundle and specimen are rebuilt, and `check-drift` fails when a header differs from the newest CHANGELOG version. No visual change.
+- Livelink's `sync` icon and the reviewed wording ("Sent as files", "connected") are in this release (they were in 0.35.0/0.35.1 but not pullable without the header).
+
 ## 0.35.1 — 2026-10-06
 
 - Livelink wording (the content session's review, applied): state "File" is now **"Sent as files"** (tip "This asset came in as files, not as a live link."). Source closed and Source not responding have the reviewed tips. Apps are **"connected"** in the light's tips ("KOMPOSITOR is connected. Switch to KOMPOSITOR."); assets stay "Linked". The menu's Go to source, Update now, Update policy and Freeze rows carry their reviewed tips. Tests updated: 23 badge, 10 light, 26 interactions.

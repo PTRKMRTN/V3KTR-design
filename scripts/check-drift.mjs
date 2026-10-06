@@ -12,6 +12,9 @@ const root = new URL('../', import.meta.url);
 const read = (p) => readFileSync(new URL(p, root), 'utf8').replace(/\r\n/g, '\n');
 const fails = [];
 const check = (ok, msg) => { if (!ok) fails.push(msg); };
+// the version line: tokens.css and app/app.css must head with the newest CHANGELOG version (apps pin on it)
+const newest = read('CHANGELOG.md').match(/^## (\d+\.\d+\.\d+)/m)[1];
+for (const f of ['tokens.css', 'app/app.css']) check(read(f).split('\n')[0].includes('v' + newest), `${f} header does not say v${newest} (bump the version line; apps pin on it)`);
 
 const appFiles = ['app/app.css', ...readdirSync(new URL('app/', root)).filter((f) => f.endsWith('.css') && f !== 'app.css').map((f) => 'app/' + f)];
 const bundle = read('dist/app.css');
