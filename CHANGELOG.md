@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.5 — 2026-10-06
+
+- Docs: the "Sent as files" rule now records what PROCESSOR shipped (v0.690.0): owner from the file's asset chunk, shown with the link off, survives reload and Save/Open Project, and becomes Linked on a live arrival. "Update available" for a re-dropped newer export is not built in any app yet. AGENTS.md "Linked-asset badge". No visual or token change.
+
 ## 0.35.4 — 2026-10-06
 
 - Docs: a send row that falls back to files with the link off is labelled with its save form, "Save stage files…" (KOMPOSITOR's stage row), and the same pattern for other save fallbacks. AGENTS.md "Livelink". No visual or token change.
