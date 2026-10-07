@@ -796,10 +796,10 @@
 /* from .v2-card */
 .vs-card {
   break-inside: avoid;
-  margin-bottom: 28px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 /* from .v2-card__media (a reset <button>) */
 .vs-card__media {
@@ -830,7 +830,7 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
-  margin: 0;
+  margin: 0 0 8px;
 }
 /* from .v2-card .v2-cap */
 .vs-card .vs-cap {
