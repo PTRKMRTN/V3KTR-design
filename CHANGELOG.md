@@ -6,7 +6,7 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
 - Site: `.vs-card` (the Looks grid) gets more vertical breathing room — card-to-card gap 28px → 40px, media-to-body gap 12px → 16px, and the title now carries an 8px bottom margin so it doesn't sit flush against its tags (Patrick, site-v2).
 
-## 0.35.6 — 2026-10-07
+## 0.35.7 — 2026-10-07
 
 - Docs: switching Update policy to Live pulls a version already waiting at once, the same as a new arrival under Live. Audited and confirmed matching in PROCESSOR, KOMPOSITOR and DIMENSOR's shipped Livelink menus; written into AGENTS.md "Linked-asset badge" as it was undocumented. No visual or token change.
 
