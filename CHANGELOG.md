@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.35.8 — 2026-10-08
+
+- New FX-group colour, `--type-fuchsia` `#d47dba`, for DIMENSOR's Effectors rail group (Random / Noise / Step / Image / Target effectors that act on Instance copies). It had been borrowing Instance's rose provisionally. Chosen to sit ΔE 22 from rose, close to rust's existing 21.3: a related sibling, not a clash. Passes 4.5:1 on the ground and on panels (5.71 / 5.02).
+
 ## 0.35.7 — 2026-10-07
 
 - Docs: switching Update policy to Live pulls a version already waiting at once, the same as a new arrival under Live. Audited and confirmed matching in PROCESSOR, KOMPOSITOR and DIMENSOR's shipped Livelink menus; written into AGENTS.md "Linked-asset badge" as it was undocumented. No visual or token change.

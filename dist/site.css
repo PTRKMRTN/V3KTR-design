@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.35.7
+/* V3KTR design tokens · v0.35.8
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -34,6 +34,10 @@
   --type-amber:#b58d4c; --type-rust:#cd7f6e; --type-rose:#c67f93;
   --type-sage:#7b9c76; --type-teal:#6b9ca1; --type-slate:#8c94a3;
   --type-violet:#a386cb;
+  /* --type-fuchsia (v0.35.8, Patrick 2026-10-08): DIMENSOR's Effectors rail group, which had been borrowing
+     Instance's rose provisionally. Chosen to sit next to rose the way rust already does (ΔE 22 from rose, close
+     to rust's 21.3): related, not a repaint. Passes 4.5:1 on the ground and on panels (5.71 / 5.02). */
+  --type-fuchsia:#d47dba;
 
   /* Type */
   --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
