@@ -6,6 +6,10 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
 - Site: `.vs-card` (the Looks grid) gets more vertical breathing room — card-to-card gap 28px → 40px, media-to-body gap 12px → 16px, and the title now carries an 8px bottom margin so it doesn't sit flush against its tags (Patrick, site-v2).
 
+## 0.35.6 — 2026-10-07
+
+- Docs: switching Update policy to Live pulls a version already waiting at once, the same as a new arrival under Live. Audited and confirmed matching in PROCESSOR, KOMPOSITOR and DIMENSOR's shipped Livelink menus; written into AGENTS.md "Linked-asset badge" as it was undocumented. No visual or token change.
+
 ## 0.35.5 — 2026-10-06
 
 - Docs: the "Sent as files" rule now records what PROCESSOR shipped (v0.690.0): owner from the file's asset chunk, shown with the link off, survives reload and Save/Open Project, and becomes Linked on a live arrival. "Update available" for a re-dropped newer export is not built in any app yet. AGENTS.md "Linked-asset badge". No visual or token change.
