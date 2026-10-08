@@ -14,8 +14,8 @@
 //     step    arrow-key step in px (default 10; Shift ×4). Home / End jump to min / max. Double-click calls reset().
 //     reset() optional: put the default size back (double-click, or Enter)
 //
-//   - A role="separator" with aria-orientation (vertical or horizontal, the line's own direction), aria-valuenow/min/max
-//     and a tip via data-tip, so it works from the keyboard and with a screen reader.
+//   - A role="separator" with aria-orientation (the line's own direction), aria-valuenow/min/max and an aria-label, so it
+//     works from the keyboard and with a screen reader. NO tooltip (v0.37.1, Patrick): a tip hung in place while dragging.
 //   - Pointer capture, so a drag never loses the grip over an iframe or canvas; touch-action:none in the CSS.
 
 const GRIP_ICON_V = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 1.5 6l3 3M7.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>';
@@ -31,8 +31,6 @@ export function splitGrip(sep, { get, set, min = 200, max = 800, dir, step = 10,
   g.setAttribute('role', 'separator');
   g.setAttribute('aria-orientation', horiz ? 'horizontal' : 'vertical');
   g.setAttribute('aria-label', label);
-  g.dataset.tip = label;
-  g.dataset.tipDesc = 'Drag to resize; double-click to reset';
   g.innerHTML = horiz ? GRIP_ICON_H : GRIP_ICON_V;
   sep.appendChild(g);
   const clamp = (v) => { const a = lo(), b = Math.max(a, hi()); return Math.max(a, Math.min(b, Math.round(v))); };

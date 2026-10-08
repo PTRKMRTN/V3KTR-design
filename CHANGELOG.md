@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.37.1 — 2026-10-08
+
+- `splitGrip`: no tooltip on the grip (Patrick: the tip showed, then hung where it opened while the line was dragged away). The grip keeps its `aria-label` and separator role. `test/frames.test.mjs` checks there is no tip.
+
 ## 0.37.0 — 2026-10-08
 
 - **Window margin** rule (Patrick 2026-10-08): all UI 22px (`--pad`) from every window edge, a textured viewport alone full-bleed. AGENTS.md "Window margin". First shipped in PROCESSOR v0.723.0.

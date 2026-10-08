@@ -157,11 +157,12 @@ try {
     const a = g.getBoundingClientRect(), c = s.getBoundingClientRect(), cs = getComputedStyle(g);
     return { cx: a.left + a.width / 2, sx: c.left + c.width / 2, cy: a.top + a.height / 2, sy: c.top + c.height / 2, w: a.width, h: a.height,
       bg: cs.backgroundColor, ink: cs.color, line: getComputedStyle(s).backgroundColor, ground: getComputedStyle(document.body).backgroundColor,
-      role: g.getAttribute('role'), now: g.getAttribute('aria-valuenow'), min: g.getAttribute('aria-valuemin'), max: g.getAttribute('aria-valuemax') };
+      tip: g.hasAttribute('data-tip') || g.hasAttribute('title'), role: g.getAttribute('role'), now: g.getAttribute('aria-valuenow'), min: g.getAttribute('aria-valuemin'), max: g.getAttribute('aria-valuemax') };
   });
   ok(Math.abs(gm.cx - gm.sx) < 1 && Math.abs(gm.cy - gm.sy) < 1, `the grip is centred on the separator (${gm.cx - gm.sx}, ${gm.cy - gm.sy})`);
   ok(gm.w === 18 && gm.h === 18, `the grip is an 18px square (${gm.w}×${gm.h})`);
   ok(gm.bg === gm.line && gm.ink === gm.ground, `the grip is the separator colour with ground-colour ink (${gm.bg} / ${gm.ink})`);
+  ok(!gm.tip, 'the grip carries no tooltip (v0.37.1: a tip hung in place while dragging)');
   ok(gm.role === 'separator' && gm.now === '380' && gm.min === '300' && gm.max === '500', 'role=separator with aria value, min and max');
   await p.mouse.move(gm.cx, gm.cy); await p.mouse.down(); await p.mouse.move(gm.cx + 60, gm.cy, { steps: 4 }); await p.mouse.up();
   let w = await p.evaluate(() => [window.mid, document.getElementById('f-mid').getBoundingClientRect().width]);
