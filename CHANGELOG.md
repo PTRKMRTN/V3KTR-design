@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.6 — 2026-10-08
+
+- Docs: the solid-fill-when-selected rule has an exception, named by PROCESSOR's audit — a colour swatch, gradient stop or preset whose own fill IS the content stays an outline/handle on selection; a solid accent fill would hide the colour being chosen. AGENTS.md "Chips are one colour". No CSS change.
+
 ## 0.41.5 — 2026-10-08
 
 - **Defensive hardening, not a confirmed fix:** KOMPOSITOR reported that a hover tip opened just after a Tab-away could be closed by the earlier control's deferred blur. `show()`'s existing `cancelBlur()` should already prevent this (any new tip cancels the pending timer for the old one), and a built test for the described sequence passed identically with and without a guard added for it — so no new test was added (an unfalsifiable test isn't shipped), but the deferred-hide callback now also checks it's still closing the element it was scheduled for, in case the real cause turns out to be something this happens to cover. If it recurs, the exact event order from KOMPOSITOR's probe is needed.
