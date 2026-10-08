@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.36.0 — 2026-10-08
+
+- **Workspace frames** (Patrick's mockup, 2026-10-08): `app/frames.css` + `interactions/scroll-fade.js` + `interactions/split-grip.js`. A frame's scroll area sits `--pad` in from every edge, so content never scrolls into a separator; frame separators sit on the frame edge, inset `--pad` along their length, touching nothing; scroll areas fade at an edge with more past it (top once scrolled, bottom while there is more); optional resize grip on a vertical separator (separator-colour square, ground-colour icon). New tokens `--scroll-fade` (= `--pad`) and `--grip` (18px). Rule: AGENTS.md "Workspace frames". Tested: `node test/frames.test.mjs` (42 checks, the mockup's three-column layout, with a negative control). Additive: nothing existing renders differently until an app adopts the classes.
+
 ## 0.35.8 — 2026-10-08
 
 - New FX-group colour, `--type-fuchsia` `#d47dba`, for DIMENSOR's Effectors rail group (Random / Noise / Step / Image / Target effectors that act on Instance copies). It had been borrowing Instance's rose provisionally. Chosen to sit ΔE 22 from rose, close to rust's existing 21.3: a related sibling, not a clash. Passes 4.5:1 on the ground and on panels (5.71 / 5.02).

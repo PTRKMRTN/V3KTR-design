@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.35.8
+/* V3KTR design tokens · v0.36.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -52,6 +52,10 @@
      creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
      between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */
   --sec-pad:var(--pad); --sec-gap:calc(var(--pad) * 1.5); --sec-head-gap:14px;
+  /* Workspace frames (v0.36.0, Patrick 2026-10-08): a scroll area sits --pad in from every edge of its frame, so content
+     never scrolls into a separator; it fades out over --scroll-fade at an edge that has more to scroll. A frame separator
+     sits on the frame edge, inset --pad along its length; --grip is the optional resize square on a vertical one. */
+  --scroll-fade:var(--pad); --grip:18px;
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
@@ -113,7 +117,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.35.8 · requires tokens.css (core)
+/* V3KTR app layer · v0.36.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -768,3 +772,43 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-section:last-child{padding-bottom:var(--sec-pad);}
 .vk-section + .vk-section{margin-top:var(--sec-gap);}
 .vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
+
+/* V3KTR workspace frames (v0.36.0, Patrick 2026-10-08): on their own so an app that pulls files rather than the bundle
+   (PROCESSOR) can pull them; dist/app.css includes them. Rule: AGENTS.md "Workspace frames"; tested by test/frames.test.mjs.
+   A FRAME is one area of the workspace (side panel, stack, parameters, explorer half). Inside it:
+   - the SCROLL AREA (.vk-scroll) sits --pad in from every edge of the frame and touches nothing, so content never
+     scrolls into a separator or a frame edge. The sections inside it drop their own side and end padding (the scroll
+     area's inset is that padding) and keep --sec-gap between them: subsections part by space, never a line.
+   - a FRAME SEPARATOR (.vk-fsep) sits ON the frame edge, --stroke wide in --line, inset --pad along its length, so it
+     touches no other separator, frame edge or page edge and lines up with the scroll areas beside it. It belongs to the
+     frame before it (above, or to the left) by default; either neighbour may own it.
+   - a scroll area FADES at an edge that has more content past it: top once it has been scrolled, bottom while there is
+     more below (interactions/scroll-fade.js sets the data attributes). The fade is a mask, so it works on any ground.
+   - optional: a vertical separator can carry a resize GRIP (.vk-fsep__grip), a --grip square centred on the line in
+     the separator colour with the icon in the ground colour (interactions/split-grip.js). */
+/* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
+   grip would scroll the frame sideways) */
+.vk-frame{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);
+  --fade-t:0px;--fade-b:0px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
+.vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
+.vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+.vk-scroll > .vk-section{padding:0;}
+.vk-scroll > .vk-section:first-child,.vk-scroll > .vk-section:last-child{padding:0;}
+/* a fixed head (title row, action row) above a scroll area: same side inset, no bottom inset of its own; the scroll
+   area below it then drops its top margin so the head reads with its content */
+.vk-frame-head{flex:0 0 auto;margin:var(--pad) var(--pad) 0;}
+.vk-frame-head + .vk-scroll{margin-top:var(--sec-head-gap);}
+.vk-fsep{position:absolute;background:var(--line);pointer-events:none;z-index:1;}
+.vk-fsep--b{left:var(--pad);right:var(--pad);bottom:0;height:var(--stroke);}
+.vk-fsep--t{left:var(--pad);right:var(--pad);top:0;height:var(--stroke);}
+.vk-fsep--r{top:var(--pad);bottom:var(--pad);right:0;width:var(--stroke);}
+.vk-fsep--l{top:var(--pad);bottom:var(--pad);left:0;width:var(--stroke);}
+.vk-fsep__grip{position:absolute;top:50%;left:50%;width:var(--grip);height:var(--grip);transform:translate(-50%,-50%);
+  background:var(--line);color:var(--bg-1);display:flex;align-items:center;justify-content:center;
+  pointer-events:auto;cursor:col-resize;touch-action:none;}
+.vk-fsep__grip svg{width:12px;height:12px;display:block;}
+.vk-fsep__grip:hover,.vk-fsep__grip.is-dragging{background:var(--hover);color:var(--on-accent);}
+.vk-fsep__grip:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}

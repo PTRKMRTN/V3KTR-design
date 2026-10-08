@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 const r = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 mkdirSync(new URL('../dist/', import.meta.url), { recursive: true });
-for (const [out, layers] of [['app', ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css']], ['site', ['site/site.css']]]) {
+for (const [out, layers] of [['app', ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css', 'app/frames.css']], ['site', ['site/site.css']]]) {
   writeFileSync(new URL(`../dist/${out}.css`, import.meta.url), [r('tokens.css'), r('themes/themes.css'), ...layers.map(r)].join('\n'));
   console.log(`dist/${out}.css`);
 }

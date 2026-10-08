@@ -53,12 +53,20 @@ const layer = (id, title, blurb, css, frag) => `
 </section>`;
 
 // every pullable app file (help, link, side view, link badge, sections), so the page shows what an app gets
-const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css'].map(read).join('\n');
+const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css', 'app/frames.css'].map(read).join('\n');
 const logo = (f) => read('brand/' + f).replace(/<svg /, '<svg class="lg" ');
 const compHtml = `
 <div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>
   <div class="sp-demo"><div class="vk-section"><div class="vk-sec-label">Render</div><div class="vk-scrub" style="--fill:0%"><span class="vk-scrub__label">Shading</span><span class="vk-scrub__val">Render ▾</span></div></div><div class="vk-section"><div class="vk-sec-label">Quality</div><div class="vk-scrub" style="--fill:40%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Denoise</span><span class="vk-scrub__val">On</span></div></div></div>
   <p class="th-note">33px from a section's last control to the next title; 14px from a title to its controls; 22px at the panel's sides and ends.</p></div>
+<div class="spec-group"><div class="spec-caption">Workspace frames · v0.36.0 · scroll areas inset, separators inset, edge fades · app/frames.css</div>
+  <div class="sp-demo" style="display:grid;grid-template-columns:220px 1fr;grid-template-rows:150px 150px;width:560px;background:var(--bg-1);padding:0">
+    <div class="vk-frame" style="grid-row:1/3"><div class="vk-fsep vk-fsep--r"><div class="vk-fsep__grip" role="separator" aria-orientation="vertical" aria-label="Resize"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 1.5 6l3 3M7.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg></div></div>
+      <div class="vk-scroll"><div class="vk-section"><div class="vk-sec-label">Rail</div><div class="vk-scrub"><span class="vk-scrub__label">A</span></div><div class="vk-scrub"><span class="vk-scrub__label">B</span></div></div></div></div>
+    <div class="vk-frame"><div class="vk-fsep vk-fsep--b"></div><div class="vk-scroll" data-fade-bottom><div class="vk-section"><div class="vk-sec-label">Stack</div><div class="vk-scrub"><span class="vk-scrub__label">Layer 1</span></div><div class="vk-scrub"><span class="vk-scrub__label">Layer 2</span></div><div class="vk-scrub"><span class="vk-scrub__label">Layer 3</span></div><div class="vk-scrub"><span class="vk-scrub__label">Layer 4</span></div></div></div></div>
+    <div class="vk-frame"><div class="vk-scroll" data-fade-top><div class="vk-section"><div class="vk-scrub"><span class="vk-scrub__label">Amount</span></div><div class="vk-scrub"><span class="vk-scrub__label">Scale</span></div><div class="vk-scrub"><span class="vk-scrub__label">Angle</span></div></div></div></div>
+  </div>
+  <p class="th-note">Each scroll area sits 22px in from its frame, so content never scrolls into a line. Separators sit on the frame edge, inset 22px along their length, and touch nothing. Fades show more past an edge (top once scrolled). The square on the vertical line is the optional resize grip.</p></div>
 <div class="spec-group"><div class="spec-caption">Linked-asset badge · v0.28.0 · app/link-badge.css · owner colour</div>
   <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
   <button type="button" class="vk-lnk" data-owner="dimensor" data-state="update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Update available</span></button>
