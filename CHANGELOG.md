@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.40.0 — 2026-10-08
+
+- **Scrollbars** (Patrick: "I think we had removed them, I think some have returned"): `.vk-scroll` now carries a house scrollbar, thin with a styled thumb, instead of each app inventing its own — PROCESSOR had one scrollbar style, DIMENSOR another, KOMPOSITOR a third that also (wrongly) put a visible bar on its icon rail, which PROCESSOR and DIMENSOR both hide. The rule: `.vk-scroll` (a content area) always shows the house bar; an icon-only rail (`.rail-scroll`, app-local) always hides its own. AGENTS.md "Workspace frames".
+
 ## 0.39.2 — 2026-10-08
 
 - Docs: KOMPOSITOR's exception to the top/status-bar mirror (Patrick, direct): where a full-width row already sits between the viewport and the status bar (its timeline), the status bar stays a full-width bottom row on Left too, rather than pulled in under the viewport. AGENTS.md "Workspace align". No CSS or JS change.

@@ -14,7 +14,16 @@
 /* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
    grip would scroll the frame sideways) */
 .vk-frame{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;}
-.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;
+  scrollbar-width:thin;scrollbar-color:var(--bg-4) transparent;}
+.vk-scroll::-webkit-scrollbar{width:9px;}
+.vk-scroll::-webkit-scrollbar-track{background:transparent;}
+.vk-scroll::-webkit-scrollbar-thumb{background:var(--bg-4);}
+/* an icon-only rail (no text, PROCESSOR's rail-scroll / DIMENSOR's rail-scroll) hides its scrollbar entirely —
+   not .vk-scroll: a rail is navigation chrome, not a content area, so it never shows the house bar. An app's own
+   rail class carries this, since .vk-scroll must not: .rail-scroll{scrollbar-width:none;}
+   .rail-scroll::-webkit-scrollbar{width:0;} (v0.40.0: KOMPOSITOR's .rail was wrongly in its thin-scrollbar
+   selector, showing a bar PROCESSOR and DIMENSOR both hide — the regression Patrick flagged.) */
 .vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
 .vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
 /* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context */
