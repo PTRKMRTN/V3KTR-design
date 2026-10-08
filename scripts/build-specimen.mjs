@@ -53,7 +53,7 @@ const layer = (id, title, blurb, css, frag) => `
 </section>`;
 
 // every pullable app file (help, link, side view, link badge, sections), so the page shows what an app gets
-const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css', 'app/frames.css'].map(read).join('\n');
+const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css', 'app/frames.css', 'app/status.css', 'app/thumbs.css'].map(read).join('\n');
 const logo = (f) => read('brand/' + f).replace(/<svg /, '<svg class="lg" ');
 const compHtml = `
 <div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>

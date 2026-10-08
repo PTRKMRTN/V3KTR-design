@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.7 — 2026-10-08
+
+- **Thumbnails are a pullable file.** `.vk-thumb*` moved from `app/app.css` into its own `app/thumbs.css` (PROCESSOR's request, so it can pull files without the whole bundle), in `dist/app.css` after `app/status.css`. The rule set is unchanged apart from one deliberate fix: **`.vk-thumb__label`'s font-size was never pinned**, so every app inherited a different size by accident; it's now 9px / 0.03em / 6px 5px padding, PROCESSOR's own values (the reference app). `scripts/build-specimen.mjs` also picked up `app/status.css` and `app/thumbs.css`, which it had been missing since their own releases.
+- **Docs: never leave a thumbnail `<img>` src-less.** PROCESSOR traced the Looks-grid outline Patrick flagged to an empty tile's `<img>` having no `src` — Chromium draws its own broken-image frame, which no CSS class reaches, so a static read of the rules found nothing wrong. Set a transparent placeholder until the real thumbnail is ready. AGENTS.md "Flat, not outlined".
+
 ## 0.41.6 — 2026-10-08
 
 - Docs: the solid-fill-when-selected rule has an exception, named by PROCESSOR's audit — a colour swatch, gradient stop or preset whose own fill IS the content stays an outline/handle on selection; a solid accent fill would hide the colour being chosen. AGENTS.md "Chips are one colour". No CSS change.

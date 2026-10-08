@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.6
+/* V3KTR design tokens · v0.41.7
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -117,7 +117,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.6 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.7 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -622,31 +622,7 @@
 .vk-row__ctl:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
 .vk-row.is-selected .vk-row__ctl:hover,.vk-layer.is-active .vk-row__ctl:hover{background:var(--accent);color:var(--on-accent);}
 
-/* Thumbnails (Looks, roll cells, media, materials): the colour goes over the picture. Hover = a 32% wash;
-   selected = the app colour in "color" blend (recolours the image in the app hue) + a solid check square.
-   <div class="vk-thumb is-selected"><img ...><span class="vk-thumb__chk">✓</span></div> */
-.vk-thumb{position:relative;cursor:pointer;isolation:isolate;}
-.vk-thumb::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;z-index:1;}
-.vk-thumb:hover::after,.vk-thumb.is-hover::after{opacity:var(--thumb-wash);}
-.vk-thumb.is-selected::after{opacity:1;mix-blend-mode:color;}
-.vk-thumb__chk{position:absolute;top:0;right:0;z-index:2;width:18px;height:18px;display:none;place-items:center;
-  background:var(--accent);color:var(--on-accent);font:700 11px/1 var(--mono);}
-.vk-thumb.is-selected .vk-thumb__chk{display:grid;}
-/* A card with a label under its picture: the whole card carries the state (Patrick 2026-10-02). A selected card's
-   label is SOLID app colour with dark text, so selection reads even on a picture that is already the app colour.
-   Put .vk-thumb on the card and .vk-thumb__label on the name; the wash/blend covers the picture via .vk-thumb__pic. */
-.vk-thumb--card::after{display:none;}
-/* One unit (Patrick 2026-10-02): picture and label meet with no gap, and the label sits on --bg-2 at rest so the card
-   reads as one block. The label's text is centred on its capitals (text-box trim), not on the line box. */
-.vk-thumb--card{display:flex;flex-direction:column;gap:0;}
-.vk-thumb__label{display:block;background:var(--bg-2);color:var(--tx-1);padding:6px 6px;line-height:1.2;
-  text-box:trim-both cap alphabetic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.vk-thumb__pic{position:relative;isolation:isolate;}
-.vk-thumb__pic::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;}
-.vk-thumb--card:hover .vk-thumb__pic::after,.vk-thumb--card.is-hover .vk-thumb__pic::after{opacity:var(--thumb-wash);}
-.vk-thumb--card.is-selected .vk-thumb__pic::after{opacity:1;mix-blend-mode:color;}
-.vk-thumb--card:hover .vk-thumb__label,.vk-thumb--card.is-hover .vk-thumb__label{background:color-mix(in srgb,var(--accent) 32%,var(--bg-2));color:var(--tx-0);}
-.vk-thumb--card.is-selected .vk-thumb__label{background:var(--accent);color:var(--on-accent);}
+/* Thumbnails (.vk-thumb*) moved to their own pullable app/thumbs.css (v0.41.7), in dist/app.css after this file. */
 
 /* Tags (HEAVY, NEW ...): an 8% tint of the meaning colour with the word in that colour. 8% is the strongest tint
    amber keeps 4.5:1 on (20% measures 3.84:1). Set --tag for another colour. */
@@ -846,3 +822,35 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-status>*{margin-right:16px;}
 .vk-status>*:last-child{margin-right:0;}
 .vk-status>*:not(:first-child)::before{content:'·';color:var(--tx-2);opacity:.6;margin-right:8px;}
+
+/* V3KTR thumbnails (v0.41.7): Looks, roll cells, media, materials. On their own so an app that pulls files rather
+   than the bundle (PROCESSOR) can pull it; dist/app.css includes it. Rule: AGENTS.md "Flat, not outlined".
+   The colour goes over the picture. Hover = a 32% wash; selected = the app colour in "color" blend (recolours the
+   image in the app hue) + a solid check square.
+   <div class="vk-thumb is-selected"><img ...><span class="vk-thumb__chk">✓</span></div>
+   A thumbnail's <img> must never be left src-less (PROCESSOR, 2026-10-08): an empty src draws the browser's own
+   broken-image frame, which no class here reaches (it isn't CSS, so nothing in this file can fix it) — set a
+   transparent placeholder (a 1×1 GIF) until the real thumbnail is ready. */
+.vk-thumb{position:relative;cursor:pointer;isolation:isolate;}
+.vk-thumb::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;z-index:1;}
+.vk-thumb:hover::after,.vk-thumb.is-hover::after{opacity:var(--thumb-wash);}
+.vk-thumb.is-selected::after{opacity:1;mix-blend-mode:color;}
+.vk-thumb__chk{position:absolute;top:0;right:0;z-index:2;width:18px;height:18px;display:none;place-items:center;
+  background:var(--accent);color:var(--on-accent);font:700 11px/1 var(--mono);}
+.vk-thumb.is-selected .vk-thumb__chk{display:grid;}
+/* A card with a label under its picture: the whole card carries the state (Patrick 2026-10-02). A selected card's
+   label is SOLID app colour with dark text, so selection reads even on a picture that is already the app colour.
+   Put .vk-thumb on the card and .vk-thumb__label on the name; the wash/blend covers the picture via .vk-thumb__pic. */
+.vk-thumb--card::after{display:none;}
+/* One unit (Patrick 2026-10-02): picture and label meet with no gap, and the label sits on --bg-2 at rest so the card
+   reads as one block. The label's text is centred on its capitals (text-box trim), not on the line box. Size pinned
+   to PROCESSOR's own Looks label (2026-10-08: it was unset, so every app inherited a different size by accident). */
+.vk-thumb--card{display:flex;flex-direction:column;gap:0;}
+.vk-thumb__label{display:block;background:var(--bg-2);color:var(--tx-1);font-size:9px;letter-spacing:0.03em;
+  padding:6px 5px;line-height:1.2;text-box:trim-both cap alphabetic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-thumb__pic{position:relative;isolation:isolate;}
+.vk-thumb__pic::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;}
+.vk-thumb--card:hover .vk-thumb__pic::after,.vk-thumb--card.is-hover .vk-thumb__pic::after{opacity:var(--thumb-wash);}
+.vk-thumb--card.is-selected .vk-thumb__pic::after{opacity:1;mix-blend-mode:color;}
+.vk-thumb--card:hover .vk-thumb__label,.vk-thumb--card.is-hover .vk-thumb__label{background:color-mix(in srgb,var(--accent) 32%,var(--bg-2));color:var(--tx-0);}
+.vk-thumb--card.is-selected .vk-thumb__label{background:var(--accent);color:var(--on-accent);}
