@@ -19,6 +19,7 @@ const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="
 <body data-app="processor" style="background:#212121;padding:40px">
 <button id="a" class="vk-btn" data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="Ctrl+R"><span id="a2">Randomise</span></button>
 <button id="b" class="vk-btn" data-tip="Reset" style="margin-left:40px">Reset</button>
+<button id="notip" tabindex="-1" style="margin-left:40px">No tip</button>
 <div id="scrollArea" style="height:150px;overflow:auto;margin-top:20px;background:#2b2b2b">
   <div style="height:400px"></div>
   <button id="c" class="vk-btn" data-tip="Reseed" style="display:block">Reseed</button>
@@ -100,6 +101,19 @@ try {
   await p.mouse.click(5, 300); await p.keyboard.press('Tab'); await p.keyboard.press('Tab'); await p.keyboard.press('Tab'); await p.waitForTimeout(30);
   ok((await text()).startsWith('Reseed'), 'back on the scroll-area control');
   await p.keyboard.press('Tab'); await p.waitForTimeout(180); ok(!(await shown()), 'a genuine Tab away still closes it, once the 150 ms grace window passes');
+  // KOMPOSITOR's real bug (v0.41.5, full trace): a focusout on a control with NO data-tip, while no tip is
+  // currently showing, must never arm a blur timer — the old guard (`blurEl !== target`) let `null !== null`
+  // through, and that stale timer's hide() 150 ms later wiped out an unrelated hover's pending show, even though
+  // blurEl had nothing to do with it. Reproduce the exact trace: focus and blur a no-tip control (no tip ever
+  // shown, so target is null throughout), then within the 150 ms window start a hover on a real tip target and
+  // confirm it still opens once its own delay elapses.
+  await p.evaluate(() => document.activeElement?.blur());
+  await p.mouse.move(5, 300); await p.waitForTimeout(650);   // force cold mode so the hover below uses the full 400 ms delay
+  await p.evaluate(() => { document.getElementById('notip').focus(); document.getElementById('notip').blur(); });
+  await p.waitForTimeout(60); await p.hover('#a');
+  await p.waitForTimeout(420);
+  ok(await shown(), 'a stale focusout on a no-tip control does not kill an unrelated hover tip that starts inside its 150 ms window');
+  await p.mouse.move(5, 300); await p.waitForTimeout(20);
   // mouse click focus (not :focus-visible) does not open it instantly
   await p.mouse.click(5, 300); await p.evaluate(() => document.getElementById('b').focus({ focusVisible: false }));
   // touch long-press: opens after 500 ms, and the press does not also click

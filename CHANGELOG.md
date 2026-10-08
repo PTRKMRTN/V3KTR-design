@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.8 — 2026-10-08
+
+- **Real fix for the hover-tip-killed-by-a-stale-blur bug** (v0.41.5 was defensive only, unconfirmed). KOMPOSITOR traced it: `focusout`'s guard (`blurEl !== target`) let a blur from a control with no `data-tip` through whenever no tip was currently showing (`null !== null` is false), arming a 150 ms timer unrelated to any tip; that timer's `hide()` unconditionally wipes the shared hover-delay timer, silently killing an unrelated hover that started inside that window (trace: pointerover at 57 ms, hover timer armed, killed by the stale blur's `hide()` at ~133 ms). Fixed: a focusout with no tipped control can never arm the timer. `test/help.test.mjs` now has a real negative control for this (34 checks; confirmed it fails without the one-line fix, on the exact reported sequence). AGENTS.md "T1 tips".
+
 ## 0.41.7 — 2026-10-08
 
 - **Thumbnails are a pullable file.** `.vk-thumb*` moved from `app/app.css` into its own `app/thumbs.css` (PROCESSOR's request, so it can pull files without the whole bundle), in `dist/app.css` after `app/status.css`. The rule set is unchanged apart from one deliberate fix: **`.vk-thumb__label`'s font-size was never pinned**, so every app inherited a different size by accident; it's now 9px / 0.03em / 6px 5px padding, PROCESSOR's own values (the reference app). `scripts/build-specimen.mjs` also picked up `app/status.css` and `app/thumbs.css`, which it had been missing since their own releases.
