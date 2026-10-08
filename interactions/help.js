@@ -37,7 +37,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   const tip = doc.createElement('div');
   tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip');
   (doc.body || doc.documentElement).appendChild(tip);
-  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0;
+  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0, focusShownAt = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
   function fill(el) {
@@ -93,7 +93,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
     pending = null;
     if (el === target || !target) hide(); else clearTimeout(timer);
   });
-  listen(root, 'focusin', (e) => { const el = find(e.target); if (el && el.matches(':focus-visible')) show(el); });
+  listen(root, 'focusin', (e) => { const el = find(e.target); if (el && el.matches(':focus-visible')) { show(el); focusShownAt = Date.now(); } });
   listen(root, 'focusout', (e) => { if (find(e.target) === target) hide(); });
   listen(root, 'pointerdown', (e) => {
     const el = find(e.target);
@@ -108,7 +108,10 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   listen(root, 'click', (e) => { if (eatClick) { eatClick = false; e.preventDefault(); e.stopPropagation(); } }, true);   // a long-press shows the tip; it doesn't also press
   listen(root, 'contextmenu', (e) => { if (e.pointerType === 'touch' || eatClick) e.preventDefault(); });
   listen(doc, 'keydown', (e) => { if (e.key === 'Escape' && target) hide(); });
-  listen(doc.defaultView || window, 'scroll', () => target && hide(), true);
+  // a keyboard focus that lands inside a scroll area makes the browser scroll it into view, which would otherwise
+  // fire this and hide the tip 10-80 ms after it showed (found by KOMPOSITOR, 2026-10-08). That scroll is the
+  // focus's own doing, not the user scrolling away, so it's ignored for a short window after a focus-shown tip.
+  listen(doc.defaultView || window, 'scroll', () => { if (target && Date.now() - focusShownAt >= 150) hide(); }, true);
 
   return function uninstall() { hide(); for (const [el, ev, fn, opt] of on) el.removeEventListener(ev, fn, opt); tip.remove(); };
 }

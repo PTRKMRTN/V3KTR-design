@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.1 — 2026-10-08
+
+- **Tip fix** (found by KOMPOSITOR): a keyboard-focus tip was dismissed by the scroll its own focus caused — focusing a control inside a scroll area scrolls it a few px into view, and the scroll listener hid the tip 10-80 ms after it showed. A scroll within 150 ms of a keyboard-focus-shown tip is now ignored; a later, real scroll still dismisses it. `interactions/help.js`. `test/help.test.mjs`: 28 checks (was 21), with a negative control (reverting the fix fails the new check).
+
 ## 0.41.0 — 2026-10-08
 
 - **Reset to defaults** (Patrick's idea): a File menu row that clears an app's remembered INTERFACE preferences — Helper Text, Workspace side, interface scale, and the like — never saved projects, Looks or the library. `interactions/reset.js`: `interfaceKeys` / `resetInterface`, finding every `v3ktr-<app>-*` key automatically plus named legacy keys. A new shared preference must use that prefix. One confirm step (`.vk-modal--danger`), Cancel focused by default. `test/reset.test.mjs`: 5 checks, with a negative control.

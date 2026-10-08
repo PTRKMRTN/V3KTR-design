@@ -19,6 +19,11 @@ const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="
 <body data-app="processor" style="background:#212121;padding:40px">
 <button id="a" class="vk-btn" data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="Ctrl+R"><span id="a2">Randomise</span></button>
 <button id="b" class="vk-btn" data-tip="Reset" style="margin-left:40px">Reset</button>
+<div id="scrollArea" style="height:150px;overflow:auto;margin-top:20px;background:#2b2b2b">
+  <div style="height:400px"></div>
+  <button id="c" class="vk-btn" data-tip="Reseed" style="display:block">Reseed</button>
+  <div style="height:400px"></div>
+</div>
 <div id="out" style="height:200px"></div>
 <div class="vk-scrub">Radius</div><div class="vk-param-desc" id="pd">How far the sharpening reaches.</div>
 <script type="module">
@@ -57,6 +62,16 @@ try {
   ok(await shown(), 'keyboard focus opens at once');
   await p.keyboard.press('Escape'); ok(!(await shown()), 'Esc closes');
   await p.keyboard.press('Tab'); await p.waitForTimeout(30); ok((await text()).startsWith('Reset'), 'focus moves the tip to the next control');
+  // keyboard focus inside a scroll area (KOMPOSITOR, 2026-10-08): Tabbing to #c makes the browser scroll
+  // #scrollArea to bring it into view; that self-caused scroll must not dismiss the tip it just opened
+  await p.keyboard.press('Tab'); await p.waitForTimeout(30);
+  ok((await text()).startsWith('Reseed'), 'focus reaches the control inside the scroll area');
+  ok(await shown(), 'the scroll-into-view the focus itself causes does not dismiss it');
+  await p.waitForTimeout(80); ok(await shown(), 'still open 80 ms later (the window the bug fired in)');
+  // a later, real scroll (not the focus's own) still dismisses it once the grace window has passed
+  await p.waitForTimeout(100);
+  await p.evaluate(() => { const a = document.getElementById('scrollArea'); a.scrollTop += 20; a.dispatchEvent(new Event('scroll', { bubbles: true })); });
+  await p.waitForTimeout(30); ok(!(await shown()), 'a real scroll after the grace window still dismisses it');
   await p.keyboard.press('Tab'); await p.waitForTimeout(30); ok(!(await shown()), 'blur closes');
   // mouse click focus (not :focus-visible) does not open it instantly
   await p.mouse.click(5, 300); await p.evaluate(() => document.getElementById('b').focus({ focusVisible: false }));
