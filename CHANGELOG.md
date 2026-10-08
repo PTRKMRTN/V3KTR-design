@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.10 — 2026-10-08
+
+- **New shared pattern: `.vk-thumb__pic.is-empty` / `.vk-thumb.is-empty`, an X on a blank thumbnail.** Lifted from PROCESSOR's Looks grid (PR #363, their own local rule) into `app/thumbs.css`, generalised off `.look-card`. From Patrick's mockup: four strokes that stop 7% short of the corners and leave a gap at the centre, darker than the resting tile (`--bg-1` on `--bg-3`), drawn through an SVG mask so the colour stays a token. Clear `.is-empty` the moment a real picture loads — a deliberate "nothing here yet" state, distinct from the broken-image `<img>` fix (v0.41.7), which is about never reaching this state by accident. AGENTS.md "Flat, not outlined".
+
 ## 0.41.9 — 2026-10-08
 
 - **Shared toggle-button fill.** `.vk-btn[aria-pressed="true"]` now fills solid (same rule `.vk-btn.is-on` already had), so a plain button toggled via `aria-pressed` gets the shared fill with no extra class needed. From KOMPOSITOR's selected-state audit, approved by Patrick — apps stop writing a local equivalent of `.is-on` just to style a toggle button.

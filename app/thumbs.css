@@ -1,4 +1,4 @@
-/* V3KTR thumbnails (v0.41.7): Looks, roll cells, media, materials. On their own so an app that pulls files rather
+/* V3KTR thumbnails (v0.41.10): Looks, roll cells, media, materials. On their own so an app that pulls files rather
    than the bundle (PROCESSOR) can pull it; dist/app.css includes it. Rule: AGENTS.md "Flat, not outlined".
    The colour goes over the picture. Hover = a 32% wash; selected = the app colour in "color" blend (recolours the
    image in the app hue) + a solid check square.
@@ -29,3 +29,11 @@
 .vk-thumb--card.is-selected .vk-thumb__pic::after{opacity:1;mix-blend-mode:color;}
 .vk-thumb--card:hover .vk-thumb__label,.vk-thumb--card.is-hover .vk-thumb__label{background:color-mix(in srgb,var(--accent) 32%,var(--bg-2));color:var(--tx-0);}
 .vk-thumb--card.is-selected .vk-thumb__label{background:var(--accent);color:var(--on-accent);}
+/* A tile still waiting for its thumbnail shows an X (v0.41.10, Patrick 2026-10-08, from his mockup, lifted from
+   PROCESSOR's Looks grid): four strokes that stop short of the corners (7% in) and leave a gap at the centre,
+   DARKER than the resting grey (--bg-1 on --bg-3). Drawn as an SVG mask so the colour stays a token; put
+   .is-empty on .vk-thumb__pic (or .vk-thumb itself, for the non-card layout) and clear it the moment a real
+   picture loads — this is not the broken-image fix above, it's the deliberate "nothing here yet" state. */
+.vk-thumb__pic.is-empty::before,.vk-thumb.is-empty::before{content:'';position:absolute;inset:0;pointer-events:none;background:var(--bg-1);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;}
