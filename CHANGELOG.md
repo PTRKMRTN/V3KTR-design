@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.11 — 2026-10-08
+
+- **Fix: `.vk-roll-group .vk-tog+.vk-tog` seam overlap was stale.** Found in the first design-system conformance audit (2026-10-08): `-1px` dated from before the 2px ROOMIER toggle outline (v0.21.0) and was never bumped, so two adjacent roll-group toggles showed a 1px seam. PROCESSOR's own local copy already had the correct `-2px`. No markup change; purely the shared rule catching up to what it should already match.
+
 ## 0.41.10 — 2026-10-08
 
 - **New shared pattern: `.vk-thumb__pic.is-empty` / `.vk-thumb.is-empty`, an X on a blank thumbnail.** Lifted from PROCESSOR's Looks grid (PR #363, their own local rule) into `app/thumbs.css`, generalised off `.look-card`. From Patrick's mockup: four strokes that stop 7% short of the corners and leave a gap at the centre, darker than the resting tile (`--bg-1` on `--bg-3`), drawn through an SVG mask so the colour stays a token. Clear `.is-empty` the moment a real picture loads — a deliberate "nothing here yet" state, distinct from the broken-image `<img>` fix (v0.41.7), which is about never reaching this state by accident. AGENTS.md "Flat, not outlined".
