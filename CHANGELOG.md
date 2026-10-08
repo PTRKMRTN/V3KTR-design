@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.40.1 — 2026-10-08
+
+- **Style icons**: one per KOMPOSE Style (Music video, Trailer, Car film, Dream, Montage, Hype reel, Slow cinema, Night drive), for the Sequence inspector's Style grid. Same language as menu icons (24 grid, 1.4 stroke, currentColor). `icons/style-icons.js` + `.json`, built by `scripts/build-style-icons.mjs`. AGENTS.md "Style icons".
+
 ## 0.40.0 — 2026-10-08
 
 - **Scrollbars** (Patrick: "I think we had removed them, I think some have returned"): `.vk-scroll` now carries a house scrollbar, thin with a styled thumb, instead of each app inventing its own — PROCESSOR had one scrollbar style, DIMENSOR another, KOMPOSITOR a third that also (wrongly) put a visible bar on its icon rail, which PROCESSOR and DIMENSOR both hide. The rule: `.vk-scroll` (a content area) always shows the house bar; an icon-only rail (`.rail-scroll`, app-local) always hides its own. AGENTS.md "Workspace frames".
