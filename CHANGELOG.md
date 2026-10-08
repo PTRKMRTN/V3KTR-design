@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.0 — 2026-10-08
+
+- **Reset to defaults** (Patrick's idea): a File menu row that clears an app's remembered INTERFACE preferences — Helper Text, Workspace side, interface scale, and the like — never saved projects, Looks or the library. `interactions/reset.js`: `interfaceKeys` / `resetInterface`, finding every `v3ktr-<app>-*` key automatically plus named legacy keys. A new shared preference must use that prefix. One confirm step (`.vk-modal--danger`), Cancel focused by default. `test/reset.test.mjs`: 5 checks, with a negative control.
+
 ## 0.40.1 — 2026-10-08
 
 - **Style icons**: one per KOMPOSE Style (Music video, Trailer, Car film, Dream, Montage, Hype reel, Slow cinema, Night drive), for the Sequence inspector's Style grid. Same language as menu icons (24 grid, 1.4 stroke, currentColor). `icons/style-icons.js` + `.json`, built by `scripts/build-style-icons.mjs`. AGENTS.md "Style icons".
