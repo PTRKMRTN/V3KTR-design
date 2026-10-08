@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.4 — 2026-10-08
+
+- **Chip fix: selected is now a solid fill, everywhere.** `.vk-chip.is-active` was only tinting the border and background grey (`--accent-dim` border, `--bg-3` fill) instead of filling solid like `.vk-chip--group.is-on` already correctly does. Found from screenshots of KOMPOSITOR's filter chips (Sounds browser, caption styles, Formats) reading as outlined rather than selected. Fixed to match the group variant: `background:var(--accent);color:var(--on-accent)`. No markup change needed in any app — this is a shared CSS rule, so every app's `.vk-chip.is-active` fixes itself on the next pull.
+
 ## 0.41.3 — 2026-10-08
 
 - Docs: "Asset browser shell" pattern, generalised from KOMPOSITOR's shipped Sounds browser (the reference, not a guess) — the expand-over-the-workspace frame shape, filters column, dense results list, licence handling, and that a cut-down category (DIMENSOR's Fonts) is a smaller version of the same shape, not a different one. Not yet a pullable component: one real implementation isn't enough to generalise the CSS from. AGENTS.md. No CSS or JS change.
