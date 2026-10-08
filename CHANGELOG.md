@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.38.2 — 2026-10-08
+
+- Docs: the status bar's 4px top pad assumes the bar sizes itself from its content; an app whose grid fixes the row's own height (PROCESSOR: a 22px row plus --frame-bottom) should zero it locally. Found by PROCESSOR v0.726.0, Patrick's OK on the sheet. AGENTS.md "Status bar". No CSS change: this is the right default for a self-sizing bar.
+
 ## 0.38.1 — 2026-10-08
 
 - Two fixes from PROCESSOR's adoption: an EMPTY child (its fps readout, blank at rest by design) was drawing a stray dot with nothing after it — `.vk-status>:empty{display:none}` takes it out of the flow, the same as the display:none/DOM-removal gotcha. The fixed `height:28px` clipped under the Window margin rule (`--frame-bottom`); it's gone, replaced by padding that includes `var(--frame-bottom, 4px)`, so the row grows with the window margin where an app has it and keeps the old look where it doesn't. `test/status.test.mjs`: 9 checks; both fixes have a negative control.
