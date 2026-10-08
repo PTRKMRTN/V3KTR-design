@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.2 — 2026-10-08
+
+- **Tip fix, round 2** (KOMPOSITOR's probe showed the first fix in v0.41.1 wasn't enough — 5/5 runs still bad, including one with no scroll at all). Two changes: (1) while a keyboard-focus-shown tip's control is still genuinely focused, a scroll **repositions** it instead of hiding it, removing the race with the scroll listener entirely rather than guessing a safe time window. (2) A real `focusout` now defers 150 ms before hiding: a scrolling list that re-renders its rows can detach and re-insert the focused element, firing a genuine blur even though the user never moved away, and the re-render's own refocus can take up to ~120 ms to land (per KOMPOSITOR's probe). If a focusin arrives first, the deferred hide is cancelled with no flicker. `interactions/help.js`. `test/help.test.mjs`: 33 checks (was 28); the blur-defer check counts actual hide transitions with a MutationObserver, because "is it shown again afterwards" can't distinguish a flicker from staying open — both negative controls (always-hide-on-scroll, immediate-hide-on-blur) fail it.
+
 ## 0.41.1 — 2026-10-08
 
 - **Tip fix** (found by KOMPOSITOR): a keyboard-focus tip was dismissed by the scroll its own focus caused — focusing a control inside a scroll area scrolls it a few px into view, and the scroll listener hid the tip 10-80 ms after it showed. A scroll within 150 ms of a keyboard-focus-shown tip is now ignored; a later, real scroll still dismisses it. `interactions/help.js`. `test/help.test.mjs`: 28 checks (was 21), with a negative control (reverting the fix fails the new check).

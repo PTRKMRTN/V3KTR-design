@@ -37,7 +37,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   const tip = doc.createElement('div');
   tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip');
   (doc.body || doc.documentElement).appendChild(tip);
-  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0, focusShownAt = 0;
+  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0, shownByFocus = false, blurTimer = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
   function fill(el) {
@@ -58,22 +58,24 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
     x = Math.max(4, Math.min(W - t.width - 4, x)); y = Math.max(4, Math.min(H - t.height - 4, y));
     tip.style.left = x + 'px'; tip.style.top = y + 'px';
   }
-  function show(el) {
-    clearTimeout(timer);
+  const win = doc.defaultView || window;
+  const cancelBlur = () => { win.clearTimeout(blurTimer); blurTimer = 0; };
+  function show(el, byFocus = false) {
+    clearTimeout(timer); cancelBlur();
     if (!el || !el.dataset.tip) return;
     if (target && target !== el) hide();
-    target = el; fill(el); tip.classList.add('is-shown'); place(el);
+    target = el; shownByFocus = byFocus; fill(el); tip.classList.add('is-shown'); place(el);
     const d = (el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
     if (!d.includes(tip.id)) el.setAttribute('aria-describedby', [...d, tip.id].join(' '));
   }
   function hide() {
-    clearTimeout(timer); pending = null;
+    clearTimeout(timer); cancelBlur(); pending = null;
     if (target) lastHidden = Date.now();   // warm mode starts counting from here
     if (target) {
       const d = (target.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== tip.id);
       d.length ? target.setAttribute('aria-describedby', d.join(' ')) : target.removeAttribute('aria-describedby');
     }
-    target = null; tip.classList.remove('is-shown');
+    target = null; shownByFocus = false; tip.classList.remove('is-shown');
   }
 
   const on = [];
@@ -93,8 +95,19 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
     pending = null;
     if (el === target || !target) hide(); else clearTimeout(timer);
   });
-  listen(root, 'focusin', (e) => { const el = find(e.target); if (el && el.matches(':focus-visible')) { show(el); focusShownAt = Date.now(); } });
-  listen(root, 'focusout', (e) => { if (find(e.target) === target) hide(); });
+  listen(root, 'focusin', (e) => { cancelBlur(); const el = find(e.target); if (el && el.matches(':focus-visible')) show(el, true); });
+  // A blur is deferred 150 ms (found by KOMPOSITOR, 2026-10-08, from a probe showing the tip gone with no scroll at
+  // all, a gap of up to ~120 ms before a one-frame defer was tried and found too short): a scrolling list that
+  // re-renders its rows can detach and re-insert the focused element, firing a real focusout even though the user
+  // never moved focus away, and that re-render's own refocus can take a while to land. If a focusin arrives before
+  // the deferred check runs (that refocus, or a genuine Tab to the next control, both normally within a frame of
+  // this focusout), cancelBlur() in show()/focusin above cancels it and the tip either stays or moves to the new
+  // target with no flicker (checked by a MutationObserver in the test, not just "is it shown again afterwards").
+  listen(root, 'focusout', (e) => {
+    if (find(e.target) !== target) return;
+    cancelBlur();
+    blurTimer = win.setTimeout(() => { if (!doc.activeElement || !doc.activeElement.matches(':focus-visible') || find(doc.activeElement) !== target) hide(); }, 150);
+  });
   listen(root, 'pointerdown', (e) => {
     const el = find(e.target);
     if (target && el !== target) hide();                          // a tap (or click) elsewhere closes it
@@ -108,10 +121,17 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   listen(root, 'click', (e) => { if (eatClick) { eatClick = false; e.preventDefault(); e.stopPropagation(); } }, true);   // a long-press shows the tip; it doesn't also press
   listen(root, 'contextmenu', (e) => { if (e.pointerType === 'touch' || eatClick) e.preventDefault(); });
   listen(doc, 'keydown', (e) => { if (e.key === 'Escape' && target) hide(); });
-  // a keyboard focus that lands inside a scroll area makes the browser scroll it into view, which would otherwise
-  // fire this and hide the tip 10-80 ms after it showed (found by KOMPOSITOR, 2026-10-08). That scroll is the
-  // focus's own doing, not the user scrolling away, so it's ignored for a short window after a focus-shown tip.
-  listen(doc.defaultView || window, 'scroll', () => { if (target && Date.now() - focusShownAt >= 150) hide(); }, true);
+  // A keyboard focus that lands inside a scroll area makes the browser scroll it into view, which used to hide the
+  // tip 10-80 ms after it showed (found by KOMPOSITOR, 2026-10-08). While the tip is up because of keyboard focus
+  // and that same control is still genuinely focused, a scroll just moves the tip with it instead of hiding it —
+  // this removes the race entirely, rather than guessing a safe delay. Scroll still hides a hover-shown tip (it
+  // isn't anchored to anything the user is still doing), and still hides a focus-shown one once focus has actually
+  // left (shownByFocus false, or the control no longer :focus-visible — the focusout/blurTimer path above owns that).
+  listen(doc.defaultView || window, 'scroll', () => {
+    if (!target) return;
+    if (shownByFocus && target.matches && target.matches(':focus-visible') && doc.activeElement === target) place(target);
+    else hide();
+  }, true);
 
   return function uninstall() { hide(); for (const [el, ev, fn, opt] of on) el.removeEventListener(ev, fn, opt); tip.remove(); };
 }

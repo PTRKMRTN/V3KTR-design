@@ -67,12 +67,39 @@ try {
   await p.keyboard.press('Tab'); await p.waitForTimeout(30);
   ok((await text()).startsWith('Reseed'), 'focus reaches the control inside the scroll area');
   ok(await shown(), 'the scroll-into-view the focus itself causes does not dismiss it');
-  await p.waitForTimeout(80); ok(await shown(), 'still open 80 ms later (the window the bug fired in)');
-  // a later, real scroll (not the focus's own) still dismisses it once the grace window has passed
-  await p.waitForTimeout(100);
-  await p.evaluate(() => { const a = document.getElementById('scrollArea'); a.scrollTop += 20; a.dispatchEvent(new Event('scroll', { bubbles: true })); });
-  await p.waitForTimeout(30); ok(!(await shown()), 'a real scroll after the grace window still dismisses it');
-  await p.keyboard.press('Tab'); await p.waitForTimeout(30); ok(!(await shown()), 'blur closes');
+  await p.waitForTimeout(80); ok(await shown(), 'still open 80 ms later (the window the first fix only half-fixed)');
+  // a scroll keeps moving while focus stays on the control, any number of times, any delay — it follows, never hides
+  for (let i = 0; i < 3; i++) {
+    await p.waitForTimeout(100);
+    await p.evaluate(() => { const a = document.getElementById('scrollArea'); a.scrollTop += 15; a.dispatchEvent(new Event('scroll', { bubbles: true })); });
+    await p.waitForTimeout(20);
+  }
+  ok(await shown(), 'a scroll while the control is still focused repositions the tip, never hides it');
+  // KOMPOSITOR's harder case: a virtualized list detaches the focused row (a real focusout, no scroll at all) and
+  // refocuses an equivalent node on the NEXT FRAME, not the same tick. Checking "is it shown 40 ms later" can't
+  // tell a deferred-then-cancelled blur apart from an immediate hide-then-reshow (both end up shown either way) —
+  // so a MutationObserver counts every time the tip actually loses .is-shown, which must stay zero.
+  await p.evaluate(() => {
+    window.__hideCount = 0;
+    const tipEl = document.querySelector('.vk-tip');
+    window.__mo = new MutationObserver(() => { if (!tipEl.classList.contains('is-shown')) window.__hideCount++; });
+    window.__mo.observe(tipEl, { attributes: true, attributeFilter: ['class'] });
+    const old = document.getElementById('c');
+    old.blur();
+    requestAnimationFrame(() => { const next = old.cloneNode(true); old.replaceWith(next); next.id = 'c'; next.focus(); });
+  });
+  await p.waitForTimeout(40);
+  const hideCount = await p.evaluate(() => { window.__mo.disconnect(); return window.__hideCount; });
+  ok(await shown(), 'a next-frame detach/reinsert/refocus (no scroll) does not leave the tip closed');
+  ok(hideCount === 0, `it never actually hides in between — no flicker (${hideCount} hide transitions)`);
+  // a scroll on a HOVER-shown tip still hides it (unchanged behaviour for mouse users)
+  await p.mouse.click(5, 300); await p.hover('#a'); await p.waitForTimeout(450); ok(await shown(), 'hover opens it');
+  await p.evaluate(() => window.dispatchEvent(new Event('scroll')));
+  await p.waitForTimeout(20); ok(!(await shown()), 'a scroll still closes a hover-shown tip');
+  // back to the scroll-area control and a genuine blur (Tab away) closes it
+  await p.mouse.click(5, 300); await p.keyboard.press('Tab'); await p.keyboard.press('Tab'); await p.keyboard.press('Tab'); await p.waitForTimeout(30);
+  ok((await text()).startsWith('Reseed'), 'back on the scroll-area control');
+  await p.keyboard.press('Tab'); await p.waitForTimeout(180); ok(!(await shown()), 'a genuine Tab away still closes it, once the 150 ms grace window passes');
   // mouse click focus (not :focus-visible) does not open it instantly
   await p.mouse.click(5, 300); await p.evaluate(() => document.getElementById('b').focus({ focusVisible: false }));
   // touch long-press: opens after 500 ms, and the press does not also click
