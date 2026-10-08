@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.16 ===== */
-/* V3KTR design tokens · v0.41.16
+/* ===== core: tokens.css v0.41.17 ===== */
+/* V3KTR design tokens · v0.41.17
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -86,7 +86,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.16 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.17 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -613,10 +613,10 @@
 .vk-row:has(.vk-row__ctl:hover):not(.is-selected),.vk-layer:has(.vk-row__ctl:hover):not(.is-active){background:var(--bg-2);}
 .vk-row__ctl:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
 .vk-row.is-selected .vk-row__ctl:hover,.vk-layer.is-active .vk-row__ctl:hover{background:var(--accent);color:var(--on-accent);}
-/* A row control that LATCHES (eye/lock/mute, not just a hover preview) needs the same solid fill every other
-   selected state gets — colour alone isn't enough (Patrick 2026-10-09, design-audit batch: KOMPOSITOR/DIMENSOR/
-   PROCESSOR had each built a text-colour-only "on" for this). Mark it [aria-pressed="true"] as well as .vk-row__ctl. */
-.vk-row__ctl[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);}
+/* A row control that LATCHES (eye/lock/mute, not just a hover preview): text colour only when on, not a fill
+   (Patrick 2026-10-09: reverted the v0.41.14 solid-fill version — PROCESSOR's original behaviour was the one he
+   wanted kept). Mark it [aria-pressed="true"] as well as .vk-row__ctl. */
+.vk-row__ctl[aria-pressed="true"]{color:var(--accent);}
 /* A LOCKED row (Patrick 2026-10-09, generalised from PROCESSOR PR #370): every direct child dims to 60% except the
    lock control itself, which stays at full strength — it's the release control, so it must read as the one live
    thing. Opacity goes on each CHILD, never on the row itself: a parent's opacity caps the whole subtree, so a
@@ -628,13 +628,13 @@
 
 /* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
    toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):
-   same rule again, solid fill when on, just sized for an icon with no padding or text. (Patrick 2026-10-09.)
+   text colour only when on, not a fill (Patrick 2026-10-09: reverted the v0.41.14 solid-fill version — PROCESSOR's
+   original behaviour was the one he wanted kept, across all of these, not just the lock icons specifically).
    <button class="vk-icon-tog" aria-pressed="true" data-tip="Lock"><svg>…</svg></button> */
 .vk-icon-tog{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;padding:0;
   background:transparent;border:none;color:var(--tx-2);cursor:pointer;flex-shrink:0;}
 .vk-icon-tog:hover,.vk-icon-tog.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),transparent);color:var(--tx-0);}
-.vk-icon-tog[aria-pressed="true"],.vk-icon-tog.is-on{background:var(--accent);color:var(--on-accent);}
-.vk-icon-tog[aria-pressed="true"]:hover,.vk-icon-tog.is-on:hover{background:var(--hover);color:var(--on-accent);}
+.vk-icon-tog[aria-pressed="true"],.vk-icon-tog.is-on{color:var(--accent);}
 .vk-icon-tog svg{width:15px;height:15px;display:block;}
 
 /* Thumbnails (.vk-thumb*) moved to their own pullable app/thumbs.css (v0.41.7), in dist/app.css after this file. */
@@ -2678,7 +2678,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.16</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.17</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

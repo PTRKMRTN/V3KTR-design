@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.17 — 2026-10-09
+
+- **Reverted: icon-toggle solid fill (v0.41.14).** Patrick, the next morning: PROCESSOR's original text-colour-only treatment was the one he wanted kept — for every icon toggle v0.41.14 touched (lock, dice, pace/link, solo, the viewport Controls toggle), not just lock icons specifically. `.vk-row__ctl[aria-pressed="true"]` and `.vk-icon-tog[aria-pressed="true"]`/`.is-on` are now `color:var(--accent)` again, no background fill. The locked-row dimming (v0.41.16) and `.vk-lock`-always-top-right (v0.41.14) are unaffected — only the icon-toggle fill itself was reversed. AGENTS.md "Chips are one colour".
+
 ## 0.41.16 — 2026-10-09
 
 - **New shared pattern: a locked row.** Generalised from PROCESSOR's locked-row design (Patrick's decision, PR #370): `.vk-row.is-locked`/`.vk-layer.is-locked` dims every direct child to 60% except the lock control (`.vk-row__ctl[aria-pressed="true"]`), which stays full strength since it's the release control. Opacity is set on each child individually, never on the row itself — a parent's opacity caps the whole subtree, so a child's own `opacity:1` can't undo it (PROCESSOR verified this before the rule was generalised). AGENTS.md "Chips are one colour".
