@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.16 — 2026-10-09
+
+- **New shared pattern: a locked row.** Generalised from PROCESSOR's locked-row design (Patrick's decision, PR #370): `.vk-row.is-locked`/`.vk-layer.is-locked` dims every direct child to 60% except the lock control (`.vk-row__ctl[aria-pressed="true"]`), which stays full strength since it's the release control. Opacity is set on each child individually, never on the row itself — a parent's opacity caps the whole subtree, so a child's own `opacity:1` can't undo it (PROCESSOR verified this before the rule was generalised). AGENTS.md "Chips are one colour".
+
 ## 0.41.15 — 2026-10-09
 
 - **Docs: a specificity trap when adopting v0.41.14's row-control fill.** DIMENSOR found it adopting `.vk-row__ctl[aria-pressed="true"]`: a local reset on the same control (e.g. `.vk-layer .act{background:none}`) can sit at equal specificity and load later, silently cancelling both the new fill AND the pre-existing hover tint. Fixed locally in DIMENSOR with `:where(...)`; documented in AGENTS.md "Chips are one colour" as a heads-up for any app with its own reset on a row-control button. No CSS change here.

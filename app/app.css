@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.15 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.16 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -529,6 +529,14 @@
    selected state gets — colour alone isn't enough (Patrick 2026-10-09, design-audit batch: KOMPOSITOR/DIMENSOR/
    PROCESSOR had each built a text-colour-only "on" for this). Mark it [aria-pressed="true"] as well as .vk-row__ctl. */
 .vk-row__ctl[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);}
+/* A LOCKED row (Patrick 2026-10-09, generalised from PROCESSOR PR #370): every direct child dims to 60% except the
+   lock control itself, which stays at full strength — it's the release control, so it must read as the one live
+   thing. Opacity goes on each CHILD, never on the row itself: a parent's opacity caps the whole subtree, so a
+   child's own opacity:1 cannot undo it (PROCESSOR confirmed this the hard way before generalising). If the lock
+   sits inside a wrapper alongside other controls, dim those sibling controls instead of the wrapper. Mark the row
+   .is-locked and the lock button .vk-row__ctl[aria-pressed="true"] (same class v0.41.14 already uses for it). */
+.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]),
+.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]){opacity:0.6;}
 
 /* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
    toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):
