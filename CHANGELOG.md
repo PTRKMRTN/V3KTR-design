@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.14 — 2026-10-09
+
+- **New shared pattern: solid fill for latching icon-only toggles.** Patrick's decision on the design-audit batch — KOMPOSITOR (lane lock/dice/pace/link), DIMENSOR (FX lock) and PROCESSOR (iso/lock/solo, viewport Controls toggle) had each built this as text-colour-only. Two new rules: `.vk-row__ctl[aria-pressed="true"]` for a latching icon inside a row (eye/lock/mute), and a new standalone class `.vk-icon-tog` (24px square, icon only) for a toolbar/rail toggle, both filling solid like every other selected state. Explicitly applies even to a toggle that's on by default (PROCESSOR's viewport Controls) — a permanent accent block there is a "should this default on" question, not an exception to the fill rule.
+- **`.vk-lock` is always top-right.** Patrick's decision, after KOMPOSITOR shipped a provisional left-edge placement for a full-width lane-head row — one position everywhere, no shape-specific exception. No CSS change (the rule was already top-right); KOMPOSITOR to move its lane-head lock to match.
+
 ## 0.41.13 — 2026-10-08
 
 - **New shared class: `.rail-scroll`, promoted from local code into `app/frames.css`.** From DIMENSOR's design-audit follow-up: DIMENSOR and PROCESSOR had each already built the identical icon-only-rail scrollbar pattern locally (`--pad` inset via margin, the same fade variables, scrollbar hidden on both engines) — AGENTS.md's "Workspace frames" rule even named both local copies by name already. This generalises what had already converged rather than inventing something new. AGENTS.md "Workspace frames".
