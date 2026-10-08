@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.38.1 — 2026-10-08
+
+- Two fixes from PROCESSOR's adoption: an EMPTY child (its fps readout, blank at rest by design) was drawing a stray dot with nothing after it — `.vk-status>:empty{display:none}` takes it out of the flow, the same as the display:none/DOM-removal gotcha. The fixed `height:28px` clipped under the Window margin rule (`--frame-bottom`); it's gone, replaced by padding that includes `var(--frame-bottom, 4px)`, so the row grows with the window margin where an app has it and keeps the old look where it doesn't. `test/status.test.mjs`: 9 checks; both fixes have a negative control.
+
 ## 0.38.0 — 2026-10-08
 
 - **Status bar dot separators** (Patrick: an idea for the design system). `.vk-status`: its direct children get a dot between them automatically (CSS only, no per-item markup), the same dot as the Livelink menu's. Apps adopt it by renaming their bar's class from `.status`. CSS `app/status.css` (pullable; in `dist/app.css`). `test/status.test.mjs`: 5 checks, including the display:none vs DOM-removal gotcha the file's own comment warns about.

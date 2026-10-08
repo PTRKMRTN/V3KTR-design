@@ -1,14 +1,21 @@
-/* V3KTR status bar (v0.38.0; Patrick 2026-10-08): the bottom-left strip of live readouts (GPU, fps, the open
+/* V3KTR status bar (v0.38.1; Patrick 2026-10-08): the bottom-left strip of live readouts (GPU, fps, the open
    document's stats, …). On its own so an app that pulls files rather than the bundle (PROCESSOR) can pull it;
    dist/app.css includes it. Rule: AGENTS.md "Status bar".
    One class, .vk-status, on the bar's own container: its direct children (however many, however an app builds
    them) get a dot between them automatically, the same character as the Livelink menu's dot (.menu-dot). No
    per-item markup change: an app adopts this by renaming its existing bar's class (PROCESSOR/KOMPOSITOR/DIMENSOR
-   all call it .status today) to .vk-status, nothing else. A child that should disappear must leave the DOM, not
-   just hide (display:none), or the dot before the next visible item is missing; test/status.test.mjs checks the
-   common case and that negative control. */
-.vk-status{display:flex;align-items:center;gap:0;height:28px;padding:0 var(--pad);background:var(--bg-1);
+   all call it .status today) to .vk-status, nothing else.
+   Two gotchas, both found by PROCESSOR's adoption (2026-10-08):
+   - A child that should disappear must leave the DOM, not just hide (display:none), or the dot before the next
+     VISIBLE item is missing (only a problem when the hidden one was first: :first-child still sees it).
+   - An EMPTY child (PROCESSOR's fps readout is blank at rest by design) still counts as a sibling and still draws
+     a dot, with nothing after it: :empty is taken out of the flow below, the same as display:none would be, so an
+     app can leave an empty placeholder in the DOM without a stray dot.
+   test/status.test.mjs checks both. No fixed height: the row sizes from its own padding, so it works under the
+   Window margin rule (--frame-bottom, where an app sets it) and without it (a plain 4px bottom elsewhere). */
+.vk-status{display:flex;align-items:center;gap:0;padding:4px var(--pad) var(--frame-bottom, 4px);background:var(--bg-1);
   font:10.5px var(--mono);letter-spacing:.04em;color:var(--tx-2);white-space:nowrap;overflow:hidden;}
+.vk-status>:empty{display:none;}
 .vk-status>*{margin-right:16px;}
 .vk-status>*:last-child{margin-right:0;}
 .vk-status>*:not(:first-child)::before{content:'·';color:var(--tx-2);opacity:.6;margin-right:8px;}

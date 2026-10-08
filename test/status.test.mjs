@@ -18,6 +18,7 @@ try {
   await p.setContent(`<!doctype html><html data-app="processor"><style>${css}</style><body style="margin:0">
     <div id="s3" class="vk-status"><span>Ready</span><span>60 fps</span><span>3 layers</span></div>
     <div id="s1" class="vk-status"><span>Ready</span></div>
+    <div id="se" class="vk-status"><span>Ready</span><span id="fps"></span><span>3 layers</span></div>
   </body>`);
   const dots = await p.evaluate(() => [...document.querySelectorAll('#s3 > *')].map((el) => getComputedStyle(el, '::before').content));
   ok(dots[0] === 'none', `the first child gets no dot (${dots[0]})`);
@@ -33,5 +34,21 @@ try {
   await p.evaluate(() => { document.querySelectorAll('#s3 > *')[0].remove(); });
   const removed = await p.evaluate(() => getComputedStyle(document.querySelectorAll('#s3 > *')[0], '::before').content);
   ok(removed === 'none', `removing it from the DOM instead leaves the new first item with no dot (${removed})`);
+  // an empty child (PROCESSOR's fps readout at rest) draws no dot of its own, and the next real item still gets one
+  const empties = await p.evaluate(() => [...document.querySelectorAll('#se > *')].map((el) => getComputedStyle(el).display));
+  ok(empties[1] === 'none', `an empty child is taken out of the flow (${empties[1]})`);
+  const afterEmpty = await p.evaluate(() => getComputedStyle(document.querySelectorAll('#se > *')[2], '::before').content);
+  ok(afterEmpty === '"·"', `the item after an empty one still gets its own dot (${afterEmpty})`);
+  await p.evaluate(() => { document.getElementById('fps').textContent = '60 fps'; });
+  const filled = await p.evaluate(() => getComputedStyle(document.getElementById('fps')).display);
+  ok(filled !== 'none', `filling the empty span in later shows it again (${filled})`);
+  // no fixed height: the row's own height comes from its padding, so --frame-bottom (an app's window-margin pad) works
+  const h = await p.evaluate(() => {
+    document.documentElement.style.setProperty('--frame-bottom', '22px');
+    const r = document.getElementById('s1').getBoundingClientRect().height;
+    document.documentElement.style.removeProperty('--frame-bottom');
+    return r;
+  });
+  ok(h > 28, `--frame-bottom grows the row instead of being clipped by a fixed height (${h}px)`);
   console.log(`status: ${n} checks passed`);
 } finally { await b.close(); }
