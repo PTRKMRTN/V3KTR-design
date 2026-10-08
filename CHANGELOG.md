@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.15 — 2026-10-09
+
+- **Docs: a specificity trap when adopting v0.41.14's row-control fill.** DIMENSOR found it adopting `.vk-row__ctl[aria-pressed="true"]`: a local reset on the same control (e.g. `.vk-layer .act{background:none}`) can sit at equal specificity and load later, silently cancelling both the new fill AND the pre-existing hover tint. Fixed locally in DIMENSOR with `:where(...)`; documented in AGENTS.md "Chips are one colour" as a heads-up for any app with its own reset on a row-control button. No CSS change here.
+
 ## 0.41.14 — 2026-10-09
 
 - **New shared pattern: solid fill for latching icon-only toggles.** Patrick's decision on the design-audit batch — KOMPOSITOR (lane lock/dice/pace/link), DIMENSOR (FX lock) and PROCESSOR (iso/lock/solo, viewport Controls toggle) had each built this as text-colour-only. Two new rules: `.vk-row__ctl[aria-pressed="true"]` for a latching icon inside a row (eye/lock/mute), and a new standalone class `.vk-icon-tog` (24px square, icon only) for a toolbar/rail toggle, both filling solid like every other selected state. Explicitly applies even to a toggle that's on by default (PROCESSOR's viewport Controls) — a permanent accent block there is a "should this default on" question, not an exception to the fill rule.
