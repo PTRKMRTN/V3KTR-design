@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.39.1 — 2026-10-08
+
+- Docs: Patrick's calls from PROCESSOR's workspace-align sheet, rolled out to every app. On Left, the top bar and the status bar move WITH THE CANVAS, not with the rail/panels — a true mirror, not just the rail swapping sides. AGENTS.md "Workspace align" has PROCESSOR's grid shape and the list of insets/exceptions it had to re-check on Left. No CSS or JS change: this is app-side grid work, documented so DIMENSOR and KOMPOSITOR build the same shape.
+
 ## 0.39.0 — 2026-10-08
 
 - **Workspace align** (Patrick's idea): `interactions/layout.js` `workspaceAlign('<app>')`, same shape as `helperText()`. Default 'right' (every app's layout today, unchanged); `.set('left')` / `.toggle()` mirrors the workspace, sets `<html data-ws-align="left">`, remembered per app. The mirrored grid is each app's own CSS, documented in AGENTS.md "Workspace align". `test/layout.test.mjs`: 6 checks, with a negative control.
