@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.39.0 — 2026-10-08
+
+- **Workspace align** (Patrick's idea): `interactions/layout.js` `workspaceAlign('<app>')`, same shape as `helperText()`. Default 'right' (every app's layout today, unchanged); `.set('left')` / `.toggle()` mirrors the workspace, sets `<html data-ws-align="left">`, remembered per app. The mirrored grid is each app's own CSS, documented in AGENTS.md "Workspace align". `test/layout.test.mjs`: 6 checks, with a negative control.
+- **View → Interface group**: Helper Text, Workspace (the two rows above) and icon-only buttons now live together under one "Interface" label in the View menu, not loose. Icon-only is scoped (AGENTS.md "View → Interface group") but parked, not built.
+
 ## 0.38.2 — 2026-10-08
 
 - Docs: the status bar's 4px top pad assumes the bar sizes itself from its content; an app whose grid fixes the row's own height (PROCESSOR: a 22px row plus --frame-bottom) should zero it locally. Found by PROCESSOR v0.726.0, Patrick's OK on the sheet. AGENTS.md "Status bar". No CSS change: this is the right default for a self-sizing bar.
