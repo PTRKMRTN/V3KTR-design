@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.11 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.12 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -33,8 +33,8 @@
   --app-scrim:rgba(8,9,11,0.72);
   /* .depth-status */
   --app-toast-bg:rgba(15,17,19,0.86);
-  /* .ui-btn.danger (ink on the danger fill) */
-  --app-danger-ink:#1a0606;
+  /* --app-danger-ink (ink on the danger fill, .ui-btn.danger) moved to tokens.css (v0.41.12) so an app that
+     pulls only the core token file — not this one — can still reach it. */
   /* .blend-select, select.ctl, .mfps-select, .mr-row select, .cs-trigger::after.
      A data URI cannot read var(); the fill %23cfcfcf is --tx-1's value, hard-coded. */
   --app-chevron:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M0 2l4 4 4-4' fill='%23cfcfcf'/></svg>");

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.11
+/* V3KTR design tokens · v0.41.12
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -25,6 +25,10 @@
      mandarin (the old --danger was 17). Each passes 4.5:1 as small text on the ground and panels, and --on-status on it
      as a fill (10.0 / 10.3 / 5.8). Never colour alone: a status always carries an icon and a word. */
   --status-ready:#00e540; --status-caution:#f9c200; --status-blocked:#ff5e7e; --on-status:#1c1c1c;
+  /* The one danger-fill button (.vk-btn--danger, app/app.css) needs a red-tinted near-black, not the generic
+     --on-status, for contrast on --danger's pink-red; moved here from app/app.css (v0.41.12, design-audit
+     follow-up) so PROCESSOR — which pulls tokens.css but not app.css — can reach it too. */
+  --app-danger-ink:#1a0606;
 
   /* FX-group identity colours (independent of the signal colour) */
   /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
@@ -117,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.11 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.12 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -152,8 +156,8 @@
   --app-scrim:rgba(8,9,11,0.72);
   /* .depth-status */
   --app-toast-bg:rgba(15,17,19,0.86);
-  /* .ui-btn.danger (ink on the danger fill) */
-  --app-danger-ink:#1a0606;
+  /* --app-danger-ink (ink on the danger fill, .ui-btn.danger) moved to tokens.css (v0.41.12) so an app that
+     pulls only the core token file — not this one — can still reach it. */
   /* .blend-select, select.ctl, .mfps-select, .mr-row select, .cs-trigger::after.
      A data URI cannot read var(); the fill %23cfcfcf is --tx-1's value, hard-coded. */
   --app-chevron:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M0 2l4 4 4-4' fill='%23cfcfcf'/></svg>");

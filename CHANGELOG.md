@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.12 — 2026-10-08
+
+- **`--app-danger-ink` moved from `app/app.css` to `tokens.css` (core).** PROCESSOR pulls tokens.css but not app.css (it's the source of that layer, not a consumer), so it had no way to reach the correctly-tuned red-tinted near-black ink for a danger-fill button and was falling back to the generic `--on-status`. Same value (`#1a0606`), just reachable from the core token file now. From tonight's design-audit follow-up with PROCESSOR.
+
 ## 0.41.11 — 2026-10-08
 
 - **Fix: `.vk-roll-group .vk-tog+.vk-tog` seam overlap was stale.** Found in the first design-system conformance audit (2026-10-08): `-1px` dated from before the 2px ROOMIER toggle outline (v0.21.0) and was never bumped, so two adjacent roll-group toggles showed a 1px seam. PROCESSOR's own local copy already had the correct `-2px`. No markup change; purely the shared rule catching up to what it should already match.

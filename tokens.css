@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.11
+/* V3KTR design tokens · v0.41.12
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -25,6 +25,10 @@
      mandarin (the old --danger was 17). Each passes 4.5:1 as small text on the ground and panels, and --on-status on it
      as a fill (10.0 / 10.3 / 5.8). Never colour alone: a status always carries an icon and a word. */
   --status-ready:#00e540; --status-caution:#f9c200; --status-blocked:#ff5e7e; --on-status:#1c1c1c;
+  /* The one danger-fill button (.vk-btn--danger, app/app.css) needs a red-tinted near-black, not the generic
+     --on-status, for contrast on --danger's pink-red; moved here from app/app.css (v0.41.12, design-audit
+     follow-up) so PROCESSOR — which pulls tokens.css but not app.css — can reach it too. */
+  --app-danger-ink:#1a0606;
 
   /* FX-group identity colours (independent of the signal colour) */
   /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
