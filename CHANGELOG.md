@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.37.0 — 2026-10-08
+
+- **Window margin** rule (Patrick 2026-10-08): all UI 22px (`--pad`) from every window edge, a textured viewport alone full-bleed. AGENTS.md "Window margin". First shipped in PROCESSOR v0.723.0.
+- **Split grip on horizontal lines:** `splitGrip` takes its axis from the separator (`--t`/`--b` → drags up/down, ↑/↓, `row-resize`, an up/down icon, `aria-orientation="horizontal"`), `min`/`max` may be functions, and it returns `update()` to refresh the aria values after a window resize. Patrick: height grips are fine; width grips only on his word. `test/frames.test.mjs` 49 checks (7 new for the horizontal grip).
+
 ## 0.36.1 — 2026-10-08
 
 - Fixes from PROCESSOR's adoption: `split-grip.js`'s top-level `ICON` collided with PROCESSOR's own when vendored flat (the page threw at load); renamed `GRIP_ICON`, and `scroll-fade.js`'s `EPS` → `FADE_EPS`. The `.vk-scroll` mask now applies only while a fade shows, so an area at rest has no clip or stacking context. AGENTS.md "Workspace frames" records Patrick's exceptions: no separator against a textured viewport (PROCESSOR's canvas), and no resize grip where a panel needs a minimum width (PROCESSOR's stacks; the other apps not yet analysed).

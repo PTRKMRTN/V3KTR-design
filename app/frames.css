@@ -35,6 +35,7 @@
 .vk-fsep__grip{position:absolute;top:50%;left:50%;width:var(--grip);height:var(--grip);transform:translate(-50%,-50%);
   background:var(--line);color:var(--bg-1);display:flex;align-items:center;justify-content:center;
   pointer-events:auto;cursor:col-resize;touch-action:none;}
+.vk-fsep__grip--h{cursor:row-resize;}   /* on a horizontal line (v0.37.0) */
 .vk-fsep__grip svg{width:12px;height:12px;display:block;}
 .vk-fsep__grip:hover,.vk-fsep__grip.is-dragging{background:var(--hover);color:var(--on-accent);}
 .vk-fsep__grip:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}

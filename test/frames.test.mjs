@@ -32,7 +32,7 @@ const PAGE = (extraCss = '') => `<!doctype html><meta charset="utf-8"><link rel=
   <div class="vk-frame" id="f-left"></div>
   <div class="vk-frame" id="f-mid"><div class="vk-fsep vk-fsep--l" id="s-midL"></div><div class="vk-fsep vk-fsep--r" id="s-midR"></div>
     <div class="vk-scroll" id="sc-mid">${sec('One', 4)}${sec('Two', 4)}</div></div>
-  <div style="display:grid;grid-template-rows:1fr 1fr;min-height:0">
+  <div id="col3" style="display:grid;grid-template-rows:var(--top,1fr) 1fr;min-height:0">
     <div class="vk-frame" id="f-top"><div class="vk-fsep vk-fsep--b" id="s-topB"></div><div class="vk-scroll" id="sc-top">${sec('Long', 40)}</div></div>
     <div class="vk-frame" id="f-bot"><div class="vk-scroll" id="sc-bot">${sec('Short', 2)}</div></div>
   </div>
@@ -45,6 +45,11 @@ const app = document.getElementById('app');
 window.mid = 380;
 window.grip = splitGrip(document.getElementById('s-midR'), { get: () => window.mid, set: (v) => { window.mid = v; app.style.setProperty('--mid', v + 'px'); },
   min: 300, max: 500, dir: 1, reset: () => { window.mid = 380; app.style.setProperty('--mid', '380px'); }, label: 'Resize panel' });
+window.top0 = null;
+const col3 = document.getElementById('col3'), ftop = document.getElementById('f-top');
+window.hgrip = splitGrip(document.getElementById('s-topB'), { get: () => ftop.getBoundingClientRect().height,
+  set: (v) => { col3.style.setProperty('--top', v + 'px'); }, min: () => 120, max: () => col3.getBoundingClientRect().height - 120,
+  reset: () => col3.style.removeProperty('--top'), label: 'Resize stack' });
 window.ready = true;
 </script>`;
 
@@ -174,5 +179,24 @@ try {
   ok(await p.evaluate(() => [window.mid, document.querySelector('.vk-fsep__grip').getAttribute('aria-valuenow')].join()) === '380,380', 'double-click resets and updates aria-valuenow');
   const after = checkGeom(await p.evaluate(GEOM));
   ok(after.filter((e) => !/sc-top|sc-bot|Long|Short/.test(e)).length === 0, `the frame rules still hold after resizing (${after.join('; ')})`);
+  // 7 the same grip on a HORIZONTAL line (v0.37.0): drags up/down, arrows up/down, limits from functions
+  const hm = await p.evaluate(() => { const g = document.querySelectorAll('.vk-fsep__grip')[1], s = document.getElementById('s-topB');
+    const a = g.getBoundingClientRect(), c = s.getBoundingClientRect();
+    return { cx: a.left + a.width / 2, sx: c.left + c.width / 2, cy: a.top + a.height / 2, sy: c.top + c.height / 2, cur: getComputedStyle(g).cursor,
+      or: g.getAttribute('aria-orientation'), h: document.getElementById('f-top').getBoundingClientRect().height, max: g.getAttribute('aria-valuemax') }; });
+  ok(Math.abs(hm.cx - hm.sx) < 1 && Math.abs(hm.cy - hm.sy) < 1, `the horizontal grip is centred on its line (${hm.cx - hm.sx}, ${hm.cy - hm.sy})`);
+  ok(hm.cur === 'row-resize' && hm.or === 'horizontal', `row-resize cursor, aria-orientation horizontal (${hm.cur}, ${hm.or})`);
+  const H = () => p.evaluate(() => Math.round(document.getElementById('f-top').getBoundingClientRect().height));
+  const h0 = Math.round(hm.h);
+  await p.mouse.move(hm.cx, hm.cy); await p.mouse.down(); await p.mouse.move(hm.cx, hm.cy + 50, { steps: 4 }); await p.mouse.up();
+  ok(await H() === h0 + 50, `dragging the line 50px down grows the upper frame by 50 (${h0} → ${await H()})`);
+  await p.focus('.vk-fsep__grip--h'); await p.keyboard.press('ArrowUp');
+  ok(await H() === h0 + 40, 'ArrowUp moves the line up 10px');
+  await p.keyboard.press('End');
+  ok(await H() === Number(hm.max), `End stops at the max from its function (${await H()} vs ${hm.max})`);
+  await p.keyboard.press('Home');
+  ok(await H() === 120, 'Home stops at the min (120)');
+  await p.dblclick('.vk-fsep__grip--h');
+  ok(await H() === h0, 'double-click resets the split');
   console.log(`frames: ${n} checks passed`);
 } finally { await b.close(); server.close(); }
