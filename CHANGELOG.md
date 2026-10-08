@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.39.2 — 2026-10-08
+
+- Docs: KOMPOSITOR's exception to the top/status-bar mirror (Patrick, direct): where a full-width row already sits between the viewport and the status bar (its timeline), the status bar stays a full-width bottom row on Left too, rather than pulled in under the viewport. AGENTS.md "Workspace align". No CSS or JS change.
+
 ## 0.39.1 — 2026-10-08
 
 - Docs: Patrick's calls from PROCESSOR's workspace-align sheet, rolled out to every app. On Left, the top bar and the status bar move WITH THE CANVAS, not with the rail/panels — a true mirror, not just the rail swapping sides. AGENTS.md "Workspace align" has PROCESSOR's grid shape and the list of insets/exceptions it had to re-check on Left. No CSS or JS change: this is app-side grid work, documented so DIMENSOR and KOMPOSITOR build the same shape.
