@@ -103,10 +103,20 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   // the deferred check runs (that refocus, or a genuine Tab to the next control, both normally within a frame of
   // this focusout), cancelBlur() in show()/focusin above cancels it and the tip either stays or moves to the new
   // target with no flicker (checked by a MutationObserver in the test, not just "is it shown again afterwards").
+  // KOMPOSITOR reported (round 3) that a hover tip opened just after a Tab-away could be closed by the stale
+  // blur. show()/focusin's cancelBlur() should already rule that out — any new tip cancels the pending timer for
+  // the old one before it can fire against the wrong target — and a built test for the described sequence could
+  // not reproduce it either way, so this guard is kept as a defensive belt-and-braces (it costs nothing; it is not
+  // proven to be load-bearing) rather than asserted as the fix. If it still happens on v0.41.5, the exact event
+  // order from KOMPOSITOR's probe is needed to find the real cause.
   listen(root, 'focusout', (e) => {
-    if (find(e.target) !== target) return;
+    const blurEl = find(e.target);
+    if (blurEl !== target) return;
     cancelBlur();
-    blurTimer = win.setTimeout(() => { if (!doc.activeElement || !doc.activeElement.matches(':focus-visible') || find(doc.activeElement) !== target) hide(); }, 150);
+    blurTimer = win.setTimeout(() => {
+      if (target !== blurEl) return;   // defensive: should be unreachable, since any new show() cancels this timer first
+      if (!doc.activeElement || !doc.activeElement.matches(':focus-visible') || find(doc.activeElement) !== blurEl) hide();
+    }, 150);
   });
   listen(root, 'pointerdown', (e) => {
     const el = find(e.target);

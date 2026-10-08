@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.5 — 2026-10-08
+
+- **Defensive hardening, not a confirmed fix:** KOMPOSITOR reported that a hover tip opened just after a Tab-away could be closed by the earlier control's deferred blur. `show()`'s existing `cancelBlur()` should already prevent this (any new tip cancels the pending timer for the old one), and a built test for the described sequence passed identically with and without a guard added for it — so no new test was added (an unfalsifiable test isn't shipped), but the deferred-hide callback now also checks it's still closing the element it was scheduled for, in case the real cause turns out to be something this happens to cover. If it recurs, the exact event order from KOMPOSITOR's probe is needed.
+
 ## 0.41.4 — 2026-10-08
 
 - **Chip fix: selected is now a solid fill, everywhere.** `.vk-chip.is-active` was only tinting the border and background grey (`--accent-dim` border, `--bg-3` fill) instead of filling solid like `.vk-chip--group.is-on` already correctly does. Found from screenshots of KOMPOSITOR's filter chips (Sounds browser, caption styles, Formats) reading as outlined rather than selected. Fixed to match the group variant: `background:var(--accent);color:var(--on-accent)`. No markup change needed in any app — this is a shared CSS rule, so every app's `.vk-chip.is-active` fixes itself on the next pull.
