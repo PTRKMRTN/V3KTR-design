@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.38.0 — 2026-10-08
+
+- **Status bar dot separators** (Patrick: an idea for the design system). `.vk-status`: its direct children get a dot between them automatically (CSS only, no per-item markup), the same dot as the Livelink menu's. Apps adopt it by renaming their bar's class from `.status`. CSS `app/status.css` (pullable; in `dist/app.css`). `test/status.test.mjs`: 5 checks, including the display:none vs DOM-removal gotcha the file's own comment warns about.
+
 ## 0.37.1 — 2026-10-08
 
 - `splitGrip`: no tooltip on the grip (Patrick: the tip showed, then hung where it opened while the line was dragged away). The grip keeps its `aria-label` and separator role. `test/frames.test.mjs` checks there is no tip.

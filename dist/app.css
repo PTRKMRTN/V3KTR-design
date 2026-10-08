@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.37.1
+/* V3KTR design tokens · v0.38.0
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -117,7 +117,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.37.1 · requires tokens.css (core)
+/* V3KTR app layer · v0.38.0 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -814,3 +814,18 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-fsep__grip svg{width:12px;height:12px;display:block;}
 .vk-fsep__grip:hover,.vk-fsep__grip.is-dragging{background:var(--hover);color:var(--on-accent);}
 .vk-fsep__grip:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR status bar (v0.38.0; Patrick 2026-10-08): the bottom-left strip of live readouts (GPU, fps, the open
+   document's stats, …). On its own so an app that pulls files rather than the bundle (PROCESSOR) can pull it;
+   dist/app.css includes it. Rule: AGENTS.md "Status bar".
+   One class, .vk-status, on the bar's own container: its direct children (however many, however an app builds
+   them) get a dot between them automatically, the same character as the Livelink menu's dot (.menu-dot). No
+   per-item markup change: an app adopts this by renaming its existing bar's class (PROCESSOR/KOMPOSITOR/DIMENSOR
+   all call it .status today) to .vk-status, nothing else. A child that should disappear must leave the DOM, not
+   just hide (display:none), or the dot before the next visible item is missing; test/status.test.mjs checks the
+   common case and that negative control. */
+.vk-status{display:flex;align-items:center;gap:0;height:28px;padding:0 var(--pad);background:var(--bg-1);
+  font:10.5px var(--mono);letter-spacing:.04em;color:var(--tx-2);white-space:nowrap;overflow:hidden;}
+.vk-status>*{margin-right:16px;}
+.vk-status>*:last-child{margin-right:0;}
+.vk-status>*:not(:first-child)::before{content:'·';color:var(--tx-2);opacity:.6;margin-right:8px;}
