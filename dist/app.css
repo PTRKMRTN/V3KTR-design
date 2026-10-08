@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.36.0
+/* V3KTR design tokens · v0.36.1
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -117,7 +117,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.36.0 · requires tokens.css (core)
+/* V3KTR app layer · v0.36.1 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -789,12 +789,13 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 /* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
    grip would scroll the frame sideways) */
 .vk-frame{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;}
-.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);
-  --fade-t:0px;--fade-b:0px;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
-          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;}
 .vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
 .vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+/* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context */
+.vk-scroll:is([data-fade-top],[data-fade-bottom]){
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
 .vk-scroll > .vk-section{padding:0;}
 .vk-scroll > .vk-section:first-child,.vk-scroll > .vk-section:last-child{padding:0;}
 /* a fixed head (title row, action row) above a scroll area: same side inset, no bottom inset of its own; the scroll

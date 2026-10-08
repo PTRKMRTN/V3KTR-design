@@ -12,15 +12,15 @@
 //   - Works with any element that scrolls vertically; it doesn't need the .vk-scroll class (an app migrating can apply
 //     its own mask with the same data attributes).
 
-const EPS = 1;
+const FADE_EPS = 1;
 
 /** Keep el's data-fade-top / data-fade-bottom in step with its scroll position. */
 export function scrollFade(el) {
   let raf = 0;
   const update = () => {
     raf = 0;
-    const top = el.scrollTop > EPS;
-    const bottom = el.scrollHeight - el.clientHeight - el.scrollTop > EPS;
+    const top = el.scrollTop > FADE_EPS;
+    const bottom = el.scrollHeight - el.clientHeight - el.scrollTop > FADE_EPS;
     if (top) el.setAttribute('data-fade-top', ''); else el.removeAttribute('data-fade-top');
     if (bottom) el.setAttribute('data-fade-bottom', ''); else el.removeAttribute('data-fade-bottom');
   };

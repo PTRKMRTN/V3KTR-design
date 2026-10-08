@@ -15,7 +15,7 @@
 //     from the keyboard and with a screen reader; tips come from interactions/help.js like every other control.
 //   - Pointer capture, so a drag never loses the grip over an iframe or canvas; touch-action:none in the CSS.
 
-const ICON = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 1.5 6l3 3M7.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>';
+const GRIP_ICON = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 3 1.5 6l3 3M7.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>';
 
 export function splitGrip(sep, { get, set, min = 200, max = 800, dir = -1, step = 10, reset = null, label = 'Resize' } = {}) {
   const g = document.createElement('div');
@@ -28,7 +28,7 @@ export function splitGrip(sep, { get, set, min = 200, max = 800, dir = -1, step 
   g.setAttribute('aria-valuemax', String(max));
   g.dataset.tip = label;
   g.dataset.tipDesc = 'Drag to resize; double-click to reset';
-  g.innerHTML = ICON;
+  g.innerHTML = GRIP_ICON;
   sep.appendChild(g);
   const clamp = (v) => Math.max(min, Math.min(max, Math.round(v)));
   const apply = (v) => { const c = clamp(v); set(c); g.setAttribute('aria-valuenow', String(c)); return c; };

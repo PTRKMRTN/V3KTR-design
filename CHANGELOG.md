@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.36.1 — 2026-10-08
+
+- Fixes from PROCESSOR's adoption: `split-grip.js`'s top-level `ICON` collided with PROCESSOR's own when vendored flat (the page threw at load); renamed `GRIP_ICON`, and `scroll-fade.js`'s `EPS` → `FADE_EPS`. The `.vk-scroll` mask now applies only while a fade shows, so an area at rest has no clip or stacking context. AGENTS.md "Workspace frames" records Patrick's exceptions: no separator against a textured viewport (PROCESSOR's canvas), and no resize grip where a panel needs a minimum width (PROCESSOR's stacks; the other apps not yet analysed).
+
 ## 0.36.0 — 2026-10-08
 
 - **Workspace frames** (Patrick's mockup, 2026-10-08): `app/frames.css` + `interactions/scroll-fade.js` + `interactions/split-grip.js`. A frame's scroll area sits `--pad` in from every edge, so content never scrolls into a separator; frame separators sit on the frame edge, inset `--pad` along their length, touching nothing; scroll areas fade at an edge with more past it (top once scrolled, bottom while there is more); optional resize grip on a vertical separator (separator-colour square, ground-colour icon). New tokens `--scroll-fade` (= `--pad`) and `--grip` (18px). Rule: AGENTS.md "Workspace frames". Tested: `node test/frames.test.mjs` (42 checks, the mockup's three-column layout, with a negative control). Additive: nothing existing renders differently until an app adopts the classes.
