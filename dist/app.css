@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.8
+/* V3KTR design tokens · v0.41.9
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -117,7 +117,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.8 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.9 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -199,11 +199,16 @@
 /* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
    .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing
    "primary" class: accent fill marks a button whose thing is currently ON. Hover follows
-   .inline-btn.tog.on:hover (-> --hover fill); the other PROCESSOR on-states ignore hover. */
+   .inline-btn.tog.on:hover (-> --hover fill); the other PROCESSOR on-states ignore hover. A plain
+   .vk-btn toggled via aria-pressed (KOMPOSITOR's selected-state audit, 2026-10-08: so apps stop
+   writing a local is-on-equivalent class just to style a toggle button) gets the same fill with no
+   extra class needed — the same rule .vk-tog already has below. */
 .vk-btn--primary,
-.vk-btn.is-on{background:var(--accent);color:var(--on-accent);}
+.vk-btn.is-on,
+.vk-btn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);}
 .vk-btn--primary:hover,.vk-btn--primary.is-hover,
-.vk-btn.is-on:hover,.vk-btn.is-on.is-hover{background:var(--hover);color:var(--on-accent);}
+.vk-btn.is-on:hover,.vk-btn.is-on.is-hover,
+.vk-btn[aria-pressed="true"]:hover{background:var(--hover);color:var(--on-accent);}
 
 /* from .rz-btn.ghost, .crop-bar-btn.ghost, .ui-btn.ghost (dimmer label, same fill; hover as .vk-btn) */
 .vk-btn--ghost{color:var(--tx-2);}
@@ -221,6 +226,22 @@
 /* from .gen-btn.disabled, .motion-step.disabled, .motion-step:disabled */
 .vk-btn:disabled,
 .vk-btn.is-disabled{opacity:0.38;pointer-events:none;}
+
+/* ---------------------------------------------------------------- .vk-lock (persistent FLAG, not selection) */
+
+/* A locked / pinned marker (Patrick 2026-10-08, from KOMPOSITOR's selected-state audit: sequencer steps drew
+   their own outline marker for this; generalised here as the shared pattern). It flags an item as locked or
+   pinned, which is independent of whether that item is ALSO selected — both can be true at once (a locked,
+   selected step) — so this is never a fill and never uses the is-active/is-selected rules above: a small
+   outline corner mark, the same shape in every app, that sits beside a selection state rather than competing
+   with it. Put position:relative on the item and .vk-lock inside it (absolute, top-right corner); toggle with
+   .is-locked or [data-locked="true"] on that same item, never on .vk-lock itself:
+   <div class="vk-step is-locked">…<span class="vk-lock" aria-hidden="true"></span></div> */
+.vk-lock{position:absolute;top:2px;right:2px;z-index:3;width:12px;height:12px;display:none;
+  background-color:var(--tx-2);pointer-events:none;
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3 4.5V3a2 2 0 0 1 4 0v1.5' fill='none' stroke='black' stroke-width='1'/><rect x='2' y='4.5' width='6' height='4.5' fill='black'/></svg>") center/8px no-repeat;
+  mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3 4.5V3a2 2 0 0 1 4 0v1.5' fill='none' stroke='black' stroke-width='1'/><rect x='2' y='4.5' width='6' height='4.5' fill='black'/></svg>") center/8px no-repeat;}
+.is-locked > .vk-lock,[data-locked="true"] > .vk-lock{display:block;}
 
 /* ---------------------------------------------------------------- .tog (latched STATE, not action) */
 

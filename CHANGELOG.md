@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.9 — 2026-10-08
+
+- **Shared toggle-button fill.** `.vk-btn[aria-pressed="true"]` now fills solid (same rule `.vk-btn.is-on` already had), so a plain button toggled via `aria-pressed` gets the shared fill with no extra class needed. From KOMPOSITOR's selected-state audit, approved by Patrick — apps stop writing a local equivalent of `.is-on` just to style a toggle button.
+- **New shared pattern: `.vk-lock`, a locked/pinned marker.** From KOMPOSITOR's sequencer steps (an outline marker, local and one-off) — generalised as a shared small corner mark. It is a PERSISTENT FLAG on an item, not a selection state: never a fill, never the `.is-active`/`.is-selected` rules, so it can sit on an item that's also selected without colliding with that fill. Toggle with `.is-locked` or `[data-locked="true"]` on the item that owns the marker. AGENTS.md "Chips are one colour" (cross-referenced) / new entry.
+
 ## 0.41.8 — 2026-10-08
 
 - **Real fix for the hover-tip-killed-by-a-stale-blur bug** (v0.41.5 was defensive only, unconfirmed). KOMPOSITOR traced it: `focusout`'s guard (`blurEl !== target`) let a blur from a control with no `data-tip` through whenever no tip was currently showing (`null !== null` is false), arming a 150 ms timer unrelated to any tip; that timer's `hide()` unconditionally wipes the shared hover-delay timer, silently killing an unrelated hover that started inside that window (trace: pointerover at 57 ms, hover timer armed, killed by the stale blur's `hide()` at ~133 ms). Fixed: a focusout with no tipped control can never arm the timer. `test/help.test.mjs` now has a real negative control for this (34 checks; confirmed it fails without the one-line fix, on the exact reported sequence). AGENTS.md "T1 tips".
