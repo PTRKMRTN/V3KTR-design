@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.3 — 2026-10-08
+
+- Docs: "Asset browser shell" pattern, generalised from KOMPOSITOR's shipped Sounds browser (the reference, not a guess) — the expand-over-the-workspace frame shape, filters column, dense results list, licence handling, and that a cut-down category (DIMENSOR's Fonts) is a smaller version of the same shape, not a different one. Not yet a pullable component: one real implementation isn't enough to generalise the CSS from. AGENTS.md. No CSS or JS change.
+
 ## 0.41.2 — 2026-10-08
 
 - **Tip fix, round 2** (KOMPOSITOR's probe showed the first fix in v0.41.1 wasn't enough — 5/5 runs still bad, including one with no scroll at all). Two changes: (1) while a keyboard-focus-shown tip's control is still genuinely focused, a scroll **repositions** it instead of hiding it, removing the race with the scroll listener entirely rather than guessing a safe time window. (2) A real `focusout` now defers 150 ms before hiding: a scrolling list that re-renders its rows can detach and re-insert the focused element, firing a genuine blur even though the user never moved away, and the re-render's own refocus can take up to ~120 ms to land (per KOMPOSITOR's probe). If a focusin arrives first, the deferred hide is cancelled with no flicker. `interactions/help.js`. `test/help.test.mjs`: 33 checks (was 28); the blur-defer check counts actual hide transitions with a MutationObserver, because "is it shown again afterwards" can't distinguish a flicker from staying open — both negative controls (always-hide-on-scroll, immediate-hide-on-blur) fail it.
