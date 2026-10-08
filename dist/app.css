@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.12
+/* V3KTR design tokens · v0.41.13
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -121,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.12 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.13 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -798,11 +798,21 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-scroll::-webkit-scrollbar{width:9px;}
 .vk-scroll::-webkit-scrollbar-track{background:transparent;}
 .vk-scroll::-webkit-scrollbar-thumb{background:var(--bg-4);}
-/* an icon-only rail (no text, PROCESSOR's rail-scroll / DIMENSOR's rail-scroll) hides its scrollbar entirely —
-   not .vk-scroll: a rail is navigation chrome, not a content area, so it never shows the house bar. An app's own
-   rail class carries this, since .vk-scroll must not: .rail-scroll{scrollbar-width:none;}
-   .rail-scroll::-webkit-scrollbar{width:0;} (v0.40.0: KOMPOSITOR's .rail was wrongly in its thin-scrollbar
-   selector, showing a bar PROCESSOR and DIMENSOR both hide — the regression Patrick flagged.) */
+/* .rail-scroll: an icon-only rail (no text, navigation chrome rather than a content area) — never .vk-scroll,
+   which must always show the house bar. Promoted to a real shared class (v0.41.13, from DIMENSOR's conformance-
+   audit follow-up): PROCESSOR and DIMENSOR had each already built this exact rule locally (--pad inset, the same
+   fade vars, scrollbar hidden on both engines) — this generalises what already converged, it isn't new UI. An app
+   still owns the class name on its markup; this just gives it something to pull instead of hand-copying.
+   (v0.40.0: KOMPOSITOR's .rail was wrongly in its thin-scrollbar selector, showing a bar the other two hide —
+   the regression Patrick flagged, and the reason this stayed app-local until now.) */
+.rail-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;
+  scrollbar-width:none;}
+.rail-scroll::-webkit-scrollbar{width:0;}
+.rail-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
+.rail-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+.rail-scroll:is([data-fade-top],[data-fade-bottom]){
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
 .vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
 .vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
 /* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context */

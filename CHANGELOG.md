@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.13 — 2026-10-08
+
+- **New shared class: `.rail-scroll`, promoted from local code into `app/frames.css`.** From DIMENSOR's design-audit follow-up: DIMENSOR and PROCESSOR had each already built the identical icon-only-rail scrollbar pattern locally (`--pad` inset via margin, the same fade variables, scrollbar hidden on both engines) — AGENTS.md's "Workspace frames" rule even named both local copies by name already. This generalises what had already converged rather than inventing something new. AGENTS.md "Workspace frames".
+
 ## 0.41.12 — 2026-10-08
 
 - **`--app-danger-ink` moved from `app/app.css` to `tokens.css` (core).** PROCESSOR pulls tokens.css but not app.css (it's the source of that layer, not a consumer), so it had no way to reach the correctly-tuned red-tinted near-black ink for a danger-fill button and was falling back to the generic `--on-status`. Same value (`#1a0606`), just reachable from the core token file now. From tonight's design-audit follow-up with PROCESSOR.
