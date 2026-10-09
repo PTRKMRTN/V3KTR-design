@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.24 — 2026-10-09
+
+- **Fix: clicking a menu label or popup row selected its text.** Found by Patrick in KOMPOSITOR and DIMENSOR (not PROCESSOR, but the shared CSS never had this either way — a gap, not a PROCESSOR-only override to copy). `.vk-menubar,.vk-menu-pop{user-select:none;}` covers both the top-level labels and the popup's rows/labels/shortcuts in one rule. Verified by computed style on both `.vk-menu` and `.vk-menu-item`.
+
 ## 0.41.23 — 2026-10-09
 
 - **Fix: hovering a rest-state `.vk-chip--group` turned it generic aqua instead of brightening its own group colour.** Found by PROCESSOR's new `test/vk-migration-identity.mjs` (computed-style + pixel diff). Cause: `.vk-chip:hover` is two classes on `:hover` (0,2,0), which outranked the plain `.vk-chip--group` colour rule (0,1,0), so the generic hover colour won before the group's own `brightness(1.25)` filter had the right base colour to brighten. Fixed by re-asserting the group colour at equal specificity to `.vk-chip:hover`, excluding `.is-on` (already correct, unaffected).
