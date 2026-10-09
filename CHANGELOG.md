@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.22 — 2026-10-09
+
+- **Correction to v0.41.20/.21: the square-block rule is a new "left-side tab" pattern, NOT a rule for PROCESSOR's/DIMENSOR's FX rails.** Patrick, the same day: he'd been reviewing KOMPOSITOR specifically, whose rail is large icon TILES that work as tabs (switching a content section), a different widget from PROCESSOR's and DIMENSOR's FX rails (which add an effect to a stack, not switch a section). KOMPOSITOR's tile rail gets the solid square fill and becomes the standard for this **left-side tab** pattern — for any app that builds a similar large-tile section-switcher, not retroactively for an FX-add rail. PROCESSOR's and DIMENSOR's FX rails are UNCHANGED and need no work from v0.41.20/.21 at all — "should stay how they were." AGENTS.md "Flat, not outlined".
+
 ## 0.41.21 — 2026-10-09
 
 - **Docs: PROCESSOR's rail is n/a for the square-block rule (v0.41.20).** Confirmed with PROCESSOR: each `.rail-btn` adds an effect to the stack, nothing is ever selected, and it draws no active-state line — the rule doesn't apply until a selectable rail item exists. Noted in AGENTS.md "Flat, not outlined" so it doesn't get re-flagged by a future audit. `.ws-tab` (FX EDIT / EXPLORER / MOTION) is confirmed a text tab, not a rail, and correctly keeps its underline.
