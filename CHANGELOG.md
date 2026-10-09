@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.20 — 2026-10-09
+
+- **Docs: rail buttons removed from "keeps its line" exceptions.** Patrick's call on KOMPOSITOR's review, shared across all three apps: a rail's active item is a solid SQUARE background block (icon and label centred in it), not the left-edge line it drew before. DIMENSOR's `.rail-btn.is-on` already does this and is the reference; PROCESSOR and KOMPOSITOR both still draw the line and need to switch. No single shared `.rail-btn` class exists yet (each app builds its own rail), so this is documented in AGENTS.md "Flat, not outlined" as the rule to build to, not shipped as a pullable class.
+
 ## 0.41.19 — 2026-10-09
 
 - **Docs: DIMENSOR-only exception to the full-bleed viewport rule.** Patrick's call was specifically for DIMENSOR ("probably just dimensor, the others are fine right now"), not a family-wide reversal — PROCESSOR's canvas stays full-bleed as before. Recorded DIMENSOR VM1's measured numbers (canvas margin, top-bar and status-bar centring, at 1600×900) in AGENTS.md "Window margin". No CSS change here — this is DIMENSOR's own local layout, not a shared rule.
