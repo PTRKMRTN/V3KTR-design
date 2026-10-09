@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.22
+/* V3KTR design tokens · v0.41.23
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -121,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.22 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.23 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -308,12 +308,24 @@
 /* Selected = filled with dark ink (Patrick 2026-10-08: a chip's selected state must be SOLID, never just an
    outline/tint highlight — found not matching .vk-chip--group.is-on below, which was already correct). */
 .vk-chip.is-active{color:var(--on-accent);border-color:var(--accent);background:var(--accent);}
+/* A selected chip's hover was missing entirely (found by PROCESSOR's migration test, v0.41.23, 2026-10-09):
+   without it, .vk-chip:hover above would win on specificity and wash the chip out to plain --hover/on-accent with
+   no fill at all. Same pattern .vk-btn.is-on:hover already uses: swap the fill to --hover, keep --on-accent ink. */
+.vk-chip.is-active:hover,
+.vk-chip.is-active.is-hover{color:var(--on-accent);border-color:var(--hover);background:var(--hover);}
 
 /* from .rail-chip (FX-group filter; set --gcol to the group's --type-* / --depth / --adjust colour) */
 .vk-chip--group{font-size:8px;letter-spacing:0.3px;padding:3px 5px;line-height:1.1;}
 /* FX-group chips use their group colour (Patrick 2026-09-30): rest = border and text in --gcol, selected = filled
    with dark ink, hover = the same colour brightened. As shipped in PROCESSOR v0.573.0 (.rail-chip). No --gcol (ALL): grey, fills --accent. */
 .vk-chip--group{border-color:var(--gcol,var(--ctrl-edge));color:var(--gcol,var(--tx-2));}
+/* Specificity bug (found by PROCESSOR's migration test, v0.41.23, 2026-10-09): .vk-chip:hover above is two classes
+   on the hover pseudo-class, (0,2,0), which outranks the plain .vk-chip--group colour rule at (0,1,0) — so hovering
+   a REST (not selected) group chip turned it generic aqua instead of brightening in its own group colour. Re-assert
+   the group colour here, at equal specificity to .vk-chip:hover, so the brightness filter below has the right base
+   colour to brighten. Excludes .is-on: that state is unaffected (it wins on equal specificity, applied later). */
+.vk-chip--group:not(.is-on):hover,
+.vk-chip--group:not(.is-on).is-hover{color:var(--gcol,var(--tx-2));border-color:var(--gcol,var(--ctrl-edge));}
 .vk-chip--group:hover,
 .vk-chip--group.is-hover{filter:brightness(1.25);}
 .vk-chip--group.is-on{background:var(--gcol,var(--accent));border-color:var(--gcol,var(--accent));color:var(--on-accent);}

@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.23 — 2026-10-09
+
+- **Fix: hovering a rest-state `.vk-chip--group` turned it generic aqua instead of brightening its own group colour.** Found by PROCESSOR's new `test/vk-migration-identity.mjs` (computed-style + pixel diff). Cause: `.vk-chip:hover` is two classes on `:hover` (0,2,0), which outranked the plain `.vk-chip--group` colour rule (0,1,0), so the generic hover colour won before the group's own `brightness(1.25)` filter had the right base colour to brighten. Fixed by re-asserting the group colour at equal specificity to `.vk-chip:hover`, excluding `.is-on` (already correct, unaffected).
+- **Fix: `.vk-chip.is-active` had no `:hover` rule at all**, so hovering a selected chip fell through to the generic `.vk-chip:hover` and lost its fill. Added `.vk-chip.is-active:hover`, matching the `.vk-btn.is-on:hover` pattern (swap fill to `--hover`, keep `--on-accent` ink).
+
 ## 0.41.22 — 2026-10-09
 
 - **Correction to v0.41.20/.21: the square-block rule is a new "left-side tab" pattern, NOT a rule for PROCESSOR's/DIMENSOR's FX rails.** Patrick, the same day: he'd been reviewing KOMPOSITOR specifically, whose rail is large icon TILES that work as tabs (switching a content section), a different widget from PROCESSOR's and DIMENSOR's FX rails (which add an effect to a stack, not switch a section). KOMPOSITOR's tile rail gets the solid square fill and becomes the standard for this **left-side tab** pattern — for any app that builds a similar large-tile section-switcher, not retroactively for an FX-add rail. PROCESSOR's and DIMENSOR's FX rails are UNCHANGED and need no work from v0.41.20/.21 at all — "should stay how they were." AGENTS.md "Flat, not outlined".
