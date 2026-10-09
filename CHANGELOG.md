@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.26 — 2026-10-09
+
+- **Fix: a selected option in the custom select (`.vk-cs__opt.is-sel`) is now a solid accent row** with `--on-accent` text, and hover on it swaps to `--hover` (the `.vk-btn.is-on:hover` pattern). It was accent text, a v0.2.0 copy of PROCESSOR's `.cs-opt.sel` that predated "selected = solid fill" (2026-10-08). PROCESSOR moved to the fill in PR #366 and found the shared rule behind it while migrating its selects (PR #394). It also matches the native `.vk-select option:checked`, which was already solid.
+- **New: `.vk-select:focus` / `.is-focus`** uses the same field tint as `.vk-input` (accent at `--tint-field` over `--bg-3`). The shared select had no focus state; PROCESSOR had one locally.
+- **Unchanged on purpose: `.vk-cs__list` stays `--bg-3`.** That is the v0.21.0 flat decision (a pop-up is one step lighter than what it opens over), and `.vk-menu-pop` uses the same value in every app, PROCESSOR's own `.menu-pop` included. PROCESSOR's `#262626` list is the drift: it moves to the system value when it drops its override, with a before/after sheet.
+
 ## 0.41.25 — 2026-10-09
 
 - **Docs: PROCESSOR's button migration complete; corrected a stale size reference.** PROCESSOR's remaining local 5×10 buttons (Resize/Crop/GPU-recovery, paint/depth tools) moved onto the shared `.vk-btn` at 8×14 (v0.754–v0.758). One deliberate exception recorded: the top bar's buttons stay 5×10 (Patrick's pick — 8×14 nearly fills the 36px bar), "panel tools only" get the bigger size. `app/INVENTORY.md` — a v0.3.0 extraction snapshot whose "Regular 5×10" table had gone stale and could be misread as current — now carries an explicit historical notice pointing at `app/app.css`/AGENTS.md instead. AGENTS.md "PROCESSOR spacing pass". No CSS change.
