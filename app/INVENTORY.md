@@ -1,5 +1,11 @@
 # V3KTR app layer: inventory (v0.3.0)
 
+⚠️ **Historical snapshot, not current (confirmed stale 2026-10-09).** This records what PROCESSOR's `<style>` block
+looked like at the v0.3.0 extraction, including its OLD local "Regular" button size (5px 10px) — the table below is
+a record of what `app.css` was built FROM, not what it is now. **`.vk-btn` (Regular) has been 8px 14px since
+PROCESSOR's spacing pass (v0.571.0, 2026-09-30, see AGENTS.md "PROCESSOR spacing pass")** — don't read this file as
+the live size reference, use `app/app.css` itself or AGENTS.md.
+
 Source: the PROCESSOR `<style>` block (1234 lines, the current origin/main extract). Markup context came from the local
 `V3KTR-PROCESSOR/index.html`, which is **older** than that extract: `.signup-note` and `.beta-tag` are not in it.
 All values in `app.css` are copied from PROCESSOR. Colours, fonts and row height go through core tokens; the `--app-*`

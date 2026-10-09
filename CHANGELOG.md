@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.25 — 2026-10-09
+
+- **Docs: PROCESSOR's button migration complete; corrected a stale size reference.** PROCESSOR's remaining local 5×10 buttons (Resize/Crop/GPU-recovery, paint/depth tools) moved onto the shared `.vk-btn` at 8×14 (v0.754–v0.758). One deliberate exception recorded: the top bar's buttons stay 5×10 (Patrick's pick — 8×14 nearly fills the 36px bar), "panel tools only" get the bigger size. `app/INVENTORY.md` — a v0.3.0 extraction snapshot whose "Regular 5×10" table had gone stale and could be misread as current — now carries an explicit historical notice pointing at `app/app.css`/AGENTS.md instead. AGENTS.md "PROCESSOR spacing pass". No CSS change.
+
 ## 0.41.24 — 2026-10-09
 
 - **Fix: clicking a menu label or popup row selected its text.** Found by Patrick in KOMPOSITOR and DIMENSOR (not PROCESSOR, but the shared CSS never had this either way — a gap, not a PROCESSOR-only override to copy). `.vk-menubar,.vk-menu-pop{user-select:none;}` covers both the top-level labels and the popup's rows/labels/shortcuts in one rule. Verified by computed style on both `.vk-menu` and `.vk-menu-item`.
