@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.19 — 2026-10-09
+
+- **Docs: DIMENSOR-only exception to the full-bleed viewport rule.** Patrick's call was specifically for DIMENSOR ("probably just dimensor, the others are fine right now"), not a family-wide reversal — PROCESSOR's canvas stays full-bleed as before. Recorded DIMENSOR VM1's measured numbers (canvas margin, top-bar and status-bar centring, at 1600×900) in AGENTS.md "Window margin". No CSS change here — this is DIMENSOR's own local layout, not a shared rule.
+
 ## 0.41.18 — 2026-10-09
 
 - **New shared class: `.vk-scrollbar`, the house scrollbar alone.** From KOMPOSITOR's scroll-area audit: its font-browser modal list, export-dialog credits box and transition-inspector list were all showing the browser-default bar, because `.vk-scroll` bundles the bar with a `--pad` margin and fade vars that are wrong inside a modal or a dialog's inner scroll. `.vk-scrollbar` is just the bar (thin, `--bg-4` thumb, transparent track, both engines) — `.vk-scroll` now shares the same declaration rather than duplicating it. AGENTS.md "Workspace frames".
