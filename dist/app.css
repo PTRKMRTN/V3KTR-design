@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.17
+/* V3KTR design tokens · v0.41.18
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -121,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.17 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.18 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -652,6 +652,10 @@
    (Patrick 2026-10-09: reverted the v0.41.14 solid-fill version — PROCESSOR's original behaviour was the one he
    wanted kept). Mark it [aria-pressed="true"] as well as .vk-row__ctl. */
 .vk-row__ctl[aria-pressed="true"]{color:var(--accent);}
+/* On a SELECTED row the accent text colour above is accent-on-accent-tint, nearly invisible (found by DIMENSOR
+   adopting the revert, 2026-10-09). Same fix the row already uses for its other greys (line ~521): swap to tx-0. */
+.vk-row.is-selected .vk-row__ctl[aria-pressed="true"],
+.vk-layer.is-active .vk-row__ctl[aria-pressed="true"]{color:var(--tx-0);}
 /* A LOCKED row (Patrick 2026-10-09, generalised from PROCESSOR PR #370): every direct child dims to 60% except the
    lock control itself, which stays at full strength — it's the release control, so it must read as the one live
    thing. Opacity goes on each CHILD, never on the row itself: a parent's opacity caps the whole subtree, so a
@@ -816,11 +820,16 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 /* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
    grip would scroll the frame sideways) */
 .vk-frame{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;}
-.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;
-  scrollbar-width:thin;scrollbar-color:var(--bg-4) transparent;}
-.vk-scroll::-webkit-scrollbar{width:9px;}
-.vk-scroll::-webkit-scrollbar-track{background:transparent;}
-.vk-scroll::-webkit-scrollbar-thumb{background:var(--bg-4);}
+/* .vk-scrollbar: the house scrollbar alone (thin, --bg-4 thumb, transparent track), no inset or fade — for a scroll
+   area that ISN'T a workspace-frame scroll area (a modal list, a dialog's inner scroll, an inspector sub-list),
+   where .vk-scroll's own margin:var(--pad) and fade vars would be wrong. .vk-scroll uses the same rule below, so
+   there's one definition. (v0.41.18, from KOMPOSITOR's scroll-area audit, 2026-10-09: its font-browser modal list,
+   export-dialog credits box and transition-inspector list were all showing the browser default bar instead.) */
+.vk-scrollbar,.vk-scroll{scrollbar-width:thin;scrollbar-color:var(--bg-4) transparent;}
+.vk-scrollbar::-webkit-scrollbar,.vk-scroll::-webkit-scrollbar{width:9px;}
+.vk-scrollbar::-webkit-scrollbar-track,.vk-scroll::-webkit-scrollbar-track{background:transparent;}
+.vk-scrollbar::-webkit-scrollbar-thumb,.vk-scroll::-webkit-scrollbar-thumb{background:var(--bg-4);}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;}
 /* .rail-scroll: an icon-only rail (no text, navigation chrome rather than a content area) — never .vk-scroll,
    which must always show the house bar. Promoted to a real shared class (v0.41.13, from DIMENSOR's conformance-
    audit follow-up): PROCESSOR and DIMENSOR had each already built this exact rule locally (--pad inset, the same

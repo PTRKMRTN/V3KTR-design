@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.18 — 2026-10-09
+
+- **New shared class: `.vk-scrollbar`, the house scrollbar alone.** From KOMPOSITOR's scroll-area audit: its font-browser modal list, export-dialog credits box and transition-inspector list were all showing the browser-default bar, because `.vk-scroll` bundles the bar with a `--pad` margin and fade vars that are wrong inside a modal or a dialog's inner scroll. `.vk-scrollbar` is just the bar (thin, `--bg-4` thumb, transparent track, both engines) — `.vk-scroll` now shares the same declaration rather than duplicating it. AGENTS.md "Workspace frames".
+- **Fix: a locked row's lock icon was nearly invisible when the row is also selected.** Found by DIMENSOR adopting v0.41.17's revert: `.vk-row__ctl[aria-pressed="true"]`'s `color:var(--accent)` is accent-on-accent-tint on a selected row's 42% background. Same fix the row already uses for its other greys: `.vk-row.is-selected .vk-row__ctl[aria-pressed="true"]` / `.vk-layer.is-active ...` now swap to `var(--tx-0)`.
+
 ## 0.41.17 — 2026-10-09
 
 - **Reverted: icon-toggle solid fill (v0.41.14).** Patrick, the next morning: PROCESSOR's original text-colour-only treatment was the one he wanted kept — for every icon toggle v0.41.14 touched (lock, dice, pace/link, solo, the viewport Controls toggle), not just lock icons specifically. `.vk-row__ctl[aria-pressed="true"]` and `.vk-icon-tog[aria-pressed="true"]`/`.is-on` are now `color:var(--accent)` again, no background fill. The locked-row dimming (v0.41.16) and `.vk-lock`-always-top-right (v0.41.14) are unaffected — only the icon-toggle fill itself was reversed. AGENTS.md "Chips are one colour".
