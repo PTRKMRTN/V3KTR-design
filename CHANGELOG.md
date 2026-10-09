@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.21 — 2026-10-09
+
+- **Docs: PROCESSOR's rail is n/a for the square-block rule (v0.41.20).** Confirmed with PROCESSOR: each `.rail-btn` adds an effect to the stack, nothing is ever selected, and it draws no active-state line — the rule doesn't apply until a selectable rail item exists. Noted in AGENTS.md "Flat, not outlined" so it doesn't get re-flagged by a future audit. `.ws-tab` (FX EDIT / EXPLORER / MOTION) is confirmed a text tab, not a rail, and correctly keeps its underline.
+
 ## 0.41.20 — 2026-10-09
 
 - **Docs: rail buttons removed from "keeps its line" exceptions.** Patrick's call on KOMPOSITOR's review, shared across all three apps: a rail's active item is a solid SQUARE background block (icon and label centred in it), not the left-edge line it drew before. DIMENSOR's `.rail-btn.is-on` already does this and is the reference; PROCESSOR and KOMPOSITOR both still draw the line and need to switch. No single shared `.rail-btn` class exists yet (each app builds its own rail), so this is documented in AGENTS.md "Flat, not outlined" as the rule to build to, not shipped as a pullable class.
