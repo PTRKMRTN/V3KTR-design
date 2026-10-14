@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.27 — 2026-10-14
+
+- **New: keyboard focus on a menu row (`.vk-menu-item:focus-visible`) looks hovered** — accent fill, `--on-accent` text, shortcut and icon inherit, no ring. A menu's focused row is its highlighted row, as in a native menu. From PROCESSOR's `.mi:focus-visible` (found while migrating its menus onto `.vk-menu*`); KOMPOSITOR's Livelink menu already moves focus onto rows and was showing the generic 2px ring instead. Verified by computed style, with the previous bundle as the negative control.
+
 ## 0.41.26 — 2026-10-09
 
 - **Fix: a selected option in the custom select (`.vk-cs__opt.is-sel`) is now a solid accent row** with `--on-accent` text, and hover on it swaps to `--hover` (the `.vk-btn.is-on:hover` pattern). It was accent text, a v0.2.0 copy of PROCESSOR's `.cs-opt.sel` that predated "selected = solid fill" (2026-10-08). PROCESSOR moved to the fill in PR #366 and found the shared rule behind it while migrating its selects (PR #394). It also matches the native `.vk-select option:checked`, which was already solid.
