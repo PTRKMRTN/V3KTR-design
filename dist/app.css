@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.27
+/* V3KTR design tokens · v0.41.28
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -121,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.27 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.28 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -329,6 +329,10 @@
 .vk-chip--group:hover,
 .vk-chip--group.is-hover{filter:brightness(1.25);}
 .vk-chip--group.is-on{background:var(--gcol,var(--accent));border-color:var(--gcol,var(--accent));color:var(--on-accent);}
+/* is-kept (v0.41.28, from DIMENSOR's One Roll, H4): a group chip used as an INCLUDE toggle whose part is locked elsewhere,
+   so the roll keeps it whatever the chip says. Unlit: dashed outline. Lit: a 3px --bg-1 bar along the bottom edge. The tip says why. */
+.vk-chip--group.is-kept:not(.is-on){border-style:dashed;}
+.vk-chip--group.is-kept.is-on{box-shadow:inset 0 -3px 0 var(--bg-1);}
 
 /* ---------------------------------------------------------------- rows, switch, scrub slider */
 
@@ -738,7 +742,10 @@
 /* ---------------------------------------------------------------- tooltip */
 
 /* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
-.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+/* width:max-content (v0.41.28, found by DIMENSOR via PC2 M406): a fixed box with auto width shrinks to the space left of its
+   STALE left after a tip was parked near the right edge; place() then measures that narrow width, moves the box left,
+   and the description grows back over the rail. max-content makes the measured width the real one. */
+.vk-tip{position:fixed;width:max-content;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
 /* from .rail-btn .tip b */
 .vk-tip b{display:block;font-weight:700;}

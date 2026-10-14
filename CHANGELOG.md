@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.28 — 2026-10-15
+
+- **Fix: a tip could open over the control it describes.** `.vk-tip` is `position:fixed` with auto width, so after a tip was parked near the right viewport edge the next tip's box shrank to the space left of the stale `left`; `place()` measured that narrow width, moved the box left, and the description then grew back over a right-docked rail (found by DIMENSOR on its FX rail via PC2 M406: the Twist tile's tip opened 46px into the rail). `.vk-tip{width:max-content}`. Reproduced in a harness (58px of overlap before, 0 after; the check fails on the previous bundle).
+- **New chip state: `.vk-chip--group.is-kept`** (from DIMENSOR's One Roll, H4): a group chip used as an include toggle whose part is locked elsewhere. Unlit: dashed outline; lit: a 3px `--bg-1` bar along the bottom edge. Two rules, no new tokens.
+- Not adopted yet from the same H4 doc: the colour-scheme wheel and the palette role strip stay DIMENSOR-local until a second app needs them (the same rule as every other promotion).
+- Docs: a `.vk-scrim` must be appended to `body`, outside any ancestor with CSS `zoom` (PROCESSOR's Interface scale) — a fixed element inside a zoomed ancestor is zoomed in Chromium. AGENTS.md "Dialogs".
+
 ## 0.41.27 — 2026-10-14
 
 - **New: keyboard focus on a menu row (`.vk-menu-item:focus-visible`) looks hovered** — accent fill, `--on-accent` text, shortcut and icon inherit, no ring. A menu's focused row is its highlighted row, as in a native menu. From PROCESSOR's `.mi:focus-visible` (found while migrating its menus onto `.vk-menu*`); KOMPOSITOR's Livelink menu already moves focus onto rows and was showing the generic 2px ring instead. Verified by computed style, with the previous bundle as the negative control.

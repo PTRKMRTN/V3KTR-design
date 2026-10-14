@@ -4,7 +4,10 @@
 /* ---------------------------------------------------------------- tooltip */
 
 /* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
-.vk-tip{position:fixed;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+/* width:max-content (v0.41.28, found by DIMENSOR via PC2 M406): a fixed box with auto width shrinks to the space left of its
+   STALE left after a tip was parked near the right edge; place() then measures that narrow width, moves the box left,
+   and the description grows back over the rail. max-content makes the measured width the real one. */
+.vk-tip{position:fixed;width:max-content;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
 /* from .rail-btn .tip b */
 .vk-tip b{display:block;font-weight:700;}
