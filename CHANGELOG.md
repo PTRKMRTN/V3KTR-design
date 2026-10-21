@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.30 — 2026-10-21
+
+- **Fix: a white square where a vertical and a horizontal house scrollbar meet** (found by KOMPOSITOR adopting v0.41.29: its EDIT timeline scrolls on both axes). With the webkit rules now live, the unstyled `::-webkit-scrollbar-corner` showed as the browser's white; it is `transparent` now. Same release: the horizontal bar was inheriting the vertical bar's left gap (and had no height rule); it now has `height:15px` and a 6px TOP gap (`:vertical` / `:horizontal` thumb states), so both axes read the same. Verified in Edge 155 on a box that scrolls both ways: corner pixel is the ground colour, not white; the check fails on v0.41.29.
+
 ## 0.41.29 — 2026-10-21
 
 - **The house scrollbar: one square bar in all three apps, with a gap to the content (Patrick 2026-10-21, from the 2026-10-14 sheet).** `.vk-scroll`/`.vk-scrollbar` now render the square `--bg-4` thumb on a transparent track, 15px wide with a 6px transparent left border on the thumb, so the bar never touches the content and only takes room when it is shown. **Bug fixed with it:** the shared rules set `scrollbar-width:thin` next to the `::-webkit-scrollbar` rules, and in Chromium any `scrollbar-width` other than auto switches the webkit rules off, so KOMPOSITOR and DIMENSOR were showing the browser's standard thin bar (rounded thumb, arrow caps) while PROCESSOR showed the square one (found by PROCESSOR). The standard properties are now behind `@supports not selector(::-webkit-scrollbar)` (Firefox only). Verified in Edge 155: scrollbar width 15px, thumb gap 6px, `scrollbar-width` computes to auto; the check fails on the v0.41.28 bundle (10px thin bar). **Visible change in KOMPOSITOR and DIMENSOR** (thin → square) and a gap in PROCESSOR: each apps puts a before/after on its bump; a local `scrollbar-width` anywhere (KOMPOSITOR's `.tl-body`) overrides this and should go.
