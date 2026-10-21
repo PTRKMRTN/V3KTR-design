@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.29 — 2026-10-21
+
+- **The house scrollbar: one square bar in all three apps, with a gap to the content (Patrick 2026-10-21, from the 2026-10-14 sheet).** `.vk-scroll`/`.vk-scrollbar` now render the square `--bg-4` thumb on a transparent track, 15px wide with a 6px transparent left border on the thumb, so the bar never touches the content and only takes room when it is shown. **Bug fixed with it:** the shared rules set `scrollbar-width:thin` next to the `::-webkit-scrollbar` rules, and in Chromium any `scrollbar-width` other than auto switches the webkit rules off, so KOMPOSITOR and DIMENSOR were showing the browser's standard thin bar (rounded thumb, arrow caps) while PROCESSOR showed the square one (found by PROCESSOR). The standard properties are now behind `@supports not selector(::-webkit-scrollbar)` (Firefox only). Verified in Edge 155: scrollbar width 15px, thumb gap 6px, `scrollbar-width` computes to auto; the check fails on the v0.41.28 bundle (10px thin bar). **Visible change in KOMPOSITOR and DIMENSOR** (thin → square) and a gap in PROCESSOR: each apps puts a before/after on its bump; a local `scrollbar-width` anywhere (KOMPOSITOR's `.tl-body`) overrides this and should go.
+
 ## 0.41.28 — 2026-10-15
 
 - **Fix: a tip could open over the control it describes.** `.vk-tip` is `position:fixed` with auto width, so after a tip was parked near the right viewport edge the next tip's box shrank to the space left of the stale `left`; `place()` measured that narrow width, moved the box left, and the description then grew back over a right-docked rail (found by DIMENSOR on its FX rail via PC2 M406: the Twist tile's tip opened 46px into the rail). `.vk-tip{width:max-content}`. Reproduced in a harness (58px of overlap before, 0 after; the check fails on the previous bundle).
