@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.33 — 2026-10-24
+
+- **Tiles as buttons, and a tile that fails to load (from PROCESSOR's tile foundation, #430).** `button.vk-thumb` resets the browser's button styling (no border or padding, transparent, inherited font and colour, left-aligned) so a picker tile can be a real `<button>` (it takes focus and arrow keys) and look exactly like a div tile; the shared `:focus-visible` ring still shows. Documented rule for a tile whose picture fails to load: it keeps the `.is-empty` X and the tile stays operable through its label, `aria-label` and `data-tip`. PROCESSOR drops its local copy of the reset when it pins this.
+
 ## 0.41.32 — 2026-10-24
 
 - **Icon and thumbnail system: the shared tile CSS (Patrick 2026-10-24, "lock and load", from `docs/ICONS-AND-THUMBNAILS.md`).** New in `app/thumbs.css`: `.vk-tilegrid` (+ `--s` / `--m` / `--l`), a grid of picker tiles whose sizes are minimums (52 / 78 / 108px) that fill the row evenly with a 6px gap (6 / 4 / 3 across at the standard 356px content width), the S size showing its name as a tip only; `.vk-thumb--sq` / `--wide` / `--video` for the picture shape (1:1, 4:3, 16:9); `.vk-thumb--true-colour` for tiles whose colour is the content (no hover wash and no selected colour-blend on the picture, the solid label and the check carry the state). Rule for when to use tiles: a selector with 4–12 options that look visibly different at 84px; otherwise a text segmented control or a select, and 13+ is the Library. Nothing changes in an app until it adopts the classes. Rendering rules for the thumbnails themselves (bevelled-cube test figure, `#3a3a3a` floor, per-selector grid, tile preview scale, never loose interpretation) are in the doc; apps render their own thumbnails.

@@ -53,3 +53,8 @@
    selected. The default wash and the selected colour-blend would recolour it to the app hue and hide what was chosen (the chip rule's swatch
    exception). State is carried by the label and the check instead: put <span class="vk-thumb__chk">✓</span> in the tile. */
 .vk-thumb--true-colour .vk-thumb__pic::after{display:none;}
+/* A TILE THAT IS A <button> (v0.41.33, from PROCESSOR's tile foundation: a picker tile takes focus and arrow keys, so it is a real button): reset the browser's button
+   styling so it looks exactly like a div tile. The keyboard focus ring is the shared :focus-visible one, which this reset deliberately does not remove. */
+button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;}
+/* A TILE THAT FAILS TO LOAD keeps the deliberate "nothing here yet" X (.is-empty on the picture) and stays fully operable: the label, aria-label and data-tip carry
+   the choice, and choosing it still works. Never hide the tile, never leave a src-less <img>, never show the browser's broken-image frame. */
