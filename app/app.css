@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.30 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.31 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -76,6 +76,10 @@
 
 /* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
 .vk-btn--sm{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+/* COMPACT (v0.41.31, Patrick 2026-10-23, from PROCESSOR): the middle size for a tool row in a side panel (Reset / Randomise / +Features /
+   +Blends). 22px tall; four of them plus Reset fit a 272px tray where the standard button overflows it by ~75px, and it is
+   readable where --sm (16px, 9px text) is a footnote size. */
+.vk-btn--compact{font-size:10px;padding:5px 8px;letter-spacing:0;}
 
 /* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
    .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing

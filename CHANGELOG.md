@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.31 — 2026-10-23
+
+- **New: `.vk-btn--compact`**, the middle button size (Patrick 2026-10-23, via PROCESSOR). 10px text, 5×8 padding, 22px tall, for a tool row in a side panel: Reset / Randomise / +Features / +Blends and similar. Measured in a 272px tray: the standard button row needs 323px (75px over), `.vk-btn--compact` fits, `.vk-btn--sm` fits but is a 16px footnote size. Nothing changes until an app adopts it.
+- **Docs: `.vk-scroll > .vk-section{padding:0}`** strips the side and end padding of any `.vk-section` that is a DIRECT child of a `.vk-scroll`, by design (the scroll area supplies the inset, so sections inside don't double it). A panel whose sections are direct children and still wants their own padding (PROCESSOR's #params found this on v0.41.30: headers flush to the edge) must scope its own rule above the shared one, as PROCESSOR did with `.params.vk-scroll > .param-section.vk-section`. AGENTS.md "Workspace frames".
+
 ## 0.41.30 — 2026-10-21
 
 - **Fix: a white square where a vertical and a horizontal house scrollbar meet** (found by KOMPOSITOR adopting v0.41.29: its EDIT timeline scrolls on both axes). With the webkit rules now live, the unstyled `::-webkit-scrollbar-corner` showed as the browser's white; it is `transparent` now. Same release: the horizontal bar was inheriting the vertical bar's left gap (and had no height rule); it now has `height:15px` and a 6px TOP gap (`:vertical` / `:horizontal` thumb states), so both axes read the same. Verified in Edge 155 on a box that scrolls both ways: corner pixel is the ground colour, not white; the check fails on v0.41.29.
