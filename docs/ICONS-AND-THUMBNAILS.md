@@ -1,6 +1,6 @@
 # Icons and thumbnails: one system (PROPOSAL, 2026-10-23)
 
-> Status: **proposal for Patrick to mark.** Nothing here ships until he does; then each app adopts it in its own lane.
+> Status: **DECIDED by Patrick 2026-10-23** (the four rules in §10, Poly = S tiles). **Mockups only for now:** the CSS in §8 is NOT built and no app integrates until Patrick says so.
 > Brief: DIMENSOR control session, at Patrick's request. Mock: `docs/icons-thumbnails-mock.html`
 > (built by `scripts/build-icons-thumbs-mock.mjs`; sheet `V3KTR-COWORK/reports/design-icons-thumbnails-mock-2026-10-23.png`).
 > The pictures in the mock are grey stand-ins; real thumbnails come from each app's engine.
@@ -98,7 +98,7 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
   once LIB1 lands, not before: lift from a shipped second use, as with the asset browser shell).
 - **Tokens:** no new colour tokens. New sizing tokens only if two apps need the same number: `--tile-s/-m/-l` (56 / 84 / fills).
 
-## 8. What needs adding to the CSS (small; built after Patrick marks this)
+## 8. What needs adding to the CSS (small; NOT built: waits for Patrick to say integrate)
 
 1. `.vk-tilegrid` — `display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:6px`.
 2. `.vk-thumb--sq .vk-thumb__pic{aspect-ratio:1}` and `.vk-thumb--wide .vk-thumb__pic{aspect-ratio:4/3}`.
@@ -116,10 +116,9 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
 | **PROCESSOR** | FX rail (24 in 40, group colour), menu, rows | Looks grid (exists); any Mode whose options differ visibly (Dither pattern, Halftone shape, Blend preview) as M tiles |
 | **KOMPOSITOR** | Style icons, left-side tabs, menus | Transitions, Looks, Media, Text presets (exist as `.vk-thumb--card`); Style cards could gain a thumb |
 
-## 10. Decisions for Patrick
+## 10. Decisions (Patrick, 2026-10-23)
 
-1. The **rule** for tiles vs select (§2: 4–12 options and visibly different, else select).
-2. The **three sizes** (S 56 / M 84 / L card) and the 6px gap.
-3. **Colourless grey renders** with colour only where colour is the content (§4).
-4. **`--true-colour`** selection for colour-is-content tiles (§8.3).
-5. Whether Poly's 18 seeds are **S tiles (6-up, name on hover)** or M tiles (4-up, named).
+1. Tile rule: **4–12 options and visibly different**, else a select (§2). Yes.
+2. Sizes S 56 / M 84 / L card, 6px gap. Yes. **Poly's 18 seeds are S tiles** (6-up, name as a tip).
+3. Colourless grey renders by default, colour only where colour is the content (§4). Yes.
+4. `--true-colour` selection for colour-content tiles (§8.3). Yes.
