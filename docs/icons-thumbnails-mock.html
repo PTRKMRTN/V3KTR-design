@@ -1,0 +1,1106 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Icons and thumbnails: mock</title><style>/* V3KTR design tokens · v0.41.31
+   Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
+   change it here, tag a release, bump the app's pinned version.
+   Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
+:root {
+  /* Ground — neutral greys. Panels are a lighter FILL, never a frame. */
+  --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
+  --line:#171717;
+
+  /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
+  --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
+
+  /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
+  --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
+  --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+  /* Control outlines (Patrick 2026-09-30). --ctrl-line above is 1.9:1 and fails WCAG 1.4.11 as a control boundary;
+     new outlines use --ctrl-edge (3.5:1 ground, 3.1 panel). --stroke is the standard outline width. */
+  --ctrl-edge:#757575; --stroke:2px;
+
+  /* Status */
+  --danger:#ff5e7e; --danger-dim:#7a2d3c;   /* = the status red (Patrick 2026-09-30); was #ff5b5b / #7a2a2a */
+  /* Status: ready / caution / blocked. LOCKED 2026-09-30 (Patrick). --danger above is the same red as blocked.
+     Chosen to stay clear of the app colours and FX-group colours: the green sits between PROCESSOR's aqua and
+     depth's lime (ΔE 45 / 40), the yellow is away from KOMPOSITOR's mandarin (ΔE 55+), the red is ΔE 35 from
+     mandarin (the old --danger was 17). Each passes 4.5:1 as small text on the ground and panels, and --on-status on it
+     as a fill (10.0 / 10.3 / 5.8). Never colour alone: a status always carries an icon and a word. */
+  --status-ready:#00e540; --status-caution:#f9c200; --status-blocked:#ff5e7e; --on-status:#1c1c1c;
+  /* The one danger-fill button (.vk-btn--danger, app/app.css) needs a red-tinted near-black, not the generic
+     --on-status, for contrast on --danger's pink-red; moved here from app/app.css (v0.41.12, design-audit
+     follow-up) so PROCESSOR — which pulls tokens.css but not app.css — can reach it too. */
+  --app-danger-ink:#1a0606;
+
+  /* FX-group identity colours (independent of the signal colour) */
+  /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
+     labels and group chips can use it. Depth is lime: all three apps use depth, so it no longer reuses
+     PROCESSOR's aqua. Six were lifted in lightness only (same hue and intensity) to pass. */
+  --depth:#b1e800; --adjust:#9aa0a6; --rust:#cd7f6e;
+  --type-amber:#b58d4c; --type-rust:#cd7f6e; --type-rose:#c67f93;
+  --type-sage:#7b9c76; --type-teal:#6b9ca1; --type-slate:#8c94a3;
+  --type-violet:#a386cb;
+  /* --type-fuchsia (v0.35.8, Patrick 2026-10-08): DIMENSOR's Effectors rail group, which had been borrowing
+     Instance's rose provisionally. Chosen to sit next to rose the way rust already does (ΔE 22 from rose, close
+     to rust's 21.3): related, not a repaint. Passes 4.5:1 on the ground and on panels (5.71 / 5.02). */
+  --type-fuchsia:#d47dba;
+
+  /* Type */
+  --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --fs-body:13px; --fs-ctrl:11px; --fs-row:11.5px;
+  --head-weight:700; --head-track:.16em;
+
+  /* Shape + spacing */
+  --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
+  --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
+  /* Panel sections (v0.32.0, Patrick 2026-10-03): space alone groups them, no divider lines ("when there are lots it
+     creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
+     between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */
+  --sec-pad:var(--pad); --sec-gap:calc(var(--pad) * 1.5); --sec-head-gap:14px;
+  /* Workspace frames (v0.36.0, Patrick 2026-10-08): a scroll area sits --pad in from every edge of its frame, so content
+     never scrolls into a separator; it fades out over --scroll-fade at an edge that has more to scroll. A frame separator
+     sits on the frame edge, inset --pad along its length; --grip is the optional resize square on a vertical one. */
+  --scroll-fade:var(--pad); --grip:18px;
+  /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
+     and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
+  --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
+     every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
+     capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
+     top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
+  --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
+  /* The brand slot is ONE width in every app (Patrick 2026-10-02: "start file in the same spot across the board", so
+     nothing shudders when cycling between the apps): the widest app logo (KOMPOSITOR, 128.35px) + 14px. */
+  --brand-slot:142.35px;
+  /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
+     Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
+  --tint-hover:12%;    /* a hovered row */
+  --tint-sel:42%;      /* a selected row (v0.22.0, Patrick: option C; was 26%). Everything on it goes --tx-0: white measures 4.86:1 at worst (PROCESSOR), grey fails */
+  --tint-ctrl:28%;     /* a hovered toggle */
+  --tint-field:18%;    /* a field being typed in */
+  --thumb-wash:.32;    /* a hovered thumbnail */
+  --focus-ring:2px solid var(--accent); --focus-offset:2px;
+}
+/* V3KTR design tokens · v0.41.31
+   Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
+   change it here, tag a release, bump the app's pinned version.
+   Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
+:root {
+  /* Ground — neutral greys. Panels are a lighter FILL, never a frame. */
+  --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
+  --line:#171717;
+
+  /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
+  --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
+
+  /* Signal — one aqua for every app; no per-app accents. Hover settled 2026-09-29: #3dffc2. */
+  --accent:#00e5a0; --accent-dim:#0a8f66; --accent-glow:rgba(0,229,160,0.15);
+  --hover:#3dffc2; --on-accent:#1c1c1c; --ctrl-line:rgba(255,255,255,.20);
+  /* Control outlines (Patrick 2026-09-30). --ctrl-line above is 1.9:1 and fails WCAG 1.4.11 as a control boundary;
+     new outlines use --ctrl-edge (3.5:1 ground, 3.1 panel). --stroke is the standard outline width. */
+  --ctrl-edge:#757575; --stroke:2px;
+
+  /* Status */
+  --danger:#ff5e7e; --danger-dim:#7a2d3c;   /* = the status red (Patrick 2026-09-30); was #ff5b5b / #7a2a2a */
+  /* Status: ready / caution / blocked. LOCKED 2026-09-30 (Patrick). --danger above is the same red as blocked.
+     Chosen to stay clear of the app colours and FX-group colours: the green sits between PROCESSOR's aqua and
+     depth's lime (ΔE 45 / 40), the yellow is away from KOMPOSITOR's mandarin (ΔE 55+), the red is ΔE 35 from
+     mandarin (the old --danger was 17). Each passes 4.5:1 as small text on the ground and panels, and --on-status on it
+     as a fill (10.0 / 10.3 / 5.8). Never colour alone: a status always carries an icon and a word. */
+  --status-ready:#00e540; --status-caution:#f9c200; --status-blocked:#ff5e7e; --on-status:#1c1c1c;
+  /* The one danger-fill button (.vk-btn--danger, app/app.css) needs a red-tinted near-black, not the generic
+     --on-status, for contrast on --danger's pink-red; moved here from app/app.css (v0.41.12, design-audit
+     follow-up) so PROCESSOR — which pulls tokens.css but not app.css — can reach it too. */
+  --app-danger-ink:#1a0606;
+
+  /* FX-group identity colours (independent of the signal colour) */
+  /* LOCKED 2026-09-30 (Patrick). Every group colour passes 4.5:1 as small text on panels (#2b2b2b), so group
+     labels and group chips can use it. Depth is lime: all three apps use depth, so it no longer reuses
+     PROCESSOR's aqua. Six were lifted in lightness only (same hue and intensity) to pass. */
+  --depth:#b1e800; --adjust:#9aa0a6; --rust:#cd7f6e;
+  --type-amber:#b58d4c; --type-rust:#cd7f6e; --type-rose:#c67f93;
+  --type-sage:#7b9c76; --type-teal:#6b9ca1; --type-slate:#8c94a3;
+  --type-violet:#a386cb;
+  /* --type-fuchsia (v0.35.8, Patrick 2026-10-08): DIMENSOR's Effectors rail group, which had been borrowing
+     Instance's rose provisionally. Chosen to sit next to rose the way rust already does (ΔE 22 from rose, close
+     to rust's 21.3): related, not a repaint. Passes 4.5:1 on the ground and on panels (5.71 / 5.02). */
+  --type-fuchsia:#d47dba;
+
+  /* Type */
+  --sans:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --fs-body:13px; --fs-ctrl:11px; --fs-row:11.5px;
+  --head-weight:700; --head-track:.16em;
+
+  /* Shape + spacing */
+  --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
+  --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
+  /* Panel sections (v0.32.0, Patrick 2026-10-03): space alone groups them, no divider lines ("when there are lots it
+     creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
+     between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */
+  --sec-pad:var(--pad); --sec-gap:calc(var(--pad) * 1.5); --sec-head-gap:14px;
+  /* Workspace frames (v0.36.0, Patrick 2026-10-08): a scroll area sits --pad in from every edge of its frame, so content
+     never scrolls into a separator; it fades out over --scroll-fade at an edge that has more to scroll. A frame separator
+     sits on the frame edge, inset --pad along its length; --grip is the optional resize square on a vertical one. */
+  --scroll-fade:var(--pad); --grip:18px;
+  /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
+     and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
+  --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
+     every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
+     capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
+     top = 22.5 - 21.05 x 87.01 / 154 = 10.61px. The width comes from each logo's viewBox (themes.css). */
+  --bar-h:36px; --brand-logo-h:21.05px; --brand-logo-top:10.61px;
+  /* The brand slot is ONE width in every app (Patrick 2026-10-02: "start file in the same spot across the board", so
+     nothing shudders when cycling between the apps): the widest app logo (KOMPOSITOR, 128.35px) + 14px. */
+  --brand-slot:142.35px;
+  /* Flat states (v0.21.0, Patrick 2026-10-02): app-colour tints over the element instead of outlines.
+     Measured in all three app colours: tx-0/tx-1 text stays above 5.7:1 on every one. */
+  --tint-hover:12%;    /* a hovered row */
+  --tint-sel:42%;      /* a selected row (v0.22.0, Patrick: option C; was 26%). Everything on it goes --tx-0: white measures 4.86:1 at worst (PROCESSOR), grey fails */
+  --tint-ctrl:28%;     /* a hovered toggle */
+  --tint-field:18%;    /* a field being typed in */
+  --thumb-wash:.32;    /* a hovered thumbnail */
+  --focus-ring:2px solid var(--accent); --focus-offset:2px;
+}
+
+/* V3KTR app themes · LOCKED (Patrick 2026-09-30)
+   One colour per app. A theme sets ONLY the signal family; greys, fonts and the FX-group colours are core.
+   Included in dist/app.css and dist/site.css. An app sets data-app="…" on its root; the site sets it on an
+   app's section, card or call-to-action.
+
+   Every colour passes WCAG 4.5:1 as small text on the ground (#212121), wells (#262626) and panels (#2b2b2b),
+   and dark ink (#1c1c1c) on it passes 4.5:1 as a button fill:
+     PROCESSOR   #00e5a0  ground 9.75 · panel 8.57 · ink-on 10.32
+     KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 35 from --danger since v0.10.0, was 17; still pair destructive actions with an icon or wording)
+     DIMENSOR    #bb6fff  ground 5.24 · panel 4.61 · ink-on 5.54   (was #9d64ff, 4.37 / 3.84: hue nudged warmer to keep intensity, OKLCH C 0.210 vs 0.220)
+   --accent-ink is the shade for LIGHT grounds (site, socials, print): each passes 4.5:1 on #f4f4f4 and #fff. */
+:root {
+  --processor:#00e5a0;  --processor-hover:#3dffc2;  --processor-dim:#0a8f66;  --processor-ink:#008058;
+  --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
+  --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
+}
+/* The focus ring is declared in core as `2px solid var(--accent)`; a custom property resolves var() where it is
+   declared (:root), so it would stay aqua inside every app. Each theme restates it so the ring is the app's colour. */
+[data-app] { --focus-ring: 2px solid var(--accent); }
+[data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
+[data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
+[data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+/* App logo widths at --brand-logo-h (viewBox width / 154 x 21.05). */
+[data-app="processor"]  { --brand-logo-w:120.95px; }
+[data-app="kompositor"] { --brand-logo-w:128.35px; }
+[data-app="dimensor"]   { --brand-logo-w:113.45px; }
+
+/* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
+   chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline
+   styles. The map is PROCESSOR's GROUPS; it is the only place it lives. Every group colour passes 4.5:1 as text. */
+[data-group="adjust"]  { --gcol: var(--adjust); }
+[data-group="degrade"] { --gcol: var(--type-sage); }
+[data-group="distort"] { --gcol: var(--type-rust); }
+[data-group="colour"]  { --gcol: var(--type-rose); }
+[data-group="signal"]  { --gcol: var(--type-teal); }
+[data-group="glitch"]  { --gcol: var(--type-violet); }
+[data-group="type"]    { --gcol: var(--type-amber); }
+[data-group="light"]   { --gcol: var(--type-slate); }
+[data-group="depth"]   { --gcol: var(--depth); }
+
+/* V3KTR app layer · v0.41.31 · requires tokens.css (core)
+   Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
+   PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
+   Colours, fonts and row height come from core tokens only. Values the core lacks are declared
+   once below as --app-* (candidates for promotion to core, see app/INVENTORY.md).
+
+   State classes (so a specimen can show a state at rest):
+     .is-hover   = :hover        .is-on / [aria-checked|aria-pressed="true"] = latched on
+     .is-active  = selected tab / filter / list row      .is-disabled = :disabled
+     .is-open    = open menu / dropdown                  .is-focus    = :focus-visible
+     .is-inline  = specimen-only helper: render a floating surface (menu pop, dropdown list,
+                   tooltip) in normal flow. NOT from PROCESSOR.
+
+   Radius: PROCESSOR declares --radius:2px but never uses it; every control renders square
+   (0). This file sets no border-radius on controls, so they match the live app. See INVENTORY. */
+
+:root {
+  /* .menu-pop, .cs-list, .cp-pop, select option: the pop-up surface, one step above --bg-0 */
+  --app-pop-bg:#262626;
+  /* .menu-pop, .cs-list */
+  --app-shadow-pop:0 8px 28px rgba(0,0,0,0.6);
+  /* .ui-card */
+  --app-shadow-modal:0 14px 44px rgba(0,0,0,0.6);
+  /* .crop-bar (floating tool strip over the canvas) */
+  --app-shadow-float:0 4px 20px rgba(0,0,0,0.6);
+  /* .depth-status */
+  --app-shadow-toast:0 8px 28px rgba(0,0,0,0.5);
+  /* .signup-note */
+  --app-shadow-note:0 6px 24px rgba(0,0,0,.45);
+  /* .rail-btn .tip */
+  --app-shadow-tip:0 2px 8px rgba(0,0,0,0.3);
+  /* .ui-overlay */
+  --app-scrim:rgba(8,9,11,0.72);
+  /* .depth-status */
+  --app-toast-bg:rgba(15,17,19,0.86);
+  /* --app-danger-ink (ink on the danger fill, .ui-btn.danger) moved to tokens.css (v0.41.12) so an app that
+     pulls only the core token file — not this one — can still reach it. */
+  /* .blend-select, select.ctl, .mfps-select, .mr-row select, .cs-trigger::after.
+     A data URI cannot read var(); the fill %23cfcfcf is --tx-1's value, hard-coded. */
+  --app-chevron:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path d='M0 2l4 4 4-4' fill='%23cfcfcf'/></svg>");
+}
+
+/* ---------------------------------------------------------------- base */
+
+/* from html,body */
+.vk-app{background:var(--bg-0);color:var(--tx-0);font-family:var(--sans);font-size:var(--fs-body);
+  -webkit-font-smoothing:antialiased;}
+
+/* from .mono */
+.vk-mono{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+
+/* from :focus-visible (PROCESSOR's global keyboard-only ring) */
+:focus-visible,
+.is-focus{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* ---------------------------------------------------------------- buttons
+   PROCESSOR's own size scale (comment above .gen-btn): Large 8x14 / Regular 5x10 / Small 3x7.
+   LARGE   = .gen-btn
+   REGULAR = .inline-btn, .looks-act-btn, .rz-btn, .crop-bar-btn, .topbar .btn, .dlr-btn, .ui-btn,
+             .mask-btn, .param-tools .inline-btn
+   SMALL   = .inline-btn.sm, .layer .lmask, .seg.mask-cmb button
+   No border on any of them: only chips (and .tog) carry a border. */
+
+/* from the shared mono/UPPERCASE rule (.btn,.gen-btn,.seg button,.filter-chip,.looks-act-btn,.rz-btn,
+   .crop-bar-btn,.ui-btn,.dlr-btn,.inline-btn) + .inline-btn / .looks-act-btn / .rz-btn / .ui-btn /
+   .dlr-btn / .crop-bar-btn / .topbar .btn / .mask-btn  (REGULAR) */
+.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:var(--bg-3);
+  border:none;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn:hover, .looks-act-btn:hover, .rz-btn:hover, .ui-btn:hover, .gen-btn:hover ... */
+.vk-btn:hover,
+.vk-btn.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .gen-btn (LARGE). Only the Large size carries a transition in PROCESSOR. */
+.vk-btn--lg{padding:8px 14px;transition:all 0.12s;}
+
+/* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
+.vk-btn--sm{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+/* COMPACT (v0.41.31, Patrick 2026-10-23, from PROCESSOR): the middle size for a tool row in a side panel (Reset / Randomise / +Features /
+   +Blends). 22px tall; four of them plus Reset fit a 272px tray where the standard button overflows it by ~75px, and it is
+   readable where --sm (16px, 9px text) is a footnote size. */
+.vk-btn--compact{font-size:10px;padding:5px 8px;letter-spacing:0;}
+
+/* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
+   .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing
+   "primary" class: accent fill marks a button whose thing is currently ON. Hover follows
+   .inline-btn.tog.on:hover (-> --hover fill); the other PROCESSOR on-states ignore hover. A plain
+   .vk-btn toggled via aria-pressed (KOMPOSITOR's selected-state audit, 2026-10-08: so apps stop
+   writing a local is-on-equivalent class just to style a toggle button) gets the same fill with no
+   extra class needed — the same rule .vk-tog already has below. */
+.vk-btn--primary,
+.vk-btn.is-on,
+.vk-btn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);}
+.vk-btn--primary:hover,.vk-btn--primary.is-hover,
+.vk-btn.is-on:hover,.vk-btn.is-on.is-hover,
+.vk-btn[aria-pressed="true"]:hover{background:var(--hover);color:var(--on-accent);}
+
+/* from .rz-btn.ghost, .crop-bar-btn.ghost, .ui-btn.ghost (dimmer label, same fill; hover as .vk-btn) */
+.vk-btn--ghost{color:var(--tx-2);}
+
+/* from .inline-btn.ghost (no fill until hover) */
+.vk-btn--bare{padding:5px 8px;color:var(--tx-2);background:transparent;}
+.vk-btn--bare:hover,
+.vk-btn--bare.is-hover{color:var(--tx-0);background:var(--bg-3);}
+
+/* from .ui-btn.danger */
+.vk-btn--danger{background:var(--danger);color:var(--app-danger-ink);}
+.vk-btn--danger:hover,
+.vk-btn--danger.is-hover{background:var(--danger);color:var(--app-danger-ink);filter:brightness(1.08);}
+
+/* from .gen-btn.disabled, .motion-step.disabled, .motion-step:disabled */
+.vk-btn:disabled,
+.vk-btn.is-disabled{opacity:0.38;pointer-events:none;}
+
+/* ---------------------------------------------------------------- .vk-lock (persistent FLAG, not selection) */
+
+/* A locked / pinned marker (Patrick 2026-10-08, from KOMPOSITOR's selected-state audit: sequencer steps drew
+   their own outline marker for this; generalised here as the shared pattern). It flags an item as locked or
+   pinned, which is independent of whether that item is ALSO selected — both can be true at once (a locked,
+   selected step) — so this is never a fill and never uses the is-active/is-selected rules above: a small
+   outline corner mark, the same shape in every app, that sits beside a selection state rather than competing
+   with it. Put position:relative on the item and .vk-lock inside it (absolute, top-right corner); toggle with
+   .is-locked or [data-locked="true"] on that same item, never on .vk-lock itself:
+   <div class="vk-step is-locked">…<span class="vk-lock" aria-hidden="true"></span></div> */
+.vk-lock{position:absolute;top:2px;right:2px;z-index:3;width:12px;height:12px;display:none;
+  background-color:var(--tx-2);pointer-events:none;
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3 4.5V3a2 2 0 0 1 4 0v1.5' fill='none' stroke='black' stroke-width='1'/><rect x='2' y='4.5' width='6' height='4.5' fill='black'/></svg>") center/8px no-repeat;
+  mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3 4.5V3a2 2 0 0 1 4 0v1.5' fill='none' stroke='black' stroke-width='1'/><rect x='2' y='4.5' width='6' height='4.5' fill='black'/></svg>") center/8px no-repeat;}
+.is-locked > .vk-lock,[data-locked="true"] > .vk-lock{display:block;}
+
+/* ---------------------------------------------------------------- .tog (latched STATE, not action) */
+
+/* from .inline-btn.tog (on the REGULAR .inline-btn metrics) */
+/* OUTLINE 2px, ROOMIER (Patrick 2026-09-30): 2px in --ctrl-edge (3:1) with the original padding kept, so each control
+   grows 2px. Live PROCESSOR is still 1px --ctrl-line; this lands in Patrick's PROCESSOR spacing pass, which sets the app standard. */
+/* FLAT (v0.21.0, Patrick 2026-10-02: fills, not outlines). Off = a grey fill; hover tints the whole toggle toward the
+   app colour; on = the solid app colour. The 2px border stays as transparent space so nothing changes size. */
+.vk-tog{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:var(--bg-3);
+  border:var(--stroke) solid transparent;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;}
+/* from .inline-btn.tog:hover */
+.vk-tog:hover,
+.vk-tog.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-ctrl),var(--bg-3));border-color:transparent;color:var(--tx-0);}
+/* from .inline-btn.tog.on */
+.vk-tog.is-on,
+.vk-tog[aria-checked="true"],
+.vk-tog[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent);}
+/* from .inline-btn.tog.on:hover */
+.vk-tog.is-on:hover,.vk-tog.is-on.is-hover,
+.vk-tog[aria-checked="true"]:hover,
+.vk-tog[aria-pressed="true"]:hover{background:var(--hover);border-color:transparent;color:var(--on-accent);}
+
+/* from .roll-group (Randomise + its latched modifiers as ONE control, in a --bg-2 tray) */
+.vk-roll-group{display:flex;gap:0;padding:3px;background:var(--bg-2);}
+/* from .roll-group .tog+.tog (no seam where two borders meet): overlap by the full outline width so neighbours
+   share one line. Found stale (v0.41.11, design-system conformance audit, 2026-10-08): this was -1px from before
+   the 2px ROOMIER outline (v0.21.0) and never got bumped, while PROCESSOR's own local copy was already correct. */
+.vk-roll-group .vk-tog+.vk-tog{margin-left:-2px;}
+
+/* from .param-tools, .gen-toolrow, .btn-row (left-aligned row of natural-width buttons) */
+.vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+
+/* ---------------------------------------------------------------- segmented (one-of-N) */
+
+/* from .seg */
+.vk-seg{display:flex;flex-wrap:wrap;gap:3px;margin:19px 0;}
+/* from .seg button (note: no letter-spacing, unlike the Regular button) */
+.vk-seg button{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
+  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:8px 14px;cursor:pointer;}
+/* from .seg button:hover */
+.vk-seg button:hover,
+.vk-seg button.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .seg button.on (in PROCESSOR the on option does not react to hover) */
+.vk-seg button.is-on,
+.vk-seg button[aria-pressed="true"],
+.vk-seg button.is-on:hover,
+.vk-seg button[aria-pressed="true"]:hover{background:var(--accent);color:var(--on-accent);}
+/* from .seg.mask-cmb button (SMALL) */
+.vk-seg--sm button{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+
+/* ---------------------------------------------------------------- chips (the only bordered element) */
+
+/* from .filter-chip (+ the shared mono/UPPERCASE rule). background set for use on <button>. */
+.vk-chip{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;   /* 2px outline, roomier: see .vk-tog */
+  border:var(--stroke) solid var(--ctrl-edge);color:var(--tx-2);background:transparent;cursor:pointer;white-space:nowrap;}
+/* from .filter-chip:hover */
+.vk-chip:hover,
+.vk-chip.is-hover{color:var(--hover);border-color:var(--hover);}
+/* Selected = filled with dark ink (Patrick 2026-10-08: a chip's selected state must be SOLID, never just an
+   outline/tint highlight — found not matching .vk-chip--group.is-on below, which was already correct). */
+.vk-chip.is-active{color:var(--on-accent);border-color:var(--accent);background:var(--accent);}
+/* A selected chip's hover was missing entirely (found by PROCESSOR's migration test, v0.41.23, 2026-10-09):
+   without it, .vk-chip:hover above would win on specificity and wash the chip out to plain --hover/on-accent with
+   no fill at all. Same pattern .vk-btn.is-on:hover already uses: swap the fill to --hover, keep --on-accent ink. */
+.vk-chip.is-active:hover,
+.vk-chip.is-active.is-hover{color:var(--on-accent);border-color:var(--hover);background:var(--hover);}
+
+/* from .rail-chip (FX-group filter; set --gcol to the group's --type-* / --depth / --adjust colour) */
+.vk-chip--group{font-size:8px;letter-spacing:0.3px;padding:3px 5px;line-height:1.1;}
+/* FX-group chips use their group colour (Patrick 2026-09-30): rest = border and text in --gcol, selected = filled
+   with dark ink, hover = the same colour brightened. As shipped in PROCESSOR v0.573.0 (.rail-chip). No --gcol (ALL): grey, fills --accent. */
+.vk-chip--group{border-color:var(--gcol,var(--ctrl-edge));color:var(--gcol,var(--tx-2));}
+/* Specificity bug (found by PROCESSOR's migration test, v0.41.23, 2026-10-09): .vk-chip:hover above is two classes
+   on the hover pseudo-class, (0,2,0), which outranks the plain .vk-chip--group colour rule at (0,1,0) — so hovering
+   a REST (not selected) group chip turned it generic aqua instead of brightening in its own group colour. Re-assert
+   the group colour here, at equal specificity to .vk-chip:hover, so the brightness filter below has the right base
+   colour to brighten. Excludes .is-on: that state is unaffected (it wins on equal specificity, applied later). */
+.vk-chip--group:not(.is-on):hover,
+.vk-chip--group:not(.is-on).is-hover{color:var(--gcol,var(--tx-2));border-color:var(--gcol,var(--ctrl-edge));}
+.vk-chip--group:hover,
+.vk-chip--group.is-hover{filter:brightness(1.25);}
+.vk-chip--group.is-on{background:var(--gcol,var(--accent));border-color:var(--gcol,var(--accent));color:var(--on-accent);}
+/* is-kept (v0.41.28, from DIMENSOR's One Roll, H4): a group chip used as an INCLUDE toggle whose part is locked elsewhere,
+   so the roll keeps it whatever the chip says. Unlit: dashed outline. Lit: a 3px --bg-1 bar along the bottom edge. The tip says why. */
+.vk-chip--group.is-kept:not(.is-on){border-style:dashed;}
+.vk-chip--group.is-kept.is-on{box-shadow:inset 0 -3px 0 var(--bg-1);}
+
+/* ---------------------------------------------------------------- rows, switch, scrub slider */
+
+/* from .blend-row, .col-row (a 28px control row on --bg-3) */
+.vk-row{display:flex;align-items:center;height:var(--row-h);padding:0 9px;margin:3px 0;background:var(--bg-3);}
+/* from .blend-label, .col-row span */
+.vk-row__label{font-size:var(--fs-row);color:var(--tx-1);}
+/* from .col-row (clickable row) + .col-row:hover */
+.vk-row--action{cursor:pointer;position:relative;}
+.vk-row--action:hover,
+.vk-row--action.is-hover{background:var(--bg-4);}
+
+/* from .tog-row */
+.vk-tog-row{display:flex;align-items:center;justify-content:space-between;height:var(--row-h);padding:0 9px;
+  margin:3px 0;background:var(--bg-3);}
+/* from .tog-row span */
+.vk-tog-row > span{font-size:var(--fs-row);}
+
+/* from .switch */
+.vk-switch{width:30px;height:16px;background:var(--bg-0);position:relative;cursor:pointer;}
+/* from .switch::after */
+.vk-switch::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;
+  background:var(--tx-2);transition:all 0.14s ease;}
+/* from .switch.on */
+.vk-switch.is-on,
+.vk-switch[aria-checked="true"]{background:var(--accent-dim);}
+/* from .switch.on::after */
+.vk-switch.is-on::after,
+.vk-switch[aria-checked="true"]::after{left:16px;background:var(--accent);}
+
+/* from .scrub (the track: drag anywhere to set; --fill is the value as a %) */
+.vk-scrub{position:relative;height:var(--row-h);background:var(--bg-2);margin:3px 0;display:flex;
+  align-items:center;cursor:ew-resize;overflow:hidden;--fill:50%;touch-action:none;}
+/* from .scrub .fill */
+.vk-scrub__fill{position:absolute;left:0;top:0;bottom:0;width:var(--fill);
+  background:color-mix(in srgb,var(--tx-2) 20%,transparent);
+  border-left:2px solid color-mix(in srgb,var(--tx-1) 45%,transparent);pointer-events:none;}
+/* from .scrub .s-label */
+.vk-scrub__label{position:relative;z-index:1;padding-left:9px;font-size:var(--fs-row);}
+/* from .scrub .s-val (+ .mono, which the markup always adds) */
+.vk-scrub__val{position:relative;z-index:1;margin-left:auto;padding-right:9px;
+  font-family:var(--mono);font-size:var(--fs-row);font-variant-numeric:tabular-nums;}
+/* from .scrub:hover .fill */
+.vk-scrub:hover .vk-scrub__fill,
+.vk-scrub.is-hover .vk-scrub__fill{filter:brightness(1.25);}
+
+/* ---------------------------------------------------------------- headings */
+
+/* from .panel-head, .explorer-head, .rail-label (type only; each container sets its own padding) */
+.vk-sec-head{font-size:var(--fs-ctrl);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  text-transform:uppercase;color:var(--tx-0);line-height:1;}
+/* from .sec-label, .gen-secname (sub-section inside a panel) */
+.vk-sec-label{font-size:10px;font-weight:var(--head-weight);letter-spacing:var(--head-track);text-transform:uppercase;
+  color:var(--tx-0);margin:12px 0 14px;display:flex;align-items:center;gap:6px;}
+/* from .sec-sub */
+.vk-sec-sub{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-2);padding:18px 0 11px;opacity:0.85;}
+/* from .rail-group-label (FX-group heading in its group colour via --gcol) */
+.vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
+  text-transform:uppercase;line-height:1;padding:8px 0 6px;}
+/* from .looks-group-label, .mi-group-label */
+.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);}
+
+/* ---------------------------------------------------------------- workspace tabs */
+
+/* from .ws-tabs */
+.vk-tabs{display:flex;align-items:center;gap:22px;background:var(--bg-1);}
+/* from .ws-tab */
+.vk-tab{display:flex;align-items:center;font-size:var(--fs-body);letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.12s,border-color 0.12s;
+  user-select:none;}
+/* from .ws-tab:hover */
+.vk-tab:hover,
+.vk-tab.is-hover{color:var(--hover);}
+/* from .ws-tab.active */
+.vk-tab.is-active,
+.vk-tab[aria-selected="true"]{color:var(--hover);border-bottom-color:var(--hover);}
+
+/* ---------------------------------------------------------------- menus */
+
+/* from .topbar (layout only; PROCESSOR's bar row is 36px high) */
+.vk-menubar{display:flex;align-items:center;gap:2px;background:var(--bg-1);}
+/* A click on a menu label or a popup row must never select its text (found by Patrick, 2026-10-09: KOMPOSITOR and
+   DIMENSOR both showed a text caret on a plain click; PROCESSOR didn't, but the shared CSS never had this either
+   way, so it's a gap, not a PROCESSOR-only override to copy). Covers both the top-level labels (inside .vk-menubar)
+   and the popup's rows/labels/shortcuts (inside .vk-menu-pop) in one rule. */
+.vk-menubar,.vk-menu-pop{user-select:none;}
+/* from .menu */
+/* ══ TOP BAR (v0.18.0, Patrick 2026-10-02: the logo and menus the same size, position and spacing in every app).
+   PROCESSOR's bar is the reference. Logo at the bar's left padding (--pad), sized and placed so its app-name capitals
+   sit on the menu's baseline at the menu's cap height. The brand slot is the same width in every app (--brand-slot, the
+   widest logo + 14px), so File starts at the same x everywhere. The document name follows the menus, 31px on.
+   <div class="vk-topbar"><div class="vk-brand"><div class="vk-brand-logo"></div></div>
+     <div class="vk-menu">File</div>… <div class="vk-doc"><b>untitled</b> 1 object</div></div>
+   The logo is either a masked element (set mask-image to the app logo file) or the inline SVG (currentColor). */
+.vk-topbar{display:flex;align-items:center;gap:2px;height:var(--bar-h);padding:0 var(--pad);background:var(--bg-1);position:relative;}
+.vk-brand{position:relative;flex:0 0 auto;width:var(--brand-slot);height:100%;}   /* one width in every app, so File starts at the same x (22 + 142.35 + 2 = 166.35px) */
+.vk-brand-logo{position:absolute;top:var(--brand-logo-top);left:0;display:block;width:var(--brand-logo-w);height:var(--brand-logo-h);color:var(--accent);}
+.vk-brand-logo:not(svg){background-color:var(--accent);-webkit-mask:var(--brand-logo-url) left center/contain no-repeat;mask:var(--brand-logo-url) left center/contain no-repeat;}
+.vk-doc{margin-left:29px;color:var(--tx-2);font-size:11.5px;letter-spacing:.04em;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-doc b{color:var(--tx-1);font-weight:500;}
+.vk-menu{color:var(--accent);padding:4px 14px;font-size:12.5px;cursor:default;position:relative;}
+/* from .menu:hover */
+.vk-menu:hover,
+.vk-menu.is-hover{color:var(--hover);}
+/* from .menu-pop */
+/* FLAT (v0.21.0): no keyline; the popup is one step lighter than what it opens over, and a hovered item fills with
+   the app colour. The 1px stays as transparent space. */
+.vk-menu-pop{position:absolute;top:100%;left:0;background:var(--bg-3);border:1px solid transparent;
+  min-width:228px;box-shadow:var(--app-shadow-pop);z-index:100;display:none;padding:4px;}
+/* from .menu.open .menu-pop */
+.vk-menu.is-open .vk-menu-pop{display:block;}
+/* from .mi */
+.vk-menu-item{padding:6px 10px;font-size:12px;color:var(--tx-1);cursor:pointer;white-space:nowrap;letter-spacing:0.02em;
+  display:flex;align-items:center;gap:18px;justify-content:space-between;}
+/* from .mi:hover (text goes --accent here, not --hover) */
+.vk-menu-item:hover,
+.vk-menu-item.is-hover{background:var(--accent);color:var(--on-accent);}
+.vk-menu-item:hover .vk-menu-kbd,.vk-menu-item.is-hover .vk-menu-kbd{color:var(--on-accent);}
+/* Keyboard focus on a menu row looks hovered (v0.41.27, from PROCESSOR's .mi:focus-visible, found migrating its menus):
+   a menu's focused row IS its highlighted row, as in a native menu, so the fill replaces the generic ring here.
+   KOMPOSITOR's Livelink menu already moves focus onto rows and was getting the ring. */
+.vk-menu-item:focus-visible{background:var(--accent);color:var(--on-accent);outline:none;}
+.vk-menu-item:focus-visible .vk-menu-kbd,.vk-menu-item:focus-visible .vk-menu-ic{color:inherit;}
+/* from .mi.disabled */
+.vk-menu-item.is-disabled{color:var(--tx-2);pointer-events:none;}
+/* from .mi.disabled .mi-kbd */
+.vk-menu-item.is-disabled .vk-menu-kbd{color:var(--tx-2);opacity:0.5;}
+/* from .mi-kbd */
+.vk-menu-kbd{font-family:var(--mono);font-size:10.5px;color:var(--tx-2);letter-spacing:0;margin-left:auto;}
+/* from .mi-sep */
+.vk-menu-sep{height:1px;background:var(--line);margin:3px 0;}
+/* from .mi-group-label */
+.vk-menu-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);padding:5px 10px 2px;}
+/* from .mi-check */
+.vk-menu-check{display:inline-block;width:14px;color:var(--accent);flex-shrink:0;}
+/* from #menuImage .mi, #menuView .mi (check-led menus: left-aligned) */
+.vk-menu-pop--checks .vk-menu-item{justify-content:flex-start;gap:4px;}
+/* Menu icons (v0.20.0; the same row in all three apps). An icon from icons/menu-icons.js leads every action row, in
+   a 14px column that a state check (.vk-menu-check) shares, so a menu scans as shapes. Icon --tx-2 at rest, the
+   row's colour on hover; 9px to the label; the shortcut keeps 18px clear of the label.
+   <div class="vk-menu-item"><span class="vk-menu-ic">{menuIconSvg('save')}</span><span>Save</span><span class="vk-menu-kbd">⌘S</span></div> */
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check){justify-content:flex-start;gap:9px;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) > span:not(.vk-menu-ic):not(.vk-menu-check):not(.vk-menu-kbd){flex:1;text-align:left;}
+.vk-menu-ic{display:flex;flex:0 0 14px;width:14px;color:var(--tx-2);}
+.vk-menu-item:hover .vk-menu-ic,.vk-menu-item.is-hover .vk-menu-ic{color:inherit;}
+.vk-menu-item.is-disabled .vk-menu-ic{opacity:.5;}
+.vk-menu-item:has(> .vk-menu-ic, > .vk-menu-check) .vk-menu-kbd{padding-left:18px;}
+
+/* ---------------------------------------------------------------- selects */
+
+/* from .blend-select (select inside a 28px row) */
+.vk-select{height:22px;background-color:var(--bg-2);color:var(--tx-0);border:none;
+  -webkit-appearance:none;appearance:none;background-image:var(--app-chevron);
+  background-repeat:no-repeat;background-position:right 8px center;
+  font-family:var(--mono);font-size:var(--fs-ctrl);padding:0 22px 0 8px;cursor:pointer;letter-spacing:0.01em;min-width:110px;}
+/* from .blend-select (margin-left:auto pushes it to the right end of its row) */
+.vk-row .vk-select{margin-left:auto;}
+/* from select.ctl (full-width 28px select) */
+.vk-select--block{height:var(--row-h);width:100%;padding:0 24px 0 9px;background-position:right 9px center;
+  min-width:0;letter-spacing:normal;}
+/* from .mfps-select (compact transport select, 30px to match the transport buttons) */
+.vk-select--transport{flex:0 0 auto;height:30px;box-sizing:border-box;padding:0 17px 0 7px;
+  background-position:right 5px center;min-width:0;letter-spacing:normal;}
+/* from select option, select option:checked */
+/* focus (v0.41.26): the same field tint as .vk-input; the select had no focus state at all */
+.vk-select:focus,.vk-select.is-focus{background-color:color-mix(in srgb,var(--accent) var(--tint-field),var(--bg-3));}
+.vk-select option{background:var(--app-pop-bg);color:var(--tx-0);}
+.vk-select option:checked{background:var(--accent);color:var(--on-accent);}
+
+/* from .cs-wrap (themed dropdown; native <select> kept hidden inside for behaviour) */
+.vk-cs{position:relative;display:inline-flex;min-width:120px;vertical-align:middle;}
+/* from .cs-wrap > select */
+.vk-cs > select{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+/* from .cs-trigger */
+.vk-cs__trigger{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-0);background:var(--bg-2);
+  border:none;padding:5px 9px;cursor:pointer;text-align:left;line-height:1.3;letter-spacing:0.01em;}
+/* from .cs-trigger::after */
+.vk-cs__trigger::after{content:'';width:8px;height:8px;flex:0 0 auto;background:var(--app-chevron) no-repeat center/contain;}
+/* from .cs-wrap.open .cs-trigger */
+.vk-cs.is-open .vk-cs__trigger{color:var(--hover);}
+/* from .cs-list */
+.vk-cs__list{position:absolute;top:calc(100% + 2px);left:0;right:0;min-width:100%;background:var(--bg-3);
+  z-index:200;display:none;box-shadow:var(--app-shadow-pop);max-height:260px;overflow-y:auto;}
+/* from .cs-wrap.open .cs-list */
+.vk-cs.is-open .vk-cs__list{display:block;}
+/* from .cs-wrap.cs-up .cs-list */
+.vk-cs--up .vk-cs__list{top:auto;bottom:calc(100% + 2px);}
+/* from .cs-opt */
+.vk-cs__opt{padding:6px 10px;font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-1);cursor:pointer;white-space:nowrap;}
+/* from .cs-opt:hover */
+.vk-cs__opt:hover,
+.vk-cs__opt.is-hover{background:var(--hover);color:var(--on-accent);}
+/* from .cs-opt.sel. SOLID fill (v0.41.26): "selected = solid fill" (AGENTS.md "Chips are one colour"); was accent text,
+   a v0.2.0 copy PROCESSOR itself has since moved past. Hover on the selected row swaps to --hover, as .vk-btn.is-on:hover. */
+.vk-cs__opt.is-sel{background:var(--accent);color:var(--on-accent);}
+.vk-cs__opt.is-sel:hover,.vk-cs__opt.is-sel.is-hover{background:var(--hover);color:var(--on-accent);}
+
+/* ---------------------------------------------------------------- text inputs
+   PROCESSOR pairs every input :focus with outline:none, which also kills the keyboard ring.
+   Not carried over: the border tint is kept, the :focus-visible ring above still applies. */
+
+/* from input.ctl / .ctl */
+/* FLAT (v0.21.0): a filled well; hover lifts it a step, typing tints it toward the app colour. */
+.vk-input{height:var(--row-h);background:var(--bg-3);color:var(--tx-0);border:1px solid transparent;
+  font-family:inherit;font-size:var(--fs-row);padding:0 9px;}
+/* from input.ctl::placeholder */
+.vk-input::placeholder{color:var(--tx-2);}
+/* from .ctl:focus, .text-input:focus, .inline-field:focus (border only) */
+.vk-input:focus,
+.vk-input.is-focus{background:color-mix(in srgb,var(--accent) var(--tint-field),var(--bg-3));}
+.vk-input:hover:not(:focus),.vk-input.is-hover{background:var(--bg-4);}
+/* from .text-input (mono entry: Type FX text, hex) */
+.vk-input--mono{font-family:var(--mono);font-size:12px;letter-spacing:0.05em;}
+/* from .inline-field (name field in an inline-expand row) */
+.vk-input--inline{height:auto;flex:1;min-width:0;padding:5px 8px;}
+
+/* ---------------------------------------------------------------- modal / dialog */
+
+/* from .ui-overlay */
+.vk-scrim{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;
+  background:var(--app-scrim);backdrop-filter:blur(2px);}
+/* from .ui-overlay.on */
+.vk-scrim.is-on{display:flex;}
+/* from .ui-card */
+/* FLAT (v0.21.0): no keyline; a danger modal's title is a solid red band instead of a red outline. */
+.vk-modal{background:var(--bg-2);border:1px solid transparent;min-width:300px;max-width:min(440px,90vw);
+  box-shadow:var(--app-shadow-modal);animation:vk-ui-pop 0.13s ease-out;}
+/* from .ui-card.danger */
+.vk-modal--danger{border-color:transparent;}
+/* from @keyframes uiPop */
+@keyframes vk-ui-pop{from{opacity:0;transform:translateY(6px) scale(0.985);}to{opacity:1;transform:none;}}
+/* from .ui-title */
+.vk-modal__title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);
+  font-family:var(--mono);padding:15px 18px 0;}
+/* from .ui-card.danger .ui-title */
+.vk-modal--danger .vk-modal__title{color:var(--on-accent);background:var(--danger);padding:9px 18px;}
+/* from .ui-msg */
+.vk-modal__msg{font-size:12.5px;line-height:1.55;color:var(--tx-1);padding:8px 18px 16px;white-space:pre-wrap;}
+/* from .ui-actions */
+.vk-modal__actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 16px;}
+
+/* ---------------------------------------------------------------- toast / note
+   PROCESSOR has no toast class. Its non-blocking status message is the .depth-status pill. */
+
+/* from .depth-status */
+.vk-toast{display:flex;align-items:center;gap:9px;padding:7px 14px;
+  background:var(--app-toast-bg);border:1px solid transparent;backdrop-filter:blur(8px);
+  color:var(--tx-1);font-size:var(--fs-row);letter-spacing:0.03em;pointer-events:none;
+  box-shadow:var(--app-shadow-toast);}
+/* from .depth-status (its placement over the canvas) */
+.vk-toast--pinned{position:absolute;bottom:calc(var(--vp-bar-bottom) + var(--vp-bar-step) + 4px);left:50%;transform:translateX(-50%);z-index:7;}
+/* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
+.vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:vk-ds-pulse 1.1s ease-in-out infinite;}
+/* from @keyframes dsPulse */
+@keyframes vk-ds-pulse{0%,100%{opacity:0.35;transform:scale(0.8);}50%{opacity:1;transform:scale(1.1);}}
+
+/* from .signup-note (post-export footnote: not modal, no backdrop, no focus steal) */
+/* FLAT (v0.21.0): a lighter panel, no keyline. */
+.vk-note{max-width:320px;padding:12px 14px 10px;background:var(--bg-3);border:1px solid transparent;
+  color:var(--tx-2);font-size:12px;line-height:1.45;box-shadow:var(--app-shadow-note);}
+/* from .signup-note (its placement) */
+.vk-note--pinned{position:fixed;left:18px;top:76px;z-index:900;}
+/* from .signup-note b */
+.vk-note b{color:var(--tx-1);font-weight:500;}
+/* from .signup-note a.sn-go */
+.vk-note__go{color:var(--accent);font-family:var(--mono);font-size:var(--fs-ctrl);letter-spacing:0.06em;
+  text-transform:uppercase;text-decoration:none;}
+/* from .signup-note a.sn-go:hover */
+.vk-note__go:hover,
+.vk-note__go.is-hover{text-decoration:underline;}
+
+/* The tooltip and help components moved to app/help.css (v0.25.0); dist/app.css still includes them. */
+
+
+/* ---------------------------------------------------------------- panels, list rows, kbd */
+
+/* from .crop-bar, .canvas-controls (a lighter FILL, never an outline) */
+.vk-panel{background:var(--bg-2);}
+/* from .crop-bar (floating tool strip over the canvas: layout, padding, shadow) */
+.vk-panel--float{display:flex;align-items:center;gap:8px;padding:8px 12px;box-shadow:var(--app-shadow-float);}
+
+/* from .layer (FX stack row); .motion-item is the same pattern */
+.vk-layer{display:flex;align-items:center;gap:8px;padding:8px 8px;margin:3px 0;background:var(--bg-2);
+  cursor:pointer;border-left:2px solid transparent;}   /* FLAT (v0.21.0): the row carries the state; no edge bar */
+/* from .layer:hover */
+.vk-layer:hover,
+.vk-layer.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
+/* from .layer.active */
+.vk-layer.is-active{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));color:var(--tx-0);}
+/* from .layer.hidden-layer */
+.vk-layer.is-disabled{opacity:0.42;}
+/* from .layer .licon */
+.vk-layer__icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;background:var(--bg-0);color:var(--accent);}
+/* from .layer .licon svg */
+.vk-layer__icon svg{width:13px;height:13px;}
+/* from .layer .lname */
+.vk-layer__name{flex:1;font-size:12px;}
+/* from .layer .lname small */
+.vk-layer__name small{display:block;color:var(--tx-2);font-size:10px;margin-top:1px;}
+
+/* from .kbd */
+.vk-kbd{font-family:var(--mono);font-size:10.5px;background:var(--bg-3);color:var(--tx-1);padding:2px 6px;margin:0 2px;}
+
+/* ---------------------------------------------------------------- specimen helper (NOT from PROCESSOR) */
+.vk-menu-pop.is-inline,
+.vk-cs__list.is-inline{position:static;display:block;}
+.vk-tip.is-inline{position:static;display:inline-block;opacity:1;}
+
+/* ══ CAP CENTRING (Patrick 2026-09-30) ══════════════════════════════════════
+   These labels are all capitals. JetBrains Mono keeps room below the baseline for descenders, and
+   centring centres the line box, so capitals sat 0.25–1.1px high. text-box trims the line to the
+   capitals (cap height 0.73em); the padding adds back exactly what was trimmed, (1lh − 0.73em)/2 (the lh unit is the element's own line height),
+   so every element keeps its height. Browsers without text-box (Firefox today) keep the old look. */
+@supports (text-box: trim-both cap alphabetic) {
+  .vk-chip,.vk-chip--group{text-box:trim-both cap alphabetic;padding-block:calc(3px + (1lh - 0.73em) / 2);}   /* 1lh = its own line height, wherever it sits */
+}
+
+/* FX-family title in its group colour (Patrick 2026-09-30): a title, or a title with its icon, takes the family colour.
+   Set --gcol, or put it inside [data-group="…"]. */
+.vk-group-title{color:var(--gcol,inherit);}
+
+/* WORKSPACE SEPARATORS (Patrick 2026-10-01): the lines that divide the workspace into areas (panel ↔ panel,
+   stack ↔ parameters, section ↔ section) are --stroke (2px) in --line, in every app. As shipped in PROCESSOR
+   v0.578.0. Control outlines (inputs, cards, menus) are not separators and keep their own widths. */
+.vk-sep{height:var(--stroke);background:var(--line);border:0;margin:0;flex:0 0 auto;}
+.vk-sep--v{width:var(--stroke);height:auto;align-self:stretch;}
+
+/* ══ FLAT COMPONENTS (v0.21.0, Patrick 2026-10-02: "solid or flatter styles… the app colour as a full overlay
+   instead of a hover outline"). Exceptions that keep their lines: chips, tabs and rail buttons, keyboard focus,
+   on-canvas handles and guides, workspace dividers. Audit: claude.ai/artifact/1aBdDVtGjLsjE6BkwsYniw */
+
+/* Selectable rows (presets, masks, ramp stops, list items): hover a light tint, selected a stronger one. */
+.vk-row{display:flex;align-items:center;gap:8px;background:var(--bg-2);color:var(--tx-1);cursor:pointer;}
+.vk-row:hover,.vk-row.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
+.vk-row.is-selected,.vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));color:var(--tx-0);}
+/* On a selected row everything that was grey is --tx-0, secondary text and icons too: --tx-1/--tx-2 fail on the 42% tint. */
+.vk-row.is-selected,.vk-row[aria-selected="true"],.vk-layer.is-active{--tx-1:var(--tx-0);--tx-2:var(--tx-0);}   /* the greys become white inside the row, so nothing else needs a rule */
+/* A control inside a row hands the hover over: while the pointer is on it the row drops back to rest and the control
+   takes the row's hover colour (Patrick 2026-10-02). On a selected row the row stays selected and the control previews
+   in the solid app colour (any tint brighter than 42% fails contrast in one app or another). Mark such controls .vk-row__ctl. */
+.vk-row:has(.vk-row__ctl:hover):not(.is-selected),.vk-layer:has(.vk-row__ctl:hover):not(.is-active){background:var(--bg-2);}
+.vk-row__ctl:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
+.vk-row.is-selected .vk-row__ctl:hover,.vk-layer.is-active .vk-row__ctl:hover{background:var(--accent);color:var(--on-accent);}
+/* A row control that LATCHES (eye/lock/mute, not just a hover preview): text colour only when on, not a fill
+   (Patrick 2026-10-09: reverted the v0.41.14 solid-fill version — PROCESSOR's original behaviour was the one he
+   wanted kept). Mark it [aria-pressed="true"] as well as .vk-row__ctl. */
+.vk-row__ctl[aria-pressed="true"]{color:var(--accent);}
+/* On a SELECTED row the accent text colour above is accent-on-accent-tint, nearly invisible (found by DIMENSOR
+   adopting the revert, 2026-10-09). Same fix the row already uses for its other greys (line ~521): swap to tx-0. */
+.vk-row.is-selected .vk-row__ctl[aria-pressed="true"],
+.vk-layer.is-active .vk-row__ctl[aria-pressed="true"]{color:var(--tx-0);}
+/* A LOCKED row (Patrick 2026-10-09, generalised from PROCESSOR PR #370): every direct child dims to 60% except the
+   lock control itself, which stays at full strength — it's the release control, so it must read as the one live
+   thing. Opacity goes on each CHILD, never on the row itself: a parent's opacity caps the whole subtree, so a
+   child's own opacity:1 cannot undo it (PROCESSOR confirmed this the hard way before generalising). If the lock
+   sits inside a wrapper alongside other controls, dim those sibling controls instead of the wrapper. Mark the row
+   .is-locked and the lock button .vk-row__ctl[aria-pressed="true"] (same class v0.41.14 already uses for it). */
+.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]),
+.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]){opacity:0.6;}
+
+/* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
+   toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):
+   text colour only when on, not a fill (Patrick 2026-10-09: reverted the v0.41.14 solid-fill version — PROCESSOR's
+   original behaviour was the one he wanted kept, across all of these, not just the lock icons specifically).
+   <button class="vk-icon-tog" aria-pressed="true" data-tip="Lock"><svg>…</svg></button> */
+.vk-icon-tog{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;padding:0;
+  background:transparent;border:none;color:var(--tx-2);cursor:pointer;flex-shrink:0;}
+.vk-icon-tog:hover,.vk-icon-tog.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),transparent);color:var(--tx-0);}
+.vk-icon-tog[aria-pressed="true"],.vk-icon-tog.is-on{color:var(--accent);}
+.vk-icon-tog svg{width:15px;height:15px;display:block;}
+
+/* Thumbnails (.vk-thumb*) moved to their own pullable app/thumbs.css (v0.41.7), in dist/app.css after this file. */
+
+/* Tags (HEAVY, NEW ...): an 8% tint of the meaning colour with the word in that colour. 8% is the strongest tint
+   amber keeps 4.5:1 on (20% measures 3.84:1). Set --tag for another colour. */
+.vk-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
+  padding:3px 6px;color:var(--tag,var(--type-amber));background:color-mix(in srgb,var(--tag,var(--type-amber)) 8%,var(--bg-0));}
+
+/* Warning note: an amber tint across the whole note, led by the warning icon (brand/status/warning.svg, inlined,
+   currentColor) instead of a bar down the side. */
+.vk-note--warn,.vk-callout--warn{display:flex;gap:9px;align-items:flex-start;background:color-mix(in srgb,var(--type-amber) 16%,var(--bg-0));color:var(--tx-0);}
+.vk-note__ic{flex:0 0 auto;display:flex;width:12px;height:12px;margin-top:2px;color:var(--status-caution);}
+.vk-note__ic svg{width:100%;height:100%;}
+
+/* Drop zones: a panel with the canvas's faint diagonal texture; dragging over floods it with the app colour.
+   The zone sets no type (v0.21.1: it was forcing mono capitals onto every line inside); label it with .vk-drop__label.
+   (An insertion line between rows stays a 2px solid marker: it marks a position, it isn't an outline.) */
+.vk-drop{display:grid;place-items:center;color:var(--tx-2);
+  background:var(--bg-2) repeating-linear-gradient(135deg,transparent 0 7px,var(--drop-ground,var(--bg-1)) 7px 8px);}   /* stripes cut down to the ground the zone sits on (Patrick 2026-10-02); set --drop-ground if that isn't --bg-1 */
+.vk-drop__label{font-family:var(--mono);font-size:var(--fs-ctrl);letter-spacing:0.06em;text-transform:uppercase;}
+.vk-drop.is-over{background:color-mix(in srgb,var(--accent) 22%,var(--bg-0));color:var(--accent);}
+
+/* Colour swatches: the swatch sits on a 3px grey tile (a dark colour still needs an edge); the tile tints on hover
+   and turns solid when selected. <span class="vk-swatch is-selected"><i style="background:#c0392b"></i></span> */
+.vk-swatch{display:inline-block;padding:3px;background:var(--bg-3);cursor:pointer;}
+.vk-swatch > i{display:block;width:100%;height:100%;min-width:16px;min-height:16px;}
+.vk-swatch:hover,.vk-swatch.is-hover{background:color-mix(in srgb,var(--accent) 45%,var(--bg-3));}
+.vk-swatch.is-selected{background:var(--accent);}
+
+/* The link light moved to app/link.css (v0.26.1); dist/app.css still includes it. */
+
+/* V3KTR help layer (v0.25.0): the shared tip and the help components, as their own file so an app that pulls only
+   tokens (PROCESSOR, via design.json) can pull this too. dist/app.css includes it after app/app.css, so nothing moves
+   for apps that use the bundle. Behaviour: interactions/help.js. Rules: AGENTS.md "Help and copy". */
+/* ---------------------------------------------------------------- tooltip */
+
+/* from .rail-btn .tip (JS positions it; ink #2b2b2b in PROCESSOR = --bg-2's value) */
+/* width:max-content (v0.41.28, found by DIMENSOR via PC2 M406): a fixed box with auto width shrinks to the space left of its
+   STALE left after a tip was parked near the right edge; place() then measures that narrow width, moves the box left,
+   and the description grows back over the rail. max-content makes the measured width the real one. */
+.vk-tip{position:fixed;width:max-content;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+/* from .rail-btn .tip b */
+.vk-tip b{display:block;font-weight:700;}
+/* from .rail-btn .tip em */
+.vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
+  opacity:0.7;white-space:normal;max-width:190px;}
+/* from .rail-btn:hover .tip */
+.vk-tip.is-shown{opacity:1;}
+/* Help (v0.24.0; V3KTR-PROJEKT/strategy/HELP-PATTERN.md, approved 2026-10-02). Behaviour (when a tip opens and closes)
+   lives in interactions/help.js. ⛔ None of these adds anything to the default view: a tip shows only on hover, focus or
+   long-press; a parameter description only while View → Helper Text is on; hints and empty states REPLACE existing text. */
+.vk-tip kbd{font-family:var(--mono);font-weight:400;margin-left:8px;opacity:0.7;}   /* the key hint after the name, platform-aware via keyLabel() */
+@media (prefers-reduced-motion:reduce){.vk-tip{transition:none;}}
+/* T2 parameter description: one short line under the parameter's row, only while Helper Text is on. */
+.vk-param-desc{display:none;font-size:10.5px;line-height:1.4;color:var(--tx-2);padding:2px 9px 6px;max-width:44ch;}
+[data-helper-text="on"] .vk-param-desc{display:block;}
+/* T3 hint: what's missing and what to do, in a sentence, where the missing thing would be. Real text, never an image. */
+.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2);}
+.vk-hint b{color:var(--tx-1);font-weight:500;}
+/* T3 empty state: a short title and one line saying how to start, in place of the missing content. An existing icon
+   may lead it; don't add one. */
+.vk-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:24px 16px;text-align:center;color:var(--tx-2);}
+.vk-empty__title{font-size:12px;color:var(--tx-1);}
+.vk-empty__body{font-size:11px;line-height:1.45;max-width:30ch;}
+/* T4 toast for an error (interactions/toast.js, kind 'error'): a red tint across the toast, not a red outline. */
+.vk-toast--error{background:color-mix(in srgb,var(--danger) 18%,var(--bg-2));color:var(--tx-0);}
+.vk-toast .vk-btn{margin-left:4px;}
+
+/* V3KTR link light (v0.26.1): .vk-link on its own, so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   it; dist/app.css includes it after app/app.css and app/help.css. Behaviour: interactions/link-light.js. */
+/* ══ LINK LIGHT (v0.26.0; CONNECTIVITY.md W2.3/W4.5): which V3KTR apps are open and linked in this browser, at the top
+   bar's right end, the same in every app. Behaviour: interactions/link-light.js. P · K · D always in that order.
+   This app = its letter in its own colour; linked = a solid tile in that app's colour with a dark letter (a button:
+   switch to it); not open = a grey letter. Flat: no outlines. Never colour alone: each mark has a tip and a label. */
+.vk-link{margin-left:auto;display:flex;align-items:center;gap:3px;}
+.vk-link__mark{display:inline-grid;place-items:center;width:18px;height:18px;padding:0;border:0;background:transparent;
+  font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;color:var(--tx-2);cursor:default;}
+.vk-link__mark[data-app="processor"]{--app:var(--processor);--app-hover:var(--processor-hover);}
+.vk-link__mark[data-app="kompositor"]{--app:var(--kompositor);--app-hover:var(--kompositor-hover);}
+.vk-link__mark[data-app="dimensor"]{--app:var(--dimensor);--app-hover:var(--dimensor-hover);}
+.vk-link__mark.is-self{color:var(--app);}
+.vk-link__mark.is-linked{background:var(--app);color:var(--on-accent);cursor:pointer;}
+.vk-link__mark.is-linked:hover{background:var(--app-hover);}
+
+/* V3KTR depth side view (v0.27.0): the canvas from interactions/side-view.js. Pullable on its own (like app/help.css);
+   dist/app.css includes it. The well that holds it is the app's own (KOMPOSITOR: 132px high on --bg-1). */
+.vk-side-view{display:block;width:100%;height:100%;touch-action:none;}
+.vk-side-view:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR linked-asset badge (v0.28.0; CONNECTIVITY.md W4.5): on its own so an app that pulls files rather than the bundle
+   (PROCESSOR) can pull it; dist/app.css includes it. Behaviour and states: interactions/link-badge.js. Lifted from
+   KOMPOSITOR K25's .bdg.lnk (mono, a 10px chain) with the owner colour from data-owner. Flat: tints and fills, no
+   outlines (keyboard focus keeps its ring). Always the mark + a word. */
+.vk-lnk{display:inline-flex;align-items:center;gap:4px;height:17px;padding:0 6px;border:0;margin:0;vertical-align:middle;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;line-height:1;white-space:nowrap;
+  color:var(--tx-1);background:color-mix(in srgb,var(--owner) 10%,var(--bg-0));cursor:default;}
+.vk-lnk svg{flex:0 0 auto;width:10px;height:10px;color:var(--owner);}
+.vk-lnk[data-owner="processor"]{--owner:var(--processor);--owner-hover:var(--processor-hover);}
+.vk-lnk[data-owner="kompositor"]{--owner:var(--kompositor);--owner-hover:var(--kompositor-hover);}
+.vk-lnk[data-owner="dimensor"]{--owner:var(--dimensor);--owner-hover:var(--dimensor-hover);}
+button.vk-lnk{cursor:pointer;}
+button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),var(--bg-0));color:var(--tx-0);}
+/* Update available: the one state with an action of its own, so a solid fill in the owner's colour */
+.vk-lnk[data-state="update"],
+.vk-lnk[data-state="update"] svg{color:var(--on-accent);}
+.vk-lnk[data-state="update"]{background:var(--owner);}
+.vk-lnk[data-state="update"]:hover{background:var(--owner-hover);color:var(--on-accent);}
+/* Source not responding: caution, as the status rule says (an icon and a word, the yellow tint of a warning note) */
+.vk-lnk[data-state="stale"]{background:color-mix(in srgb,var(--status-caution) 16%,var(--bg-0));color:var(--tx-0);}
+.vk-lnk[data-state="stale"] svg{color:var(--status-caution);}
+/* Source closed and Frozen: nothing will change, so a grey mark (3.3:1, a non-text mark) with a --tx-1 word (7.3:1; --tx-2 text on --bg-3 fails 4.5) */
+.vk-lnk[data-state="closed"],.vk-lnk[data-state="frozen"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="closed"] svg,.vk-lnk[data-state="frozen"] svg{color:var(--tx-2);}
+/* File (v0.34.0): dropped as files, no live link: neutral like Source closed, and a document mark, never the chain */
+.vk-lnk[data-state="file"]{background:var(--bg-3);color:var(--tx-1);}
+.vk-lnk[data-state="file"] svg{color:var(--tx-2);}
+.vk-lnk:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR panel sections (v0.32.0): on their own so an app that pulls files rather than the bundle (PROCESSOR) can pull
+   them; dist/app.css includes them. Rule: AGENTS.md "Panel sections"; tested by test/sections.test.mjs.
+   Every panel is a run of .vk-section blocks. Space alone groups them (Patrick 2026-10-03: no divider lines, which
+   turn to noise when there are many): --sec-pad (22px) at the sides and at the top and bottom of the panel,
+   --sec-gap (33px) from one section's last control to the next section's title, and the title (.vk-sec-head or
+   .vk-sec-label) --sec-head-gap (14px) above its first control. A title always reads with the controls below it.
+   The panel adds no padding of its own around the sections. (v0.31.x drew a 2px line between sections: retired.) */
+.vk-section{padding:0 var(--sec-pad);}
+.vk-section:first-child{padding-top:var(--sec-pad);}
+.vk-section:last-child{padding-bottom:var(--sec-pad);}
+.vk-section + .vk-section{margin-top:var(--sec-gap);}
+.vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
+
+/* V3KTR workspace frames (v0.36.0, Patrick 2026-10-08): on their own so an app that pulls files rather than the bundle
+   (PROCESSOR) can pull them; dist/app.css includes them. Rule: AGENTS.md "Workspace frames"; tested by test/frames.test.mjs.
+   A FRAME is one area of the workspace (side panel, stack, parameters, explorer half). Inside it:
+   - the SCROLL AREA (.vk-scroll) sits --pad in from every edge of the frame and touches nothing, so content never
+     scrolls into a separator or a frame edge. The sections inside it drop their own side and end padding (the scroll
+     area's inset is that padding) and keep --sec-gap between them: subsections part by space, never a line.
+   - a FRAME SEPARATOR (.vk-fsep) sits ON the frame edge, --stroke wide in --line, inset --pad along its length, so it
+     touches no other separator, frame edge or page edge and lines up with the scroll areas beside it. It belongs to the
+     frame before it (above, or to the left) by default; either neighbour may own it.
+   - a scroll area FADES at an edge that has more content past it: top once it has been scrolled, bottom while there is
+     more below (interactions/scroll-fade.js sets the data attributes). The fade is a mask, so it works on any ground.
+   - optional: a vertical separator can carry a resize GRIP (.vk-fsep__grip), a --grip square centred on the line in
+     the separator colour with the icon in the ground colour (interactions/split-grip.js). */
+/* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
+   grip would scroll the frame sideways) */
+.vk-frame{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;}
+/* .vk-scrollbar: the house scrollbar alone (thin, --bg-4 thumb, transparent track), no inset or fade — for a scroll
+   area that ISN'T a workspace-frame scroll area (a modal list, a dialog's inner scroll, an inspector sub-list),
+   where .vk-scroll's own margin:var(--pad) and fade vars would be wrong. .vk-scroll uses the same rule below, so
+   there's one definition. (v0.41.18, from KOMPOSITOR's scroll-area audit, 2026-10-09: its font-browser modal list,
+   export-dialog credits box and transition-inspector list were all showing the browser default bar instead.) */
+/* THE HOUSE BAR (v0.41.29, Patrick 2026-10-21): the square --bg-4 thumb on a transparent track, with a 6px GAP built into the bar
+   (a transparent left border on the thumb, background-clip:padding-box) so it never touches the content, and it only takes the
+   room when a bar is shown. Was width:9px flush; and scrollbar-width:thin was set alongside it, which makes Chromium IGNORE every
+   ::-webkit-scrollbar rule, so KOMPOSITOR and DIMENSOR rendered the browser's standard thin bar instead (found by PROCESSOR
+   2026-10-14). The standard properties now apply only where ::-webkit-scrollbar is unsupported (Firefox). */
+.vk-scrollbar::-webkit-scrollbar,.vk-scroll::-webkit-scrollbar{width:15px;height:15px;}
+.vk-scrollbar::-webkit-scrollbar-track,.vk-scroll::-webkit-scrollbar-track{background:transparent;}
+.vk-scrollbar::-webkit-scrollbar-thumb,.vk-scroll::-webkit-scrollbar-thumb{background:var(--bg-4);background-clip:padding-box;}
+.vk-scrollbar::-webkit-scrollbar-thumb:vertical,.vk-scroll::-webkit-scrollbar-thumb:vertical{border-left:6px solid transparent;}
+.vk-scrollbar::-webkit-scrollbar-thumb:horizontal,.vk-scroll::-webkit-scrollbar-thumb:horizontal{border-top:6px solid transparent;}
+/* the square where a vertical and a horizontal bar meet is otherwise the browser's white (v0.41.30, found by KOMPOSITOR's EDIT timeline) */
+.vk-scrollbar::-webkit-scrollbar-corner,.vk-scroll::-webkit-scrollbar-corner{background:transparent;}
+@supports not selector(::-webkit-scrollbar){.vk-scrollbar,.vk-scroll{scrollbar-width:thin;scrollbar-color:var(--bg-4) transparent;}}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;}
+/* .rail-scroll: an icon-only rail (no text, navigation chrome rather than a content area) — never .vk-scroll,
+   which must always show the house bar. Promoted to a real shared class (v0.41.13, from DIMENSOR's conformance-
+   audit follow-up): PROCESSOR and DIMENSOR had each already built this exact rule locally (--pad inset, the same
+   fade vars, scrollbar hidden on both engines) — this generalises what already converged, it isn't new UI. An app
+   still owns the class name on its markup; this just gives it something to pull instead of hand-copying.
+   (v0.40.0: KOMPOSITOR's .rail was wrongly in its thin-scrollbar selector, showing a bar the other two hide —
+   the regression Patrick flagged, and the reason this stayed app-local until now.) */
+.rail-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;
+  scrollbar-width:none;}
+.rail-scroll::-webkit-scrollbar{width:0;}
+.rail-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
+.rail-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+.rail-scroll:is([data-fade-top],[data-fade-bottom]){
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
+.vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
+.vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+/* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context */
+.vk-scroll:is([data-fade-top],[data-fade-bottom]){
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
+.vk-scroll > .vk-section{padding:0;}
+.vk-scroll > .vk-section:first-child,.vk-scroll > .vk-section:last-child{padding:0;}
+/* a fixed head (title row, action row) above a scroll area: same side inset, no bottom inset of its own; the scroll
+   area below it then drops its top margin so the head reads with its content */
+.vk-frame-head{flex:0 0 auto;margin:var(--pad) var(--pad) 0;}
+.vk-frame-head + .vk-scroll{margin-top:var(--sec-head-gap);}
+.vk-fsep{position:absolute;background:var(--line);pointer-events:none;z-index:1;}
+.vk-fsep--b{left:var(--pad);right:var(--pad);bottom:0;height:var(--stroke);}
+.vk-fsep--t{left:var(--pad);right:var(--pad);top:0;height:var(--stroke);}
+.vk-fsep--r{top:var(--pad);bottom:var(--pad);right:0;width:var(--stroke);}
+.vk-fsep--l{top:var(--pad);bottom:var(--pad);left:0;width:var(--stroke);}
+.vk-fsep__grip{position:absolute;top:50%;left:50%;width:var(--grip);height:var(--grip);transform:translate(-50%,-50%);
+  background:var(--line);color:var(--bg-1);display:flex;align-items:center;justify-content:center;
+  pointer-events:auto;cursor:col-resize;touch-action:none;}
+.vk-fsep__grip--h{cursor:row-resize;}   /* on a horizontal line (v0.37.0) */
+.vk-fsep__grip svg{width:12px;height:12px;display:block;}
+.vk-fsep__grip:hover,.vk-fsep__grip.is-dragging{background:var(--hover);color:var(--on-accent);}
+.vk-fsep__grip:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
+
+/* V3KTR status bar (v0.38.1; Patrick 2026-10-08): the bottom-left strip of live readouts (GPU, fps, the open
+   document's stats, …). On its own so an app that pulls files rather than the bundle (PROCESSOR) can pull it;
+   dist/app.css includes it. Rule: AGENTS.md "Status bar".
+   One class, .vk-status, on the bar's own container: its direct children (however many, however an app builds
+   them) get a dot between them automatically, the same character as the Livelink menu's dot (.menu-dot). No
+   per-item markup change: an app adopts this by renaming its existing bar's class (PROCESSOR/KOMPOSITOR/DIMENSOR
+   all call it .status today) to .vk-status, nothing else.
+   Two gotchas, both found by PROCESSOR's adoption (2026-10-08):
+   - A child that should disappear must leave the DOM, not just hide (display:none), or the dot before the next
+     VISIBLE item is missing (only a problem when the hidden one was first: :first-child still sees it).
+   - An EMPTY child (PROCESSOR's fps readout is blank at rest by design) still counts as a sibling and still draws
+     a dot, with nothing after it: :empty is taken out of the flow below, the same as display:none would be, so an
+     app can leave an empty placeholder in the DOM without a stray dot.
+   test/status.test.mjs checks both. No fixed height: the row sizes from its own padding, so it works under the
+   Window margin rule (--frame-bottom, where an app sets it) and without it (a plain 4px bottom elsewhere). */
+.vk-status{display:flex;align-items:center;gap:0;padding:4px var(--pad) var(--frame-bottom, 4px);background:var(--bg-1);
+  font:10.5px var(--mono);letter-spacing:.04em;color:var(--tx-2);white-space:nowrap;overflow:hidden;}
+.vk-status>:empty{display:none;}
+.vk-status>*{margin-right:16px;}
+.vk-status>*:last-child{margin-right:0;}
+.vk-status>*:not(:first-child)::before{content:'·';color:var(--tx-2);opacity:.6;margin-right:8px;}
+
+/* V3KTR thumbnails (v0.41.10): Looks, roll cells, media, materials. On their own so an app that pulls files rather
+   than the bundle (PROCESSOR) can pull it; dist/app.css includes it. Rule: AGENTS.md "Flat, not outlined".
+   The colour goes over the picture. Hover = a 32% wash; selected = the app colour in "color" blend (recolours the
+   image in the app hue) + a solid check square.
+   <div class="vk-thumb is-selected"><img ...><span class="vk-thumb__chk">✓</span></div>
+   A thumbnail's <img> must never be left src-less (PROCESSOR, 2026-10-08): an empty src draws the browser's own
+   broken-image frame, which no class here reaches (it isn't CSS, so nothing in this file can fix it) — set a
+   transparent placeholder (a 1×1 GIF) until the real thumbnail is ready. */
+.vk-thumb{position:relative;cursor:pointer;isolation:isolate;}
+.vk-thumb::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;z-index:1;}
+.vk-thumb:hover::after,.vk-thumb.is-hover::after{opacity:var(--thumb-wash);}
+.vk-thumb.is-selected::after{opacity:1;mix-blend-mode:color;}
+.vk-thumb__chk{position:absolute;top:0;right:0;z-index:2;width:18px;height:18px;display:none;place-items:center;
+  background:var(--accent);color:var(--on-accent);font:700 11px/1 var(--mono);}
+.vk-thumb.is-selected .vk-thumb__chk{display:grid;}
+/* A card with a label under its picture: the whole card carries the state (Patrick 2026-10-02). A selected card's
+   label is SOLID app colour with dark text, so selection reads even on a picture that is already the app colour.
+   Put .vk-thumb on the card and .vk-thumb__label on the name; the wash/blend covers the picture via .vk-thumb__pic. */
+.vk-thumb--card::after{display:none;}
+/* One unit (Patrick 2026-10-02): picture and label meet with no gap, and the label sits on --bg-2 at rest so the card
+   reads as one block. The label's text is centred on its capitals (text-box trim), not on the line box. Size pinned
+   to PROCESSOR's own Looks label (2026-10-08: it was unset, so every app inherited a different size by accident). */
+.vk-thumb--card{display:flex;flex-direction:column;gap:0;}
+.vk-thumb__label{display:block;background:var(--bg-2);color:var(--tx-1);font-size:9px;letter-spacing:0.03em;
+  padding:6px 5px;line-height:1.2;text-box:trim-both cap alphabetic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-thumb__pic{position:relative;isolation:isolate;}
+.vk-thumb__pic::after{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none;}
+.vk-thumb--card:hover .vk-thumb__pic::after,.vk-thumb--card.is-hover .vk-thumb__pic::after{opacity:var(--thumb-wash);}
+.vk-thumb--card.is-selected .vk-thumb__pic::after{opacity:1;mix-blend-mode:color;}
+.vk-thumb--card:hover .vk-thumb__label,.vk-thumb--card.is-hover .vk-thumb__label{background:color-mix(in srgb,var(--accent) 32%,var(--bg-2));color:var(--tx-0);}
+.vk-thumb--card.is-selected .vk-thumb__label{background:var(--accent);color:var(--on-accent);}
+/* A tile still waiting for its thumbnail shows an X (v0.41.10, Patrick 2026-10-08, from his mockup, lifted from
+   PROCESSOR's Looks grid): four strokes that stop short of the corners (7% in) and leave a gap at the centre,
+   DARKER than the resting grey (--bg-1 on --bg-3). Drawn as an SVG mask so the colour stays a token; put
+   .is-empty on .vk-thumb__pic (or .vk-thumb itself, for the non-card layout) and clear it the moment a real
+   picture loads — this is not the broken-image fix above, it's the deliberate "nothing here yet" state. */
+.vk-thumb__pic.is-empty::before,.vk-thumb.is-empty::before{content:'';position:absolute;inset:0;pointer-events:none;background:var(--bg-1);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;}
+
+body{margin:0;background:var(--bg-0);font:12px/1.5 var(--mono);color:var(--tx-1)}
+h1{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-0);margin:0}
+.wrap{display:flex;gap:28px;padding:24px;align-items:flex-start}
+.panel{width:400px;background:var(--bg-2);box-sizing:border-box;padding:22px 22px 8px;flex:none}
+.lab{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tx-2);margin:22px 0 8px}.lab:first-child{margin-top:0}
+.cap{color:var(--tx-2);font-size:10.5px;margin:6px 0 0}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.row{display:flex;gap:10px;align-items:center;height:34px;background:var(--bg-2)}.row.sel{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2))}
+.rt{width:28px;height:28px;flex:none;margin-left:3px}.rn{display:flex;flex-direction:column;line-height:1.15}.rn b{font-weight:400;color:var(--tx-0)}.rn i{font-style:normal;font-size:9.5px;color:var(--tx-2)}
+.rows{display:flex;flex-direction:column;gap:3px}
+.col2{flex:1;min-width:0}
+.card2{background:var(--bg-2);padding:22px;margin-bottom:22px}
+table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:5px 8px 5px 0;vertical-align:top;font-weight:400;border-bottom:1px solid var(--line)}th{color:var(--tx-2);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+td b{color:var(--tx-0);font-weight:400}
+.isz{margin-bottom:10px}.isz div{display:flex;gap:14px;color:var(--tx-1)}.isz i,.st i{font-style:normal;color:var(--tx-2);font-size:10px}
+.sts{display:flex;gap:26px}.st{display:flex;flex-direction:column;align-items:center;gap:4px}
+.seg{display:inline-flex;gap:2px;background:var(--bg-1);padding:2px}
+</style></head><body data-app="dimensor"><div class="wrap">
+<div class="panel" style="min-height:900px">
+<div class="lab">Mode: 8 options that look different, a tile grid, M tile (4-up)</div>
+<div class="g4" role="radiogroup" aria-label="Poly seed"><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Sphere"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Sphere</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Cube"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M50 20L78 35V65L50 80L22 65V35z" fill="url(#g)"/><path d="M50 50V80M50 50L22 35M50 50L78 35" stroke="#2b2b2b" stroke-width="1.4" fill="none"/></svg></div><span class="vk-thumb__label">Cube</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Cone"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M50 18L76 76H24z" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Cone</span></div><div class="vk-thumb vk-thumb--card is-selected" role="radio" aria-checked="true" tabindex="0" aria-label="Torus"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><ellipse cx="50" cy="52" rx="32" ry="20" fill="url(#g)"/><ellipse cx="50" cy="52" rx="13" ry="7" fill="#3a3a3a"/></svg></div><span class="vk-thumb__label">Torus</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Star"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M50 16L60 40L86 42L66 58L72 84L50 70L28 84L34 58L14 42L40 40z" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Star</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Ring"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><circle cx="50" cy="50" r="28" fill="none" stroke="url(#g)" stroke-width="12"/></svg></div><span class="vk-thumb__label">Ring</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Cross"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M40 18H60V40H82V60H60V82H40V60H18V40H40z" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Cross</span></div><div class="vk-thumb vk-thumb--card" role="radio" aria-checked="false" tabindex="0" aria-label="Wave"><div class="vk-thumb__pic" style="aspect-ratio:1"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M10 56C24 30 36 30 50 56S76 82 90 56V84H10z" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Wave</span></div></div>
+<div class="cap">1:1 picture, 9px label under it. A 356px content width (400 minus two 22px insets) gives an 84px tile.</div>
+<div class="lab">Mode: 3 options that do not, a text segmented control, not tiles</div>
+<div class="seg"><button class="vk-btn vk-btn--compact is-on">Linear</button><button class="vk-btn vk-btn--compact">Radial</button><button class="vk-btn vk-btn--compact">Spiral</button></div>
+<div class="lab">Library: cards, L card (3-up, 4:3)</div>
+<div class="g3"><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Chrome</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><ellipse cx="50" cy="52" rx="32" ry="20" fill="url(#g)"/><ellipse cx="50" cy="52" rx="13" ry="7" fill="#3a3a3a"/></svg></div><span class="vk-thumb__label">Brushed</span></div><div class="vk-thumb vk-thumb--card is-selected"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#f0cf70"/><stop offset="1" stop-color="#8a6a1c"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Gold</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M50 20L78 35V65L50 80L22 65V35z" fill="url(#g)"/><path d="M50 50V80M50 50L22 35M50 50L78 35" stroke="#2b2b2b" stroke-width="1.4" fill="none"/></svg></div><span class="vk-thumb__label">Matte</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><circle cx="50" cy="50" r="28" fill="none" stroke="url(#g)" stroke-width="12"/></svg></div><span class="vk-thumb__label">Satin</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic" style="aspect-ratio:4/3"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M10 56C24 30 36 30 50 56S76 82 90 56V84H10z" fill="url(#g)"/></svg></div><span class="vk-thumb__label">Concrete</span></div></div>
+<div class="g3" style="margin-top:6px"><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic is-empty" style="aspect-ratio:4/3;background:var(--bg-3)"></div><span class="vk-thumb__label">rendering</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic is-empty" style="aspect-ratio:4/3;background:var(--bg-3)"></div><span class="vk-thumb__label">rendering</span></div><div class="vk-thumb vk-thumb--card"><div class="vk-thumb__pic is-empty" style="aspect-ratio:4/3;background:var(--bg-3)"></div><span class="vk-thumb__label">rendering</span></div></div>
+<div class="cap">Selected is the existing wash plus a solid label. The second row shows tiles still rendering (lazy-loaded): the X.</div>
+<div class="lab">Lists: rows, 28px thumb in a 34px row</div>
+<div class="rows"><div class="row"><div class="rt"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M50 20L78 35V65L50 80L22 65V35z" fill="url(#g)"/><path d="M50 50V80M50 50L22 35M50 50L78 35" stroke="#2b2b2b" stroke-width="1.4" fill="none"/></svg></div><div class="rn"><b>Studio Floor</b><i>Material · Matte</i></div></div><div class="row sel"><div class="rt"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(#g)"/></svg></div><div class="rn"><b>Key light</b><i>Lighting · Rembrandt</i></div></div><div class="row"><div class="rt"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="display:block;width:100%;height:100%;background:var(--bg-3)"><defs><radialGradient id="g" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0e0e0"/><stop offset="1" stop-color="#7a7a7a"/></radialGradient></defs><path d="M10 56C24 30 36 30 50 56S76 82 90 56V84H10z" fill="url(#g)"/></svg></div><div class="rn"><b>Dunes</b><i>Environment · sand</i></div></div></div>
+</div>
+<div class="col2">
+<div class="card2"><h1>Icons: drawn, monochrome, token-coloured</h1><div class="lab">Sizes (one drawing, 24 grid, 1.4 stroke)</div><div class="isz"><div><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg></span><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></span><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-6.5 10-6.5S22 12 22 12s-4 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></span><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/></svg></span><span style="display:inline-flex;width:14px;height:14px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span></div><i>14px · menus, rows</i></div><div class="isz"><div><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg></span><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></span><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-6.5 10-6.5S22 12 22 12s-4 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></span><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/></svg></span><span style="display:inline-flex;width:16px;height:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span></div><i>16px · buttons, chips</i></div><div class="isz"><div><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg></span><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></span><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-6.5 10-6.5S22 12 22 12s-4 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></span><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/></svg></span><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span></div><i>20px · toolbars</i></div><div class="isz"><div><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg></span><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></span><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-6.5 10-6.5S22 12 22 12s-4 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></span><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/></svg></span><span style="display:inline-flex;width:24px;height:24px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span></div><i>24px · rail tiles (in a 40px tile)</i></div><div class="lab">States (a latching icon is text colour only; locked is the .vk-lock marker)</div><div class="sts"><div class="st"><span style="color:var(--tx-2);opacity:1"><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span></span><i>rest</i></div><div class="st"><span style="color:var(--tx-0);opacity:1"><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span></span><i>hover</i></div><div class="st"><span style="color:var(--accent);opacity:1"><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span></span><i>on</i></div><div class="st"><span style="color:var(--tx-2);opacity:0.4"><span style="display:inline-flex;width:20px;height:20px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg></span></span><i>disabled</i></div></div></div>
+<div class="card2"><h1>Which control gets what</h1><table>
+<tr><th>The choice is</th><th>Use</th><th>Example</th></tr>
+<tr><td>an action or verb</td><td><b>icon</b> + label (menus), icon-only + tip (toolbars)</td><td>Save, Export, Lock</td></tr>
+<tr><td>a category or object kind</td><td><b>icon</b>, group colour via currentColor</td><td>FX rail, stack row, Add catalogue</td></tr>
+<tr><td>2 to 3 options, words say it</td><td><b>text</b> segmented control</td><td>Linear, Radial, Spiral</td></tr>
+<tr><td>4 to 12 options that LOOK different</td><td><b>tile grid</b> (rendered thumbnails)</td><td>Poly seed, Thorns shape, Spikes formula</td></tr>
+<tr><td>a few options, long names, no visible difference</td><td><b>select</b></td><td>Blend mode, frame rate</td></tr>
+<tr><td>13+ content items, searchable</td><td><b>Library cards</b> + chips + search</td><td>Materials, Looks, Environments</td></tr>
+<tr><td>a result list to scan</td><td><b>rows</b> with a 28px thumb</td><td>Stack presets, saved looks</td></tr>
+<tr><td>a colour or gradient</td><td><b>swatch</b> (its own fill is the content)</td><td>Palette strip</td></tr></table></div>
+</div></div></body></html>
