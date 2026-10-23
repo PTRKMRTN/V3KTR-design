@@ -122,3 +122,19 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
 2. Sizes S 56 / M 84 / L card, 6px gap. Yes. **Poly's 18 seeds are S tiles** (6-up, name as a tip).
 3. Colourless grey renders by default, colour only where colour is the content (§4). Yes.
 4. `--true-colour` selection for colour-content tiles (§8.3). Yes.
+
+## 11. How this applies to PROCESSOR and KOMPOSITOR (mock: `docs/icons-thumbnails-mock-apps.html`)
+
+Real option names from the apps' source; pictures in the mock are stand-ins.
+
+**PROCESSOR.** Icons: already on the language (FX rail, menus, rows). Tiles for a Mode, by the §2 rule:
+- **Tile candidates:** Halftone *Shape* (Dot/Line/Cross/Square), Hatch *Mode* (7), Reflections *Material* (6, true colour), Glass (4), Infill (7), Reaction *Preset* (6), Shape (7), Device (8).
+- **Stay a select or text:** Dither *Algorithm* (12 options, nearly alike at 84px), Channel (RGB/Luma/R/G/B), Ray Count, Range, Colour (Mono/Source/Duo/ANSI), Snap.
+- **The one real difference:** in PROCESSOR the image is the seed, so a Mode tile is the effect applied to a picture. Proposal: render on a built-in grey test figure (instant, same in every session, cached per effect version); "preview on my image" can come later as an option. The Looks grid already exists as `.vk-thumb--card` and converges on the shared grid.
+
+**KOMPOSITOR.** It is furthest along: Looks, Media, Text presets and Transitions are already `.vk-thumb--card` tiles with live-rendered canvases (320×180 shown at half, so already "2×"). What it gains:
+- **New tiles:** Light leak *kind* (7: Edge bloom, Burn, Prism edge, Anamorphic streak, Lens flare, Sun glare, Beat flash; true colour) and Background presets.
+- **Stays as it is:** Style (8 project styles) stays icon cards: a style is a way of working, not a picture you pick.
+- **Convergence:** the shared grid at a 6px gap (its Text presets grid is 8px today) and a **16:9 shape modifier** (`.vk-thumb--video`), which the proposal's §8 did not list and needs.
+
+**What the three apps share:** the same CSS (§8, plus `--video`), the same rule for tile vs select vs Library, and the same true-colour selection for colour-content tiles. Icons need nothing new.
