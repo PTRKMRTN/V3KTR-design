@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.32 — 2026-10-24
+
+- **Icon and thumbnail system: the shared tile CSS (Patrick 2026-10-24, "lock and load", from `docs/ICONS-AND-THUMBNAILS.md`).** New in `app/thumbs.css`: `.vk-tilegrid` (+ `--s` / `--m` / `--l`), a grid of picker tiles whose sizes are minimums (52 / 78 / 108px) that fill the row evenly with a 6px gap (6 / 4 / 3 across at the standard 356px content width), the S size showing its name as a tip only; `.vk-thumb--sq` / `--wide` / `--video` for the picture shape (1:1, 4:3, 16:9); `.vk-thumb--true-colour` for tiles whose colour is the content (no hover wash and no selected colour-blend on the picture, the solid label and the check carry the state). Rule for when to use tiles: a selector with 4–12 options that look visibly different at 84px; otherwise a text segmented control or a select, and 13+ is the Library. Nothing changes in an app until it adopts the classes. Rendering rules for the thumbnails themselves (bevelled-cube test figure, `#3a3a3a` floor, per-selector grid, tile preview scale, never loose interpretation) are in the doc; apps render their own thumbnails.
+
 ## 0.41.31 — 2026-10-23
 
 - **New: `.vk-btn--compact`**, the middle button size (Patrick 2026-10-23, via PROCESSOR). 10px text, 5×8 padding, 22px tall, for a tool row in a side panel: Reset / Randomise / +Features / +Blends and similar. Measured in a 272px tray: the standard button row needs 323px (75px over), `.vk-btn--compact` fits, `.vk-btn--sm` fits but is a 16px footnote size. Nothing changes until an app adopts it.

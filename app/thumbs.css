@@ -37,3 +37,19 @@
 .vk-thumb__pic.is-empty::before,.vk-thumb.is-empty::before{content:'';position:absolute;inset:0;pointer-events:none;background:var(--bg-1);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;}
+/* ICON + THUMBNAIL SYSTEM (v0.41.32, Patrick 2026-10-23/24; rules: docs/ICONS-AND-THUMBNAILS.md). A grid of picker tiles for 4-12 options that LOOK
+   different (a Mode, a seed, a material). The sizes are MINIMUMS and the tiles stretch to fill the row evenly, so the count per row adapts to the panel
+   width with no ragged edge: at the standard 356px content width S is 6-up, M 4-up, L 3-up. Gap 6px. Build each tile as .vk-thumb.vk-thumb--card with
+   role=radio inside a role=radiogroup; the picture is decorative (alt=""), the name is the aria-label and data-tip. Tiles are square-cornered with no border. */
+.vk-tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile-min,78px),1fr));gap:6px;}
+.vk-tilegrid--s{--tile-min:52px;}.vk-tilegrid--m{--tile-min:78px;}.vk-tilegrid--l{--tile-min:108px;}
+.vk-tilegrid--s .vk-thumb__label{display:none;}
+/* picture shape: 1:1 for a Mode or seed, 4:3 for a Library card, 16:9 for a video frame (KOMPOSITOR) */
+.vk-thumb--sq .vk-thumb__pic{aspect-ratio:1;}
+.vk-thumb--wide .vk-thumb__pic{aspect-ratio:4/3;}
+.vk-thumb--video .vk-thumb__pic{aspect-ratio:16/9;}
+.vk-thumb__pic>img,.vk-thumb__pic>canvas,.vk-thumb__pic>svg{display:block;width:100%;height:100%;object-fit:contain;}
+/* TRUE COLOUR: a tile whose colour IS the content (a coloured material, a palette, a sky, a light leak) keeps its picture as rendered when hovered or
+   selected. The default wash and the selected colour-blend would recolour it to the app hue and hide what was chosen (the chip rule's swatch
+   exception). State is carried by the label and the check instead: put <span class="vk-thumb__chk">✓</span> in the tile. */
+.vk-thumb--true-colour .vk-thumb__pic::after{display:none;}
