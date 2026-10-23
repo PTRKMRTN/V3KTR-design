@@ -46,7 +46,7 @@ A **Mode** (one primary variant selector) is the usual tile-grid candidate; a **
 | **L card** | Library, presets | 4:3, ~115px | 3-up (2-up in a narrow panel) | 9px under the picture |
 | **Row thumb** | lists, results | 1:1, 28px in a 34px row | n/a | the row's title + one muted line |
 
-Gap 6px everywhere (the existing `.vk-thumb--card` rhythm). One component: **`.vk-thumb--card`** (exists), plus a grid
+**Fill-width rule (from DIMENSOR's LIB2, 2026-10-23):** the sizes above are **minimums**, not fixed columns. A tile grid is `repeat(auto-fill, minmax(var(--tile-min), 1fr))` with the minimum S 52 / M 78 / L card 108, so the number of tiles per row adapts to the panel width and the tiles **stretch to fill the row evenly with no ragged space on the right**. At the standard 356px content width that gives exactly 6 / 4 / 3 columns (S 54px, M 84px, L ~115px), so the table is what you see at the default width and a narrower or wider panel changes the count, not the gap. Gap 6px everywhere (the existing `.vk-thumb--card` rhythm). One component: **`.vk-thumb--card`** (exists), plus a grid
 container and two shape modifiers (§8). Selected/hover/empty behave exactly as `.vk-thumb--card` does today.
 
 ## 4. Thumbnail rendering rules (so thumbnails made by scripts stay consistent)
@@ -65,6 +65,10 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
    (`.is-empty`) until the picture lands, a transparent 1×1 until then (never a src-less `<img>`). An app that cannot render
    on a given device shows the X permanently and the label carries the choice; the control still works.
 
+9. **Fit and padding (DIMENSOR LIB2):** a tile's drawing is scaled to FIT a padded box: **3–4px inner padding**, `object-fit:contain`, so the drawing's longer axis touches the padding, measured on the actual ink, not the canvas; the same in every tile of a grid so a row reads at one visual size. Applies to drawn and rendered tiles alike.
+10. **One ground for all tiles** in a grid or Library (rule 2): no per-tile blue, black or white grounds.
+11. **Drawn thumbnails** (a lighting diagram, a gobo, a path kind) are *drawn*, not rendered: monochrome, the one lit or active element in `--accent`, everything else greys. They follow the same fit, ground and size rules.
+
 ## 5. Icons
 
 - **Language (unchanged, now written once for everything):** 24 grid, **1.4 stroke**, round caps and joins, no fills,
@@ -79,6 +83,7 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
   An icon-only control always has `data-tip` + `aria-label`.
 - **States:** rest `--tx-2` · hover `--tx-0` · on = `--accent` text colour only (the standing exception: small icon toggles
   never fill) · disabled 40% · locked = the `.vk-lock` marker, top right. Selected row: `--tx-0` (v0.41.18).
+- **Icon backlog (DIMENSOR D49):** every tile in an Add-rail group has a unique icon; four are placeholders to redraw here first: **gradient, picture, fog, glb** (point, area, sun, bounce, flag, reflection reuse existing drawings). A new kind is drawn in this repo, then used in the app. Rail group colours stay as they are (Patrick 2026-10-23): FX group colours tint the rail icons, the selected rail fill, the group chips, the stack row icons and the panel title icon.
 - **Group colour:** an FX-family or object-kind icon takes `--gcol` from the group map (AGENTS.md); no other icon is coloured.
 
 ## 6. Accessibility
@@ -138,3 +143,15 @@ Real option names from the apps' source; pictures in the mock are stand-ins.
 - **Convergence:** the shared grid at a 6px gap (its Text presets grid is 8px today) and a **16:9 shape modifier** (`.vk-thumb--video`), which the proposal's §8 did not list and needs.
 
 **What the three apps share:** the same CSS (§8, plus `--video`), the same rule for tile vs select vs Library, and the same true-colour selection for colour-content tiles. Icons need nothing new.
+
+## 12. Input from DIMENSOR (2026-10-23), treated as input to the system
+
+Shipped on DIMENSOR staging and decided by Patrick: D48 (Library = choosing, params = editing; chips Materials · Presets · Lighting · Environment · Looks · Stacks; Presets = 44 `.vk-thumb--card` cards filtered by the selected object's kind; Looks = whole scenes only), D49 (Add rail adds a thing, the Library picks variants; Environment 4, Lights 7, Atmosphere 3, Ground 3 tiles, each with a unique icon), mode tiles (`src/ui/modetiles.js`: Poly seed, Thorns Shape, Spikes Formula, Text Path, Fog look, Particles preset). Built into this proposal: the fill-width rule (§3), fit and padding (§4.9), one ground (§4.10), drawn thumbnails (§4.11), the icon backlog (§5).
+
+How DIMENSOR's open points resolve against the decided rules:
+- **Tile sizes vs "fill the row":** resolved by the fill-width rule: sizes are minimums, columns adapt, tiles stretch evenly (§3).
+- **Fit/padding:** a rendering rule (§4.9), not an app one.
+- **Colour tint on selected mode tiles:** DIMENSOR's mode tiles use today's colour blend. For tiles whose colour is the content (materials, lighting, environment pictures, Demoscene) the decided rule replaces it with true colour (label + check); **grey-render mode tiles keep the colour blend**, which is exactly what it was designed for.
+- **Params-head tools (Reset / Randomise / Options):** use `.vk-btn--compact` (v0.41.31, already released; it is PROCESSOR's tool-row size).
+- **Greyscale chrome, lighting diagrams in `--accent`, white group titles in chips:** consistent with §4 and §4.11.
+- **Still open (not decided, Patrick's):** nothing new from this note; the CSS in §8 (plus `--video` for KOMPOSITOR's 16:9 tiles) waits for his go to integrate.
