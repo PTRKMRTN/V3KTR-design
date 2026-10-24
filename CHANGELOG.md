@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.42 — 2026-10-24
+
+- **Rules: text is left-aligned; buttons hug their text (Patrick 2026-10-24, via DIMENSOR).** AGENTS.md: most text is left-aligned (centre only where the thing is centred, e.g. `.vk-empty`); a button is its text plus its own padding, never `width:100%` / `flex:1` / stretched to match a neighbour's width. New `.vk-btn-col`: a stack of buttons, column, `align-items:flex-start`, 6px apart, each its own width (DIMENSOR's Render head: Render · Standard / Render · Draft / Render loop…). Audit of the shared CSS: no shared button class stretches its width, and the only centred text is `.vk-empty`, so nothing else changes. The v0.41.35 row stretch is HEIGHT only and stays.
+
 ## 0.41.41 — 2026-10-24
 
 - **Process rule (Patrick 2026-10-24): consult the design system before building any UI; if it has no pattern, ask him.** New top section of AGENTS.md "Before you build any UI" (look up, use what exists, no pattern means stop and ask, name the shared classes in the report) and `scripts/find-pattern.mjs <word>`, which searches the shared classes, their comments, AGENTS.md, the icon sets and the docs, and prints "NO HIT: ask Patrick" when the system has nothing. Documentation and a script only; no CSS change.
