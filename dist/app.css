@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.39
+/* V3KTR design tokens · v0.41.40
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -121,7 +121,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.39 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.40 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -286,6 +286,7 @@
        <div class="vk-roll-pair" role="group" aria-label="Randomise and Blends">
          <button class="vk-btn vk-btn--compact vk-roll-rand">${ROLL_DICE_SVG}Randomise</button>
          <button class="vk-roll-blends" role="switch" aria-checked="false"><span>Blends</span><span class="vk-roll-blends__sw" aria-hidden="true"><i></i></span></button></div></div>
+   SIZE: `--compact` is for THIS param tool row only; every other roll / random button is a normal `.vk-btn.vk-roll-rand` (Patrick 2026-10-24).
    RULE: the solid die (`ROLL_DICE_SVG`, icons/roll-dice.js) is only for the larger Randomise / roll BUTTONS in every app (KOMPOSITOR's Roll too);
    the outline `MENU_ICONS.dice` stays for stack layers, toggles, menus and everywhere else. Blends is on when aria-checked="true" (or .is-on). */
 .vk-roll-pair{display:flex;gap:0;align-items:stretch;}
