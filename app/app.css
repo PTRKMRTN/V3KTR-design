@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.34 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.35 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -158,7 +158,8 @@
 .vk-roll-group .vk-tog+.vk-tog{margin-left:-2px;}
 
 /* from .param-tools, .gen-toolrow, .btn-row (left-aligned row of natural-width buttons) */
-.vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+/* items on a row share one height (Patrick 2026-10-24: "anything on a row needs to be the same height"): stretch, never center, so a .vk-roll-group (3px tray padding) and a plain .vk-btn beside it line up. */
+.vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;}
 
 /* ---------------------------------------------------------------- segmented (one-of-N) */
 

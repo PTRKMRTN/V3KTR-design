@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.35 — 2026-10-24
+
+- **Rule: anything on a row is the same height (Patrick 2026-10-24, from DIMENSOR).** `.vk-btn-row` now uses `align-items:stretch` (was `center`), so a `.vk-roll-group` (Randomise + modifiers in a tray with 3px padding, which stands taller than a plain button) and a `.vk-btn` beside it share one height. Found in DIMENSOR's FX Stack header (Clear all was shorter than the Randomise tray); DIMENSOR had patched it locally in `src/proto.css` and can drop that rule on pinning. AGENTS.md states the rule for every app. Anything that must NOT stretch sits outside a `.vk-btn-row`.
+
 ## 0.41.34 — 2026-10-24
 
 - **The roll / random icon is now an isometric cube die (Patrick 2026-10-24, "New 1, lock and load").** `dice` in `icons/menu-icons.js` (the shared roll / randomise / re-roll verb) changes from the flat square die to the iso cube: hexagon outline, inner edges at 0.6, one pip on top, two on the left face, four (2x2) on the right, every pip inset from its face edges so it reads at 14px. Same key, so every app that already maps a roll control to `dice` picks it up on pinning this tag; it replaces the flat die only, and no labelled-button pattern is added (apps decide whether a Roll / Randomise button gets the icon). Drawn in `V3KTR-COWORK/reports/dice/`.
