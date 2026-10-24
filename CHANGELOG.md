@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.39 — 2026-10-24
+
+- **Tool row: the signed-off layout replaces v0.41.38's tray (Patrick 2026-10-24, via PROCESSOR).** `Reset | [Randomise + Blends]`: Randomise is a normal compact button (same size and `--bg-3` as Reset) with the solid die, Blends touches it with no gap in the lighter `--bg-4` grey (hover mixes toward the text colour) with the switch inside; **no tray around the pair**. `.vk-roll-group--tray` is removed (nobody had adopted it); the pair is `.vk-roll-pair`. Rule in AGENTS.md: the solid die (`ROLL_DICE_SVG`) is only for the larger Randomise / roll BUTTONS in every app (KOMPOSITOR's Roll included); the outline `MENU_ICONS.dice` stays for stack layers, toggles, menus and everywhere else. Apps adopt it as a pattern (PROCESSOR, KOMPOSITOR, DIMENSOR).
+
 ## 0.41.38 — 2026-10-24
 
 - **New: the tool row, version 4 (Patrick 2026-10-24, from PROCESSOR; every app adopts it).** `Reset | [dice Randomise | Blends switch]`: `.vk-roll-group--tray` (the lighter `--bg-4` tray, items stretched), `.vk-roll-rand` + `.vk-roll-rand__dice` (the Randomise button with Patrick's own solid die, 13×15), `.vk-roll-blends` + `.vk-roll-blends__sw` (a labelled switch, on when `aria-checked="true"` or `.is-on`). Randomise always rolls the optional features, so the `+Features` toggle is gone and Blends is the only latch. The die is `ROLL_DICE_SVG` in the new `icons/roll-dice.js` (filled `currentColor`; source `assets/dice.svg`). It is NOT the menu icon: `MENU_ICONS.dice` (the outline iso die, v0.41.34) stays the roll icon for toggles and menus. PROCESSOR swaps its local `.param-tools .roll-*` rules for these once it pins. Nothing changes in an app until it adopts the classes.
