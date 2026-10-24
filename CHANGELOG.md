@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.34 — 2026-10-24
+
+- **The roll / random icon is now an isometric cube die (Patrick 2026-10-24, "New 1, lock and load").** `dice` in `icons/menu-icons.js` (the shared roll / randomise / re-roll verb) changes from the flat square die to the iso cube: hexagon outline, inner edges at 0.6, one pip on top, two on the left face, four (2x2) on the right, every pip inset from its face edges so it reads at 14px. Same key, so every app that already maps a roll control to `dice` picks it up on pinning this tag; it replaces the flat die only, and no labelled-button pattern is added (apps decide whether a Roll / Randomise button gets the icon). Drawn in `V3KTR-COWORK/reports/dice/`.
+
 ## 0.41.33 — 2026-10-24
 
 - **Tiles as buttons, and a tile that fails to load (from PROCESSOR's tile foundation, #430).** `button.vk-thumb` resets the browser's button styling (no border or padding, transparent, inherited font and colour, left-aligned) so a picker tile can be a real `<button>` (it takes focus and arrow keys) and look exactly like a div tile; the shared `:focus-visible` ring still shows. Documented rule for a tile whose picture fails to load: it keeps the `.is-empty` X and the tile stays operable through its label, `aria-label` and `data-tip`. PROCESSOR drops its local copy of the reset when it pins this.
