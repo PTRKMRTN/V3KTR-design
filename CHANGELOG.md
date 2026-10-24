@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.38 — 2026-10-24
+
+- **New: the tool row, version 4 (Patrick 2026-10-24, from PROCESSOR; every app adopts it).** `Reset | [dice Randomise | Blends switch]`: `.vk-roll-group--tray` (the lighter `--bg-4` tray, items stretched), `.vk-roll-rand` + `.vk-roll-rand__dice` (the Randomise button with Patrick's own solid die, 13×15), `.vk-roll-blends` + `.vk-roll-blends__sw` (a labelled switch, on when `aria-checked="true"` or `.is-on`). Randomise always rolls the optional features, so the `+Features` toggle is gone and Blends is the only latch. The die is `ROLL_DICE_SVG` in the new `icons/roll-dice.js` (filled `currentColor`; source `assets/dice.svg`). It is NOT the menu icon: `MENU_ICONS.dice` (the outline iso die, v0.41.34) stays the roll icon for toggles and menus. PROCESSOR swaps its local `.param-tools .roll-*` rules for these once it pins. Nothing changes in an app until it adopts the classes.
+
 ## 0.41.37 — 2026-10-24
 
 - **Fix: the repeated-tip rule did not collapse whitespace** (found by KOMPOSITOR). `norm` in `interactions/help.js` was `/s+/g` (the backslash was lost), so it squeezed runs of the letter "s" instead of whitespace: equal strings still matched, but a label with a line break or a double space never matched its tip, so the tip showed anyway. Now `/s+/g`. `test/help.test.mjs` +1 check (a label that wraps across whitespace; fails on v0.41.36).
