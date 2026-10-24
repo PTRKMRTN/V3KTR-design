@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.41 — 2026-10-24
+
+- **Process rule (Patrick 2026-10-24): consult the design system before building any UI; if it has no pattern, ask him.** New top section of AGENTS.md "Before you build any UI" (look up, use what exists, no pattern means stop and ask, name the shared classes in the report) and `scripts/find-pattern.mjs <word>`, which searches the shared classes, their comments, AGENTS.md, the icon sets and the docs, and prints "NO HIT: ask Patrick" when the system has nothing. Documentation and a script only; no CSS change.
+
 ## 0.41.40 — 2026-10-24
 
 - **Rule: only the param tool row's Randomise is slim (Patrick 2026-10-24).** `.vk-btn--compact` Randomise belongs to the Reset | Randomise + Blends row; every other roll / random button (KOMPOSITOR's Roll, DIMENSOR's Roll scene and the head Randomise buttons, Poly Roll, FX Explorer Roll) is a normal-size `.vk-btn.vk-roll-rand`. Documentation and a CSS comment only; `.vk-roll-rand` already worked at any size (checked: normal, primary and compact side by side, sheet `V3KTR-COWORK/reports/param-tools/roll-sizes.png`).

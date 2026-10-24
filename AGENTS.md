@@ -3,6 +3,13 @@
 Any session building UI for PROCESSOR, KOMPOSITOR, DIMENSOR or the site reads this file first.
 Canon: `V3KTR-PROJEKT/00_ECOSYSTEM.md` §3 (brand) and §6; scope `V3KTR-PROJEKT/products/DESIGN-SYSTEM.md`.
 
+## Before you build any UI (Patrick 2026-10-24, v0.41.41): consult the system first, ask if it has nothing
+A lot of basic design-system rules have been slipping through (button sizes, heights on a row, tips, dice, spacing). Every session that adds or changes a UI element, in any app or the site, does this FIRST:
+1. **Look it up.** Run `node scripts/find-pattern.mjs <word> [word...]` (the control, the verb, the state: `tile`, `toggle`, `roll`, `scrollbar`, `menu`) and read AGENTS.md "App components", the class's CSS comment, `CHANGELOG.md`, `docs/`, and the icon sets. Also read the nearest existing instance in the other two apps.
+2. **Use what exists.** A shared class, size, token, icon or pattern exists for it: use it as documented, never a local copy or a near-match. A local override is a request to change the system (bump a version here), not a fix in the app.
+3. **If nothing covers it, stop and ask Patrick** (`AskUserQuestion`, 2 to 4 options, recommended first) before building. Never invent a new control, size, colour, icon style or layout rule, and never make a one-off look "close enough". When Patrick decides, tell the design session so it goes into this repo and the other apps get it too.
+4. **Say so in the report.** A UI change names the shared classes it uses (or "no pattern, asked Patrick") and ships with a before/after sheet.
+
 ## Hard rules
 1. **Use tokens, never raw hex.** Every colour, radius, font and row height comes from `tokens.css` (`var(--…)`).
    If a value you need doesn't exist, add it HERE (new version), not in the app.
