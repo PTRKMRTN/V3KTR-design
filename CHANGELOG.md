@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.37 — 2026-10-24
+
+- **Fix: the repeated-tip rule did not collapse whitespace** (found by KOMPOSITOR). `norm` in `interactions/help.js` was `/s+/g` (the backslash was lost), so it squeezed runs of the letter "s" instead of whitespace: equal strings still matched, but a label with a line break or a double space never matched its tip, so the tip showed anyway. Now `/s+/g`. `test/help.test.mjs` +1 check (a label that wraps across whitespace; fails on v0.41.36).
+
 ## 0.41.36 — 2026-10-24
 
 - **A tip never repeats the name printed on its control (Patrick 2026-10-24, via PROCESSOR).** `installTips()` (`interactions/help.js`) skips any control whose `data-tip` equals its visible text and that has no `data-tip-desc` and no `data-tip-key` (a tile named "Zigzag" no longer shows a "Zigzag" tip); an icon-only control keeps its name tip. Rule in AGENTS.md. `test/help.test.mjs` +2 checks (36), the new label check fails on v0.41.35. Apps may drop `data-tip` from labelled tiles (PROCESSOR already did). Same release: `.vk-tilegrid:not(:last-child){margin-bottom:var(--sec-head-gap)}`, 14px below a tile grid before the controls that follow (PROCESSOR's local rule, folded in).

@@ -44,7 +44,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
 
   // A tip must not repeat the name already printed on its control (Patrick 2026-10-24): same words as the control's visible
   // text, nothing else to say (no description, no key) -> no tip. An icon-only control has no visible text, so its name tip stays.
-  const norm = (s) => (s || '').replace(/s+/g, ' ').trim().toLowerCase();
+  const norm = (s) => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
   const redundant = (el) => !el.dataset.tipDesc && !el.dataset.tipKey && norm(el.textContent) !== '' && norm(el.textContent) === norm(el.dataset.tip);
   function fill(el) {
     tip.textContent = '';

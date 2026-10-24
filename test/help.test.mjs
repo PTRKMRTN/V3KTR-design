@@ -20,6 +20,8 @@ const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="
 <button id="a" class="vk-btn" data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="Ctrl+R"><span id="a2">Randomise</span></button>
 <button id="b" class="vk-btn" data-tip="Reset" data-tip-desc="Put every parameter back" style="margin-left:40px">Reset</button>
 <button id="same" tabindex="-1" class="vk-btn" data-tip="Zigzag" style="margin-left:40px">Zigzag</button>
+<button id="spaced" tabindex="-1" class="vk-btn" data-tip="Zig zag" style="margin-left:40px">Zig
+   zag</button>
 <button id="icon" tabindex="-1" class="vk-btn" data-tip="Zigzag" style="margin-left:40px"><svg width="14" height="14"></svg></button>
 <button id="notip" tabindex="-1" style="margin-left:40px">No tip</button>
 <div id="scrollArea" style="height:150px;overflow:auto;margin-top:20px;background:#2b2b2b">
@@ -133,6 +135,8 @@ try {
   ok((await p.evaluate(() => window.clicks)) === before + 1 && !(await shown()), 'short tap presses, no tip');
   // a tip that only repeats the control's printed name never opens; an icon-only control keeps its name tip
   await p.hover('#same'); await p.waitForTimeout(600); ok(!(await shown()), 'tip equal to the visible label does not open');
+  await p.mouse.move(5, 5); await p.waitForTimeout(600);
+  await p.hover('#spaced'); await p.waitForTimeout(600); ok(!(await shown()), 'tip equal to a label that wraps across whitespace does not open');
   await p.mouse.move(5, 5); await p.waitForTimeout(600);
   await p.hover('#icon'); await p.waitForTimeout(600); ok(await shown(), 'icon-only control keeps its name tip');
   await p.mouse.move(5, 5); await p.waitForTimeout(100);
