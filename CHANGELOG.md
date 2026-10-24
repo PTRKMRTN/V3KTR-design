@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.36 — 2026-10-24
+
+- **A tip never repeats the name printed on its control (Patrick 2026-10-24, via PROCESSOR).** `installTips()` (`interactions/help.js`) skips any control whose `data-tip` equals its visible text and that has no `data-tip-desc` and no `data-tip-key` (a tile named "Zigzag" no longer shows a "Zigzag" tip); an icon-only control keeps its name tip. Rule in AGENTS.md. `test/help.test.mjs` +2 checks (36), the new label check fails on v0.41.35. Apps may drop `data-tip` from labelled tiles (PROCESSOR already did). Same release: `.vk-tilegrid:not(:last-child){margin-bottom:var(--sec-head-gap)}`, 14px below a tile grid before the controls that follow (PROCESSOR's local rule, folded in).
+
 ## 0.41.35 — 2026-10-24
 
 - **Rule: anything on a row is the same height (Patrick 2026-10-24, from DIMENSOR).** `.vk-btn-row` now uses `align-items:stretch` (was `center`), so a `.vk-roll-group` (Randomise + modifiers in a tray with 3px padding, which stands taller than a plain button) and a `.vk-btn` beside it share one height. Found in DIMENSOR's FX Stack header (Clear all was shorter than the Randomise tray); DIMENSOR had patched it locally in `src/proto.css` and can drop that rule on pinning. AGENTS.md states the rule for every app. Anything that must NOT stretch sits outside a `.vk-btn-row`.

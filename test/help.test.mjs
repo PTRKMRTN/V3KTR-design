@@ -18,11 +18,13 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="/dist/app.css">
 <body data-app="processor" style="background:#212121;padding:40px">
 <button id="a" class="vk-btn" data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="Ctrl+R"><span id="a2">Randomise</span></button>
-<button id="b" class="vk-btn" data-tip="Reset" style="margin-left:40px">Reset</button>
+<button id="b" class="vk-btn" data-tip="Reset" data-tip-desc="Put every parameter back" style="margin-left:40px">Reset</button>
+<button id="same" tabindex="-1" class="vk-btn" data-tip="Zigzag" style="margin-left:40px">Zigzag</button>
+<button id="icon" tabindex="-1" class="vk-btn" data-tip="Zigzag" style="margin-left:40px"><svg width="14" height="14"></svg></button>
 <button id="notip" tabindex="-1" style="margin-left:40px">No tip</button>
 <div id="scrollArea" style="height:150px;overflow:auto;margin-top:20px;background:#2b2b2b">
   <div style="height:400px"></div>
-  <button id="c" class="vk-btn" data-tip="Reseed" style="display:block">Reseed</button>
+  <button id="c" class="vk-btn" data-tip="Reseed" data-tip-desc="New random seed" style="display:block">Reseed</button>
   <div style="height:400px"></div>
 </div>
 <div id="out" style="height:200px"></div>
@@ -129,6 +131,11 @@ try {
   // a short tap still presses the control and shows nothing
   await touch('pointerdown', 'a'); await p.waitForTimeout(120); await touch('pointerup', 'a'); await p.evaluate(() => document.getElementById('a').click());
   ok((await p.evaluate(() => window.clicks)) === before + 1 && !(await shown()), 'short tap presses, no tip');
+  // a tip that only repeats the control's printed name never opens; an icon-only control keeps its name tip
+  await p.hover('#same'); await p.waitForTimeout(600); ok(!(await shown()), 'tip equal to the visible label does not open');
+  await p.mouse.move(5, 5); await p.waitForTimeout(600);
+  await p.hover('#icon'); await p.waitForTimeout(600); ok(await shown(), 'icon-only control keeps its name tip');
+  await p.mouse.move(5, 5); await p.waitForTimeout(100);
   // Helper Text: off by default; on shows .vk-param-desc; remembered
   ok(!(await p.isVisible('#pd')), 'Helper Text off by default: description hidden');
   await p.evaluate(() => window.help.toggle()); ok(await p.isVisible('#pd'), 'Helper Text on: description shown');

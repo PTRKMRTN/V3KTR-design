@@ -12,6 +12,8 @@
 //   - keyboard: opens IMMEDIATELY when the control gets keyboard focus (:focus-visible); closes on blur.
 //   - touch: opens on a 500 ms long-press (the press then does NOT also activate the control); closes on a tap elsewhere.
 //   - Esc closes. While open the control gets aria-describedby → the tip, so screen readers read it too.
+//   A tip never repeats the name printed on its control: with no data-tip-desc / data-tip-key and a data-tip equal to the
+//   control's visible text, nothing opens (an icon-only control keeps its name tip, it has no visible text).
 //   Retire native title= on anything that gets a data-tip (title is invisible on touch and to keyboard users).
 //
 //   installTips({ root, delay, longPress, warm }) → uninstall()
@@ -40,6 +42,10 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0, shownByFocus = false, blurTimer = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
+  // A tip must not repeat the name already printed on its control (Patrick 2026-10-24): same words as the control's visible
+  // text, nothing else to say (no description, no key) -> no tip. An icon-only control has no visible text, so its name tip stays.
+  const norm = (s) => (s || '').replace(/s+/g, ' ').trim().toLowerCase();
+  const redundant = (el) => !el.dataset.tipDesc && !el.dataset.tipKey && norm(el.textContent) !== '' && norm(el.textContent) === norm(el.dataset.tip);
   function fill(el) {
     tip.textContent = '';
     const b = doc.createElement('b'); b.textContent = el.dataset.tip; tip.appendChild(b);
@@ -62,7 +68,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   const cancelBlur = () => { win.clearTimeout(blurTimer); blurTimer = 0; };
   function show(el, byFocus = false) {
     clearTimeout(timer); cancelBlur();
-    if (!el || !el.dataset.tip) return;
+    if (!el || !el.dataset.tip || redundant(el)) return;
     if (target && target !== el) hide();
     target = el; shownByFocus = byFocus; fill(el); tip.classList.add('is-shown'); place(el);
     const d = (el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
