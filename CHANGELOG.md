@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.50 — 2026-10-25
+
+- **New: `.vk-vp-pill`, the viewport readout pill as DOM (from DIMENSOR's PATH1 `.path-pill`; PROCESSOR's `.crop-dims` is the same box).** Accent fill, `--on-accent` text, mono 10px / 600, 2px 6px, `white-space:nowrap`, `pointer-events:none`; the app positions it. For "Ground", "Height 1.41", "Aim: Logo", an angle. `docs/VIEWPORT-HANDLES.md`'s readout pills are this. Nothing changes until an app adopts it. Covered in `test/handles.test.mjs`.
+
 ## 0.41.49 — 2026-10-25
 
 - **Spacing rule for a sub-heading inside a section (Patrick 2026-10-25, found by DIMENSOR).** New token `--sub-head-gap` (22px). `.vk-sec-sub` and the new `.vk-sub-head` (put it on a `.vk-micro-label` that acts as a sub-heading): 22px above, 6px to its control, wherever it sits (including the first child of a row wrapper); none directly after a section title (the title's 14px holds); a `.vk-seg` straight after it drops its own 19px margin. **Visible change on pinning for `.vk-sec-sub`: it was 18px padding above and 11px below, now 22px above and 6px below** (PROCESSOR's panels). `test/subhead.test.mjs` (8 checks). AGENTS.md "Panel sections" has the rule.
