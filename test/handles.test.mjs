@@ -37,6 +37,6 @@ try {
   ok(cols.accent === '#bb6fff' && cols.hover === '#ca96ff', 'the accent and hover tokens the overlay reads');
   const hc = await p.evaluate(() => { const cs = getComputedStyle(document.body); return [cs.getPropertyValue('--accent').trim(), cs.getPropertyValue('--tx-0').trim()]; });
   ok(typeof handleColours === 'function' && hc[0] === '#bb6fff', 'handleColours is exported and reads these tokens');
-  for (const k of ['path', 'smooth', 'sharp', 'bezier', 'close', 'camera', 'add']) ok(typeof MENU_ICONS[k] === 'string' && MENU_ICONS[k].length > 20, 'icon ' + k);
+  for (const k of ['path', 'smooth', 'sharp', 'bezier', 'close', 'camera', 'add', 'curve']) ok(typeof MENU_ICONS[k] === 'string' && MENU_ICONS[k].length > 20, 'icon ' + k);
   console.log(`handles: ${n} checks passed`);
 } finally { await b.close(); }

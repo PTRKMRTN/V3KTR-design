@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.52 — 2026-10-25
+
+- **New icon: `curve`, for DIMENSOR's Curves rail tile (generated maths curves: Lorenz, Lissajous, Hilbert).** A Lissajous 3:2 trajectory drawn as one stroke split into three arcs at 1 / 0.6 / 0.3, the newest part strongest and the oldest fading (a trail), no points: it reads as a generated curve and apart from `path` (a drawn curve with end points). Two-tone, 24 grid. Candidates tried: infinity-style loops (read as the infinity sign), a 3:4 Lissajous (too busy at 14px), a trefoil (read as a propeller). `test/handles.test.mjs` checks the icon exists.
+
 ## 0.41.51 — 2026-10-25
 
 - **Fix: the `[hidden]` attribute on shared classes that set `display` (found by DIMENSOR on `.vk-vp-pill`).** `display:inline-block` (or flex) in a class beats the browser's `[hidden]{display:none}`, so a hidden element still showed. `.vk-vp-pill`, `.vk-sec-add`, `.vk-sec-bar`, `.vk-roll-pair`, `.vk-roll-blends`, `.vk-roll-rand`, `.vk-btn-col` and `.vk-tag` now each carry `[hidden]{display:none}`. Rule in AGENTS.md: a new shared class that sets `display` adds its own `[hidden]` rule. `test/handles.test.mjs` +1 check (a hidden pill is not displayed; fails on v0.41.50).
