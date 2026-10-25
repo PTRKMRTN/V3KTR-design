@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.43 — 2026-10-25
+
+- **`MENU_ICONS.dice` is Patrick's own line die (Patrick 2026-10-25).** For every roll / random use that is NOT a larger Randomise / roll button (stack layers, icon toggles, menus, tabs): his drawing (`assets/dice-lines.svg`, an isometric cube drawn as outline, inner edges and pips, each its own path), replacing my v0.41.34 outline die. It is a filled-shape drawing (no stroke) fitted to the 24 grid (17 × 19, centred), two-tone with the inner edges at 0.6; pips are slightly smaller than before, the isometric tilt makes it read as a die at 14px. Same key `dice`, so every app that maps a roll control to it picks it up on pinning. The solid die (`ROLL_DICE_SVG`) stays for the larger Randomise / roll buttons.
+
 ## 0.41.42 — 2026-10-24
 
 - **Rules: text is left-aligned; buttons hug their text (Patrick 2026-10-24, via DIMENSOR).** AGENTS.md: most text is left-aligned (centre only where the thing is centred, e.g. `.vk-empty`); a button is its text plus its own padding, never `width:100%` / `flex:1` / stretched to match a neighbour's width. New `.vk-btn-col`: a stack of buttons, column, `align-items:flex-start`, 6px apart, each its own width (DIMENSOR's Render head: Render · Standard / Render · Draft / Render loop…). Audit of the shared CSS: no shared button class stretches its width, and the only centred text is `.vk-empty`, so nothing else changes. The v0.41.35 row stretch is HEIGHT only and stays.
