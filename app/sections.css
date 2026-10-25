@@ -10,3 +10,11 @@
 .vk-section:last-child{padding-bottom:var(--sec-pad);}
 .vk-section + .vk-section{margin-top:var(--sec-gap);}
 .vk-section > .vk-sec-head,.vk-section > .vk-sec-label{margin:0 0 var(--sec-head-gap);}
+
+/* SUB-HEADINGS INSIDE A SECTION (v0.41.49, Patrick 2026-10-25: "check space before a sub heading, there are some squashed sections"; found by DIMENSOR).
+   A sub-heading (.vk-sec-sub, or a .vk-micro-label that is acting as one: add .vk-sub-head) keeps --sub-head-gap (22px) ABOVE it and 6px to its control, wherever it sits, including as the
+   first child of a row wrapper (a :first-child margin reset must not zero it). Directly after a section title it takes none, so the title's own --sec-head-gap (14px) holds. A .vk-seg
+   straight after it drops its own 19px margin so the label sits 6px above the buttons. Block flow keeps the 3px control margins collapsing into the 22px; a FLEX wrapper does not collapse, so there the control above adds its own 3px (25px): keep a labelled group in plain block flow (a flex, grid or flow-root wrapper makes its own box). */
+.vk-sec-sub,.vk-sub-head{margin:var(--sub-head-gap) 0 6px;padding:0;}
+.vk-sec-head + .vk-sec-sub,.vk-sec-label + .vk-sec-sub,.vk-sec-head + .vk-sub-head,.vk-sec-label + .vk-sub-head{margin-top:0;}
+.vk-sec-sub + .vk-seg,.vk-sub-head + .vk-seg{margin-top:0;}

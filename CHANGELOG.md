@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.49 — 2026-10-25
+
+- **Spacing rule for a sub-heading inside a section (Patrick 2026-10-25, found by DIMENSOR).** New token `--sub-head-gap` (22px). `.vk-sec-sub` and the new `.vk-sub-head` (put it on a `.vk-micro-label` that acts as a sub-heading): 22px above, 6px to its control, wherever it sits (including the first child of a row wrapper); none directly after a section title (the title's 14px holds); a `.vk-seg` straight after it drops its own 19px margin. **Visible change on pinning for `.vk-sec-sub`: it was 18px padding above and 11px below, now 22px above and 6px below** (PROCESSOR's panels). `test/subhead.test.mjs` (8 checks). AGENTS.md "Panel sections" has the rule.
+
 ## 0.41.48 — 2026-10-25
 
 - **New: `.vk-progress`, one progress bar for all three apps (KOMPOSITOR, from its four local bars).** A track and a fill driven by `--p` (no inline width on a child), the fill the secondary colour (`--accent-2`, time and the machine). Heights: 4px, `--thin` 2px, `--thick` 8px (PROCESSOR's `.rs-bar` 7 to 8px and DIMENSOR's 3px `.render-progress__bar` map to these). `--overlay` has no track and pins to a container's bottom edge for a tile; `--at` stacks a second one above it. The width transition (.1s linear) switches off under `prefers-reduced-motion`. Documented: `role="progressbar"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow` (omitted when indeterminate), an `aria-label`; the app updates `--p` and `aria-valuenow` together. `test/progress.test.mjs` (10 checks).
