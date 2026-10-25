@@ -92,12 +92,13 @@ Built only from the D58 parts; no new token.
 Mockup: `V3KTR-COWORK/reports/viewport-handles/aim.png` (`build-aim.mjs`). Handle-family parts only: no new token.
 
 **Aim target** (where the camera looks), on the same line as the focus target:
-- **Line:** a **solid** 1 px line (`--hdl-aux`) from the apex to the aim point; the focus line stays dotted (section 12). 0.6 on an inactive camera, 1 on the active one.
+- **Line:** a **solid** 1 px line (`--hdl-aux`) from the apex to the aim point; the focus line stays dashed and is 2 px, drawn on top of this one (section 12). 0.6 on an inactive camera, 1 on the active one.
 - **Marker:** a **filled square**, 10 px at rest (12 px hot): the one shape the family had not used (circle = smooth point, diamond = sharp point, ring + dot = focus), so an aim target cannot be taken for a curve point or the focus. States: inactive = accent at 0.6; active = accent; hover = `--hover` 12 px; selected or dragging = white fill with a 2 px accent stroke, 12 px. Same 24 px hit area and halo.
 - **Drag:** the point follows what is under the cursor (it snaps onto an object surface, else onto the view plane through the point) and the camera turns to look at it. Readout pill (`.vp-ro` style): "Aim: <object name>" while over an object, else "Aim 2.4" (the distance).
 - **Aim and focus overlap (common):** the **aim square stays on top**; the **focus ring grows to 20 px** and encloses it. Hit priority: the square (inside 8 px of the centre) is the aim; the ring band outside it is the focus. Hovering either highlights its own line only.
 
 **Depth-box extents on a camera:**
+- **While the slices show, the frustum's own far-plane rectangle and its 16% fill are dropped**: the near and far slices are the only planes, and the four edge lines stay (Patrick, 2026-10-25). Without slices the frustum marker is unchanged.
 - Drawn as two **slices of the frustum**: where the box's near depth and far depth cut the frustum's four edge lines. The **near slice is a 1 px outline, the far slice a 1 px outline with a 14% plane**, with the four edge segments between them at 0.3.
 - **Colour: the secondary (`--accent-2`)**, since depth is on the secondary list (depth-channel marks). Labels "near 0.4" and "far 1.6" in `--accent-2-hover`, mono 9.5 px.
 - **Shown** for the selected camera, and for the active camera while a depth-box effect is selected; hidden with the Cameras overlay. Never rendered.
