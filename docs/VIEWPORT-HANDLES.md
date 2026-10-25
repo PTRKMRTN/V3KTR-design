@@ -102,3 +102,10 @@ Mockup: `V3KTR-COWORK/reports/viewport-handles/aim.png` (`build-aim.mjs`). Handl
 - Drawn as two **slices of the frustum**: where the box's near depth and far depth cut the frustum's four edge lines. The **near slice is a 1 px outline, the far slice a 1 px outline with a 14% plane**, with the four edge segments between them at 0.3.
 - **Colour: the secondary (`--accent-2`)**, since depth is on the secondary list (depth-channel marks). Labels "near 0.4" and "far 1.6" in `--accent-2-hover`, mono 9.5 px.
 - **Shown** for the selected camera, and for the active camera while a depth-box effect is selected; hidden with the Cameras overlay. Never rendered.
+
+## 14. A camera that rides a path (CAM4, DIMENSOR, 2026-10-25)
+Handle-family parts only; no new token. Opacities stay on the 0.3 / 0.6 / 1 scale (so DIMENSOR's proposed 0.35 becomes 0.6).
+- **The path:** drawn only while its rider is selected (or the path itself is selected, then as a normal selected curve at 1). While the rider is selected the path is an "other curve" at **0.6**, 2 px, with its points hidden (the path is context here, not the thing being edited).
+- **The rider position:** a **6 px dot** (`--accent`, 1) on the path at the camera's current position, with a **1 px dotted line** (dash 1 4, `--accent` at 0.6) from the marker's apex to that dot. The dotted hairline is a third line style on purpose: the aim line is solid, the focus line is dashed 2 px, the rider tether is dotted 1 px.
+- **When the camera is not selected:** no path, no tether; the marker alone shows (section 11). The path point can be dragged only through the path's own editing (section 5 onwards), never from the camera marker.
+- Never rendered; hidden with the Cameras overlay.
