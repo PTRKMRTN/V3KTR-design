@@ -84,7 +84,7 @@ Mockup: `V3KTR-COWORK/reports/viewport-handles/cameras.png` (`build-cameras.mjs`
 
 ## 12. Camera focus target (depth of field), a named variant (Patrick via DIMENSOR, 2026-10-25)
 Built only from the D58 parts; no new token.
-- **Line:** the dashed aux line (`--hdl-aux` 1 px, dash 3 4, the height stem's dash) from the frustum apex to the focus point; `--accent` at 0.6 on an inactive camera, 1 on the active one; faint (0.3) while blur is 0.
+- **Line:** a dashed line, **2 px** (dash 3 4) with the handle halo, from the frustum apex to the focus point, **drawn on top of the 1 px solid aim line** (section 13) so it stays visible where the two run along each other (Patrick, 2026-10-25, after a mockup); `--accent` at 0.6 on an inactive camera, 1 on the active one; faint (0.3) while blur is 0.
 - **Target marker:** so that it is never mistaken for a curve point, the focus target is its own shape: a **12 px ring** (2 px `--accent` stroke, hollow) with a **4 px centre dot**, i.e. a target. States: rest = accent (0.6 inactive, 1 active); hover = `--hover`; selected or dragging = white fill ring with an accent stroke and the dot in accent. Same 24 px hit area, same halo; draggable on the view plane through the point, with a "Focus 1.8" readout pill while dragging.
 - Never rendered; shown only for the cameras that have a stack row; hidden when the viewport's Cameras overlay is off.
 
