@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.44 — 2026-10-25
+
+- **New: `.vk-toast__action`, a control on a toast / progress pill (Patrick 2026-10-25, via PROCESSOR).** The pinned toast (`.depth-status`, the Livelink pull progress pill) is `pointer-events:none`, so a button inside it could not be clicked; `.vk-toast__action{pointer-events:auto;margin-left:4px}` fixes it. Pattern: `<button class="vk-btn vk-btn--compact vk-toast__action">Stop</button>` at the right end, one action at most. `interactions/toast.js` (Undo-style action) is unchanged. AGENTS.md notes it. PROCESSOR swaps its local `.ds-stop` rule on pinning.
+
 ## 0.41.43 — 2026-10-25
 
 - **`MENU_ICONS.dice` is Patrick's own line die (Patrick 2026-10-25).** For every roll / random use that is NOT a larger Randomise / roll button (stack layers, icon toggles, menus, tabs): his drawing (`assets/dice-lines.svg`, an isometric cube drawn as outline, inner edges and pips, each its own path), replacing my v0.41.34 outline die. It is a filled-shape drawing (no stroke) fitted to the 24 grid (17 × 19, centred), two-tone with the inner edges at 0.6; pips are slightly smaller than before, the isometric tilt makes it read as a die at 14px. Same key `dice`, so every app that maps a roll control to it picks it up on pinning. The solid die (`ROLL_DICE_SVG`) stays for the larger Randomise / roll buttons.

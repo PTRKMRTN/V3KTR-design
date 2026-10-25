@@ -35,3 +35,5 @@
 /* T4 toast for an error (interactions/toast.js, kind 'error'): a red tint across the toast, not a red outline. */
 .vk-toast--error{background:color-mix(in srgb,var(--danger) 18%,var(--bg-2));color:var(--tx-0);}
 .vk-toast .vk-btn{margin-left:4px;}
+/* A control on a toast or progress pill (Patrick 2026-10-25, PROCESSOR's Stop on the Livelink pull pill): the toast itself is pointer-events:none, so the button takes the pointer back. Use `.vk-btn.vk-btn--compact.vk-toast__action`. */
+.vk-toast__action{pointer-events:auto;margin-left:4px;}
