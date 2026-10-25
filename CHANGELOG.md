@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.54 — 2026-10-26
+
+- **New icon: `anamorph`, for DIMENSOR's Anamorph FX tile (an object scattered in depth so it reads whole from one camera).** An eye point on the left with three rays fanning out and one fragment on each ray, **growing with distance** (the far, large fragment at full tone, the middle at 0.6, the near small one at 0.6, the rays at 0.3) so it reads as "scattered in depth, whole from here". Two-tone, 24 grid. Tried a version with all fragments at full tone (lost the depth) and one with solid fragments (heavy at 14px). `test/handles.test.mjs` checks it exists.
+
 ## 0.41.53 — 2026-10-25
 
 - **New icon: `isolines`, for DIMENSOR's Isolines Output FX tile (topographic contour lines over a mesh).** Three nested contour rings of an off-centre hill, outer 0.3 / middle 0.6 / inner 1, rings closer on the steep (upper right) side so it reads as a map hill and not a target. Two-tone, 24 grid, no `rings` or `terrain` clash in the shared set. `test/handles.test.mjs` checks it exists.

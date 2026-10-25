@@ -9,6 +9,7 @@
 export const MENU_ICONS = {
   actual: '<rect x="4" y="4" width="16" height="16"/><path d="M9 9v6M15 9v6M12 10v.5M12 13.5v.5"/>',
   add: '<path d="M12 5v14M5 12h14"/>',
+  anamorph: '<path d="M3.500 12L21 5M3.500 12H21M3.500 12L21 19" opacity="0.3"/><circle cx="3.500" cy="12" r="1.800" fill="currentColor" stroke="none"/><path d="M8 8.300l2.300-.8.600 2.200-2.300.800Z" opacity="0.6"/><path d="M12.500 10.500h3.500v3h-3.500Z" opacity="0.6"/><path d="M17.500 16.200l3.500-.8.800 3.600-3.500.9Z"/>',
   bezier: '<path d="M2 17C6 17 7 9 12 9S18 17 22 17" opacity="0.6"/><path d="M5 4L19 14" opacity="0.3"/><circle cx="12" cy="9" r="2.6" fill="currentColor" stroke="none"/><circle cx="5" cy="4" r="1.7" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="19" cy="14" r="1.7" fill="currentColor" stroke="none" opacity="0.6"/>',
   book: '<path d="M4 5h6a2 2 0 012 2v13a2 2 0 00-2-2H4zM20 5h-6a2 2 0 00-2 2v13a2 2 0 012-2h6z"/>',
   camera: '<path d="M3 8h12v9H3z"/><path d="M15 11l6-3v9l-6-3" opacity="0.6"/><circle cx="9" cy="12.5" r="2" opacity="0.6"/>',
