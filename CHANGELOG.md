@@ -4,7 +4,7 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
 ## 0.41.48 — 2026-10-25
 
-- **New: `.vk-progress`, one progress bar for all three apps (KOMPOSITOR, from its four local bars).** A track and a fill driven by `--p` (no inline width on a child), the fill the secondary colour (`--accent-2`, time and the machine). Heights: 4px, `--thin` 2px, `--thick` 8px (PROCESSOR's `.rs-bar` 7 to 8px and DIMENSOR's 3px `.render-progress__bar` map to these). `--overlay` has no track and pins to a container's bottom edge for a tile; `--at` stacks a second one above it. The width transition (.1s linear) switches off under `prefers-reduced-motion`. Documented: `role="progressbar"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow` (omitted when indeterminate), an `aria-label`; the app updates `--p` and `aria-valuenow` together. `test/progress.test.mjs` (12 checks).
+- **New: `.vk-progress`, one progress bar for all three apps (KOMPOSITOR, from its four local bars).** A track and a fill driven by `--p` (no inline width on a child), the fill the secondary colour (`--accent-2`, time and the machine). Heights: 4px, `--thin` 2px, `--thick` 8px (PROCESSOR's `.rs-bar` 7 to 8px and DIMENSOR's 3px `.render-progress__bar` map to these). `--overlay` has no track and pins to a container's bottom edge for a tile; `--at` stacks a second one above it. The width transition (.1s linear) switches off under `prefers-reduced-motion`. Documented: `role="progressbar"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow` (omitted when indeterminate), an `aria-label`; the app updates `--p` and `aria-valuenow` together. `test/progress.test.mjs` (10 checks).
 
 ## 0.41.47 — 2026-10-25
 
