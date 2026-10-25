@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.46
+/* V3KTR design tokens · v0.41.47
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -63,7 +63,7 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
-  /* Viewport handles (v0.41.46, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
+  /* Viewport handles (v0.41.47, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
      A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px (32px on touch), the curve line 2px, aux lines 1px. */
   --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-hit-touch:32px; --hdl-curve:2px; --hdl-aux:1px;
   --hdl-halo:drop-shadow(0 0 1px rgba(0,0,0,.85));
@@ -100,13 +100,18 @@
   --processor:#00e5a0;  --processor-hover:#3dffc2;  --processor-dim:#0a8f66;  --processor-ink:#008058;
   --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
   --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
+  /* The secondary colour per app (v0.41.47, Patrick 2026-10-25: "half way is great, lock it in"; docs/SECONDARY-COLOUR.md). Halfway between the app accent's tonal
+     and analogous +35 degrees partners, generated in OKLab at one lightness. hover = 25% towards white, dim = 55% towards the ground. */
+  --processor-2:#74ddcf;  --processor-2-hover:#97e6db;  --processor-2-dim:#46766f;
+  --kompositor-2:#f8b787; --kompositor-2-hover:#fac9a5; --kompositor-2-dim:#82654f;
+  --dimensor-2:#ecb0eb;   --dimensor-2-hover:#f1c4f0;   --dimensor-2-dim:#7c617c;
 }
 /* The focus ring is declared in core as `2px solid var(--accent)`; a custom property resolves var() where it is
    declared (:root), so it would stay aqua inside every app. Each theme restates it so the ring is the app's colour. */
 [data-app] { --focus-ring: 2px solid var(--accent); }
-[data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); }
-[data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); }
-[data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); }
+[data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); --accent-2:var(--processor-2); --accent-2-hover:var(--processor-2-hover); --accent-2-dim:var(--processor-2-dim); --accent-2-tint:color-mix(in srgb,var(--processor-2) 12%,var(--bg-3)); }
+[data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); --accent-2:var(--kompositor-2); --accent-2-hover:var(--kompositor-2-hover); --accent-2-dim:var(--kompositor-2-dim); --accent-2-tint:color-mix(in srgb,var(--kompositor-2) 12%,var(--bg-3)); }
+[data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); --accent-2:var(--dimensor-2); --accent-2-hover:var(--dimensor-2-hover); --accent-2-dim:var(--dimensor-2-dim); --accent-2-tint:color-mix(in srgb,var(--dimensor-2) 12%,var(--bg-3)); }
 /* App logo widths at --brand-logo-h (viewBox width / 154 x 21.05). */
 [data-app="processor"]  { --brand-logo-w:120.95px; }
 [data-app="kompositor"] { --brand-logo-w:128.35px; }
@@ -125,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.46 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.47 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -617,7 +622,7 @@
 /* from .depth-status (its placement over the canvas) */
 .vk-toast--pinned{position:absolute;bottom:calc(var(--vp-bar-bottom) + var(--vp-bar-step) + 4px);left:50%;transform:translateX(-50%);z-index:7;}
 /* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
-.vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:vk-ds-pulse 1.1s ease-in-out infinite;}
+.vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent-2,var(--accent));animation:vk-ds-pulse 1.1s ease-in-out infinite;}
 /* from @keyframes dsPulse */
 @keyframes vk-ds-pulse{0%,100%{opacity:0.35;transform:scale(0.8);}50%{opacity:1;transform:scale(1.1);}}
 
@@ -749,6 +754,13 @@
 
 /* Tags (HEAVY, NEW ...): an 8% tint of the meaning colour with the word in that colour. 8% is the strongest tint
    amber keeps 4.5:1 on (20% measures 3.84:1). Set --tag for another colour. */
+/* SECONDARY COLOUR (v0.41.47): for what time and the machine are doing, never for the person's choices (docs/SECONDARY-COLOUR.md). Tag text is the hover colour on a 12% tint (contrast 5.4 to 6.2). */
+.vk-tag--live,.vk-tag--new{--tag:var(--accent-2-hover);background:var(--accent-2-tint);}
+.vk-tag--live::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent-2);margin-right:5px;vertical-align:1px;}
+.vk-playhead{width:2px;background:var(--accent-2);}                /* timeline playhead: a 2px bar, the parent sets position and height */
+.vk-marker{width:7px;height:7px;background:var(--accent-2);transform:rotate(45deg);}   /* a timeline marker, in point, beat: a 7px diamond */
+.vk-series--2{stroke:var(--accent-2);}                               /* the second series of a curve or graph (the first stays the accent or grey) */
+.vk-live{color:var(--accent-2);}                                      /* a readout that is live: fps, a progress percentage */
 .vk-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
   padding:3px 6px;color:var(--tag,var(--type-amber));background:color-mix(in srgb,var(--tag,var(--type-amber)) 8%,var(--bg-0));}
 
