@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.48 — 2026-10-25
+
+- **New: `.vk-progress`, one progress bar for all three apps (KOMPOSITOR, from its four local bars).** A track and a fill driven by `--p` (no inline width on a child), the fill the secondary colour (`--accent-2`, time and the machine). Heights: 4px, `--thin` 2px, `--thick` 8px (PROCESSOR's `.rs-bar` 7 to 8px and DIMENSOR's 3px `.render-progress__bar` map to these). `--overlay` has no track and pins to a container's bottom edge for a tile; `--at` stacks a second one above it. The width transition (.1s linear) switches off under `prefers-reduced-motion`. Documented: `role="progressbar"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow` (omitted when indeterminate), an `aria-label`; the app updates `--p` and `aria-valuenow` together. `test/progress.test.mjs` (12 checks).
+
 ## 0.41.47 — 2026-10-25
 
 - **A secondary colour per app (Patrick 2026-10-25: "half way is great, lock it in"; `docs/SECONDARY-COLOUR.md`).** `themes/themes.css`: PROCESSOR `#74ddcf`, KOMPOSITOR `#f8b787`, DIMENSOR `#ecb0eb` (halfway between each accent's tonal and analogous +35° partners), each with hover and dim, mapped per `data-app` as `--accent-2`, `--accent-2-hover`, `--accent-2-dim` and `--accent-2-tint` (12% over `--bg-3`). New classes: `.vk-tag--live`, `.vk-tag--new` (hover colour as text on the tint, 5.4 to 6.2:1), `.vk-playhead`, `.vk-marker`, `.vk-series--2`, `.vk-live`. **One visible change on pinning: `.vk-toast__dot` (the progress dot on the pinned pill) now uses the secondary.** Rule (AGENTS.md "Secondary colour"): the accent is for the person's choices; the secondary is for what time and the machine are doing, under 5% of any screen, never a button fill, never an error colour, never on the site. `test/secondary.test.mjs` (24 checks: per app the tokens, the placements, and that primary buttons and toggles-on stay the accent).
