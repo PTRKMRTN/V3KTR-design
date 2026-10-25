@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.45 — 2026-10-25
+
+- **Hug rule: what is and is not a button; and the roll die survives an app's icon rule (KOMPOSITOR, 2026-10-25).** AGENTS.md: the hug rule is about buttons; drop zones, selectable list rows, tiles in a grid and a segmented control or tab strip that fills its row may fill their row or cell; a button in a fixed column still hugs and sits at the start of its cell. CSS: `.vk-roll-rand > .vk-roll-rand__dice` (specificity 0,2,0) so an app's `.vk-btn > svg{12px}` no longer squashes the 13x15 die. Tested in Edge with such a rule present, with a negative control against v0.41.44.
+
 ## 0.41.44 — 2026-10-25
 
 - **New: `.vk-toast__action`, a control on a toast / progress pill (Patrick 2026-10-25, via PROCESSOR).** The pinned toast (`.depth-status`, the Livelink pull progress pill) is `pointer-events:none`, so a button inside it could not be clicked; `.vk-toast__action{pointer-events:auto;margin-left:4px}` fixes it. Pattern: `<button class="vk-btn vk-btn--compact vk-toast__action">Stop</button>` at the right end, one action at most. `interactions/toast.js` (Undo-style action) is unchanged. AGENTS.md notes it. PROCESSOR swaps its local `.ds-stop` rule on pinning.
