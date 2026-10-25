@@ -18,7 +18,7 @@ const b = await chromium.launch({ channel: 'msedge' });
 let n = 0; const ok = (c, m) => { assert.ok(c, m); n++; };
 try {
   const p = await b.newPage();
-  await p.setContent(`<style>${css}</style><body data-app="dimensor"><div class="vk-layer is-current"><span class="vk-layer__icon" id="curic">x</span><span class="vk-layer__name">A</span></div><div class="vk-layer"><span class="vk-layer__icon" id="othic">x</span></div><span class="vk-vp-pill" id="pill">Height 1.41</span><div class="vk-sec-bar" id="bar"><span class="vk-sec-head">Cameras</span><button class="vk-sec-add" id="add">+</button></div>`);
+  await p.setContent(`<style>${css}</style><body data-app="dimensor"><div class="vk-layer is-current"><span class="vk-layer__icon" id="curic">x</span><span class="vk-layer__name">A</span></div><div class="vk-layer"><span class="vk-layer__icon" id="othic">x</span></div><span class="vk-vp-pill" id="pill">Height 1.41</span><span class="vk-vp-pill" id="hid" hidden>x</span><div class="vk-sec-bar" id="bar"><span class="vk-sec-head">Cameras</span><button class="vk-sec-add" id="add">+</button></div>`);
   const m = await p.evaluate(() => {
     const cs = (e) => getComputedStyle(e), tok = (k) => cs(document.documentElement).getPropertyValue(k).trim(), r = (e) => e.getBoundingClientRect();
     return { size: tok('--hdl-size'), hot: tok('--hdl-hot'), tan: tok('--hdl-tan'), hit: tok('--hdl-hit'), hitTouch: tok('--hdl-hit-touch'), curve: tok('--hdl-curve'), aux: tok('--hdl-aux'),
@@ -32,6 +32,7 @@ try {
   ok(m.addW === 22 && m.addH === 22 && m.addRight === 0, 'the add button is 22 x 22 at the right end of the head');
   const pl = await p.evaluate(() => { const c = getComputedStyle(document.getElementById('pill')); return { bg: c.backgroundColor, fg: c.color, fs: c.fontSize, fw: c.fontWeight, pe: c.pointerEvents }; });
   ok(pl.bg === 'rgb(187, 111, 255)' && pl.fg === 'rgb(28, 28, 28)' && pl.fs === '10px' && pl.fw === '600' && pl.pe === 'none', 'the viewport pill: accent fill, on-accent ink, 10px / 600, never takes the pointer');
+  ok(await p.evaluate(() => getComputedStyle(document.getElementById('hid')).display) === 'none', 'a hidden pill is not displayed (the [hidden] trap)');
   const cols = await p.evaluate(() => { const cs = getComputedStyle(document.body); return { accent: cs.getPropertyValue('--accent').trim(), hover: cs.getPropertyValue('--hover').trim() }; });
   ok(cols.accent === '#bb6fff' && cols.hover === '#ca96ff', 'the accent and hover tokens the overlay reads');
   const hc = await p.evaluate(() => { const cs = getComputedStyle(document.body); return [cs.getPropertyValue('--accent').trim(), cs.getPropertyValue('--tx-0').trim()]; });

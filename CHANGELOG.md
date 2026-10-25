@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.51 — 2026-10-25
+
+- **Fix: the `[hidden]` attribute on shared classes that set `display` (found by DIMENSOR on `.vk-vp-pill`).** `display:inline-block` (or flex) in a class beats the browser's `[hidden]{display:none}`, so a hidden element still showed. `.vk-vp-pill`, `.vk-sec-add`, `.vk-sec-bar`, `.vk-roll-pair`, `.vk-roll-blends`, `.vk-roll-rand`, `.vk-btn-col` and `.vk-tag` now each carry `[hidden]{display:none}`. Rule in AGENTS.md: a new shared class that sets `display` adds its own `[hidden]` rule. `test/handles.test.mjs` +1 check (a hidden pill is not displayed; fails on v0.41.50).
+
 ## 0.41.50 — 2026-10-25
 
 - **New: `.vk-vp-pill`, the viewport readout pill as DOM (from DIMENSOR's PATH1 `.path-pill`; PROCESSOR's `.crop-dims` is the same box).** Accent fill, `--on-accent` text, mono 10px / 600, 2px 6px, `white-space:nowrap`, `pointer-events:none`; the app positions it. For "Ground", "Height 1.41", "Aim: Logo", an angle. `docs/VIEWPORT-HANDLES.md`'s readout pills are this. Nothing changes until an app adopts it. Covered in `test/handles.test.mjs`.
