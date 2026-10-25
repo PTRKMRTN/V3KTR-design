@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.46 — 2026-10-25
+
+- **Viewport handles and camera items (Patrick 2026-10-25: "the handles and cameras look good, go ahead", via DIMENSOR; spec `docs/VIEWPORT-HANDLES.md`).** Tokens `--hdl-size` 10px, `--hdl-hot` 12px, `--hdl-tan` 7px, `--hdl-hit` 24px, `--hdl-hit-touch` 32px, `--hdl-curve` 2px, `--hdl-aux` 1px, `--hdl-halo`. New `interactions/handles.js`: `HANDLE` (the same numbers) and `handleColours(el)` (accent, hover, on-accent, white, read from the tokens) for an overlay drawn in WebGPU / three.js. New classes: `.vk-layer.is-current` (the ONE current item of a list of alternatives, e.g. the active camera: its icon tile fills solid accent; `.is-active` stays the selected tint) and `.vk-sec-bar` + `.vk-sec-add` (a section head with a 22px add button at its right end, the shared "add an item to this list" head). Seven new menu icons, two-tone: `path`, `smooth`, `sharp`, `bezier`, `close`, `camera`, `add`. Nothing changes in an app until it adopts them. `test/handles.test.mjs` (14 checks: tokens match `HANDLE`, the current tile fills, a non-current one does not, the add button is 22 × 22 at the head's end, the icons exist).
+
 ## 0.41.45 — 2026-10-25
 
 - **Hug rule: what is and is not a button; and the roll die survives an app's icon rule (KOMPOSITOR, 2026-10-25).** AGENTS.md: the hug rule is about buttons; drop zones, selectable list rows, tiles in a grid and a segmented control or tab strip that fills its row may fill their row or cell; a button in a fixed column still hugs and sits at the start of its cell. CSS: `.vk-roll-rand > .vk-roll-rand__dice` (specificity 0,2,0) so an app's `.vk-btn > svg{12px}` no longer squashes the 13x15 die. Tested in Edge with such a rule present, with a negative control against v0.41.44.

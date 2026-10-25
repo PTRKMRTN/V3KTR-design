@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.45
+/* V3KTR design tokens · v0.41.46
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -63,6 +63,10 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
+  /* Viewport handles (v0.41.46, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
+     A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px (32px on touch), the curve line 2px, aux lines 1px. */
+  --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-hit-touch:32px; --hdl-curve:2px; --hdl-aux:1px;
+  --hdl-halo:drop-shadow(0 0 1px rgba(0,0,0,.85));
   /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
      every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
      capitals with the baseline 22.5px below the bar's top. So height = 9 x 154 / 65.86 = 21.05px and
@@ -121,7 +125,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.45 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.46 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -657,6 +661,14 @@
   justify-content:center;background:var(--bg-0);color:var(--accent);}
 /* from .layer .licon svg */
 .vk-layer__icon svg{width:13px;height:13px;}
+/* the ONE current item of a list of alternatives (the active camera): its icon tile fills solid. Not .is-active, which is the SELECTED tint (Patrick 2026-10-25, CAM1). */
+.vk-layer.is-current .vk-layer__icon{background:var(--accent);color:var(--on-accent);}
+/* a section head with an add button at its right end ("Add camera"): a 22px icon button, the shared "add an item to this list" head */
+.vk-sec-bar{display:flex;align-items:center;margin:0 0 var(--sec-head-gap);}
+.vk-sec-bar > .vk-sec-head{margin:0;}
+.vk-sec-add{margin-left:auto;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
+.vk-sec-add:hover{background:var(--bg-4);color:var(--tx-0);}
+.vk-sec-add:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
 /* from .layer .lname */
 .vk-layer__name{flex:1;font-size:12px;}
 /* from .layer .lname small */

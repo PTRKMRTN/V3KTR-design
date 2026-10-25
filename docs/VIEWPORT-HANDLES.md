@@ -1,6 +1,6 @@
 # Viewport handles for curves and FX (PATH1, FXH1): proposal (NOT shipped)
 
-Status: **proposal and mockup**, requested by DIMENSOR (Patrick's D58 decisions, 2026-10-25). Mockup: `V3KTR-COWORK/reports/viewport-handles/handles.png` (built by `build.mjs`). No token, class or icon is in the repo until Patrick has looked at the mockup; DIMENSOR builds nothing until a tag exists.
+Status: **shipped in v0.41.46** (Patrick 2026-10-25: "the handles and cameras look good, go ahead", relayed by DIMENSOR). Requested by DIMENSOR (D58 and D59). Mockups: `V3KTR-COWORK/reports/viewport-handles/handles.png` (`build.mjs`) and `cameras.png` (`build-cameras.mjs`). The tokens `--hdl-*`, `interactions/handles.js`, `.vk-layer.is-current`, `.vk-sec-bar` / `.vk-sec-add` and the seven icons are in the repo.
 
 ## 1. Language (taken from what exists)
 PROCESSOR's crop handles and `.vp-*` viewport handles are the family: **idle geometry is the accent, the part under the hand or being dragged is the hover accent, a 1 px dark halo (`drop-shadow(0 0 1px rgba(0,0,0,.85))`) keeps it legible over any render, corner points are diamonds and edge points circles**. On-canvas handles are one of the named exceptions that keep lines (AGENTS.md "Flat, not outlined"). Lessons carried over from PROCESSOR: handles follow the hand; gimbals sit on the subject; one size class.

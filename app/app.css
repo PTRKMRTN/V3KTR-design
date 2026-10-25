@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.45 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.46 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -534,6 +534,14 @@
   justify-content:center;background:var(--bg-0);color:var(--accent);}
 /* from .layer .licon svg */
 .vk-layer__icon svg{width:13px;height:13px;}
+/* the ONE current item of a list of alternatives (the active camera): its icon tile fills solid. Not .is-active, which is the SELECTED tint (Patrick 2026-10-25, CAM1). */
+.vk-layer.is-current .vk-layer__icon{background:var(--accent);color:var(--on-accent);}
+/* a section head with an add button at its right end ("Add camera"): a 22px icon button, the shared "add an item to this list" head */
+.vk-sec-bar{display:flex;align-items:center;margin:0 0 var(--sec-head-gap);}
+.vk-sec-bar > .vk-sec-head{margin:0;}
+.vk-sec-add{margin-left:auto;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
+.vk-sec-add:hover{background:var(--bg-4);color:var(--tx-0);}
+.vk-sec-add:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
 /* from .layer .lname */
 .vk-layer__name{flex:1;font-size:12px;}
 /* from .layer .lname small */
