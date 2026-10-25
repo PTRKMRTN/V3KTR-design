@@ -109,3 +109,13 @@ Handle-family parts only; no new token. Opacities stay on the 0.3 / 0.6 / 1 scal
 - **The rider position:** a **6 px dot** (`--accent`, 1) on the path at the camera's current position, with a **1 px dotted line** (dash 1 4, `--accent` at 0.6) from the marker's apex to that dot. The dotted hairline is a third line style on purpose: the aim line is solid, the focus line is dashed 2 px, the rider tether is dotted 1 px.
 - **When the camera is not selected:** no path, no tether; the marker alone shows (section 11). The path point can be dragged only through the path's own editing (section 5 onwards), never from the camera marker.
 - Never rendered; hidden with the Cameras overlay.
+
+## 15. Drop lines from light and camera markers to the floor (Patrick via DIMENSOR, 2026-10-26)
+Handle-family parts only: the same stem and foot as the Path point's height cue (section 6), dotted and fainter, so every height cue reads as one family. No new token (`--hdl-aux`, `--hdl-halo`, the accent), so no tag: v0.41.46 and later carry it.
+- **Shown always** for every light and camera marker, as long as its overlay (Cameras or Lights) is on; each overlay hides its own drop lines. Never rendered.
+- **The line:** 1 px (`--hdl-aux`), straight down in the world (vertical on screen under the camera's up), **dotted, dash `1 3`**, from the marker's apex (camera) or centre (light) to its floor foot. **Rest 0.3; the selected marker 0.6.** The halo as the other handles.
+- **The foot:** the Path point's foot, quieter: a **4 px dot and a 9 × 4 ring** (an ellipse lying on the floor plane). **Rest: dot 0.3, ring 0.3. Selected: dot 0.6, ring stays 0.3**, so the foot never outshouts the line.
+- **Distinct from the CAM4 rider tether** (section 14, dash `1 4`, 1 px, 0.6, from the apex to a point on a path): the drop line is always vertical and dash `1 3`; the tether never is vertical by rule and is dash `1 4`. Direction and where it ends tell them apart; the dots differ by a pixel only on purpose.
+- **The floor:** the Ground's top surface height when a Ground is on (including its Float), otherwise the scene's world floor plane (y = 0, the grid's plane). A marker's foot is its x and z at that height.
+- **Marker below the floor:** the same line runs UP to the floor foot, same style, so the cue still says "this much below". **Marker on the floor** (the line would be shorter than 8 screen px): the line is hidden and only the foot shows.
+- A light or camera whose foot would fall off screen keeps the line to the edge of the view; no clamped foot is drawn.
