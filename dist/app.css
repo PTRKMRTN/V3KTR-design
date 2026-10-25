@@ -1037,7 +1037,7 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .vk-thumb__pic.is-empty::before,.vk-thumb.is-empty::before{content:'';position:absolute;inset:0;pointer-events:none;background:var(--bg-1);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M7 7L43 43M57 57L93 93M93 7L57 43M43 57L7 93' stroke='black' stroke-width='1.4' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;}
-/* ICON + THUMBNAIL SYSTEM (v0.41.32, Patrick 2026-10-23/24; rules: docs/ICONS-AND-THUMBNAILS.md). A grid of picker tiles for 4-12 options that LOOK
+/* ICON + THUMBNAIL SYSTEM (v0.41.32, Patrick 2026-10-23/24; rules: docs/ICONS-AND-THUMBNAILS.md). A grid of picker tiles for 4-20 options that LOOK
    different (a Mode, a seed, a material). The sizes are MINIMUMS and the tiles stretch to fill the row evenly, so the count per row adapts to the panel
    width with no ragged edge: at the standard 356px content width S is 6-up, M 4-up, L 3-up. Gap 6px. Build each tile as .vk-thumb.vk-thumb--card with
    role=radio inside a role=radiogroup; the picture is decorative (alt=""), the name is the aria-label and data-tip. Tiles are square-cornered with no border. */

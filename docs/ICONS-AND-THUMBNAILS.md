@@ -27,14 +27,14 @@ Test, in order, for any choice the person makes:
 | an action or verb | icon + label in menus; icon-only + tip in toolbars | Save, Export, Lock |
 | a category or object kind | icon, group colour via `currentColor` | FX rail, stack row, Add catalogue |
 | 2–3 options, words say it | text segmented control | Linear · Radial · Spiral |
-| **4–12 options that look different** | **tile grid** | Poly seed, Thorns shape, Spikes formula, Text path kind |
+| **4–20 options that look different** | **tile grid** | Poly seed, Thorns shape, Spikes formula, Text path kind |
 | a few options, long names, no visible difference | select | Blend mode, frame rate |
-| 13+ content items, searchable | Library cards + chips + search | Materials, Looks, Environments |
+| 21+ content items, searchable | Library cards + chips + search | Materials, Looks, Environments |
 | a result list to scan | rows with a thumb | stack presets, saved looks |
 | a colour or gradient | swatch (its own fill is the content) | palette strip |
 
-**When a dropdown becomes a tile grid:** 4–12 options **and** at least ~70% of them are visibly different at 84px. If the
-renders would look alike (a shade of grey, a number), it stays a select. Over 12 it is not a tile grid, it is the Library.
+**When a dropdown becomes a tile grid:** 4–20 options **and** at least ~70% of them are visibly different at 84px. If the
+renders would look alike (a shade of grey, a number), it stays a select. Over 20 it is not a tile grid, it is the Library. (**Raised from 12 to 20 on 2026-10-25**: PROCESSOR's Dither Palette (17, plus its two depth-plane twins) and ASCII Charset (19) read fine in `.vk-tilegrid` at 3 rows of 6 in the 400px panel and Patrick signed them off, "much better, lock n load". Sheet: `V3KTR-COWORK/reports/tile-survey/dither-ascii-before-after.png`. The 70% rule still applies: at 19 a few ASCII charsets are close to alike at small size, which is the limit, so a selector of that size needs the figure chosen so the options differ.)
 A **Mode** (one primary variant selector) is the usual tile-grid candidate; a **Preset** (sets many controls) is a card.
 
 ## 3. Sizes (all against the 400px side panel, 22px insets, so 356px of content)
@@ -123,7 +123,7 @@ container and two shape modifiers (§8). Selected/hover/empty behave exactly as 
 
 ## 10. Decisions (Patrick, 2026-10-23)
 
-1. Tile rule: **4–12 options and visibly different**, else a select (§2). Yes.
+1. Tile rule: **4–20 options and visibly different**, else a select (§2). Yes.
 2. Sizes S 56 / M 84 / L card, 6px gap. Yes. **Poly's 18 seeds are S tiles** (6-up, name as a tip).
 3. Colourless grey renders by default, colour only where colour is the content (§4). Yes.
 4. `--true-colour` selection for colour-content tiles (§8.3). Yes.
@@ -168,6 +168,7 @@ Patrick's decisions after the icon and tile rounds (marks stored in the Icon mar
 - **Square, no border.** Tiles are plain 168×168 squares: no rounded corners, no outline baked in or drawn around them.
 - **Which selectors are tiles.** Of 38 candidate selectors rendered, **19 qualify**: Halftone Shape (drawn pictograms preferred), Machine Mode, Reskin Material, Glass, Slicer Infill, Display Device, Pattern Mode / Shape / Lattice, Block Mosaic Style, Point Cloud Shape / Field, Scanlines Mode, Long Exposure Mode, Scan Glitch Mode, Databend Mode, Domain Warp Field, Hardware Device, Moiré Grating. **19 are rejected** (options alike, or they rebuild the picture): see `tile-rollout/notes.md`. A selector qualifies only if its options are distinguishable at 84px.
 - **Still weak:** Machine Flow ≈ Circuit, Reskin Chrome ≈ Liquid Metal and Obsidian ≈ Studio Chrome, Point Cloud Digits is nearly empty, Hatch is dim; the dot/line modes in Machine remain fine at 84px.
+- **Two more test figures, for selectors where the cube hides the point (PROCESSOR, 2026-10-25).** A **full-range figure** (a tone ramp from black to white, for dither and palette selectors whose look is the range of values) and a **colour figure** (a hue sweep, so a colour palette shows its colours). The cube stays the default; use these only where the cube cannot show the difference. Raised the tile limit to 20 (section 2).
 - **Reproducible:** `node tile-rollout/render.mjs` rebuilds every tile from the engine and `config.json`; the engine is driven headless in about 3 minutes for all selectors. This is the harness PROCESSOR will own when it integrates; nothing is integrated yet (mockups only, Patrick 2026-10-23).
 
 ## 14. The final FX icon set (Patrick, 2026-10-24)
