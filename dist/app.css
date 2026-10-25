@@ -760,7 +760,8 @@
 /* PROGRESS BAR (v0.41.48, from KOMPOSITOR's four local bars; PROCESSOR's .rs-bar and DIMENSOR's .render-progress__bar are the same thing): a track and a fill driven by --p (include the %, e.g. style="--p:42%").
    The fill is the secondary colour (time and the machine). Heights: default 4px, --thin 2px, --thick 8px. --overlay has no track and pins to a container's bottom edge (a tile): set --at to stack
    a second one above it (`--at:2px`). Markup: <div class="vk-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42" aria-label="Exporting" style="--p:42%"></div>
-   (an indeterminate bar has no aria-valuenow). The app updates --p and aria-valuenow together. */
+   (an indeterminate bar has no aria-valuenow). The app updates --p and aria-valuenow together.
+   In a flex ROW the bar has no width of its own and an empty fill makes it shrink to 0 (KOMPOSITOR's export bar was 0px wide for that reason): give it `flex:1` or a width, or keep it in a block parent. */
 .vk-progress{--p:0%;position:relative;height:4px;background:var(--bg-3);overflow:hidden;}
 .vk-progress::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p);background:var(--accent-2,var(--accent));transition:width .1s linear;}
 .vk-progress--thin{height:2px;}
