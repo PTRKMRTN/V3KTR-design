@@ -65,3 +65,19 @@ Keys: Delete / Backspace deletes the selected point, C closes the curve, S / A /
 1. Add the `--hdl-*` tokens and a short `VIEWPORT-HANDLES` section to AGENTS.md; add the five icons to `icons/menu-icons.js`; tag.
 2. DIMENSOR draws the overlay from the tokens, PATH1 first, FXH1 second, with before/after sheets of each state in the real viewport.
 3. PROCESSOR's crop and `.vp-*` handles keep working; adopt the tokens when next touched (their sizes already match: 12 px diamonds and circles).
+
+## 11. Camera items (CAM1, DIMENSOR D59): what exists, what is proposed
+Mockup: `V3KTR-COWORK/reports/viewport-handles/cameras.png` (`build-cameras.mjs`).
+
+**Existing patterns that cover it (use these classes, nothing new):**
+- Section: `.vk-section` + `.vk-sec-head` ("Cameras").
+- A camera row: `.vk-layer` (icon tile `.vk-layer__icon`, name `.vk-layer__name` with a `<small>` line for lens and field of view); `.is-active` is the **selected** row tint, `.is-hover`, `.is-disabled` as everywhere.
+- Row actions: `.vk-row__ctl` icon controls (text colour only when on, per the small-icon-toggle rule), each with a tip that adds a description (the tip-repeat rule): **Look through** (shared `eye`), **Update** (shared `sync`), **Lock** (shared `lock` / `unlock`, `.vk-lock` marker on a locked row).
+
+**Proposed (no pattern today):**
+1. **Active marker.** The ONE active camera has its row's icon tile filled solid (`--accent` background, `--on-accent` icon). Selected (the row tint) and active (what renders) are therefore two different marks and never confused. Other cameras keep the dark tile with an accent icon. Set by "Make active" in the row's context menu, or by clicking the tile.
+2. **Section-head add button.** A 22 × 22 px icon button (`--bg-3`, hover `--bg-4`) at the right end of the head, for "Add camera" (tip with a description). This is the shared pattern for any "add an item to this list" head; DIMENSOR's lists use it from now on.
+3. **Frustum marker** (in the D58 family): apex dot, four edges to a far-plane rectangle, an up tick; screen-size class (about 34 px long whatever the distance, true orientation), never rendered, clickable at the apex (24 px hit). States: inactive = lines at 0.6, 5 px apex; active = full lines, solid apex, 16% far-plane tint; hover = hover accent, 1.5 px lines, 12 px ring at 0.6; selected = white apex with a 2 px accent ring. Name label in the mono 9.5 px pill on hover.
+4. New icons, drawn here first: `camera` (body and lens, two-tone), `add` (plus). Icons in `icons-cameras.json`.
+
+**Key scope (D58, from DIMENSOR):** S / A / B (Smooth / Sharp / Bezier) are active only while a path is being edited (a point selected or the draw tool on) and never in Walk mode, where WASD move the camera. The draw tool owns Enter while it is on.
