@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.54
+/* V3KTR design tokens · v0.41.55
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -63,7 +63,7 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
-  /* Viewport handles (v0.41.54, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
+  /* Viewport handles (v0.41.55, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
      A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px (32px on touch), the curve line 2px, aux lines 1px. */
   --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-hit-touch:32px; --hdl-curve:2px; --hdl-aux:1px;
   --hdl-halo:drop-shadow(0 0 1px rgba(0,0,0,.85));
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.54 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.55 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -754,10 +754,10 @@
 
 /* Tags (HEAVY, NEW ...): an 8% tint of the meaning colour with the word in that colour. 8% is the strongest tint
    amber keeps 4.5:1 on (20% measures 3.84:1). Set --tag for another colour. */
-/* SECONDARY COLOUR (v0.41.54): for what time and the machine are doing, never for the person's choices (docs/SECONDARY-COLOUR.md). Tag text is the hover colour on a 12% tint (contrast 5.4 to 6.2). */
+/* SECONDARY COLOUR (v0.41.55): for what time and the machine are doing, never for the person's choices (docs/SECONDARY-COLOUR.md). Tag text is the hover colour on a 12% tint (contrast 5.4 to 6.2). */
 .vk-tag--live,.vk-tag--new{--tag:var(--accent-2-hover);background:var(--accent-2-tint);}
 .vk-tag--live::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent-2);margin-right:5px;vertical-align:1px;}
-/* PROGRESS BAR (v0.41.54, from KOMPOSITOR's four local bars; PROCESSOR's .rs-bar and DIMENSOR's .render-progress__bar are the same thing): a track and a fill driven by --p (include the %, e.g. style="--p:42%").
+/* PROGRESS BAR (v0.41.55, from KOMPOSITOR's four local bars; PROCESSOR's .rs-bar and DIMENSOR's .render-progress__bar are the same thing): a track and a fill driven by --p (include the %, e.g. style="--p:42%").
    The fill is the secondary colour (time and the machine). Heights: default 4px, --thin 2px, --thick 8px. --overlay has no track and pins to a container's bottom edge (a tile): set --at to stack
    a second one above it (`--at:2px`). Markup: <div class="vk-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42" aria-label="Exporting" style="--p:42%"></div>
    (an indeterminate bar has no aria-valuenow). The app updates --p and aria-valuenow together.
@@ -771,7 +771,7 @@
 .vk-playhead{width:2px;background:var(--accent-2);}                /* timeline playhead: a 2px bar, the parent sets position and height */
 .vk-marker{width:7px;height:7px;background:var(--accent-2);transform:rotate(45deg);}   /* a timeline marker, in point, beat: a 7px diamond */
 .vk-series--2{stroke:var(--accent-2);}                               /* the second series of a curve or graph (the first stays the accent or grey) */
-/* A readout pill over the viewport (v0.41.54, from DIMENSOR's path pill; PROCESSOR's crop dims and the SVG .vp-ro are the same thing): "Ground", "Height 1.41", "Aim: Logo", "38 deg". Accent fill, on-accent
+/* A readout pill over the viewport (v0.41.55, from DIMENSOR's path pill; PROCESSOR's crop dims and the SVG .vp-ro are the same thing): "Ground", "Height 1.41", "Aim: Logo", "38 deg". Accent fill, on-accent
    mono 10px / 600, 2px 6px, never takes the pointer. The app positions it (position:absolute beside the cursor or the handle). A DOM overlay uses this; an SVG overlay draws the same box and text from the tokens. */
 .vk-vp-pill{display:inline-block;background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.04em;padding:2px 6px;white-space:nowrap;pointer-events:none;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.55 — 2026-10-26
+
+- **New icon: `cables`, for DIMENSOR's Cables Output FX tile (catenary cables hung between points of a shape).** Three cables sagging between two anchor dots at different depths: the shallow one at full tone, the middle at 0.6, the deepest at 0.3. Two-tone, 24 grid. A version with a third, middle anchor read as a crown and was rejected. `test/handles.test.mjs` checks it exists.
+
 ## 0.41.54 — 2026-10-26
 
 - **New icon: `anamorph`, for DIMENSOR's Anamorph FX tile (an object scattered in depth so it reads whole from one camera).** An eye point on the left with three rays fanning out and one fragment on each ray, **growing with distance** (the far, large fragment at full tone, the middle at 0.6, the near small one at 0.6, the rays at 0.3) so it reads as "scattered in depth, whole from here". Two-tone, 24 grid. Tried a version with all fragments at full tone (lost the depth) and one with solid fragments (heavy at 14px). `test/handles.test.mjs` checks it exists.
