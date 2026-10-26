@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.57 — 2026-10-26
+
+- **New icon: `mobius`, for DIMENSOR's Möbius Deform tile (Patrick 2026-10-26: "they are fine, lock them in").** A ring with a twist where the strands cross on the right: the outer front strand at full tone, the inner and crossing strands at 0.6, a short cross-stroke at 0.3. Two-tone, 24 grid. It is the "mob_E" version from the sheet sent with v0.41.56 (the other, "mob_D", had no visible crossing); at 14px it reads as a twisted ring more than as a ribbon, the limit at that size. `stereographic` (v0.41.56) stays. `test/handles.test.mjs` checks the icon exists.
+
 ## 0.41.56 — 2026-10-26
 
 - **New icon: `stereographic`, for DIMENSOR's Stereographic Deform tile.** A sphere with its pole dot on top, five rays fanning from the pole down to a ground plane (the rays at 0.6, the plane at 0.3, the sphere and pole at full tone). It reads as "a sphere projected onto a plane"; at 14px it is closer to a lamp over a floor than to a textbook diagram, which is the limit of this idea at 24 px. Two-tone, 24 grid. `mobius` is NOT drawn yet: five versions (a ring with an inner stroke, a drawn twist, a computed ribbon edge) did not read as a Möbius band at 24 px, so DIMENSOR keeps `torus` for that tile until Patrick draws one or chooses a direction. `test/handles.test.mjs` checks the icon exists.

@@ -36,6 +36,7 @@
     "mail": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\"/><path d=\"M3 6l9 7 9-7\"/>",
     "markin": "<path d=\"M10 4H7v16h3\"/><path d=\"M12 12h8M16 8l4 4-4 4\"/>",
     "markout": "<path d=\"M14 4h3v16h-3\"/><path d=\"M12 12H4M8 8l-4 4 4 4\"/>",
+    "mobius": "<path d=\"M12 6C7 6 3 8.500 3 12s4 6 9 6\"/><path d=\"M12 9C9.500 9 7 10.300 7 12s2.500 3 5 3\" opacity=\"0.6\"/><path d=\"M12 6c4 0 7 2 8 5s-3 4-8 4\" opacity=\"0.6\"/><path d=\"M12 9c3 0 5 1 6.500 2.500S19 18 12 18\"/><path d=\"M16.500 10.500l2.500 4\" opacity=\"0.3\"/>",
     "move": "<path d=\"M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3\"/>",
     "new": "<path d=\"M6 3h8l4 4v14H6z\"/><path d=\"M14 3v4h4M12 11v6M9 14h6\"/>",
     "open": "<path d=\"M3 7h6l2 2h10v10H3z\"/>",
