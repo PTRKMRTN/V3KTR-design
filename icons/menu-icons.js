@@ -62,6 +62,7 @@ export const MENU_ICONS = {
   smooth: '<path d="M2 15C6 15 7 8 12 8S18 15 22 15" opacity="0.6"/><circle cx="12" cy="8" r="3" fill="currentColor" stroke="none"/>',
   snap: '<path d="M6 4v8a6 6 0 0012 0V4"/><path d="M6 8h4M14 8h4"/>',
   split: '<path d="M12 3v18" stroke-dasharray="2 2"/><rect x="3" y="7" width="6" height="10"/><rect x="15" y="7" width="6" height="10"/>',
+  stereographic: '<circle cx="12" cy="8" r="5"/><circle cx="12" cy="3" r="1.500" fill="currentColor" stroke="none"/><path d="M12 3L3.500 20M12 3l8.500 17M12 3L9 18M12 3l3 15" opacity="0.6"/><path d="M2 21.500l3-4h14l3 4Z" opacity="0.3"/>',
   sync: '<path d="M4 12a8 8 0 0113.7-5.6L20 8M20 4v4h-4"/><path d="M20 12a8 8 0 01-13.7 5.6L4 16M4 20v-4h4"/>',
   trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
   undo: '<path d="M5 12a7 7 0 107-7H7"/><path d="M10 2L7 5l3 3"/>',

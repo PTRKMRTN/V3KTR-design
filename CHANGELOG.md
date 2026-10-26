@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.56 — 2026-10-26
+
+- **New icon: `stereographic`, for DIMENSOR's Stereographic Deform tile.** A sphere with its pole dot on top, five rays fanning from the pole down to a ground plane (the rays at 0.6, the plane at 0.3, the sphere and pole at full tone). It reads as "a sphere projected onto a plane"; at 14px it is closer to a lamp over a floor than to a textbook diagram, which is the limit of this idea at 24 px. Two-tone, 24 grid. `mobius` is NOT drawn yet: five versions (a ring with an inner stroke, a drawn twist, a computed ribbon edge) did not read as a Möbius band at 24 px, so DIMENSOR keeps `torus` for that tile until Patrick draws one or chooses a direction. `test/handles.test.mjs` checks the icon exists.
+
 ## 0.41.55 — 2026-10-26
 
 - **New icon: `cables`, for DIMENSOR's Cables Output FX tile (catenary cables hung between points of a shape).** Three cables sagging between two anchor dots at different depths: the shallow one at full tone, the middle at 0.6, the deepest at 0.3. Two-tone, 24 grid. A version with a third, middle anchor read as a crown and was rejected. `test/handles.test.mjs` checks it exists.
