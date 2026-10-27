@@ -49,6 +49,7 @@ export const MENU_ICONS = {
   paste: '<rect x="5" y="5" width="14" height="16"/><path d="M9 5V3h6v2"/>',
   path: '<path d="M3 18C6 8 10 8 12 13S18 18 21 6" opacity="0.6"/><circle cx="3" cy="18" r="1.8" fill="currentColor" stroke="none"/><circle cx="21" cy="6" r="1.8" fill="currentColor" stroke="none"/>',
   play: '<path d="M7 5l12 7-12 7z"/>',
+  react: '<path d="M3 12h2.500l1.500-5 3 10 2.500-8 1.500 3H21" /><circle cx="21" cy="12" r="1.600" fill="currentColor" stroke="none"/>',
   receive: '<path d="M20 12H7M12 6l-6 6 6 6"/><path d="M4 5v14"/>',
   redo: '<path d="M19 12a7 7 0 11-7-7h5"/><path d="M14 2l3 3-3 3"/>',
   reset: '<path d="M5 12a7 7 0 107-7H7"/><path d="M10 2L7 5l3 3"/>',

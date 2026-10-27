@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.58 — 2026-10-27
+
+- **The Music lane, the Reactions pieces and the react icon (Patrick 2026-10-27, "Approve as is", for KOMPOSITOR's music-reactive edits; `docs/MUSIC-LANE-REACTIONS.md`).** New classes: `.vk-lane` (a 24px lane under an audio clip), `.vk-lane__mark[data-kind="accent|offbeat|hit|break|drop|build|inout"]` (a positioned event marker: `--x` as a 0 to 1 fraction, a 24px hit area, glyph shapes drawn in CSS, so no inline SVG is needed; detected = the secondary, `.is-hand` = the accent, `.is-selected` = white with an accent ring, hover = the hover colour), `.vk-lane__span` (a break or build span, `--x` and `--w` fractions, a 12% tint) and `.vk-react` (the REACT disclosure block under a param row: indented 12px, `--bg-2`). New icon `react` (a waveform ending in a dot, two-tone). The Reactions list and the instrument filter need nothing new: they are `.vk-row`, `.vk-select`, `.vk-scrub`, `.vk-seg` and `.vk-chip` as in the doc. **Reactions are OFF by default** (Patrick): the amounts in the mockup are the Style defaults once switched on, and accent cuts are opt-in. `test/lane.test.mjs` (12 checks).
+
 ## 0.41.57 — 2026-10-26
 
 - **New icon: `mobius`, for DIMENSOR's Möbius Deform tile (Patrick 2026-10-26: "they are fine, lock them in").** A ring with a twist where the strands cross on the right: the outer front strand at full tone, the inner and crossing strands at 0.6, a short cross-stroke at 0.3. Two-tone, 24 grid. It is the "mob_E" version from the sheet sent with v0.41.56 (the other, "mob_D", had no visible crossing); at 14px it reads as a twisted ring more than as a ribbon, the limit at that size. `stereographic` (v0.41.56) stays. `test/handles.test.mjs` checks the icon exists.

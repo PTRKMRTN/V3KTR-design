@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.57
+/* V3KTR design tokens · v0.41.58
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -63,7 +63,7 @@
   /* Floating viewport toolbars (Patrick 2026-10-01): the bottom bar sits one toolbar-height higher than before (was 14px)
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
-  /* Viewport handles (v0.41.57, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
+  /* Viewport handles (v0.41.58, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
      A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px (32px on touch), the curve line 2px, aux lines 1px. */
   --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-hit-touch:32px; --hdl-curve:2px; --hdl-aux:1px;
   --hdl-halo:drop-shadow(0 0 1px rgba(0,0,0,.85));
