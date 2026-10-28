@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.61 (2026-10-29)
+- Music lane marker glyphs are now all solid (Patrick chose set A from the sample sheet): offbeat circle, hit 5 x 14 rounded bar, drop and build 14 x 12 triangles, break an 11px square, inout a 14px half-arrow; no brackets or hairlines. Accent diamond unchanged.
+- New **`.vk-lane-rows` / `.vk-lane-row` / `.vk-lane-row__head`**: sub-rows for a busy track (Accents, Hits, Drops/Breaks/Builds, Rolls, Intro/Outro), a 72px head on `--bg-2` with a label or icon, the lane filling the rest; a row with no markers is `hidden`. Test: lane 14 checks.
+
 ## 0.41.60 — 2026-10-28
 
 - **Icon + label button: `.vk-btn--ic` (DIMENSOR LIB1, Show / Hide library).** `<button class="vk-btn vk-btn--sm vk-btn--ic"><span class="vk-menu-ic">…14px icon…</span>Show library</button>`: inline flex, 6px gap, the icon in the label's colour (follows hover); on `--sm` the padding is 3px 10px. Replaces DIMENSOR's local rule. Tested: `test/btnic.test.mjs` (6 checks, with a negative control).
