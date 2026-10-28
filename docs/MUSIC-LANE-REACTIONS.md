@@ -1,6 +1,6 @@
 # Music lane, Reactions list and the react control: proposal (NOT shipped)
 
-Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edits (Patrick 2026-10-27: "one of the top priorities now"; scope `V3KTR-PROJEKT/research/kompositor-music-reactive-scoping-2026-10.md` §3 to 5). Mockup: `V3KTR-COWORK/reports/music-reactive/music.png` (`build.mjs`). Nothing is tagged until Patrick has looked, and the launch freeze (design answers and bug fixes only, 2026-10-26) means he decides whether this goes in before launch. Principle (Patrick): simple usability and UI, some flexibility, never a node graph.
+Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edits (Patrick 2026-10-27: "one of the top priorities now"; scope `V3KTR-PROJEKT/research/kompositor-music-reactive-scoping-2026-10.md` §3 to 5). Mockup: `V3KTR-COWORK/reports/music-reactive/music.png` (`build.mjs`). The lane markers have since shipped (v0.41.58); the rest waits for Patrick's look. The launch freeze is lifted (2026-10-29): planned work is for now unless Patrick marks it for after launch. Principle (Patrick): simple usability and UI, some flexibility, never a node graph.
 
 ## 1. Built from existing pieces
 | Need | Existing piece |
@@ -33,6 +33,6 @@ Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edit
 `.vk-lane` (the 24 px lane), `.vk-lane__mark` (a positioned marker, `--x` as the fraction, `[data-kind="accent|offbeat|hit|break|drop|build|inout"]`, `.is-hand` for accent colour, `.is-selected`), `.vk-lane__span` (a break or build span), `.vk-react` (the REACT disclosure block). Tokens: none new. Icon: `react` in `icons/menu-icons.js`.
 
 ## 4. Open questions for Patrick
-1. Launch scope: this is new pattern work during the launch freeze. Build and tag now, or after launch?
+1. Launch scope: no freeze now, so this is for now unless you mark it for after launch.
 2. Marker colour rule (detected = secondary, yours = accent): right, or should every marker be one colour?
 3. Seven marker shapes are many; the legend carries them. Is that fine, or fold hits into accents and breaks into builds as "spans"?
