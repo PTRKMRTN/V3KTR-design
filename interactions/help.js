@@ -86,8 +86,14 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
 
   const on = [];
   const listen = (el, ev, fn, opt) => { el.addEventListener(ev, fn, opt); on.push([el, ev, fn, opt]); };
+  // A press on a control hides its tip until the pointer leaves it (Patrick 2026-10-28, KOMPOSITOR: Play became Pause and
+  // the old tip stayed). The app may re-render the control under the pointer, which fires a fresh pointerover on a NEW
+  // element (and warm mode would show it at once), so the pressed control's rectangle is remembered, not the element.
+  let pressedRect = null;
+  const inRect = (e, r) => r && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
   listen(root, 'pointerover', (e) => {
     if (e.pointerType === 'touch') return;
+    if (pressedRect) { if (inRect(e, pressedRect)) return; pressedRect = null; }
     const el = find(e.target); if (!el || el === target || el === pending) return;   // crossing a control's own children doesn't restart the delay
     // WARM MODE: once a tip has been open, the next control shows its tip at once, so scanning a row of tiles (an FX
     // rail) doesn't wait 400 ms on every one. It cools after `warm` ms with the pointer off every tip target.
@@ -99,6 +105,7 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
     const el = find(e.target); if (!el) return;
     if (e.relatedTarget && el.contains(e.relatedTarget)) return;   // moving inside the control
     pending = null;
+    if (pressedRect && !inRect(e, pressedRect)) pressedRect = null;
     if (el === target || !target) hide(); else clearTimeout(timer);
   });
   listen(root, 'focusin', (e) => { cancelBlur(); const el = find(e.target); if (el && el.matches(':focus-visible')) show(el, true); });
@@ -129,7 +136,8 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   });
   listen(root, 'pointerdown', (e) => {
     const el = find(e.target);
-    if (target && el !== target) hide();                          // a tap (or click) elsewhere closes it
+    pressedRect = e.pointerType !== 'touch' && el ? el.getBoundingClientRect() : null;
+    if (target && el !== target) hide();                        // a tap (or click) elsewhere closes it
     if (e.pointerType !== 'touch' || !el) { if (e.pointerType !== 'touch') hide(); return; }
     pressX = e.clientX; pressY = e.clientY; clearTimeout(timer);
     timer = setTimeout(() => { show(el); eatClick = true; }, longPress);

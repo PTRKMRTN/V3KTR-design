@@ -30,10 +30,13 @@ const PAGE = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="
   <div style="height:400px"></div>
 </div>
 <div id="out" style="height:200px"></div>
+<div id="host" style="margin-top:10px"><button id="play" tabindex="-1" class="vk-btn" data-tip="Play" data-tip-desc="Space">Play</button></div>
 <div class="vk-scrub">Radius</div><div class="vk-param-desc" id="pd">How far the sharpening reaches.</div>
 <script type="module">
 import { installTips, helperText, keyLabel } from '/interactions/help.js';
 window.uninstall = installTips(); window.help = helperText('test'); window.keyLabel = keyLabel;
+window.rerender = () => { const h = document.getElementById('host'); h.innerHTML = '<button id="play" tabindex="-1" class="vk-btn" data-tip="Pause" data-tip-desc="Space">Pause</button>'; };
+document.getElementById('play').addEventListener('click', () => window.rerender());
 window.clicks = 0; document.getElementById('a').addEventListener('click', () => window.clicks++);
 </script>`;
 const srv = createServer(async (q, s) => {
@@ -139,6 +142,13 @@ try {
   await p.hover('#spaced'); await p.waitForTimeout(600); ok(!(await shown()), 'tip equal to a label that wraps across whitespace does not open');
   await p.mouse.move(5, 5); await p.waitForTimeout(600);
   await p.hover('#icon'); await p.waitForTimeout(600); ok(await shown(), 'icon-only control keeps its name tip');
+  await p.mouse.move(5, 5); await p.waitForTimeout(100);
+  // Hide on click (Patrick 2026-10-28, KOMPOSITOR): a click on a control hides its tip, even when the app re-renders the button under the pointer; the next hover shows it again.
+  await p.hover('#play'); await p.waitForTimeout(600); ok(await shown(), 'the Play tip is up before the click');
+  await p.mouse.down(); await p.mouse.up(); await p.waitForTimeout(700);
+  ok(!(await shown()), 'a click hides the tip, and a re-rendered control under the pointer does not bring it back');
+  await p.mouse.move(5, 5); await p.waitForTimeout(600); await p.hover('#play'); await p.waitForTimeout(600);
+  ok(await shown(), 'the tip shows again on the next hover');
   await p.mouse.move(5, 5); await p.waitForTimeout(100);
   // Helper Text: off by default; on shows .vk-param-desc; remembered
   ok(!(await p.isVisible('#pd')), 'Helper Text off by default: description hidden');

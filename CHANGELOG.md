@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.59 — 2026-10-28
+
+- **A click hides a tip; a disabled control says why (Patrick 2026-10-28, KOMPOSITOR UI walk: "Hide on click", "Use these tips", "probably one for the design system too").** `interactions/help.js`: a press on a control hides its tip and it stays hidden until the pointer leaves that control's rectangle, even when the app re-renders the control under the pointer (Play becoming Pause fired a fresh pointerover on a new element and warm mode showed the old tip at once); the next hover shows it again. `test/help.test.mjs` 40 checks (the click case failed before the fix). New `.vk-btn[aria-disabled="true"]` (38% opacity, not-allowed cursor, keeps the pointer so the tip can show; the app guards the click). AGENTS.md "A disabled control says why": the tip is data-tip = the name, data-tip-desc = the reason and what to do ("Select a clip first.").
+
 ## 0.41.58 — 2026-10-27
 
 - **The Music lane, the Reactions pieces and the react icon (Patrick 2026-10-27, "Approve as is", for KOMPOSITOR's music-reactive edits; `docs/MUSIC-LANE-REACTIONS.md`).** New classes: `.vk-lane` (a 24px lane under an audio clip), `.vk-lane__mark[data-kind="accent|offbeat|hit|break|drop|build|inout"]` (a positioned event marker: `--x` as a 0 to 1 fraction, a 24px hit area, glyph shapes drawn in CSS, so no inline SVG is needed; detected = the secondary, `.is-hand` = the accent, `.is-selected` = white with an accent ring, hover = the hover colour), `.vk-lane__span` (a break or build span, `--x` and `--w` fractions, a 12% tint) and `.vk-react` (the REACT disclosure block under a param row: indented 12px, `--bg-2`). New icon `react` (a waveform ending in a dot, two-tone). The Reactions list and the instrument filter need nothing new: they are `.vk-row`, `.vk-select`, `.vk-scrub`, `.vk-seg` and `.vk-chip` as in the doc. **Reactions are OFF by default** (Patrick): the amounts in the mockup are the Style defaults once switched on, and accent cuts are opt-in. `test/lane.test.mjs` (12 checks).
