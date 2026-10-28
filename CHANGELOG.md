@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.60 — 2026-10-28
+
+- **Icon + label button: `.vk-btn--ic` (DIMENSOR LIB1, Show / Hide library).** `<button class="vk-btn vk-btn--sm vk-btn--ic"><span class="vk-menu-ic">…14px icon…</span>Show library</button>`: inline flex, 6px gap, the icon in the label's colour (follows hover); on `--sm` the padding is 3px 10px. Replaces DIMENSOR's local rule. Tested: `test/btnic.test.mjs` (6 checks, with a negative control).
+
 ## 0.41.59 — 2026-10-28
 
 - **A click hides a tip; a disabled control says why (Patrick 2026-10-28, KOMPOSITOR UI walk: "Hide on click", "Use these tips", "probably one for the design system too").** `interactions/help.js`: a press on a control hides its tip and it stays hidden until the pointer leaves that control's rectangle, even when the app re-renders the control under the pointer (Play becoming Pause fired a fresh pointerover on a new element and warm mode showed the old tip at once); the next hover shows it again. `test/help.test.mjs` 40 checks (the click case failed before the fix). New `.vk-btn[aria-disabled="true"]` (38% opacity, not-allowed cursor, keeps the pointer so the tip can show; the app guards the click). AGENTS.md "A disabled control says why": the tip is data-tip = the name, data-tip-desc = the reason and what to do ("Select a clip first.").
