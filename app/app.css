@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.66 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.67 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -746,3 +746,19 @@
 .vk-swatch.is-selected{background:var(--accent);}
 
 /* The link light moved to app/link.css (v0.26.1); dist/app.css still includes it. */
+
+/* Full-page notice (v0.41.67): a whole-window takeover with no app behind it, e.g. the "needs a desktop" gate
+   (dist/desktop-only.html). Content left-aligned in a 560px column, vertically centred. Put data-app on the root. */
+.vk-fullpage{min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;background:var(--bg-1);color:var(--tx-1);font-family:var(--sans);
+  padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left));}
+.vk-fullpage__in{width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:20px;align-items:flex-start;text-align:left;}
+.vk-fullpage__logo{height:28px;color:var(--tx-0);}
+.vk-fullpage__logo svg{height:100%;width:auto;display:block;}
+.vk-fullpage h1{margin:0;font-weight:700;font-size:30px;line-height:1.15;text-wrap:balance;color:var(--tx-0);}
+.vk-fullpage h1 em{font-style:normal;color:var(--accent);}
+.vk-fullpage p{margin:0;font-size:15px;line-height:1.55;color:var(--tx-1);max-width:46ch;}
+.vk-fullpage__list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:12px;color:var(--tx-1);}
+.vk-fullpage__list b{color:var(--accent);font-weight:500;}
+.vk-fullpage a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
+.vk-fullpage__row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.vk-fullpage small{font-size:12px;color:var(--tx-2);}

@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.67 (2026-10-29)
+- `.vk-fullpage` (+ `__in`, `__logo`, `__list`, `__row`): whole-window notice shell, and `dist/desktop-only.html` (built by `scripts/build-desktop-only.mjs`), the shared "needs a desktop" gate page for PROCESSOR / KOMPOSITOR / DIMENSOR and v3ktr.com/desktop. One self-contained file (CSS, fonts, logos inlined), noindex, app chosen by `?app=` or a `<app>.` hostname, no "continue anyway" link, Copy link copies the app URL.
+
 ## 0.41.66 (2026-10-29)
 - Online asset browser parts (DIMENSOR Library, mock approved by Patrick): `.vk-card-state` (+ `--online` ring, `--device` dot, `--loading` with `--p` progress ring), `.vk-meter`, `.vk-store-detail`, `.vk-store-foot`, `.vk-store-pop` with `.vk-store-row` parts. The Online switch is a plain `.vk-seg`. `.vk-layer--indent-2` comment reworded (DIMENSOR now stops at two levels).
 
