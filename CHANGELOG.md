@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.64 (2026-10-29)
+- `.vk-layer--indent` (18px) and `.vk-layer--indent-2` (36px): the two stack-row indent levels, promoted from DIMENSOR's local `.vk-slot-child` / `--2` rules (MPC1 planes under a camera under the Cameras group).
+
 ## 0.41.63 (2026-10-29)
 - 12 menu/tile icons for DIMENSOR (TXTS1, MPC1; Patrick-approved features): `textpath` (letters following a curve), `textblock` (a box of wrapped lines), `multiplane` (a camera with stacked planes) and the nine plane sources `srccolour`, `srcgradient`, `srcimage`, `srcvideo`, `srcbars`, `srcplasma`, `srcchecker`, `srcstars`, `srcobject`. Same 24 grid, 1.4 stroke, no fills; sources share a plane frame. Line icons only: the rendered tile thumbnails stay with the thumbnail system.
 
