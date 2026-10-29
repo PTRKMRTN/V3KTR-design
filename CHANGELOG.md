@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.69 (2026-10-30)
+- `.vk-sec-add`: two or more on one `.vk-sec-bar` now sit together at the right (6px gap); only the first visible one keeps `margin-left:auto`. One button is unchanged. (DIMENSOR Cameras bar: + camera, + Multiplane.)
+
 ## 0.41.68 (2026-10-29)
 - `dist/desktop-only.html`: browser line now "the latest desktop Chrome or Edge" (no Safari; only what the apps are tested on).
 
