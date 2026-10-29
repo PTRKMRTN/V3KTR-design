@@ -75,6 +75,18 @@ export const MENU_ICONS = {
   zoom: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
   zoomin: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/>',
   zoomout: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/>',
+  textpath: '<path d="M3 20C10 20 10 8 21 8" opacity="0.5"/><path d="M-0.3 13.89L4.28 11.43M1.99 12.66L5.01 18.3M12.85 1.92L17.83 0.45M15.34 1.19L17.15 7.33"/>',
+  textblock: '<rect x="3.500" y="3.500" width="17" height="17" opacity="0.6"/><path d="M7 8h10M7 12h10M7 16h6"/>',
+  multiplane: '<path d="M10 3.500h11v8H10z" opacity="0.3"/><path d="M7 7h11v8H7z" opacity="0.6"/><path d="M4 10.500h11v8H4z"/><circle cx="9.500" cy="14.500" r="1.600"/>',
+  srccolour: '<rect x="4" y="4" width="16" height="16"/><path d="M4 12L12 4M4 20L20 4M12 20l8-8"/>',
+  srcgradient: '<rect x="4" y="4" width="16" height="16"/><path d="M8 7v10" opacity="0.25"/><path d="M12 7v10" opacity="0.5"/><path d="M16 7v10" opacity="0.85"/>',
+  srcimage: '<rect x="4" y="4" width="16" height="16"/><path d="M4 16l5-5 4 4 3-3 4 4"/><circle cx="15.500" cy="8.500" r="1"/>',
+  srcvideo: '<rect x="4" y="4" width="16" height="16"/><path d="M10 9v6l5-3z"/>',
+  srcbars: '<rect x="4" y="4" width="16" height="16" opacity="0.6"/><path d="M7 8h10" opacity="0.35"/><path d="M7 10.500h10" opacity="0.7"/><path d="M7 13h10"/><path d="M7 15.500h10" opacity="0.7"/>',
+  srcplasma: '<rect x="4" y="4" width="16" height="16" opacity="0.6"/><path d="M6.500 10c2-3 3.500-3 5.500 0s3.500 3 5.500 0"/><path d="M6.500 15c2-3 3.500-3 5.500 0s3.500 3 5.500 0" opacity="0.6"/>',
+  srcchecker: '<rect x="4" y="4" width="16" height="16"/><path d="M12 4v16M4 12h16M4 8l4-4M4 12l8-8M12 20l8-8M16 20l4-4"/>',
+  srcstars: '<rect x="4" y="4" width="16" height="16" opacity="0.6"/><path d="M9 8v4M7 10h4M16 13v3M14.500 14.500h3"/><path d="M15 8.500v.01M8.500 16v.01" />',
+  srcobject: '<rect x="4" y="4" width="16" height="16" opacity="0.5"/><path d="M12 7.500l4 2.200v4.600l-4 2.200-4-2.200V9.700z"/><path d="M8 9.700l4 2.300 4-2.300M12 12v4.500" opacity="0.6"/>',
 };
 export function menuIconSvg(name, size = 14) {
   const p = MENU_ICONS[name];

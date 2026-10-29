@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.63 (2026-10-29)
+- 12 menu/tile icons for DIMENSOR (TXTS1, MPC1; Patrick-approved features): `textpath` (letters following a curve), `textblock` (a box of wrapped lines), `multiplane` (a camera with stacked planes) and the nine plane sources `srccolour`, `srcgradient`, `srcimage`, `srcvideo`, `srcbars`, `srcplasma`, `srcchecker`, `srcstars`, `srcobject`. Same 24 grid, 1.4 stroke, no fills; sources share a plane frame. Line icons only: the rendered tile thumbnails stay with the thumbnail system.
+
 ## 0.41.62 (2026-10-29)
 - `.vk-lane-row__head` is a fixed 24px tall, so heads can be stacked in a separate head column (1px gap) beside a scrolled `.vk-lane-rows` whose rows have no head (KOMPOSITOR timeline). Unchanged inside a row.
 
