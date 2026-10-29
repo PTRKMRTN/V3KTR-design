@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.65 ===== */
-/* V3KTR design tokens · v0.41.65
+/* ===== core: tokens.css v0.41.66 ===== */
+/* V3KTR design tokens · v0.41.66
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.65 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.66 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -635,8 +635,34 @@
 .vk-layer__disc[aria-expanded="true"]::before{transform:translateY(-1.5px) rotate(45deg);}
 .vk-layer__disc:hover{color:var(--tx-0);background:var(--hover);}
 .vk-layer__disc.is-off{opacity:.35;}
+/* Online asset browser parts (v0.41.66, DIMENSOR Library mock approved by Patrick 2026-10-29).
+   Placement: the "On this device | Online" switch is a .vk-seg at the right end of the library bar; Online adds a
+   search .vk-input + Category and Source chip rows under it. Put a card's state badge inside its picture box. */
+.vk-card-state{position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;box-sizing:border-box;display:grid;place-items:center;background:color-mix(in srgb,var(--bg-1) 72%,transparent);}
+.vk-card-state::before{content:"";width:7px;height:7px;box-sizing:border-box;border-radius:50%;}
+.vk-card-state--online::before{border:1.5px solid var(--tx-1);}   /* online only: a hollow ring */
+.vk-card-state--device::before{background:var(--accent);}   /* on this device: a solid dot (the person's keep) */
+.vk-card-state--loading{--p:0%;background:conic-gradient(var(--accent-2) var(--p),color-mix(in srgb,var(--tx-0) 18%,transparent) 0);}   /* downloading: set --p, machine/time = secondary */
+.vk-card-state--loading::before{width:10px;height:10px;background:var(--bg-1);}
+.vk-meter{--p:0%;position:relative;width:90px;height:4px;background:var(--bg-3);flex:none;}
+.vk-meter::after{content:"";position:absolute;inset:0;width:var(--p);background:var(--tx-2);}
+.vk-store-detail{display:flex;align-items:center;gap:14px;padding:0 12px 8px;font:10.5px var(--mono);letter-spacing:0.03em;color:var(--tx-2);}   /* the selected asset: name (.vk-store-detail__name), source, author, licence, then a link at the far end */
+.vk-store-detail__name{font-family:var(--font);font-size:11.5px;font-weight:600;letter-spacing:0;color:var(--tx-0);}
+.vk-store-detail__end{margin-left:auto;}
+.vk-store-foot{display:flex;align-items:center;gap:14px;padding:8px 12px;background:var(--bg-2);font:10.5px var(--mono);letter-spacing:0.04em;color:var(--tx-2);}   /* credit line left; usage meter + Manage at the right (.vk-store-foot__end) */
+.vk-store-foot__end{margin-left:auto;display:flex;align-items:center;gap:14px;}
+.vk-store-foot a{color:var(--tx-1);text-decoration:underline;cursor:pointer;}
+.vk-store-pop{width:340px;box-sizing:border-box;background:var(--bg-2);box-shadow:0 8px 28px rgba(0,0,0,0.5);padding:12px;display:flex;flex-direction:column;gap:8px;}   /* the downloaded-assets manager: place it above the foot, right-aligned */
+.vk-store-pop__head{font:10px var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--tx-2);}
+.vk-store-row{display:flex;align-items:center;gap:8px;height:26px;font-size:11px;color:var(--tx-1);}
+.vk-store-row__th{width:22px;height:22px;flex:none;background:var(--bg-3);}
+.vk-store-row__name{flex:1;min-width:0;color:var(--tx-0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vk-store-row__size{font:10px var(--mono);color:var(--tx-2);}
+.vk-store-row__keep{font:9px var(--mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);}
+.vk-store-row__x{width:18px;text-align:center;color:var(--tx-2);cursor:pointer;background:none;border:0;padding:0;font:inherit;}
+.vk-store-row__x:hover{color:var(--tx-0);}
 .vk-layer--indent{margin-left:18px;}   /* a child row: one level under its group */
-.vk-layer--indent-2{margin-left:36px;}   /* a grandchild: e.g. planes under a camera under the Cameras group */
+.vk-layer--indent-2{margin-left:36px;}   /* a grandchild, for an app whose stack goes three deep (DIMENSOR's main stack stops at two: group > child) */
 /* from .layer .licon */
 .vk-layer__icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;
   justify-content:center;background:var(--bg-0);color:var(--accent);}
@@ -2879,7 +2905,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.65</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.66</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

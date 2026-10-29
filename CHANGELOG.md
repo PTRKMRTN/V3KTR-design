@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.66 (2026-10-29)
+- Online asset browser parts (DIMENSOR Library, mock approved by Patrick): `.vk-card-state` (+ `--online` ring, `--device` dot, `--loading` with `--p` progress ring), `.vk-meter`, `.vk-store-detail`, `.vk-store-foot`, `.vk-store-pop` with `.vk-store-row` parts. The Online switch is a plain `.vk-seg`. `.vk-layer--indent-2` comment reworded (DIMENSOR now stops at two levels).
+
 ## 0.41.65 (2026-10-29)
 - `.vk-layer__disc`: the stack group expand/collapse button, bigger (22px hit area, 7px chevron, was 14x18 with an 11px glyph; Patrick: too tiny). Empty `<button aria-expanded>`; the chevron turns down when expanded. Row height unchanged.
 
