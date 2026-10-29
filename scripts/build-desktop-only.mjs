@@ -39,7 +39,7 @@ html,body{margin:0;background:var(--bg-1);}
   <h1><em id="name">PROCESSOR</em> needs a desktop</h1>
   <p>V3KTR apps run in a desktop browser with WebGPU. They are not available on phones or tablets.</p>
   <ul class="vk-fullpage__list">
-   <li><b>Use</b> · the latest desktop Chrome, Edge or Safari</li>
+   <li><b>Use</b> · the latest desktop Chrome or Edge</li>
   </ul>
   <p>Open this page on your computer and you are in.</p>
   <div class="vk-fullpage__row">

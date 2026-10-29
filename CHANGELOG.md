@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.68 (2026-10-29)
+- `dist/desktop-only.html`: browser line now "the latest desktop Chrome or Edge" (no Safari; only what the apps are tested on).
+
 ## 0.41.67 (2026-10-29)
 - `.vk-fullpage` (+ `__in`, `__logo`, `__list`, `__row`): whole-window notice shell, and `dist/desktop-only.html` (built by `scripts/build-desktop-only.mjs`), the shared "needs a desktop" gate page for PROCESSOR / KOMPOSITOR / DIMENSOR and v3ktr.com/desktop. One self-contained file (CSS, fonts, logos inlined), noindex, app chosen by `?app=` or a `<app>.` hostname, no "continue anyway" link, Copy link copies the app URL.
 
