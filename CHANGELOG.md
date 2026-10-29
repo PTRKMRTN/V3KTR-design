@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.65 (2026-10-29)
+- `.vk-layer__disc`: the stack group expand/collapse button, bigger (22px hit area, 7px chevron, was 14x18 with an 11px glyph; Patrick: too tiny). Empty `<button aria-expanded>`; the chevron turns down when expanded. Row height unchanged.
+
 ## 0.41.64 (2026-10-29)
 - `.vk-layer--indent` (18px) and `.vk-layer--indent-2` (36px): the two stack-row indent levels, promoted from DIMENSOR's local `.vk-slot-child` / `--2` rules (MPC1 planes under a camera under the Cameras group).
 
