@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.72
+/* V3KTR design tokens · v0.41.73
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.72 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.73 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -925,6 +925,9 @@
 .vk-gpal{display:grid;grid-template-columns:repeat(8,18px);gap:4px;padding:8px;background:var(--bg-3);width:max-content;}
 .vk-gpal > i{display:block;width:18px;height:18px;background:var(--gcol);cursor:pointer;}
 .vk-gpal > i.is-selected{outline:2px solid var(--tx-0);outline-offset:1px;}
+
+/* Compact drop zone (v0.41.73): the empty-state box under an open EMPTY group row ("Drag media here or drop files"). Same .vk-drop, .vk-drop__label and .is-over; 48px tall, same left edge as the group row (no indent). */
+.vk-drop--sm{min-height:48px;margin:3px 0;}
 
 /* V3KTR help layer (v0.25.0): the shared tip and the help components, as their own file so an app that pulls only
    tokens (PROCESSOR, via design.json) can pull this too. dist/app.css includes it after app/app.css, so nothing moves
