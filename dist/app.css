@@ -910,7 +910,7 @@
    .vk-gridkids sits under the group row, NOT indented (Patrick 2026-10-30: no indent under an open group; for rows, omit .vk-layer--indent); set --tile for the column width (default 96px). */
 .vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0;}
 
-/* Groups toolbar (labelled, Patrick 2026-10-30: "we might need labels here", in the style of the Reset / Randomise / Blends row): a row of text .vk-btn under the section head: Add group, Expand all, Collapse all, Remove group (acts on the selected group). Wraps when narrow. */
+/* Groups toolbar (labelled, Patrick 2026-10-30: "we might need labels here", in the style of the Reset / Randomise / Blends row): a row of text .vk-btn under the section head: Add, Remove (acts on the selected group), Expand all, Collapse all. Wraps when narrow. */
 .vk-sec-tools{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:0 0 var(--sec-head-gap);}
 /* Reveal on hover or focus: a control that shows only when its row or tile is hovered, or it has keyboard focus (the bin on a group row, the remove on a media tile). */
 .vk-reveal{opacity:0;transition:opacity .1s;}
