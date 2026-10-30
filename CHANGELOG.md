@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.75 (2026-10-30)
+- `.vk-tile__cap` / `.vk-tile__name` / `.vk-tile__meta`: media tile caption with tight line boxes and 6px top and bottom padding, so grid gaps look equal both ways (KOMPOSITOR, Patrick). `.vk-row--auto`: a `.vk-row` that grows to its content (min the standard row height), replacing local height overrides.
+
 ## 0.41.74 (2026-10-30)
 - `.vk-sec-tools` is now a LABELLED toolbar: plain `.vk-btn` text buttons (Add group, Expand all, Collapse all, Remove group) in the style of the Reset / Randomise row, not icon-only `.vk-icon-tog` (Patrick). The `expandAll` / `collapseAll` icons stay available.
 
