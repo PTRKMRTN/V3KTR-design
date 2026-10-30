@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.70 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.71 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -774,3 +774,6 @@
 .vk-gtags > i{flex:1;background:var(--gcol);}
 .vk-gtags--top{top:0;bottom:auto;height:3px;}
 .vk-layer.is-drop{outline:2px dashed var(--gcol,var(--accent));outline-offset:-2px;}
+/* Media groups in grid view (Patrick 2026-10-30): under an expanded group row, the media may be a tile grid instead of child rows.
+   .vk-gridkids sits where the .vk-layer--indent rows would (18px in); set --tile for the column width (default 96px). */
+.vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0 3px 18px;}

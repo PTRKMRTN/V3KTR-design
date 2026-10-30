@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.70 ===== */
-/* V3KTR design tokens · v0.41.70
+/* ===== core: tokens.css v0.41.71 ===== */
+/* V3KTR design tokens · v0.41.71
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.70 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.71 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -866,6 +866,9 @@
 .vk-gtags > i{flex:1;background:var(--gcol);}
 .vk-gtags--top{top:0;bottom:auto;height:3px;}
 .vk-layer.is-drop{outline:2px dashed var(--gcol,var(--accent));outline-offset:-2px;}
+/* Media groups in grid view (Patrick 2026-10-30): under an expanded group row, the media may be a tile grid instead of child rows.
+   .vk-gridkids sits where the .vk-layer--indent rows would (18px in); set --tile for the column width (default 96px). */
+.vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0 3px 18px;}
 
 /* V3KTR help layer (v0.25.0): the shared tip and the help components, as their own file so an app that pulls only
    tokens (PROCESSOR, via design.json) can pull this too. dist/app.css includes it after app/app.css, so nothing moves
@@ -2933,7 +2936,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.70</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.71</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.71 (2026-10-30)
+- `.vk-gridkids`: a tile grid under an expanded group row, for Media groups in grid view (Patrick: the Media panel keeps its grid view; a group's media need not be single rows). 18px in like `.vk-layer--indent`; `--tile` sets the column width.
+
 ## 0.41.70 (2026-10-30)
 - Media groups (KOMPOSITOR, Patrick approved the mock): `.vk-gdot` (12px group colour square), `.vk-gtags` / `.vk-gtags--top` (colour strip on a tile or clip, one segment per group, `--gcol` on each `<i>`), `.vk-layer.is-drop` (dashed drop target). A group is an ordinary stack row (`.vk-layer` + `.vk-layer__disc` + `.vk-layer--indent` children); its options panel is existing controls.
 
