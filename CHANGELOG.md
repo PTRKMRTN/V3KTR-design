@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.74 (2026-10-30)
+- `.vk-sec-tools` is now a LABELLED toolbar: plain `.vk-btn` text buttons (Add group, Expand all, Collapse all, Remove group) in the style of the Reset / Randomise row, not icon-only `.vk-icon-tog` (Patrick). The `expandAll` / `collapseAll` icons stay available.
+
 ## 0.41.73 (2026-10-30)
 - `.vk-drop--sm`: compact `.vk-drop` (48px) for the empty-group drop box under a group row; lit by the existing `.is-over`. (KOMPOSITOR Media groups, Patrick.)
 

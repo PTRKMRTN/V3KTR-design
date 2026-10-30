@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.73 ===== */
-/* V3KTR design tokens · v0.41.73
+/* ===== core: tokens.css v0.41.74 ===== */
+/* V3KTR design tokens · v0.41.74
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.73 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.74 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -870,8 +870,8 @@
    .vk-gridkids sits under the group row, NOT indented (Patrick 2026-10-30: no indent under an open group; for rows, omit .vk-layer--indent); set --tile for the column width (default 96px). */
 .vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0;}
 
-/* Groups toolbar: icon-only .vk-icon-tog buttons in a row under the section head (Add group, Expand all, Collapse all, Remove group = acts on the selected group). Each has a tip. */
-.vk-sec-tools{display:flex;align-items:center;gap:2px;margin:0 0 var(--sec-head-gap);}
+/* Groups toolbar (labelled, Patrick 2026-10-30: "we might need labels here", in the style of the Reset / Randomise / Blends row): a row of text .vk-btn under the section head: Add group, Expand all, Collapse all, Remove group (acts on the selected group). Wraps when narrow. */
+.vk-sec-tools{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:0 0 var(--sec-head-gap);}
 /* Reveal on hover or focus: a control that shows only when its row or tile is hovered, or it has keyboard focus (the bin on a group row, the remove on a media tile). */
 .vk-reveal{opacity:0;transition:opacity .1s;}
 :hover > .vk-reveal,:focus-within > .vk-reveal,.vk-reveal:focus-visible{opacity:1;}
@@ -2955,7 +2955,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.73</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.74</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
