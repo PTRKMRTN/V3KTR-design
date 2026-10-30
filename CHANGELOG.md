@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.72 (2026-10-30)
+- Media groups, round 2 (KOMPOSITOR, Patrick): menu icons `expandAll` / `collapseAll`; `.vk-sec-tools` (icon toolbar under a section head); `.vk-reveal` (shows on hover/focus of its row or tile: the group bin, a tile remove); `.vk-tile.is-selected` (multi-select outline + tint); `.vk-drag-badge` (count on a multi-drag ghost); `.vk-gpal` (eight-colour picker, 18px squares). `.vk-gridkids` no longer indents (no indent under an open group; for rows, omit `.vk-layer--indent`).
+
 ## 0.41.71 (2026-10-30)
 - `.vk-gridkids`: a tile grid under an expanded group row, for Media groups in grid view (Patrick: the Media panel keeps its grid view; a group's media need not be single rows). 18px in like `.vk-layer--indent`; `--tile` sets the column width.
 

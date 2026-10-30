@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.71 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.72 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -775,5 +775,21 @@
 .vk-gtags--top{top:0;bottom:auto;height:3px;}
 .vk-layer.is-drop{outline:2px dashed var(--gcol,var(--accent));outline-offset:-2px;}
 /* Media groups in grid view (Patrick 2026-10-30): under an expanded group row, the media may be a tile grid instead of child rows.
-   .vk-gridkids sits where the .vk-layer--indent rows would (18px in); set --tile for the column width (default 96px). */
-.vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0 3px 18px;}
+   .vk-gridkids sits under the group row, NOT indented (Patrick 2026-10-30: no indent under an open group; for rows, omit .vk-layer--indent); set --tile for the column width (default 96px). */
+.vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0;}
+
+/* Groups toolbar: icon-only .vk-icon-tog buttons in a row under the section head (Add group, Expand all, Collapse all, Remove group = acts on the selected group). Each has a tip. */
+.vk-sec-tools{display:flex;align-items:center;gap:2px;margin:0 0 var(--sec-head-gap);}
+/* Reveal on hover or focus: a control that shows only when its row or tile is hovered, or it has keyboard focus (the bin on a group row, the remove on a media tile). */
+.vk-reveal{opacity:0;transition:opacity .1s;}
+:hover > .vk-reveal,:focus-within > .vk-reveal,.vk-reveal:focus-visible{opacity:1;}
+/* Multi-select tiles: Ctrl-click toggles, Shift-click ranges. A selected tile is an accent outline plus a light tint (the picture is the content, so no solid fill). */
+.vk-tile{position:relative;}
+.vk-tile.is-selected{outline:2px solid var(--accent);outline-offset:-2px;}
+.vk-tile.is-selected::after{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--accent) 22%,transparent);pointer-events:none;}
+/* Drag count badge: on the drag ghost of a multi-selection, top right. */
+.vk-drag-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:var(--radius);background:var(--accent);color:var(--on-accent);font:700 10px/18px var(--mono);text-align:center;pointer-events:none;}
+/* Group colour picker: eight fixed colours, 18px squares (the picker targets are bigger than the 12px .vk-gdot they set); selected = 2px outline offset 1px. */
+.vk-gpal{display:grid;grid-template-columns:repeat(8,18px);gap:4px;padding:8px;background:var(--bg-3);width:max-content;}
+.vk-gpal > i{display:block;width:18px;height:18px;background:var(--gcol);cursor:pointer;}
+.vk-gpal > i.is-selected{outline:2px solid var(--tx-0);outline-offset:1px;}
