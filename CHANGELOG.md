@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.70 (2026-10-30)
+- Media groups (KOMPOSITOR, Patrick approved the mock): `.vk-gdot` (12px group colour square), `.vk-gtags` / `.vk-gtags--top` (colour strip on a tile or clip, one segment per group, `--gcol` on each `<i>`), `.vk-layer.is-drop` (dashed drop target). A group is an ordinary stack row (`.vk-layer` + `.vk-layer__disc` + `.vk-layer--indent` children); its options panel is existing controls.
+
 ## 0.41.69 (2026-10-30)
 - `.vk-sec-add`: two or more on one `.vk-sec-bar` now sit together at the right (6px gap); only the first visible one keeps `margin-left:auto`. One button is unchanged. (DIMENSOR Cameras bar: + camera, + Multiplane.)
 
