@@ -2,7 +2,7 @@
 // app. Spec: V3KTR-PROJEKT/strategy/HELP-PATTERN.md (approved by Patrick 2026-10-02); rules: AGENTS.md "Help and copy".
 //
 // ⛔ The default UI gains no visual complexity: no (i) icons, no always-visible help. Help shows only when activated:
-//    hover, keyboard focus, long-press, or View → Helper Text (OFF by default).
+//    hover, keyboard focus, or View → Helper Text (OFF by default).
 //
 // TIPS (T1). Mark any control with data attributes; one shared .vk-tip element shows them:
 //   <button data-tip="Randomise" data-tip-desc="Roll new settings for this effect" data-tip-key="R">…</button>
@@ -10,13 +10,12 @@
 //   - mouse / pen: opens after ~400 ms of hover; closes on leave. Warm mode (v0.25.1): once a tip has opened, the next
 //     control's tip opens at once, until the pointer has been off every tip target for 500 ms (`warm`, 0 = off).
 //   - keyboard: opens IMMEDIATELY when the control gets keyboard focus (:focus-visible); closes on blur.
-//   - touch: opens on a 500 ms long-press (the press then does NOT also activate the control); closes on a tap elsewhere.
 //   - Esc closes. While open the control gets aria-describedby → the tip, so screen readers read it too.
 //   A tip never repeats the name printed on its control: with no data-tip-desc / data-tip-key and a data-tip equal to the
 //   control's visible text, nothing opens (an icon-only control keeps its name tip, it has no visible text).
-//   Retire native title= on anything that gets a data-tip (title is invisible on touch and to keyboard users).
+//   Retire native title= on anything that gets a data-tip (title is invisible to keyboard users).
 //
-//   installTips({ root, delay, longPress, warm }) → uninstall()
+//   installTips({ root, delay, warm }) → uninstall()
 //
 // HELPER TEXT (T2). View → Helper Text, off by default, remembered per app. While on, <html data-helper-text="on"> and the
 // parameter descriptions (.vk-param-desc) show.
@@ -35,11 +34,11 @@ export function keyLabel(combo, mac = isMac()) {
 }
 
 /** Install the shared tip behaviour on a root (default: the document). Returns a function that removes it. */
-export function installTips({ root = document, delay = 400, longPress = 500, warm = 500, doc = root.ownerDocument || root } = {}) {
+export function installTips({ root = document, delay = 400, warm = 500, doc = root.ownerDocument || root } = {}) {
   const tip = doc.createElement('div');
   tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip');
   (doc.body || doc.documentElement).appendChild(tip);
-  let target = null, pending = null, timer = 0, pressX = 0, pressY = 0, eatClick = false, lastHidden = 0, shownByFocus = false, blurTimer = 0;
+  let target = null, pending = null, timer = 0, lastHidden = 0, shownByFocus = false, blurTimer = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
   // A tip must not repeat the name already printed on its control (Patrick 2026-10-24): same words as the control's visible
@@ -92,7 +91,6 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   let pressedRect = null;
   const inRect = (e, r) => r && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
   listen(root, 'pointerover', (e) => {
-    if (e.pointerType === 'touch') return;
     if (pressedRect) { if (inRect(e, pressedRect)) return; pressedRect = null; }
     const el = find(e.target); if (!el || el === target || el === pending) return;   // crossing a control's own children doesn't restart the delay
     // WARM MODE: once a tip has been open, the next control shows its tip at once, so scanning a row of tiles (an FX
@@ -101,7 +99,6 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
     clearTimeout(timer); pending = el; timer = setTimeout(() => { pending = null; show(el); }, isWarm ? 0 : delay);
   });
   listen(root, 'pointerout', (e) => {
-    if (e.pointerType === 'touch') return;
     const el = find(e.target); if (!el) return;
     if (e.relatedTarget && el.contains(e.relatedTarget)) return;   // moving inside the control
     pending = null;
@@ -136,17 +133,9 @@ export function installTips({ root = document, delay = 400, longPress = 500, war
   });
   listen(root, 'pointerdown', (e) => {
     const el = find(e.target);
-    pressedRect = e.pointerType !== 'touch' && el ? el.getBoundingClientRect() : null;
-    if (target && el !== target) hide();                        // a tap (or click) elsewhere closes it
-    if (e.pointerType !== 'touch' || !el) { if (e.pointerType !== 'touch') hide(); return; }
-    pressX = e.clientX; pressY = e.clientY; clearTimeout(timer);
-    timer = setTimeout(() => { show(el); eatClick = true; }, longPress);
+    pressedRect = el ? el.getBoundingClientRect() : null;
+    hide();   // a press hides the tip until the pointer leaves the control
   });
-  listen(root, 'pointermove', (e) => { if (e.pointerType === 'touch' && Math.hypot(e.clientX - pressX, e.clientY - pressY) > 8) clearTimeout(timer); });
-  listen(root, 'pointerup', (e) => { if (e.pointerType === 'touch' && !eatClick) clearTimeout(timer); });
-  listen(root, 'pointercancel', () => clearTimeout(timer));
-  listen(root, 'click', (e) => { if (eatClick) { eatClick = false; e.preventDefault(); e.stopPropagation(); } }, true);   // a long-press shows the tip; it doesn't also press
-  listen(root, 'contextmenu', (e) => { if (e.pointerType === 'touch' || eatClick) e.preventDefault(); });
   listen(doc, 'keydown', (e) => { if (e.key === 'Escape' && target) hide(); });
   // A keyboard focus that lands inside a scroll area makes the browser scroll it into view, which used to hide the
   // tip 10-80 ms after it showed (found by KOMPOSITOR, 2026-10-08). While the tip is up because of keyboard focus

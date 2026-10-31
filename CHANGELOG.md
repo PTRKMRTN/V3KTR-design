@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.77 (2026-10-31)
+- Desktop-only: `interactions/help.js` loses its touch long-press for tips (`longPress` option, pointermove/up/click/contextmenu touch handlers). Mouse, pen and keyboard behaviour is unchanged; `test/help.test.mjs` drops its 5 touch checks (35 pass). `HANDLE.hitTouch` stays for now (token-tested; removal is a separate step).
+
 ## 0.41.76 (2026-10-31)
 - `.vk-icon-num`: numbered icon tile, a 9px mono digit inset 2px in the top-right corner of a `.vk-seg` button, in the icon colour (DIMENSOR saved cameras; Patrick chose it over the overlapping badge). The button gets right padding automatically.
 

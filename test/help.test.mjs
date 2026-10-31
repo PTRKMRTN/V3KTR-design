@@ -1,7 +1,6 @@
 // node test/help.test.mjs: drives interactions/help.js in a real browser (Edge via Playwright from a sibling checkout).
 // Checks the approved behaviour: hover opens after ~400 ms (not before), warm mode (the next tip at once, cold again
-// after 500 ms off every target), keyboard focus opens at once, a 500 ms touch
-// long-press opens it WITHOUT pressing the control, a tap elsewhere / leave / blur / Esc close it, aria-describedby is
+// after 500 ms off every target), keyboard focus opens at once, a press / leave / blur / Esc closes it, aria-describedby is
 // set while open, Helper Text is off by default and shows .vk-param-desc only while on, and keyLabel is platform-aware.
 import { createRequire } from 'node:module';
 import { createServer } from 'node:http';
@@ -49,7 +48,7 @@ const url = `http://localhost:${srv.address().port}/`;
 const b = await chromium.launch({ channel: 'msedge' });
 let n = 0; const ok = (c, m) => { assert.ok(c, m); n++; };
 try {
-  const ctx = await b.newContext({ hasTouch: true }); const p = await ctx.newPage();
+  const ctx = await b.newContext(); const p = await ctx.newPage();
   await p.goto(url); await p.waitForFunction(() => window.help);
   const shown = () => p.evaluate(() => document.querySelector('.vk-tip').classList.contains('is-shown'));
   const text = () => p.evaluate(() => document.querySelector('.vk-tip').textContent);
@@ -123,19 +122,6 @@ try {
   await p.mouse.move(5, 300); await p.waitForTimeout(20);
   // mouse click focus (not :focus-visible) does not open it instantly
   await p.mouse.click(5, 300); await p.evaluate(() => document.getElementById('b').focus({ focusVisible: false }));
-  // touch long-press: opens after 500 ms, and the press does not also click
-  const touch = (type, id) => p.evaluate(([type, id]) => { const el = document.getElementById(id); const r = el.getBoundingClientRect();
-    el.dispatchEvent(new PointerEvent(type, { bubbles: true, cancelable: true, pointerType: 'touch', clientX: r.left + 5, clientY: r.top + 5 })); }, [type, id]);
-  await p.evaluate(() => document.activeElement?.blur()); await p.evaluate(() => document.querySelector('.vk-tip').classList.remove('is-shown'));
-  const before = await p.evaluate(() => window.clicks);
-  await touch('pointerdown', 'a'); await p.waitForTimeout(300); ok(!(await shown()), 'touch: not open at 300 ms');
-  await p.waitForTimeout(300); ok(await shown(), 'touch: open after a 500 ms long-press');
-  await touch('pointerup', 'a'); await p.evaluate(() => document.getElementById('a').click());
-  ok((await p.evaluate(() => window.clicks)) === before, 'long-press did not press the control');
-  await touch('pointerdown', 'out'); await p.waitForTimeout(30); ok(!(await shown()), 'tap elsewhere closes');
-  // a short tap still presses the control and shows nothing
-  await touch('pointerdown', 'a'); await p.waitForTimeout(120); await touch('pointerup', 'a'); await p.evaluate(() => document.getElementById('a').click());
-  ok((await p.evaluate(() => window.clicks)) === before + 1 && !(await shown()), 'short tap presses, no tip');
   // a tip that only repeats the control's printed name never opens; an icon-only control keeps its name tip
   await p.hover('#same'); await p.waitForTimeout(600); ok(!(await shown()), 'tip equal to the visible label does not open');
   await p.mouse.move(5, 5); await p.waitForTimeout(600);
