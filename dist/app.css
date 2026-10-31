@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.77
+/* V3KTR design tokens · v0.41.78
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -64,8 +64,8 @@
      and each bar stacked above it (motion timeline, pinned toast) adds one --vp-bar-step. Same in every app. */
   --vp-bar-step:36px; --vp-bar-bottom:50px;
   /* Viewport handles (v0.41.58, Patrick 2026-10-25, DIMENSOR curves + FX handles; docs/VIEWPORT-HANDLES.md): screen-space sizes, never scaled with the camera.
-     A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px (32px on touch), the curve line 2px, aux lines 1px. */
-  --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-hit-touch:32px; --hdl-curve:2px; --hdl-aux:1px;
+     A point 10px, hot (hover / selected / dragging) 12px, a tangent 7px, hit area 24px, the curve line 2px, aux lines 1px. */
+  --hdl-size:10px; --hdl-hot:12px; --hdl-tan:7px; --hdl-hit:24px; --hdl-curve:2px; --hdl-aux:1px;
   --hdl-halo:drop-shadow(0 0 1px rgba(0,0,0,.85));
   /* Top bar (v0.18.0, Patrick 2026-10-02: logo and menus the same in every app). The logo is sized to the menu text:
      every app logo is 154 units high with 65.86-unit capitals (baseline 87.01); the menu (Manrope 12.5px) has 9px
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.77 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.78 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared

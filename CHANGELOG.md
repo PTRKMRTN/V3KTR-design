@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.78 (2026-10-31)
+- Desktop-only: `--hdl-hit-touch` and `HANDLE.hitTouch` removed (no app used them; the 24px hit area stays).
+
 ## 0.41.77 (2026-10-31)
 - Desktop-only: `interactions/help.js` loses its touch long-press for tips (`longPress` option, pointermove/up/click/contextmenu touch handlers). Mouse, pen and keyboard behaviour is unchanged; `test/help.test.mjs` drops its 5 touch checks (35 pass). `HANDLE.hitTouch` stays for now (token-tested; removal is a separate step).
 

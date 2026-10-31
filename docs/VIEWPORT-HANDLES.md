@@ -12,7 +12,7 @@ PROCESSOR's crop handles and `.vp-*` viewport handles are the family: **idle geo
 | `--hdl-size` | 10px | a point at rest |
 | `--hdl-hot` | 12px | hover, selected, dragging |
 | `--hdl-tan` | 7px | a tangent handle |
-| `--hdl-hit` | 24px (32px on touch) | minimum hit area, always larger than the drawn handle |
+| `--hdl-hit` | 24px | minimum hit area, always larger than the drawn handle |
 | `--hdl-curve` | 2px | the curve line |
 | `--hdl-aux` | 1px | tangent lines, stems, outlines of planes |
 | `--hdl-halo` | `drop-shadow(0 0 1px rgba(0,0,0,.85))` | legibility over a render |
