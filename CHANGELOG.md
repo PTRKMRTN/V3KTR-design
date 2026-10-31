@@ -2,6 +2,9 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.76 (2026-10-31)
+- `.vk-icon-num`: numbered icon tile, a 9px mono digit inset 2px in the top-right corner of a `.vk-seg` button, in the icon colour (DIMENSOR saved cameras; Patrick chose it over the overlapping badge). The button gets right padding automatically.
+
 ## 0.41.75 (2026-10-30)
 - `.vk-tile__cap` / `.vk-tile__name` / `.vk-tile__meta`: media tile caption with tight line boxes and 6px top and bottom padding, so grid gaps look equal both ways (KOMPOSITOR, Patrick). `.vk-row--auto`: a `.vk-row` that grows to its content (min the standard row height), replacing local height overrides.
 
