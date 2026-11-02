@@ -47,7 +47,7 @@ export function toast(message, { kind = 'info', ms, action, host = defaultHost, 
   el.style.pointerEvents = 'auto';
   const span = doc.createElement('span'); span.textContent = text; el.appendChild(span);
   if (action) {
-    const b = doc.createElement('button'); b.type = 'button'; b.className = 'vk-btn vk-btn--sm'; b.textContent = action.label;
+    const b = doc.createElement('button'); b.type = 'button'; b.className = 'vk-btn'; b.textContent = action.label;
     b.addEventListener('click', () => { try { action.run(); } finally { handle.close(); } });
     el.appendChild(b);
   }

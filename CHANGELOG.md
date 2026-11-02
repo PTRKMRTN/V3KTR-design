@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.82 (2026-11-02)
+
+- `interactions/toast.js`: the toast action button is normal size (was `vk-btn--sm`), per the small-only-in-section-head-tools rule. Apps re-copy `toast.js`.
+
 ## 0.41.81 (2026-11-02)
 
 - `.vk-play` has no margin: the timeline row owns spacing (2px flex gap), as PROCESSOR and DIMENSOR already do.
