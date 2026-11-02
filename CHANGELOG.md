@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.84 (2026-11-02)
+
+- `.vk-store-detail a`: link style (`--tx-1`, underlined). AGENTS.md Online asset browser notes: one-line cards, badge beats the selected tick, placement stays app-local. From DIMENSOR.
+
 ## 0.41.83 (2026-11-02)
 
 - `.vk-toast--pinned` honours `--vp-bars-extra` (default 0): set it to 1 while a viewport timeline is visible and the pinned pill rises one bar step above it. From PROCESSOR (Patrick 2026-11-02).

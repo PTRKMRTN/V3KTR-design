@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.83 ===== */
-/* V3KTR design tokens · v0.41.83
+/* ===== core: tokens.css v0.41.84 ===== */
+/* V3KTR design tokens · v0.41.84
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.83 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.84 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -649,6 +649,7 @@
 .vk-store-detail{display:flex;align-items:center;gap:14px;padding:0 12px 8px;font:10.5px var(--mono);letter-spacing:0.03em;color:var(--tx-2);}   /* the selected asset: name (.vk-store-detail__name), source, author, licence, then a link at the far end */
 .vk-store-detail__name{font-family:var(--font);font-size:11.5px;font-weight:600;letter-spacing:0;color:var(--tx-0);}
 .vk-store-detail__end{margin-left:auto;}
+.vk-store-detail a{color:var(--tx-1);text-decoration:underline;cursor:pointer;}   /* v0.41.84: the Source page link, same as .vk-store-foot a */
 .vk-store-foot{display:flex;align-items:center;gap:14px;padding:8px 12px;background:var(--bg-2);font:10.5px var(--mono);letter-spacing:0.04em;color:var(--tx-2);}   /* credit line left; usage meter + Manage at the right (.vk-store-foot__end) */
 .vk-store-foot__end{margin-left:auto;display:flex;align-items:center;gap:14px;}
 .vk-store-foot a{color:var(--tx-1);text-decoration:underline;cursor:pointer;}
@@ -2981,7 +2982,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.83</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.84</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

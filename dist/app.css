@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.83
+/* V3KTR design tokens · v0.41.84
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.83 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.84 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -689,6 +689,7 @@
 .vk-store-detail{display:flex;align-items:center;gap:14px;padding:0 12px 8px;font:10.5px var(--mono);letter-spacing:0.03em;color:var(--tx-2);}   /* the selected asset: name (.vk-store-detail__name), source, author, licence, then a link at the far end */
 .vk-store-detail__name{font-family:var(--font);font-size:11.5px;font-weight:600;letter-spacing:0;color:var(--tx-0);}
 .vk-store-detail__end{margin-left:auto;}
+.vk-store-detail a{color:var(--tx-1);text-decoration:underline;cursor:pointer;}   /* v0.41.84: the Source page link, same as .vk-store-foot a */
 .vk-store-foot{display:flex;align-items:center;gap:14px;padding:8px 12px;background:var(--bg-2);font:10.5px var(--mono);letter-spacing:0.04em;color:var(--tx-2);}   /* credit line left; usage meter + Manage at the right (.vk-store-foot__end) */
 .vk-store-foot__end{margin-left:auto;display:flex;align-items:center;gap:14px;}
 .vk-store-foot a{color:var(--tx-1);text-decoration:underline;cursor:pointer;}
