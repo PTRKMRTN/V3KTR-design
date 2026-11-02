@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.91 (2026-11-02)
+
+- `.vk-num` (+ `__in`, `__step`, `__btn`): the number field with a flush right step column replacing the browser spinner. Patrick 2026-11-02.
+
 ## 0.41.90 (2026-11-02)
 
 - `.vk-select--tool` / `.vk-cs--tool`: the toolbar select (26px, bg-3). Compact picker field and swatch were declined by Patrick and stay local.
