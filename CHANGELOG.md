@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.90 (2026-11-02)
+
+- `.vk-select--tool` / `.vk-cs--tool`: the toolbar select (26px, bg-3). Compact picker field and swatch were declined by Patrick and stay local.
+
 ## 0.41.89 (2026-11-02)
 
 - Fix for v0.41.88: the fill rule also covers the themed select `.vk-cs` (its trigger is the visible control, now the lighter grey too). New `.vk-row--ctl`: a label + control row keeps the bg-3 control look (the later selectable-row rule had overridden it). From PROCESSOR's audit.
