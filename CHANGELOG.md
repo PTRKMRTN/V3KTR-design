@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.85 (2026-11-02)
+
+- `.vk-seg--ctl`: a seg as tall as `.vk-btn--sm` / `.vk-chip` (22px) for a row that mixes them. Plain `.vk-seg--sm` stays 18px. From DIMENSOR.
+
 ## 0.41.84 (2026-11-02)
 
 - `.vk-store-detail a`: link style (`--tx-1`, underlined). AGENTS.md Online asset browser notes: one-line cards, badge beats the selected tick, placement stays app-local. From DIMENSOR.
