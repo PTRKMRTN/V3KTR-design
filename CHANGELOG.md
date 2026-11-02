@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.92 (2026-11-02)
+
+- `interactions/toast.js`: the toast region honours `--vp-bars-extra` like `.vk-toast--pinned` (v0.41.83), so a toast or progress message sits above a visible timeline instead of over it. From DIMENSOR (Patrick 2026-11-02). Apps re-copy `toast.js` and set `--vp-bars-extra:1` on the toast host while the timeline shows.
+
 ## 0.41.91 (2026-11-02)
 
 - `.vk-num` (+ `__in`, `__step`, `__btn`): the number field with a flush right step column replacing the browser spinner. Patrick 2026-11-02.

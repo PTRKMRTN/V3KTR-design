@@ -10,7 +10,7 @@
 //   - One live region, created on first use: role="status" (polite) for news, role="alert" for kind 'error'.
 //   - One toast at a time: a new one replaces the current one (no stacks piling up over the canvas).
 //   - WHERE: centred above the viewport bars of a HOST element, one stacked step above the bottom toolbar
-//     (bottom: --vp-bar-bottom + --vp-bar-step + 4px). Set the host once with setToastHost(viewportEl), or per call with
+//     (bottom: --vp-bar-bottom + --vp-bar-step * (1 + --vp-bars-extra) + 4px; v0.41.92: set --vp-bars-extra:1 on the host while a timeline bar is visible and the toast sits above it). Set the host once with setToastHost(viewportEl), or per call with
 //     { host }; it should be the canvas area (it gets position:relative if it is static). Without a host it falls back to
 //     the whole window, which is off-centre in an app with side panels (v0.25.2: found by DIMENSOR, 291 px off).
 //   - It stays ms (default 3200; errors 6000), and stays while the pointer is over it or it has focus. Esc closes it.
@@ -30,7 +30,7 @@ function ensureRegion(doc, host) {
   const region = doc.createElement('div');
   region.className = 'vk-toast-region';
   const pos = host ? 'absolute' : 'fixed';
-  region.style.cssText = `position:${pos};left:50%;transform:translateX(-50%);bottom:calc(var(--vp-bar-bottom, 50px) + var(--vp-bar-step, 36px) + 4px);z-index:900;pointer-events:none;`;
+  region.style.cssText = `position:${pos};left:50%;transform:translateX(-50%);bottom:calc(var(--vp-bar-bottom, 50px) + var(--vp-bar-step, 36px) * (1 + var(--vp-bars-extra, 0)) + 4px);z-index:900;pointer-events:none;`;
   if (host && (doc.defaultView || window).getComputedStyle(host).position === 'static') host.style.position = 'relative';
   (host || doc.body || doc.documentElement).appendChild(region);
   regions.set(key, region);
