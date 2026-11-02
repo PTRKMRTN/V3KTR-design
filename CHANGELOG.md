@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.83 (2026-11-02)
+
+- `.vk-toast--pinned` honours `--vp-bars-extra` (default 0): set it to 1 while a viewport timeline is visible and the pinned pill rises one bar step above it. From PROCESSOR (Patrick 2026-11-02).
+
 ## 0.41.82 (2026-11-02)
 
 - `interactions/toast.js`: the toast action button is normal size (was `vk-btn--sm`), per the small-only-in-section-head-tools rule. Apps re-copy `toast.js`.
