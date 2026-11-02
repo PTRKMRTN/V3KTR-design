@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.87 (2026-11-02)
+
+- Normal `.vk-btn` and `.vk-seg button` side padding 14px to 9px, matching the field text indent (`.vk-row` / `.vk-tog-row` / `.vk-scrub`). Each button is 10px narrower. Patrick 2026-11-02 (from DIMENSOR Render panel).
+
 ## 0.41.86 (2026-11-02)
 
 - Normal `.vk-btn` and `.vk-seg button` are row-height (26px, was about 30px) with the label centred. Lg, sm, compact, bare unchanged. Visible change in PROCESSOR and KOMPOSITOR (about 4px shorter); Patrick approved (2026-11-02, DIMENSOR "odd padding").
