@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.79
+/* V3KTR design tokens · v0.41.80
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.79 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.80 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -812,6 +812,9 @@
 .vk-progress--thick{height:8px;}
 .vk-progress--overlay{position:absolute;left:0;right:0;bottom:var(--at,0);height:2px;background:none;}
 @media (prefers-reduced-motion:reduce){.vk-progress::after{transition:none;}}
+/* Timeline play button (v0.41.80; PROCESSOR viewport timeline = DIMENSOR): <button class="vk-play" aria-label="Play">▶</button> (❚❚ while playing) before a .vk-scrub, 2px apart. A solid square of the row height. */
+.vk-play{flex:0 0 auto;width:var(--row-h);height:var(--row-h);display:flex;align-items:center;justify-content:center;margin:3px 2px 3px 0;padding:0;border:0;background:var(--bg-2);color:var(--tx-1);font-size:11px;cursor:pointer;}
+.vk-play:hover{background:var(--bg-3);color:var(--tx-0);}
 .vk-playhead{width:2px;background:var(--accent-2);}                /* timeline playhead: a 2px bar, the parent sets position and height */
 .vk-marker{width:7px;height:7px;background:var(--accent-2);transform:rotate(45deg);}   /* a timeline marker, in point, beat: a 7px diamond */
 .vk-series--2{stroke:var(--accent-2);}                               /* the second series of a curve or graph (the first stays the accent or grey) */

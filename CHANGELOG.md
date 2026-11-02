@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.80 (2026-11-02)
+
+- `.vk-play`: the timeline play button (solid row-height square, `--bg-2`, hover `--bg-3`, 11px ▶/❚❚), replacing PROCESSOR's and DIMENSOR's local `.vt-play`. Rule in AGENTS.md.
+- AGENTS.md: normal button size is the default; `--sm` only in section-head tools (already pushed, d0df3cc).
+
 ## 0.41.79 (2026-11-02)
 - `.vk-chip__n` (app) and `.vs-chip__n` (site, site layer 0.3.1): the count inside a filter chip, in the chip's own colour, bold, 6px gap (8px on the site), tabular digits. Replaces KOMPOSITOR's local `.media-count` (opacity .6, 2.6:1 resting / 3:1 filled, below 4.5:1). Rules in AGENTS.md: zero stays shown, 1.2k abbreviation, aria-label with the count, filters over a list only. Mock V3KTR-COWORK/reports/chip-counts-mock, Patrick approved.
 
