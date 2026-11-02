@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.85 ===== */
-/* V3KTR design tokens · v0.41.85
+/* ===== core: tokens.css v0.41.86 ===== */
+/* V3KTR design tokens · v0.41.86
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.85 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.86 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -156,7 +156,8 @@
 /* from the shared mono/UPPERCASE rule (.btn,.gen-btn,.seg button,.filter-chip,.looks-act-btn,.rz-btn,
    .crop-bar-btn,.ui-btn,.dlr-btn,.inline-btn) + .inline-btn / .looks-act-btn / .rz-btn / .ui-btn /
    .dlr-btn / .crop-bar-btn / .topbar .btn / .mask-btn  (REGULAR) */
-.vk-btn{font-family:var(--mono);text-transform:uppercase;padding:8px 14px;background:var(--bg-3);
+/* v0.41.86 (Patrick 2026-11-02): the normal button and seg button are row-height (--row-h, 26px) with the label centred, so they line up with switch and input rows. Lg/sm/compact/bare keep their own height. */
+.vk-btn{display:inline-flex;align-items:center;justify-content:center;min-height:var(--row-h);font-family:var(--mono);text-transform:uppercase;padding:0 14px;background:var(--bg-3);
   border:none;color:var(--tx-1);font-size:var(--fs-ctrl);letter-spacing:0.04em;cursor:pointer;
   white-space:nowrap;flex-shrink:0;}
 /* from .inline-btn:hover, .looks-act-btn:hover, .rz-btn:hover, .ui-btn:hover, .gen-btn:hover ... */
@@ -164,14 +165,14 @@
 .vk-btn.is-hover{background:var(--hover);color:var(--on-accent);}
 
 /* from .gen-btn (LARGE). Only the Large size carries a transition in PROCESSOR. */
-.vk-btn--lg{padding:8px 14px;transition:all 0.12s;}
+.vk-btn--lg{min-height:0;padding:8px 14px;transition:all 0.12s;}
 
 /* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
-.vk-btn--sm{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+.vk-btn--sm{min-height:0;font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
 /* COMPACT (v0.41.31, Patrick 2026-10-23, from PROCESSOR): the middle size for a tool row in a side panel (Reset / Randomise / +Features /
    +Blends). 22px tall; four of them plus Reset fit a 272px tray where the standard button overflows it by ~75px, and it is
    readable where --sm (16px, 9px text) is a footnote size. */
-.vk-btn--compact{font-size:10px;padding:5px 8px;letter-spacing:0;}
+.vk-btn--compact{min-height:0;font-size:10px;padding:5px 8px;letter-spacing:0;}
 
 /* from .looks-act-btn.active, .motion-play.on, .layer .lmask.on, .vp-tool[aria-pressed="true"],
    .panel-head .actions span.txt-action.on (accent fill + on-accent ink). PROCESSOR has no standing
@@ -191,7 +192,7 @@
 .vk-btn--ghost{color:var(--tx-2);}
 
 /* from .inline-btn.ghost (no fill until hover) */
-.vk-btn--bare{padding:5px 8px;color:var(--tx-2);background:transparent;}
+.vk-btn--bare{min-height:0;padding:5px 8px;color:var(--tx-2);background:transparent;}
 .vk-btn--bare:hover,
 .vk-btn--bare.is-hover{color:var(--tx-0);background:var(--bg-3);}
 
@@ -289,8 +290,8 @@
 /* from .seg */
 .vk-seg{display:flex;flex-wrap:wrap;gap:3px;margin:19px 0;}
 /* from .seg button (note: no letter-spacing, unlike the Regular button) */
-.vk-seg button{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
-  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:8px 14px;cursor:pointer;}
+.vk-seg button{display:inline-flex;align-items:center;justify-content:center;min-height:var(--row-h);font-family:var(--mono);text-transform:uppercase;white-space:nowrap;background:var(--bg-3);
+  border:0;color:var(--tx-1);font-size:var(--fs-ctrl);padding:0 14px;cursor:pointer;}
 /* from .seg button:hover */
 .vk-seg button:hover,
 .vk-seg button.is-hover{background:var(--hover);color:var(--on-accent);}
@@ -300,7 +301,7 @@
 .vk-seg button.is-on:hover,
 .vk-seg button[aria-pressed="true"]:hover{background:var(--accent);color:var(--on-accent);}
 /* from .seg.mask-cmb button (SMALL) */
-.vk-seg--sm button{font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+.vk-seg--sm button{min-height:0;font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
 /* v0.41.85 (DIMENSOR library bar): `.vk-seg.vk-seg--sm.vk-seg--ctl` is as tall as `.vk-btn--sm` and `.vk-chip` (22px: the same 2px edge, transparent), for a seg that shares a row with them. */
 .vk-seg--ctl button{border:var(--stroke) solid transparent;}
 
@@ -2984,7 +2985,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.85</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.86</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

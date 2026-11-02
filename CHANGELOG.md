@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.86 (2026-11-02)
+
+- Normal `.vk-btn` and `.vk-seg button` are row-height (26px, was about 30px) with the label centred. Lg, sm, compact, bare unchanged. Visible change in PROCESSOR and KOMPOSITOR (about 4px shorter); Patrick approved (2026-11-02, DIMENSOR "odd padding").
+
 ## 0.41.85 (2026-11-02)
 
 - `.vk-seg--ctl`: a seg as tall as `.vk-btn--sm` / `.vk-chip` (22px) for a row that mixes them. Plain `.vk-seg--sm` stays 18px. From DIMENSOR.
