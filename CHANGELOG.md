@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.81 (2026-11-02)
+
+- `.vk-play` has no margin: the timeline row owns spacing (2px flex gap), as PROCESSOR and DIMENSOR already do.
+
 ## 0.41.80 (2026-11-02)
 
 - `.vk-play`: the timeline play button (solid row-height square, `--bg-2`, hover `--bg-3`, 11px ▶/❚❚), replacing PROCESSOR's and DIMENSOR's local `.vt-play`. Rule in AGENTS.md.
