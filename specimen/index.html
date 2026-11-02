@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.87 ===== */
-/* V3KTR design tokens · v0.41.87
+/* ===== core: tokens.css v0.41.88 ===== */
+/* V3KTR design tokens · v0.41.88
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.87 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.88 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -492,12 +492,12 @@
 /* ---------------------------------------------------------------- selects */
 
 /* from .blend-select (select inside a 28px row) */
-.vk-select{height:22px;background-color:var(--bg-2);color:var(--tx-0);border:none;
+.vk-select{height:22px;background-color:color-mix(in srgb,var(--bg-2) 50%,var(--bg-3));color:var(--tx-0);border:none;
   -webkit-appearance:none;appearance:none;background-image:var(--app-chevron);
   background-repeat:no-repeat;background-position:right 8px center;
   font-family:var(--mono);font-size:var(--fs-ctrl);padding:0 22px 0 8px;cursor:pointer;letter-spacing:0.01em;min-width:110px;}
 /* from .blend-select (margin-left:auto pushes it to the right end of its row) */
-.vk-row .vk-select{margin-left:auto;}
+.vk-row .vk-select{margin-left:auto;margin-right:-9px;height:100%;}   /* v0.41.88: fills the row to the top, bottom and right edge (the row pads 9px); the grey is a step lighter (bg-2/bg-3 midpoint) */
 /* from select.ctl (full-width 28px select) */
 .vk-select--block{height:var(--row-h);width:100%;padding:0 24px 0 9px;background-position:right 9px center;
   min-width:0;letter-spacing:normal;}
@@ -2985,7 +2985,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.87</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.88</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

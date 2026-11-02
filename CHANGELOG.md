@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.88 (2026-11-02)
+
+- `.vk-select` in a `.vk-row` fills the row (full height, flush right, `margin-right:-9px`); `.vk-select` grey one step lighter (`--bg-2`/`--bg-3` midpoint). Patrick 2026-11-02, from PROCESSOR.
+
 ## 0.41.87 (2026-11-02)
 
 - Normal `.vk-btn` and `.vk-seg button` side padding 14px to 9px, matching the field text indent (`.vk-row` / `.vk-tog-row` / `.vk-scrub`). Each button is 10px narrower. Patrick 2026-11-02 (from DIMENSOR Render panel).
