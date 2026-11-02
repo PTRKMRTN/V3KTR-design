@@ -39,6 +39,7 @@ The three button sizes are PROCESSOR's own. They are named in the comment above 
 | `.vk-btn-row` | `.param-tools`, `.gen-toolrow`, `.btn-row` | A left-aligned wrapping row with a 6px gap. |
 | `.vk-seg` (+`--sm`) | `.seg`, `.seg button`, `.seg button.on`, `.seg.mask-cmb button` | Options have no letter-spacing. The on option does not react to hover. |
 | `.vk-chip` | `.filter-chip`, `:hover`, `.active` | The only bordered control. |
+| `.vk-chip__n` | KOMPOSITOR `.media-count` | Count inside a filter chip; chip colour, bold. |
 | `.vk-chip--group` | `.rail-chip`, `.rail-chip.on` | The on state takes the FX-group colour from `--gcol`. |
 | `.vk-row` (+`--action`, `__label`) | `.blend-row`, `.col-row`, `.col-row:hover`, `.blend-label` | A 28px bg-3 row. |
 | `.vk-tog-row` | `.tog-row`, `.tog-row span` | |
