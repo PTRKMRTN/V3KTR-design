@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.89 (2026-11-02)
+
+- Fix for v0.41.88: the fill rule also covers the themed select `.vk-cs` (its trigger is the visible control, now the lighter grey too). New `.vk-row--ctl`: a label + control row keeps the bg-3 control look (the later selectable-row rule had overridden it). From PROCESSOR's audit.
+
 ## 0.41.88 (2026-11-02)
 
 - `.vk-select` in a `.vk-row` fills the row (full height, flush right, `margin-right:-9px`); `.vk-select` grey one step lighter (`--bg-2`/`--bg-3` midpoint). Patrick 2026-11-02, from PROCESSOR.

@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.88 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.89 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -405,7 +405,9 @@
   background-repeat:no-repeat;background-position:right 8px center;
   font-family:var(--mono);font-size:var(--fs-ctrl);padding:0 22px 0 8px;cursor:pointer;letter-spacing:0.01em;min-width:110px;}
 /* from .blend-select (margin-left:auto pushes it to the right end of its row) */
-.vk-row .vk-select{margin-left:auto;margin-right:-9px;height:100%;}   /* v0.41.88: fills the row to the top, bottom and right edge (the row pads 9px); the grey is a step lighter (bg-2/bg-3 midpoint) */
+.vk-row .vk-select,.vk-row .vk-cs{margin-left:auto;margin-right:-9px;height:100%;}   /* v0.41.89: the themed .vk-cs (visible trigger, hidden native select) fills the row the same way */
+.vk-row .vk-cs{align-self:stretch;}
+.vk-row .vk-cs__trigger{height:100%;box-sizing:border-box;}   /* v0.41.88: fills the row to the top, bottom and right edge (the row pads 9px); the grey is a step lighter (bg-2/bg-3 midpoint) */
 /* from select.ctl (full-width 28px select) */
 .vk-select--block{height:var(--row-h);width:100%;padding:0 24px 0 9px;background-position:right 9px center;
   min-width:0;letter-spacing:normal;}
@@ -424,7 +426,7 @@
 .vk-cs > select{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
 /* from .cs-trigger */
 .vk-cs__trigger{flex:1 1 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-0);background:var(--bg-2);
+  font-family:var(--mono);font-size:var(--fs-ctrl);color:var(--tx-0);background:color-mix(in srgb,var(--bg-2) 50%,var(--bg-3));
   border:none;padding:5px 9px;cursor:pointer;text-align:left;line-height:1.3;letter-spacing:0.01em;}
 /* from .cs-trigger::after */
 .vk-cs__trigger::after{content:'';width:8px;height:8px;flex:0 0 auto;background:var(--app-chevron) no-repeat center/contain;}
@@ -635,6 +637,9 @@
 /* A control inside a row hands the hover over: while the pointer is on it the row drops back to rest and the control
    takes the row's hover colour (Patrick 2026-10-02). On a selected row the row stays selected and the control previews
    in the solid app colour (any tint brighter than 42% fails contrast in one app or another). Mark such controls .vk-row__ctl. */
+/* Control row (v0.41.89, from PROCESSOR's audit): .vk-row is defined twice, and the later selectable-row rule (bg-2, pointer, hover tint) wins over the first (bg-3 control row). A label + control row that is not a list item takes .vk-row--ctl to get the control look back. */
+.vk-row.vk-row--ctl{background:var(--bg-3);color:var(--tx-1);cursor:default;}
+.vk-row.vk-row--ctl:hover,.vk-row.vk-row--ctl.is-hover{background:var(--bg-3);color:var(--tx-1);}
 .vk-row:has(.vk-row__ctl:hover):not(.is-selected),.vk-layer:has(.vk-row__ctl:hover):not(.is-active){background:var(--bg-2);}
 .vk-row__ctl:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-2));color:var(--tx-0);}
 .vk-row.is-selected .vk-row__ctl:hover,.vk-layer.is-active .vk-row__ctl:hover{background:var(--accent);color:var(--on-accent);}
