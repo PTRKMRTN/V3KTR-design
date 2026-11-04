@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.92 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.93 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -708,6 +708,12 @@
 /* Timeline play button (v0.41.80; PROCESSOR viewport timeline = DIMENSOR): <button class="vk-play" aria-label="Play">▶</button> (❚❚ while playing) before a .vk-scrub; the row owns spacing (2px flex gap), the button has no margin. A solid square of the row height. */
 .vk-play{flex:0 0 auto;width:var(--row-h);height:var(--row-h);display:flex;align-items:center;justify-content:center;margin:0;padding:0;border:0;background:var(--bg-2);color:var(--tx-1);font-size:11px;cursor:pointer;}
 .vk-play:hover{background:var(--bg-3);color:var(--tx-0);}
+/* Mute toggle (v0.41.93, Patrick 2026-11-04, PROCESSOR video audio; mock V3KTR-COWORK/reports/audio-mute-mock/): <button class="vk-mute" aria-pressed="false" aria-label="Mute">speaker icon</button>, the Play square's twin at the right end of the timeline strip. aria-pressed="true" = muted: the muted icon on the solid app colour. Not shown when the media has no sound. */
+.vk-mute{flex:0 0 auto;width:var(--row-h);height:var(--row-h);display:flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-2);color:var(--tx-1);cursor:pointer;}
+.vk-mute svg{width:14px;height:14px;display:block;}
+.vk-mute:hover{background:var(--bg-3);color:var(--tx-0);}
+.vk-mute[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);}
+.vk-mute[aria-pressed="true"]:hover{background:var(--hover);}
 .vk-playhead{width:2px;background:var(--accent-2);}                /* timeline playhead: a 2px bar, the parent sets position and height */
 .vk-marker{width:7px;height:7px;background:var(--accent-2);transform:rotate(45deg);}   /* a timeline marker, in point, beat: a 7px diamond */
 .vk-series--2{stroke:var(--accent-2);}                               /* the second series of a curve or graph (the first stays the accent or grey) */

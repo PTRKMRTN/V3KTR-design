@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.93 (2026-11-04)
+
+- Icons `speaker` and `muted` (menu-icons.js); `.vk-mute`: the mute toggle square (twin of `.vk-play`, pressed = muted = solid app colour). Patrick 2026-11-04, from PROCESSOR W4.7 (video audio mutable). Include-audio row is the existing tog-row + switch.
+
 ## 0.41.92 (2026-11-02)
 
 - `interactions/toast.js`: the toast region honours `--vp-bars-extra` like `.vk-toast--pinned` (v0.41.83), so a toast or progress message sits above a visible timeline instead of over it. From DIMENSOR (Patrick 2026-11-02). Apps re-copy `toast.js` and set `--vp-bars-extra:1` on the toast host while the timeline shows.

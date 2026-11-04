@@ -74,6 +74,8 @@ export const MENU_ICONS = {
   unlock: '<rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 016.800-1"/>',
   up: '<path d="M6 14l6-6 6 6"/>',
   x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  speaker: '<path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.2 9.3a3.8 3.8 0 010 5.4M17.8 6.7a7.5 7.5 0 010 10.6"/>',   // sound on (v0.41.93)
+  muted: '<path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/>',   // sound off (v0.41.93)
   zoom: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
   zoomin: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/>',
   zoomout: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/>',
