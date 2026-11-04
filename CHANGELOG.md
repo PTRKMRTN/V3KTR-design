@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.94 (2026-11-04)
+
+- `.vk-btn[aria-disabled="true"]` no longer lights up on hover (it keeps its tip but looks inert).
+
 ## 0.41.93 (2026-11-04)
 
 - Icons `speaker` and `muted` (menu-icons.js); `.vk-mute`: the mute toggle square (twin of `.vk-play`, pressed = muted = solid app colour). Patrick 2026-11-04, from PROCESSOR W4.7 (video audio mutable). Include-audio row is the existing tog-row + switch.
