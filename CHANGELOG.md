@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.96 (2026-11-04)
+
+- Colour wheels fit narrow panels (KOMPOSITOR inspector content is 290px): `.vk-wheel-row` is a size container; wheel size is `min(100px, (row - 12px) / 3)` (drop any inline `--wheel-size`); at 340px or less the label stacks name over value and the Lum scrub shows its value alone (name in `data-tip`); the hint balances over two lines.
+
 ## 0.41.95 (2026-11-04)
 
 - Colour wheels: `.vk-wheel-row` / `.vk-wheel-col` / `.vk-wheel-label` / `.vk-wheel` / `.vk-wheel__puck` / `.vk-wheel-hint` and `interactions/colour-wheel.js` (`bindColourWheel`). Rule in AGENTS.md.
