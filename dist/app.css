@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.94
+/* V3KTR design tokens · v0.41.95
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.94 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.95 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -652,6 +652,22 @@
   box-shadow:var(--app-shadow-toast);}
 /* from .depth-status (its placement over the canvas) */
 .vk-toast--pinned{position:absolute;bottom:calc(var(--vp-bar-bottom) + var(--vp-bar-step) * (1 + var(--vp-bars-extra,0)) + 4px);left:50%;transform:translateX(-50%);z-index:7;}   /* v0.41.83: set --vp-bars-extra:1 on the viewport while a timeline bar is visible so the pill sits above it */
+
+/* Colour wheels (v0.41.95, KOMPOSITOR grade, Patrick 2026-11-04 picked mock option A): three wheels in a row, each a wheel + a luminance
+   scrub under it. <div class="vk-wheel-row"><div class="vk-wheel-col"><div class="vk-wheel-label">Lift<span>0.00</span></div>
+   <div class="vk-wheel"><div class="vk-wheel__puck"></div></div><div class="vk-scrub">…Lum…</div></div> ×3</div> + <p class="vk-wheel-hint">.
+   Behaviour: interactions/colour-wheel.js. --wheel-size (default 100px) sets the diameter. */
+.vk-wheel-row{display:flex;gap:6px;}
+.vk-wheel-col{flex:1;min-width:0;display:flex;flex-direction:column;}
+.vk-wheel-label{display:flex;justify-content:space-between;margin:0 0 6px;font-family:var(--mono);font-size:var(--fs-ctrl);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-0);}
+.vk-wheel-label span{color:var(--tx-2);}
+.vk-wheel{--wheel-size:100px;position:relative;width:var(--wheel-size);height:var(--wheel-size);align-self:center;margin:0 0 8px;flex:none;border-radius:50%;touch-action:none;cursor:crosshair;
+  background:radial-gradient(circle,#808080 0,rgba(128,128,128,0) 72%),conic-gradient(from 90deg,#f0f,#f00,#ff0,#0f0,#0ff,#00f,#f0f);}
+.vk-wheel::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18);pointer-events:none;}
+.vk-wheel::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 var(--stroke) var(--bg-4) inset;pointer-events:none;}
+.vk-wheel:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.vk-wheel__puck{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #000;pointer-events:none;}
+.vk-wheel-hint{margin:4px 0 0;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-2);}
 /* from .depth-status .ds-dot (a circle: 50% is shape, not the corner radius) */
 .vk-toast__dot{width:9px;height:9px;border-radius:50%;background:var(--accent-2,var(--accent));animation:vk-ds-pulse 1.1s ease-in-out infinite;}
 /* from @keyframes dsPulse */

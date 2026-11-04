@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.95 (2026-11-04)
+
+- Colour wheels: `.vk-wheel-row` / `.vk-wheel-col` / `.vk-wheel-label` / `.vk-wheel` / `.vk-wheel__puck` / `.vk-wheel-hint` and `interactions/colour-wheel.js` (`bindColourWheel`). Rule in AGENTS.md.
+
 ## 0.41.94 (2026-11-04)
 
 - `.vk-btn[aria-disabled="true"]` no longer lights up on hover (it keeps its tip but looks inert).

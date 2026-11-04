@@ -45,6 +45,7 @@ The three button sizes are PROCESSOR's own. They are named in the comment above 
 | `.vk-tog-row` | `.tog-row`, `.tog-row span` | |
 | `.vk-switch` | `.switch`, `::after`, `.on` | Square, 30×16. |
 | `.vk-scrub` (`__fill`, `__label`, `__val`) | `.scrub`, `.fill`, `.s-label`, `.s-val` | `--fill` holds the value. `--tcol` is set in the markup but no rule reads it. |
+| `.vk-wheel` (`__puck`), `.vk-wheel-row`, `-col`, `-label`, `-hint` | KOMPOSITOR grade wheels | Colour wheel; behaviour `interactions/colour-wheel.js`. |
 | `.vk-sec-head` | `.panel-head`, `.explorer-head`, `.rail-label` | Type only; padding stays with the container. |
 | `.vk-sec-label` | `.sec-label`, `.gen-secname` | |
 | `.vk-sec-sub` | `.sec-sub` | |
