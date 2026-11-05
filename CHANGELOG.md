@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.98 (2026-11-05)
+
+- Disabled row control: `.vk-row__ctl[aria-disabled="true"]` (row or `.vk-layer` action icon) is dimmed to 40%, default cursor, and gets no hover tint (the row keeps its own hover). Use `aria-disabled`, not `:disabled`, so the tip still opens; say why in `data-tip-desc`. From DIMENSOR CAM5 (Use current view while a Camera is unlocked); apps drop local `.is-off` copies.
+
 ## 0.41.97 (2026-11-05)
 
 - `.vk-wheel-hint span` never breaks inside: write the hint as `<span>Drag puck</span> · <span>double-click resets</span> · <span>Shift = fine</span>` so "double-click" stays whole.
