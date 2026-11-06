@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.100 (2026-11-07)
+
+- New icon `physics` in `icons/menu-icons.js` (`MENU_ICONS.physics`): a tilted block falling toward a ground line with a resting block, same 24 grid / 1.4 stroke / per-shape opacity as the FX icons. For DIMENSOR's Physics FX (Simulate group, `--type-violet`); replaces the cube placeholder. Sheet: `V3KTR-COWORK/reports/physics-icon/sheet.png`.
+
 ## 0.41.99 (2026-11-06)
 
 - No text selection in the app shell: `html,body{user-select:none}` (Patrick: it was occasionally annoying, never needed). Re-enabled on `input`, `textarea`, `[contenteditable]`, `.vk-input`, `.vk-input--inline`, and on anything with the new opt-in `.vk-copyable` (use it for an error detail or a version string). Double-click on a scrub or label no longer highlights; drag-and-drop and canvas pointer events are untouched. Apps drop any local `user-select:none` they added for this.
