@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.99 (2026-11-06)
+
+- No text selection in the app shell: `html,body{user-select:none}` (Patrick: it was occasionally annoying, never needed). Re-enabled on `input`, `textarea`, `[contenteditable]`, `.vk-input`, `.vk-input--inline`, and on anything with the new opt-in `.vk-copyable` (use it for an error detail or a version string). Double-click on a scrub or label no longer highlights; drag-and-drop and canvas pointer events are untouched. Apps drop any local `user-select:none` they added for this.
+
 ## 0.41.98 (2026-11-05)
 
 - Disabled row control: `.vk-row__ctl[aria-disabled="true"]` (row or `.vk-layer` action icon) is dimmed to 40%, default cursor, and gets no hover tint (the row keeps its own hover). Use `aria-disabled`, not `:disabled`, so the tip still opens; say why in `data-tip-desc`. From DIMENSOR CAM5 (Use current view while a Camera is unlocked); apps drop local `.is-off` copies.

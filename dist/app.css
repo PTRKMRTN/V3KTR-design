@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.98
+/* V3KTR design tokens · v0.41.99
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -130,7 +130,7 @@
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
 
-/* V3KTR app layer · v0.41.98 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.99 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -468,6 +468,12 @@
    way, so it's a gap, not a PROCESSOR-only override to copy). Covers both the top-level labels (inside .vk-menubar)
    and the popup's rows/labels/shortcuts (inside .vk-menu-pop) in one rule. */
 .vk-menubar,.vk-menu-pop{user-select:none;}
+/* NO TEXT SELECTION in the app shell (Patrick 2026-11-06: "stop the cursor being able to select text throughout all the apps").
+   Labels, values, tips, menus and double-click on a scrub never highlight. Text you type in stays selectable, and anything
+   meant to be copied opts in with .vk-copyable (an error detail, a version string). Drag-and-drop and canvas pointer
+   gestures are unaffected: user-select only stops the highlight, it does not touch pointer events or draggable. */
+html,body{-webkit-user-select:none;user-select:none;}
+input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline,.vk-copyable,.vk-copyable *{-webkit-user-select:text;user-select:text;}
 /* from .menu */
 /* ══ TOP BAR (v0.18.0, Patrick 2026-10-02: the logo and menus the same size, position and spacing in every app).
    PROCESSOR's bar is the reference. Logo at the bar's left padding (--pad), sized and placed so its app-name capitals
