@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.101 (2026-11-08)
+
+- New icon `alien` (`MENU_ICONS.alien`): two bumps of different heights rising from a rippled disc, for DIMENSOR's Alien Surface ground (was sharing `water`). Sheet: `V3KTR-COWORK/reports/alien-icon/sheet.png`.
+- `.vk-btn-row[hidden]{display:none}` joins the [hidden]-trap list, so `hidden` on a button row hides it.
+
 ## 0.41.100 (2026-11-07)
 
 - New icon `physics` in `icons/menu-icons.js` (`MENU_ICONS.physics`): a tilted block falling toward a ground line with a resting block, same 24 grid / 1.4 stroke / per-shape opacity as the FX icons. For DIMENSOR's Physics FX (Simulate group, `--type-violet`); replaces the cube placeholder. Sheet: `V3KTR-COWORK/reports/physics-icon/sheet.png`.

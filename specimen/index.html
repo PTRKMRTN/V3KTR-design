@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.100 ===== */
-/* V3KTR design tokens · v0.41.100
+/* ===== core: tokens.css v0.41.101 ===== */
+/* V3KTR design tokens · v0.41.101
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.100 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.101 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -848,7 +848,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-pill{display:inline-block;background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.04em;padding:2px 6px;white-space:nowrap;pointer-events:none;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
-.vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-tag[hidden]{display:none;}
+.vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
 /* MUSIC LANE and REACT BLOCK (v0.41.58, Patrick 2026-10-27 "Approve as is"; docs/MUSIC-LANE-REACTIONS.md). A 24px lane under an audio clip with positioned event markers.
    <div class="vk-lane"><div class="vk-lane__span" data-kind="break" style="--x:.30;--w:.06"></div><button class="vk-lane__mark" data-kind="accent" style="--x:.12" aria-label="Accent at 0:12"></button></div>
    --x is the marker's position as a fraction of the lane (0..1); kinds: accent, offbeat, hit, break, drop, build, inout. A DETECTED marker is the secondary (the machine); .is-hand (added, moved or accepted by
@@ -3046,7 +3046,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.100</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.101</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
