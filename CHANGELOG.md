@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.104 (2026-11-11)
+
+- Rule only (AGENTS.md): drawer-bar chips are 3 to 4 letter abbreviations with the full name and count in the tip. Patrick's call on DIMENSOR's Library bar overflow; no CSS change.
+
 ## 0.41.103 (2026-11-11)
 
 - New icon `printer` (`MENU_ICONS.printer`): a hotend nozzle over three stacked bead lines, for DIMENSOR's Printed FX tile (Output group). Sheet: `V3KTR-COWORK/reports/printer-icon/sheet.png`.
