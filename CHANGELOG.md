@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.105 (2026-11-12)
+
+- Rule only (AGENTS.md): the drawer bar's Show / Hide button is icon-only (tip + aria-label carry the words), freeing room for the abbreviated chips at 1280px. Patrick's pick. No CSS change.
+
 ## 0.41.104 (2026-11-11)
 
 - Rule only (AGENTS.md): drawer-bar chips are 3 to 4 letter abbreviations with the full name and count in the tip. Patrick's call on DIMENSOR's Library bar overflow; no CSS change.
