@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.102 (2026-11-11)
+
+- New icon `flame` (`MENU_ICONS.flame`): one licking flame, tip curling right, with a lighter inner flame, for DIMENSOR's Flames tile (Atmosphere group). Sheet: `V3KTR-COWORK/reports/flame-icon/sheet.png`.
+
 ## 0.41.101 (2026-11-08)
 
 - New icon `alien` (`MENU_ICONS.alien`): two bumps of different heights rising from a rippled disc, for DIMENSOR's Alien Surface ground (was sharing `water`). Sheet: `V3KTR-COWORK/reports/alien-icon/sheet.png`.
