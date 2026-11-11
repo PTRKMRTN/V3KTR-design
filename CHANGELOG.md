@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.103 (2026-11-11)
+
+- New icon `printer` (`MENU_ICONS.printer`): a hotend nozzle over three stacked bead lines, for DIMENSOR's Printed FX tile (Output group). Sheet: `V3KTR-COWORK/reports/printer-icon/sheet.png`.
+
 ## 0.41.102 (2026-11-11)
 
 - New icon `flame` (`MENU_ICONS.flame`): one licking flame, tip curling right, with a lighter inner flame, for DIMENSOR's Flames tile (Atmosphere group). Sheet: `V3KTR-COWORK/reports/flame-icon/sheet.png`.
