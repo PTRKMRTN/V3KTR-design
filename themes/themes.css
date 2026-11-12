@@ -42,6 +42,7 @@
 [data-group="type"]    { --gcol: var(--type-amber); }
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
+[data-group="patterns"] { --gcol: var(--type-fuchsia); }   /* PROCESSOR Patterns (Patrick 2026-11-01, already its rail colour; v0.41.108) */
 /* DIMENSOR groups (v0.41.106; the map DIMENSOR's rail already uses, src/ui/catalogue.js FX_GROUPS). */
 [data-group="deform"]   { --gcol: var(--type-teal); }
 [data-group="displace"] { --gcol: var(--type-amber); }

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.108 (2026-11-13)
+
+- `data-group="patterns"` maps to `--type-fuchsia`: PROCESSOR's Patterns group colour (Patrick 2026-11-01, already in its rail), now on the site too.
+
 ## 0.41.107 (2026-11-13)
 
 - `.vs-fxtile` with no `.vs-fxtile__ic` is a single column (was: the name fell into the 28px icon column).

@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.107 ===== */
-/* V3KTR design tokens · v0.41.107
+/* ===== core: tokens.css v0.41.108 ===== */
+/* V3KTR design tokens · v0.41.108
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.107 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.108 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1293,6 +1293,7 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
 [data-group="type"]    { --gcol: var(--type-amber); }
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
+[data-group="patterns"] { --gcol: var(--type-fuchsia); }   /* PROCESSOR Patterns (Patrick 2026-11-01, already its rail colour; v0.41.108) */
 /* DIMENSOR groups (v0.41.106; the map DIMENSOR's rail already uses, src/ui/catalogue.js FX_GROUPS). */
 [data-group="deform"]   { --gcol: var(--type-teal); }
 [data-group="displace"] { --gcol: var(--type-amber); }
@@ -3071,7 +3072,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.107</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.108</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
