@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.109 (2026-11-13)
+
+- `.vs-fxtile` is top-aligned (`align-content:start`): icon and name share the first line, so tiles of different heights in a row line up. Patrick, from the site preview.
+
 ## 0.41.108 (2026-11-13)
 
 - `data-group="patterns"` maps to `--type-fuchsia`: PROCESSOR's Patterns group colour (Patrick 2026-11-01, already in its rail), now on the site too.
