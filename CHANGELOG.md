@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.107 (2026-11-13)
+
+- `.vs-fxtile` with no `.vs-fxtile__ic` is a single column (was: the name fell into the 28px icon column).
+
 ## 0.41.106 (2026-11-13)
 
 - Site FX grid (`.vs-fxgroup` > `.vs-group-title` + `.vs-fxgrid` > `.vs-fxtile`) for the app pages: icon + name + one line, group colour on title and icon only. Patrick approved the mock `V3KTR-COWORK/reports/site-fx-grid/mock.png`.

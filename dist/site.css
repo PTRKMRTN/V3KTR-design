@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.106
+/* V3KTR design tokens · v0.41.107
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -1716,6 +1716,8 @@
 .vs-fxgroup > .vs-group-title { font: 700 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; margin: 0 0 12px; }
 .vs-fxgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
 .vs-fxtile { display: grid; grid-template-columns: 28px 1fr; column-gap: 12px; align-content: center; padding: 12px 14px; background: var(--bg-2); color: var(--site-muted); text-align: left; }
+/* No icon (KOMPOSITOR lists, a family with no icons yet): a single column, name over line. */
+.vs-fxtile:not(:has(.vs-fxtile__ic)) { grid-template-columns: 1fr; }
 .vs-fxtile__ic { grid-row: span 2; color: var(--gcol, var(--site-muted)); padding-top: 1px; line-height: 0; }
 .vs-fxtile__ic > svg { width: 20px; height: 20px; }
 .vs-fxtile > b { color: var(--site-heading); font-weight: 600; }
