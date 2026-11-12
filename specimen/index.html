@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.105 ===== */
-/* V3KTR design tokens · v0.41.105
+/* ===== core: tokens.css v0.41.106 ===== */
+/* V3KTR design tokens · v0.41.106
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.105 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.106 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1293,6 +1293,16 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
 [data-group="type"]    { --gcol: var(--type-amber); }
 [data-group="light"]   { --gcol: var(--type-slate); }
 [data-group="depth"]   { --gcol: var(--depth); }
+/* DIMENSOR groups (v0.41.106; the map DIMENSOR's rail already uses, src/ui/catalogue.js FX_GROUPS). */
+[data-group="deform"]   { --gcol: var(--type-teal); }
+[data-group="displace"] { --gcol: var(--type-amber); }
+[data-group="remesh"]   { --gcol: var(--type-sage); }
+[data-group="instance"] { --gcol: var(--type-rose); }
+[data-group="effector"] { --gcol: var(--type-fuchsia); }
+[data-group="volume"]   { --gcol: var(--type-slate); }
+[data-group="break"]    { --gcol: var(--type-rust); }
+[data-group="output"]   { --gcol: var(--adjust); }
+[data-group="simulate"] { --gcol: var(--type-violet); }
 
 /* ===== site layer ===== */
 /* V3KTR site layer · v0.3.1 · requires tokens.css (core)
@@ -2862,6 +2872,19 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
    and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
 .vs-group-title { color: var(--gcol, inherit); }
 
+/* FX grid (v0.41.106, Patrick 2026-11-13: mock V3KTR-COWORK/reports/site-fx-grid/mock.png): an always-visible, scannable list of
+   effects on an app page. One `.vs-fxgroup[data-group]` per group: a `.vs-group-title` (mono caps, group colour), then a
+   `.vs-fxgrid` of `.vs-fxtile`s, each `<span class="vs-fxtile__ic">svg</span><b>Name</b><span>one line</span>`. The group colour sits
+   on the title and the icon only (the name and line stay neutral, the tile is a plain fill, no outline, no hover state: not a link).
+   Icons are 20px, 1.4 stroke, currentColor. A tile may be an `<a>` to the effect page: then it takes the link rules. */
+.vs-fxgroup { margin-block: 26px 0; }
+.vs-fxgroup > .vs-group-title { font: 700 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; margin: 0 0 12px; }
+.vs-fxgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.vs-fxtile { display: grid; grid-template-columns: 28px 1fr; column-gap: 12px; align-content: center; padding: 12px 14px; background: var(--bg-2); color: var(--site-muted); text-align: left; }
+.vs-fxtile__ic { grid-row: span 2; color: var(--gcol, var(--site-muted)); padding-top: 1px; line-height: 0; }
+.vs-fxtile__ic > svg { width: 20px; height: 20px; }
+.vs-fxtile > b { color: var(--site-heading); font-weight: 600; }
+
 /* ══ STATUS (ready / caution / blocked) ═══════════════════════════════════════
    For checks and results (e.g. the browser check). Never colour alone: always an icon (brand/status) and a word.
    [data-status="ready|caution|blocked"] sets --status; neutral without it.
@@ -3046,7 +3069,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.105</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.106</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

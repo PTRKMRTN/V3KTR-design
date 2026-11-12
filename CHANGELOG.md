@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.106 (2026-11-13)
+
+- Site FX grid (`.vs-fxgroup` > `.vs-group-title` + `.vs-fxgrid` > `.vs-fxtile`) for the app pages: icon + name + one line, group colour on title and icon only. Patrick approved the mock `V3KTR-COWORK/reports/site-fx-grid/mock.png`.
+- `data-group` now also maps DIMENSOR's nine groups (deform, displace, remesh, instance, effector, volume, break, output, simulate) to the colours its rail already uses.
+
 ## 0.41.105 (2026-11-12)
 
 - Rule only (AGENTS.md): the drawer bar's Show / Hide button is icon-only (tip + aria-label carry the words), freeing room for the abbreviated chips at 1280px. Patrick's pick. No CSS change.

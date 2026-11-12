@@ -1565,6 +1565,19 @@
    and icon. Set --gcol, or wrap the family in [data-group="…"] (themes/themes.css maps group → colour). */
 .vs-group-title { color: var(--gcol, inherit); }
 
+/* FX grid (v0.41.106, Patrick 2026-11-13: mock V3KTR-COWORK/reports/site-fx-grid/mock.png): an always-visible, scannable list of
+   effects on an app page. One `.vs-fxgroup[data-group]` per group: a `.vs-group-title` (mono caps, group colour), then a
+   `.vs-fxgrid` of `.vs-fxtile`s, each `<span class="vs-fxtile__ic">svg</span><b>Name</b><span>one line</span>`. The group colour sits
+   on the title and the icon only (the name and line stay neutral, the tile is a plain fill, no outline, no hover state: not a link).
+   Icons are 20px, 1.4 stroke, currentColor. A tile may be an `<a>` to the effect page: then it takes the link rules. */
+.vs-fxgroup { margin-block: 26px 0; }
+.vs-fxgroup > .vs-group-title { font: 700 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; margin: 0 0 12px; }
+.vs-fxgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.vs-fxtile { display: grid; grid-template-columns: 28px 1fr; column-gap: 12px; align-content: center; padding: 12px 14px; background: var(--bg-2); color: var(--site-muted); text-align: left; }
+.vs-fxtile__ic { grid-row: span 2; color: var(--gcol, var(--site-muted)); padding-top: 1px; line-height: 0; }
+.vs-fxtile__ic > svg { width: 20px; height: 20px; }
+.vs-fxtile > b { color: var(--site-heading); font-weight: 600; }
+
 /* ══ STATUS (ready / caution / blocked) ═══════════════════════════════════════
    For checks and results (e.g. the browser check). Never colour alone: always an icon (brand/status) and a word.
    [data-status="ready|caution|blocked"] sets --status; neutral without it.
