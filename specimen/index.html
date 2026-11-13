@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.119 ===== */
-/* V3KTR design tokens · v0.41.119
+/* ===== core: tokens.css v0.41.120 ===== */
+/* V3KTR design tokens · v0.41.120
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -92,7 +92,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.119 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.120 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -841,11 +841,10 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vscrub>span{position:relative;}
 .vk-vscrub:hover{background:var(--bg-4);}
 .vk-vscrub:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
-/* Value tile (v0.41.116, PROCESSOR render scale): a 30px .vk-vtools__t showing a short value ("1x", "50%") in mono, with a transparent native <select> laid over it, so a click opens the list. Tip names it. Fit/100% pair (v0.41.116): a plain .vk-vtools__t under a .vk-vscrub (frame icon = fit, actual icon = 100%); the app swaps the icon and tip, click toggles. */
+/* Value tile (v0.41.116, PROCESSOR render scale): a 30px .vk-vtools__t showing a short value ("1x", "50%") in mono, with (the click opens a .vk-vtools__fly). Tip names it. Fit/100% pair (v0.41.116): a plain .vk-vtools__t under a .vk-vscrub (frame icon = fit, actual icon = 100%); the app swaps the icon and tip, click toggles. */
 .vk-vtools__t--val{position:relative;font:600 9px var(--mono);}
-.vk-vtools__t--val>select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font:inherit;}
 .vk-vtools__t--val:focus-within{outline:2px solid var(--accent);outline-offset:-2px;}
-/* TILE FLY-OUT (v0.41.119, Patrick 2026-11-13: the native select list looked off-brand; "tiles folding out to the left", the option-A flyout of the tool-controls mock). A picker in a tool column: .vk-vtools__fly wraps the face tile (.vk-vtools__t--val, shows the value) and .vk-vtools__opts, a row of 30px option tiles that opens to its LEFT, level with the tile, 2px apart. Option = .vk-vtools__o (hugs its text, 9px side padding, mono 10px caps); the chosen one is accent-filled. Behaviour interactions/vfly.js. Supersedes the transparent select on --val (kept one version for apps to move over). */
+/* TILE FLY-OUT (v0.41.119, Patrick 2026-11-13: the native select list looked off-brand; "tiles folding out to the left", the option-A flyout of the tool-controls mock). A picker in a tool column: .vk-vtools__fly wraps the face tile (.vk-vtools__t--val, shows the value) and .vk-vtools__opts, a row of 30px option tiles that opens to its LEFT, level with the tile, 2px apart. Option = .vk-vtools__o (hugs its text, 9px side padding, mono 10px caps); the chosen one is accent-filled. Behaviour interactions/vfly.js. Replaces the old transparent-select value tile. */
 .vk-vtools__fly{position:relative;}
 .vk-vtools__t[aria-expanded="true"]{color:var(--accent);background:var(--bg-4);}
 .vk-vtools__opts{position:absolute;right:calc(100% + 2px);top:0;display:flex;gap:2px;z-index:15;}
@@ -3152,7 +3151,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.119</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.120</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

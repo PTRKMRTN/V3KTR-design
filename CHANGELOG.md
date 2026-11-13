@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.120 (2026-11-13)
+
+- Removed the dead `.vk-vtools__t--val>select` rule (PROCESSOR moved to the fly-out).
+
 ## 0.41.119 (2026-11-13)
 
 - Tile fly-out for tool-column pickers (Patrick: tiles folding out to the left): `.vk-vtools__fly`, `.vk-vtools__opts`, `.vk-vtools__o`, `interactions/vfly.js`. Replaces the transparent native select on `.vk-vtools__t--val` (its select rule stays one version while apps move over).
