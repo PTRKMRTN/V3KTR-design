@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.119 (2026-11-13)
+
+- Tile fly-out for tool-column pickers (Patrick: tiles folding out to the left): `.vk-vtools__fly`, `.vk-vtools__opts`, `.vk-vtools__o`, `interactions/vfly.js`. Replaces the transparent native select on `.vk-vtools__t--val` (its select rule stays one version while apps move over).
+
 ## 0.41.118 (2026-11-13)
 
 - `.vk-clip-fade`: the wedge is now a light 20% white fill with a 1px slope edge (the dark wedge vanished on dark clips); `.vk-duck` sits 2px in from the clip edge with a dark halo so it no longer reads as an outline.
