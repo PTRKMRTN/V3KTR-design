@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.110 (2026-11-13)
+
+- New pattern, Patrick's pick (option B of the tool-controls mock): `.vk-vtools` stacks an active viewport tool's controls on top of the right viewport toolbar, above a `.vk-vtools__sep` and the standard tools. Tiles `.vk-vtools__t` (`--done`), vertical scrub tiles `.vk-vtools__s`. For DIMENSOR's Fabric brush and PROCESSOR's paint mode.
+- New `.vk-brush-ring` (`.is-on`, `--alt` dashed): the brush cursor, moved here from PROCESSOR `.paint-ring` / DIMENSOR `.fab-ring`.
+
 ## 0.41.109 (2026-11-13)
 
 - `.vs-fxtile` is top-aligned (`align-content:start`): icon and name share the first line, so tiles of different heights in a row line up. Patrick, from the site preview.

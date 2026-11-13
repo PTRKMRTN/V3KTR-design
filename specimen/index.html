@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.109 ===== */
-/* V3KTR design tokens · v0.41.109
+/* ===== core: tokens.css v0.41.110 ===== */
+/* V3KTR design tokens · v0.41.110
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,7 +90,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.109 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.110 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -812,6 +812,38 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-icon-tog:hover,.vk-icon-tog.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),transparent);color:var(--tx-0);}
 .vk-icon-tog[aria-pressed="true"],.vk-icon-tog.is-on{color:var(--accent);}
 .vk-icon-tog svg{width:15px;height:15px;display:block;}
+
+/* Viewport tool controls (v0.41.110, Patrick 2026-11-13, option B of mock V3KTR-COWORK/reports/tool-controls-mock/): while a viewport tool mode is active
+   (DIMENSOR's Fabric brush, PROCESSOR's paint mode) its controls stack ON TOP of the right-hand viewport toolbar, a 1px separator, then the standard tools.
+   Hidden when no tool is active. 30px wide, icon-only, tips on everything. Put this column inside the toolbar column, above the standard group.
+   <div class="vk-vtools" hidden><button class="vk-vtools__t vk-vtools__t--done" data-tip="Done" aria-label="Done">…</button>
+     <button class="vk-vtools__t" aria-pressed="true">pull</button> <button class="vk-vtools__t">push</button>
+     <div class="vk-vtools__s" role="slider" aria-label="Radius" aria-valuenow="0.94" data-tip="Radius"><i style="height:62%"></i><svg/><span>0.94</span></div>
+     <div class="vk-vtools__sep"></div></div>
+   .vk-vtools__t = 30px tile (bg-3, --accent text when aria-pressed). --done = accent fill, the one exit. .vk-vtools__s = vertical scrub tile: drag up/down or wheel,
+   the <i> fill is the value (height %), the number shows beneath the icon. Arrow keys step it. Honour [hidden]. */
+.vk-vtools{display:flex;flex-direction:column;gap:2px;align-items:flex-end;}
+.vk-vtools[hidden]{display:none;}
+.vk-vtools__t{width:30px;height:30px;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vk-vtools__t svg{width:16px;height:16px;display:block;}
+.vk-vtools__t:hover{background:var(--bg-4);color:var(--tx-0);}
+.vk-vtools__t[aria-pressed="true"]{color:var(--accent);}
+.vk-vtools__t--done,.vk-vtools__t--done:hover{background:var(--accent);color:var(--on-accent);}
+.vk-vtools__s{position:relative;width:30px;height:60px;background:var(--bg-3);color:var(--tx-0);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;
+  padding-bottom:4px;box-sizing:border-box;font:600 9px var(--mono);cursor:ns-resize;touch-action:none;flex-shrink:0;user-select:none;}
+.vk-vtools__s>i{position:absolute;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--accent) 30%,transparent);pointer-events:none;}
+.vk-vtools__s>svg{position:relative;width:14px;height:14px;color:var(--tx-1);}
+.vk-vtools__s>span{position:relative;}
+.vk-vtools__s:hover{background:var(--bg-4);}
+.vk-vtools__s:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.vk-vtools__sep{align-self:stretch;height:1px;background:var(--line);margin:4px 2px;}
+
+/* Brush cursor ring (v0.41.110; was PROCESSOR .paint-ring, DIMENSOR .fab-ring): a circle that follows the pointer over the viewport while a brush tool is active.
+   Position it with left/top (centre) and width/height (diameter) in px. Solid = add/pull/paint, .vk-brush-ring--alt = dashed = erase/push (Alt held). The dark 1px
+   outer line keeps it readable on light content. pointer-events:none, above the viewport content. */
+.vk-brush-ring{position:absolute;display:none;pointer-events:none;z-index:14;box-sizing:border-box;border:1px solid var(--tx-0);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 1px var(--bg-1);}
+.vk-brush-ring.is-on{display:block;}
+.vk-brush-ring--alt{border-style:dashed;}
 
 /* Thumbnails (.vk-thumb*) moved to their own pullable app/thumbs.css (v0.41.7), in dist/app.css after this file. */
 
@@ -3072,7 +3104,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.109</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.110</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
