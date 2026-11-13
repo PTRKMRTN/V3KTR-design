@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.118 (2026-11-13)
+
+- `.vk-clip-fade`: the wedge is now a light 20% white fill with a 1px slope edge (the dark wedge vanished on dark clips); `.vk-duck` sits 2px in from the clip edge with a dark halo so it no longer reads as an outline.
+
 ## 0.41.117 (2026-11-13)
 
 - Sound FX patterns (KOMPOSITOR mock sfx-mock): `.vk-pin` anchor pin, `.vk-clip-fade--in/--out` + `.vk-clip-fh` fade corners and handles, `.vk-duck` ducking line (secondary colour), `.vk-tag--sx[data-sx]` type tag (clickable as a button), tokens `--sx-whoosh/hit/riser/braam/drone/glitch/other`. SX rows use the existing track rows, name colour `--type-slate`.
