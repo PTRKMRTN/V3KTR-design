@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.112 (2026-11-13)
+
+- `.vk-vscrub` (renamed from `.vk-vtools__s`): the narrow vertical scrub as a general pattern for viewport toolbars and tool columns, plus `interactions/vscrub.js` (drag, wheel, arrows; minimal gestures, Patrick). `.is-drag` and `aria-disabled` states. Not for side panels or workspace tabs.
+
 ## 0.41.111 (2026-11-13)
 
 - Menu icons `pull`, `push`, `radius`, `strength` (viewport tool tiles) and `pinch`, `grab` (cloth sim brush), for DIMENSOR. Sheet first, redraw and re-tag if Patrick asks.

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.111
+/* V3KTR design tokens · v0.41.112
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -141,7 +141,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.111 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.112 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -864,14 +864,15 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-icon-tog[aria-pressed="true"],.vk-icon-tog.is-on{color:var(--accent);}
 .vk-icon-tog svg{width:15px;height:15px;display:block;}
 
+/* NARROW SCRUB (v0.41.112, Patrick 2026-11-13: "a new behaviour I like"; mock V3KTR-COWORK/reports/narrow-scrub-mock/): .vk-vscrub is a 30px one-number vertical tile for any viewport toolbar or tool column (never side panels or workspace tabs: those keep the labelled .vk-scrub). Fill = value, icon + number inside. Behaviour: interactions/vscrub.js (drag, wheel, arrows). Was .vk-vscrub (v0.41.110), the old name is gone.
 /* Viewport tool controls (v0.41.110, Patrick 2026-11-13, option B of mock V3KTR-COWORK/reports/tool-controls-mock/): while a viewport tool mode is active
    (DIMENSOR's Fabric brush, PROCESSOR's paint mode) its controls stack ON TOP of the right-hand viewport toolbar, a 1px separator, then the standard tools.
    Hidden when no tool is active. 30px wide, icon-only, tips on everything. Put this column inside the toolbar column, above the standard group.
    <div class="vk-vtools" hidden><button class="vk-vtools__t vk-vtools__t--done" data-tip="Done" aria-label="Done">…</button>
      <button class="vk-vtools__t" aria-pressed="true">pull</button> <button class="vk-vtools__t">push</button>
-     <div class="vk-vtools__s" role="slider" aria-label="Radius" aria-valuenow="0.94" data-tip="Radius"><i style="height:62%"></i><svg/><span>0.94</span></div>
+     <div class="vk-vscrub" role="slider" aria-label="Radius" aria-valuenow="0.94" data-tip="Radius"><i style="height:62%"></i><svg/><span>0.94</span></div>
      <div class="vk-vtools__sep"></div></div>
-   .vk-vtools__t = 30px tile (bg-3, --accent text when aria-pressed). --done = accent fill, the one exit. .vk-vtools__s = vertical scrub tile: drag up/down or wheel,
+   .vk-vtools__t = 30px tile (bg-3, --accent text when aria-pressed). --done = accent fill, the one exit. .vk-vscrub = vertical scrub tile: drag up/down or wheel,
    the <i> fill is the value (height %), the number shows beneath the icon. Arrow keys step it. Honour [hidden]. */
 .vk-vtools{display:flex;flex-direction:column;gap:2px;align-items:flex-end;}
 .vk-vtools[hidden]{display:none;}
@@ -880,13 +881,15 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vtools__t:hover{background:var(--bg-4);color:var(--tx-0);}
 .vk-vtools__t[aria-pressed="true"]{color:var(--accent);}
 .vk-vtools__t--done,.vk-vtools__t--done:hover{background:var(--accent);color:var(--on-accent);}
-.vk-vtools__s{position:relative;width:30px;height:60px;background:var(--bg-3);color:var(--tx-0);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;
+.vk-vscrub{position:relative;width:30px;height:60px;background:var(--bg-3);color:var(--tx-0);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;
   padding-bottom:4px;box-sizing:border-box;font:600 9px var(--mono);cursor:ns-resize;touch-action:none;flex-shrink:0;user-select:none;}
-.vk-vtools__s>i{position:absolute;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--accent) 30%,transparent);pointer-events:none;}
-.vk-vtools__s>svg{position:relative;width:14px;height:14px;color:var(--tx-1);}
-.vk-vtools__s>span{position:relative;}
-.vk-vtools__s:hover{background:var(--bg-4);}
-.vk-vtools__s:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.vk-vscrub.is-drag>i{background:color-mix(in srgb,var(--accent) 55%,transparent);}
+.vk-vscrub[aria-disabled="true"]{opacity:.4;cursor:default;}
+.vk-vscrub>i{position:absolute;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--accent) 30%,transparent);pointer-events:none;}
+.vk-vscrub>svg{position:relative;width:14px;height:14px;color:var(--tx-1);}
+.vk-vscrub>span{position:relative;}
+.vk-vscrub:hover{background:var(--bg-4);}
+.vk-vscrub:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
 .vk-vtools__sep{align-self:stretch;height:1px;background:var(--line);margin:4px 2px;}
 
 /* Brush cursor ring (v0.41.110; was PROCESSOR .paint-ring, DIMENSOR .fab-ring): a circle that follows the pointer over the viewport while a brush tool is active.
