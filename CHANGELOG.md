@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.117 (2026-11-13)
+
+- Sound FX patterns (KOMPOSITOR mock sfx-mock): `.vk-pin` anchor pin, `.vk-clip-fade--in/--out` + `.vk-clip-fh` fade corners and handles, `.vk-duck` ducking line (secondary colour), `.vk-tag--sx[data-sx]` type tag (clickable as a button), tokens `--sx-whoosh/hit/riser/braam/drone/glitch/other`. SX rows use the existing track rows, name colour `--type-slate`.
+
 ## 0.41.116 (2026-11-13)
 
 - `.vk-vtools__t--val`: value tile with a transparent native select over it (PROCESSOR render scale). Documented the Fit/100% tile paired under a `.vk-vscrub` (existing `frame` / `actual` icons, no new class).
