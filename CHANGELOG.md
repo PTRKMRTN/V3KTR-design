@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.116 (2026-11-13)
+
+- `.vk-vtools__t--val`: value tile with a transparent native select over it (PROCESSOR render scale). Documented the Fit/100% tile paired under a `.vk-vscrub` (existing `frame` / `actual` icons, no new class).
+
 ## 0.41.115 (2026-11-13)
 
 - Menu icons `viewOver`, `viewChannel`, `viewResult` (PROCESSOR paint-mode view switch: mask over image, mask only, final result). Sheet first, redraw and re-tag if Patrick asks.
