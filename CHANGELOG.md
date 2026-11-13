@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.115 (2026-11-13)
+
+- Menu icons `viewOver`, `viewChannel`, `viewResult` (PROCESSOR paint-mode view switch: mask over image, mask only, final result). Sheet first, redraw and re-tag if Patrick asks.
+
 ## 0.41.114 (2026-11-13)
 
 - `.vk-react`: a row holding a `.vk-seg` (KOMPOSITOR's Feel) grows and puts the seg on its own line under the label. Moved in from KOMPOSITOR's local rule.
