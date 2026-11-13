@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.114 (2026-11-13)
+
+- `.vk-react`: a row holding a `.vk-seg` (KOMPOSITOR's Feel) grows and puts the seg on its own line under the label. Moved in from KOMPOSITOR's local rule.
+
 ## 0.41.113 (2026-11-13)
 
 - `.vk-react` loses its box (Patrick, KOMPOSITOR's Look Strength screenshot): no background, no inset, no padding. REACT is a micro heading, its rows are ordinary full-width rows aligned with the rest of the panel, so the Amount scrub's track shows again. MUSIC-LANE-REACTIONS.md updated.
