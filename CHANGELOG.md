@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.111 (2026-11-13)
+
+- Menu icons `pull`, `push`, `radius`, `strength` (viewport tool tiles) and `pinch`, `grab` (cloth sim brush), for DIMENSOR. Sheet first, redraw and re-tag if Patrick asks.
+
 ## 0.41.110 (2026-11-13)
 
 - New pattern, Patrick's pick (option B of the tool-controls mock): `.vk-vtools` stacks an active viewport tool's controls on top of the right viewport toolbar, above a `.vk-vtools__sep` and the standard tools. Tiles `.vk-vtools__t` (`--done`), vertical scrub tiles `.vk-vtools__s`. For DIMENSOR's Fabric brush and PROCESSOR's paint mode.
