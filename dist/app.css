@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.112
+/* V3KTR design tokens · v0.41.113
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -141,7 +141,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.112 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.113 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -965,8 +965,9 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-lane-row[hidden]{display:none;}
 .vk-lane__span{position:absolute;left:calc(var(--x,0) * 100%);width:calc(var(--w,0) * 100%);top:6px;bottom:6px;background:color-mix(in srgb,var(--accent-2) 12%,transparent);pointer-events:none;}
 .vk-lane__span.is-hand{background:color-mix(in srgb,var(--accent) 12%,transparent);}
-.vk-react{margin:3px 0 6px 12px;padding:8px 10px 10px;background:var(--bg-2);}
-.vk-react > .vk-micro-label{display:block;margin:0 0 6px;}
+/* v0.41.113 (Patrick via KOMPOSITOR, 2026-11-13): no box. REACT is a small grey heading, then Source / Amount / Feel are ordinary full-width rows, flush with every other row (the old bg-2 box hid the Amount scrub track and the inset pushed rows out of line). */
+.vk-react{margin:3px 0 6px;padding:0;background:none;}
+.vk-react > .vk-micro-label{display:block;margin:0 0 6px;padding:0 9px;}
 .vk-lane[hidden],.vk-react[hidden],.vk-lane__mark[hidden],.vk-lane__span[hidden]{display:none;}
 .vk-live{color:var(--accent-2);}                                      /* a readout that is live: fps, a progress percentage */
 .vk-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;

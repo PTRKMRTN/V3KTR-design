@@ -30,7 +30,7 @@ Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edit
 4. **Icon `react`** (24 grid, two tones: the wave at 1, the dot solid), drawn in `V3KTR-COWORK/reports/music-reactive/icons.json`.
 
 ## 3. Proposed classes (when approved)
-`.vk-lane` (the 24 px lane), `.vk-lane__mark` (a positioned marker, `--x` as the fraction, `[data-kind="accent|offbeat|hit|break|drop|build|inout"]`, `.is-hand` for accent colour, `.is-selected`), `.vk-lane__span` (a break or build span), `.vk-react` (the REACT disclosure block). Tokens: none new. Icon: `react` in `icons/menu-icons.js`.
+`.vk-lane` (the 24 px lane), `.vk-lane__mark` (a positioned marker, `--x` as the fraction, `[data-kind="accent|offbeat|hit|break|drop|build|inout"]`, `.is-hand` for accent colour, `.is-selected`), `.vk-lane__span` (a break or build span), `.vk-react` (the REACT disclosure block: no box since v0.41.113 — a small grey `.vk-micro-label` heading inset 9px like row text, then Source / Amount / Feel as ordinary full-width `.vk-row`s flush with the panel). Tokens: none new. Icon: `react` in `icons/menu-icons.js`.
 
 ## 4. Open questions for Patrick
 1. Launch scope: no freeze now, so this is for now unless you mark it for after launch.

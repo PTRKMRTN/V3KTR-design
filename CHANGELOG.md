@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.113 (2026-11-13)
+
+- `.vk-react` loses its box (Patrick, KOMPOSITOR's Look Strength screenshot): no background, no inset, no padding. REACT is a micro heading, its rows are ordinary full-width rows aligned with the rest of the panel, so the Amount scrub's track shows again. MUSIC-LANE-REACTIONS.md updated.
+
 ## 0.41.112 (2026-11-13)
 
 - `.vk-vscrub` (renamed from `.vk-vtools__s`): the narrow vertical scrub as a general pattern for viewport toolbars and tool columns, plus `interactions/vscrub.js` (drag, wheel, arrows; minimal gestures, Patrick). `.is-drag` and `aria-disabled` states. Not for side panels or workspace tabs.
