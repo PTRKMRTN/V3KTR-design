@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.121 ===== */
-/* V3KTR design tokens · v0.41.121
+/* ===== core: tokens.css v0.41.122 ===== */
+/* V3KTR design tokens · v0.41.122
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -92,7 +92,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.121 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.122 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1328,7 +1328,7 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
    the choice, and choosing it still works. Never hide the tile, never leave a src-less <img>, never show the browser's broken-image frame. */
 
 /* ===== app themes (exploration) ===== */
-/* V3KTR app themes · LOCKED (Patrick 2026-09-30)
+/* V3KTR app themes · LOCKED (Patrick 2026-09-30; INCEPTOR cobalt added 2026-11-14)
    One colour per app. A theme sets ONLY the signal family; greys, fonts and the FX-group colours are core.
    Included in dist/app.css and dist/site.css. An app sets data-app="…" on its root; the site sets it on an
    app's section, card or call-to-action.
@@ -1338,16 +1338,20 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
      PROCESSOR   #00e5a0  ground 9.75 · panel 8.57 · ink-on 10.32
      KOMPOSITOR  #ff6a43  ground 5.67 · panel 4.99 · ink-on 6.00   (ΔE 35 from --danger since v0.10.0, was 17; still pair destructive actions with an icon or wording)
      DIMENSOR    #bb6fff  ground 5.24 · panel 4.61 · ink-on 5.54   (was #9d64ff, 4.37 / 3.84: hue nudged warmer to keep intensity, OKLCH C 0.210 vs 0.220)
+     INCEPTOR    #4d9bff  ground 5.71 · panel 5.02 · ink-on 6.04   (cobalt, OKLCH hue 256, the open blue slot; Patrick 2026-11-14; ink #1b6dcd 4.64 on #f4f4f4)
    --accent-ink is the shade for LIGHT grounds (site, socials, print): each passes 4.5:1 on #f4f4f4 and #fff. */
 :root {
   --processor:#00e5a0;  --processor-hover:#3dffc2;  --processor-dim:#0a8f66;  --processor-ink:#008058;
   --kompositor:#ff6a43; --kompositor-hover:#ff8f72; --kompositor-dim:#9d4b35; --kompositor-ink:#cf3700;
   --dimensor:#bb6fff;   --dimensor-hover:#ca96ff;   --dimensor-dim:#764c9b;   --dimensor-ink:#a70dff;
+  --inceptor:#4d9bff;   --inceptor-hover:#7ab4ff;   --inceptor-dim:#355885;   --inceptor-ink:#1b6dcd;
   /* The secondary colour per app (v0.41.47, Patrick 2026-10-25: "half way is great, lock it in"; docs/SECONDARY-COLOUR.md). Halfway between the app accent's tonal
      and analogous +35 degrees partners, generated in OKLab at one lightness. hover = 25% towards white, dim = 55% towards the ground. */
   --processor-2:#74ddcf;  --processor-2-hover:#97e6db;  --processor-2-dim:#46766f;
   --kompositor-2:#f8b787; --kompositor-2-hover:#fac9a5; --kompositor-2-dim:#82654f;
   --dimensor-2:#ecb0eb;   --dimensor-2-hover:#f1c4f0;   --dimensor-2-dim:#7c617c;
+  /* INCEPTOR's secondary is the same recipe applied to cobalt (2026-11-14): periwinkle, OKLab distance 8.1 from DIMENSOR's secondary (other app), 13+ from everything inside its own app. */
+  --inceptor-2:#b9c3fe;   --inceptor-2-hover:#cbd2fe;   --inceptor-2-dim:#656a84;
 }
 /* The focus ring is declared in core as `2px solid var(--accent)`; a custom property resolves var() where it is
    declared (:root), so it would stay aqua inside every app. Each theme restates it so the ring is the app's colour. */
@@ -1355,6 +1359,7 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
 [data-app="processor"]  { --accent:var(--processor);  --accent-text:var(--processor);  --accent-dim:var(--processor-dim);  --accent-glow:rgba(0,229,160,.15);   --hover:var(--processor-hover);  --on-accent:#1c1c1c; --accent-ink:var(--processor-ink); --accent-2:var(--processor-2); --accent-2-hover:var(--processor-2-hover); --accent-2-dim:var(--processor-2-dim); --accent-2-tint:color-mix(in srgb,var(--processor-2) 12%,var(--bg-3)); }
 [data-app="kompositor"] { --accent:var(--kompositor); --accent-text:var(--kompositor); --accent-dim:var(--kompositor-dim); --accent-glow:rgba(255,106,67,.15);  --hover:var(--kompositor-hover); --on-accent:#1c1c1c; --accent-ink:var(--kompositor-ink); --accent-2:var(--kompositor-2); --accent-2-hover:var(--kompositor-2-hover); --accent-2-dim:var(--kompositor-2-dim); --accent-2-tint:color-mix(in srgb,var(--kompositor-2) 12%,var(--bg-3)); }
 [data-app="dimensor"]   { --accent:var(--dimensor);   --accent-text:var(--dimensor);   --accent-dim:var(--dimensor-dim);   --accent-glow:rgba(187,111,255,.15); --hover:var(--dimensor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--dimensor-ink); --accent-2:var(--dimensor-2); --accent-2-hover:var(--dimensor-2-hover); --accent-2-dim:var(--dimensor-2-dim); --accent-2-tint:color-mix(in srgb,var(--dimensor-2) 12%,var(--bg-3)); }
+[data-app="inceptor"]   { --accent:var(--inceptor);   --accent-text:var(--inceptor);   --accent-dim:var(--inceptor-dim);   --accent-glow:rgba(77,155,255,.15);  --hover:var(--inceptor-hover);   --on-accent:#1c1c1c; --accent-ink:var(--inceptor-ink); --accent-2:var(--inceptor-2); --accent-2-hover:var(--inceptor-2-hover); --accent-2-dim:var(--inceptor-2-dim); --accent-2-tint:color-mix(in srgb,var(--inceptor-2) 12%,var(--bg-3)); }
 /* App logo widths at --brand-logo-h (viewBox width / 154 x 21.05). */
 [data-app="processor"]  { --brand-logo-w:120.95px; }
 [data-app="kompositor"] { --brand-logo-w:128.35px; }
@@ -3151,7 +3156,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.121</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.122</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3178,8 +3183,8 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 <section class="tab-panel" id="p-app" data-tab="app" hidden>
   <p class="lede">Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.</p>
   <div class="spec-group"><div class="spec-caption">App themes · locked 2026-09-30</div>
-  <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button></div>
-  <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#bb6fff"></span>DIMENSOR</td><td>#bb6fff</td><td>5.24:1</td><td>5.54:1</td><td>--type-violet · ΔE 43</td></tr></tbody></table></div>
+  <div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button><button type="button" data-app-pick="inceptor" aria-pressed="false">inceptor</button></div>
+  <div class="th-wrap"><table class="th-t"><thead><tr><th>App</th><th>Accent</th><th>On ground</th><th>Dark ink on it</th><th>Nearest other colour</th></tr></thead><tbody><tr><td><span class="th-sw" style="background:#00e5a0"></span>PROCESSOR</td><td>#00e5a0</td><td>9.75:1</td><td>10.32:1</td><td>--type-sage · ΔE 50</td></tr><tr><td><span class="th-sw" style="background:#ff6a43"></span>KOMPOSITOR</td><td>#ff6a43</td><td>5.67:1</td><td>6.00:1</td><td class="warn">--danger · ΔE 17</td></tr><tr><td><span class="th-sw" style="background:#bb6fff"></span>DIMENSOR</td><td>#bb6fff</td><td>5.24:1</td><td>5.54:1</td><td>--type-violet · ΔE 43</td></tr><tr><td><span class="th-sw" style="background:#4d9bff"></span>INCEPTOR</td><td>#4d9bff</td><td>5.71:1</td><td>6.04:1</td><td>--type-violet · ΔE 33</td></tr></tbody></table></div>
   <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from.</p></div><div id="app-themed" data-app="processor">
 <div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>
   <div class="sp-demo"><div class="vk-section"><div class="vk-sec-label">Render</div><div class="vk-scrub" style="--fill:0%"><span class="vk-scrub__label">Shading</span><span class="vk-scrub__val">Render ▾</span></div></div><div class="vk-section"><div class="vk-sec-label">Quality</div><div class="vk-scrub" style="--fill:40%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Denoise</span><span class="vk-scrub__val">On</span></div></div></div>

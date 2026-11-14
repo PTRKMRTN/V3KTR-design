@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.122 (2026-11-14)
+
+- **INCEPTOR app theme** (fourth app, vector FX + motion; name and colour locked by Patrick 2026-11-14): cobalt `--inceptor #4d9bff` (ground 5.71, panel 5.02, dark ink on it 6.04), hover `#7ab4ff`, dim `#355885`, light-ground ink `#1b6dcd` (4.64 on #f4f4f4). Secondary by the locked halfway recipe: `--inceptor-2 #b9c3fe`, hover `#cbd2fe`, dim `#656a84`. `[data-app="inceptor"]` sets the full accent family. Not yet: an INCEPTOR logo file and `--brand-logo-w`, and a fourth letter in the link light (P·K·D), which are Patrick's calls.
+
 ## 0.41.121 (2026-11-14)
 
 - **DIMENSOR rail icons** (requested by DIMENSOR for VFIELD2): `hex` (hex prism, Shapes group), `vfield`, `grid3d`, `hexfield` (new Graphic group) added to `icons/menu-icons.js`. 24 grid, 1.4 stroke, secondary strokes at 0.6 / 0.3; sheet `V3KTR-COWORK/reports/dimensor-hex-icons/sheet.png`. Replace the provisional drawings in DIMENSOR's `src/ui/icons.js`.

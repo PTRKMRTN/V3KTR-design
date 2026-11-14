@@ -13,7 +13,7 @@ const { chromium } = (() => {
 })();
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const css = readFileSync(ROOT + 'tokens.css', 'utf8') + readFileSync(ROOT + 'themes/themes.css', 'utf8') + readFileSync(ROOT + 'dist/app.css', 'utf8');
-const EXPECT = { processor: ['#74ddcf', '#00e5a0'], kompositor: ['#f8b787', '#ff6a43'], dimensor: ['#ecb0eb', '#bb6fff'] };
+const EXPECT = { processor: ['#74ddcf', '#00e5a0'], kompositor: ['#f8b787', '#ff6a43'], dimensor: ['#ecb0eb', '#bb6fff'], inceptor: ['#b9c3fe', '#4d9bff'] };
 const rgb = (h) => { const n = parseInt(h.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
 const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
 const lum = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
