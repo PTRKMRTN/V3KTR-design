@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.121 (2026-11-14)
+
+- **DIMENSOR rail icons** (requested by DIMENSOR for VFIELD2): `hex` (hex prism, Shapes group), `vfield`, `grid3d`, `hexfield` (new Graphic group) added to `icons/menu-icons.js`. 24 grid, 1.4 stroke, secondary strokes at 0.6 / 0.3; sheet `V3KTR-COWORK/reports/dimensor-hex-icons/sheet.png`. Replace the provisional drawings in DIMENSOR's `src/ui/icons.js`.
+
 ## 0.41.120 (2026-11-13)
 
 - Removed the dead `.vk-vtools__t--val>select` rule (PROCESSOR moved to the fly-out).
