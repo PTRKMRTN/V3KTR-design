@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.122 (2026-11-16)
+
+- **Pick on the clip** (Patrick approved the DIMENSOR MATCH3 mock): `.vk-vp-dot` (+ `.is-hover` / `.is-picked`) for tracked points and `.vk-vp-measure` for the two-point dashed line, both SVG overlay marks in `app/app.css`; new `pick` icon (cursor arrow over points) in `icons/menu-icons.js`. Row buttons stay normal-size `.vk-btn`.
+
 ## 0.41.122 (2026-11-14)
 
 - **INCEPTOR app theme** (fourth app, vector FX + motion; name and colour locked by Patrick 2026-11-14): cobalt `--inceptor #4d9bff` (ground 5.71, panel 5.02, dark ink on it 6.04), hover `#7ab4ff`, dim `#355885`, light-ground ink `#1b6dcd` (4.64 on #f4f4f4). Secondary by the locked halfway recipe: `--inceptor-2 #b9c3fe`, hover `#cbd2fe`, dim `#656a84`. `[data-app="inceptor"]` sets the full accent family. Not yet: an INCEPTOR logo file and `--brand-logo-w`, and a fourth letter in the link light (P·K·D), which are Patrick's calls.

@@ -801,6 +801,13 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* A readout pill over the viewport (v0.41.58, from DIMENSOR's path pill; PROCESSOR's crop dims and the SVG .vp-ro are the same thing): "Ground", "Height 1.41", "Aim: Logo", "38 deg". Accent fill, on-accent
    mono 10px / 600, 2px 6px, never takes the pointer. The app positions it (position:absolute beside the cursor or the handle). A DOM overlay uses this; an SVG overlay draws the same box and text from the tokens. */
 .vk-vp-pill{display:inline-block;background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.04em;padding:2px 6px;white-space:nowrap;pointer-events:none;}
+/* Pick-on-the-clip dots and the measure line (v0.41.122, Patrick 2026-11-16, DIMENSOR MATCH3 camera tracking; mock V3KTR-COWORK/reports/match3-pick-mock/). SVG overlay marks, drawn on a viewport while a pick mode is on.
+   A tracked point is `<circle class="vk-vp-dot" r="2.5">`: accent at 0.6 with a 1px dark halo. `.is-hover` (the point under the cursor) grows to 6 and takes --hover at full strength; the app also draws its thin white crosshair there. `.is-picked` is white with a 2px
+   accent ring at r=4. The radii are CSS (`r`), so the app only toggles the class. The measure line is `<line class="vk-vp-measure">` between two picked points: 1.5px dashed accent; the app places a `.vk-vp-pill` ("DISTANCE 1.84") at its midpoint. */
+.vk-vp-dot{r:2.5px;fill:var(--accent);opacity:.6;stroke:none;filter:drop-shadow(0 0 1px rgba(0,0,0,.85));pointer-events:none;}
+.vk-vp-dot.is-hover{r:6px;fill:var(--hover);opacity:1;}
+.vk-vp-dot.is-picked{r:4px;fill:var(--tx-0);stroke:var(--accent);stroke-width:2px;opacity:1;}
+.vk-vp-measure{stroke:var(--accent);stroke-width:1.5px;stroke-dasharray:5 4;stroke-opacity:.9;fill:none;pointer-events:none;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
