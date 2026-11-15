@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.123 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.124 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -808,6 +808,19 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-dot.is-hover{r:6px;fill:var(--hover);opacity:1;}
 .vk-vp-dot.is-picked{r:4px;fill:var(--tx-0);stroke:var(--accent);stroke-width:2px;opacity:1;}
 .vk-vp-measure{stroke:var(--accent);stroke-width:1.5px;stroke-dasharray:5 4;stroke-opacity:.9;fill:none;pointer-events:none;}
+/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group, 3 letters,
+   ALL + one per group, one at a time) wrapping in .vk-rail-chips, then ONE .vk-icon-tog at the right end that flips the view; its icon is the view you would switch TO. Icons view = the tile grid (the app's own, 144px / 177px
+   at 4 columns); labels view = .vk-rail-item rows in a 192px rail: 14px icon in the group colour (--gcol), 12px name, a star after it in --depth, a .vk-tag at the right. .is-later (V1.1 / LATER) dims to 55% in rows and 40% on tiles. */
+.vk-rail-head{display:flex;align-items:flex-start;gap:4px;margin-bottom:10px;}
+.vk-rail-chips{display:flex;flex-wrap:wrap;gap:3px;flex:1;min-width:0;}
+.vk-rail-item{display:flex;align-items:center;gap:9px;width:100%;height:24px;padding:0;border:0;background:none;color:var(--tx-1);font:12px var(--sans);text-align:left;cursor:pointer;}
+.vk-rail-item:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),transparent);color:var(--tx-0);}
+.vk-rail-item svg{width:14px;height:14px;flex:none;color:var(--gcol,var(--tx-1));}
+.vk-rail-item__nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vk-rail-item__star{color:var(--depth);font-size:10px;font-style:normal;margin-left:3px;}
+.vk-rail-item .vk-tag{flex:none;font-size:8.5px;padding:1px 4px;}
+.vk-rail-item.is-later{opacity:.55;}
+[data-group][hidden]{display:none;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}

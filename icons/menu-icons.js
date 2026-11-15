@@ -111,6 +111,9 @@ export const MENU_ICONS = {
   hexfield: '<path d="M4.9 11.8L8.5 12.8L8.5 14.9L4.9 16L1.3 14.9L1.3 12.8ZM12.2 3.8L15.8 4.8L15.8 6.9L12.2 8L8.6 6.9L8.6 4.8ZM19.5 7.8L23.1 8.8L23.1 10.9L19.5 12L15.9 10.9L15.9 8.8Z"/><path d="M1.3 14.9v5L4.9 21L8.5 19.9V14.9M4.9 16v5M8.6 6.9v13L12.2 21L15.8 19.9V6.9M12.2 8v13M15.9 10.9v9L19.5 21L23.1 19.9V10.9M19.5 12v9" opacity="0.6"/>',
   // (MATCH3, v0.41.123) Pick on the clip: a cursor arrow over tracked points
   pick: '<path d="M5 3.500v13.500l3.500-3.300 2.700 5.300 2-1-2.700-5.200H16.500z"/><circle cx="14.500" cy="5" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="19.500" cy="9.500" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="18.500" cy="17.500" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/>',
+  // (RAILVIEW, v0.41.124) the rail view toggle: railicons = the tile grid, raillabels = icon + label rows
+  railicons: '<rect x="4" y="4" width="6.500" height="6.500"/><rect x="13.500" y="4" width="6.500" height="6.500"/><rect x="4" y="13.500" width="6.500" height="6.500"/><rect x="13.500" y="13.500" width="6.500" height="6.500"/>',
+  raillabels: '<rect x="3.500" y="4.500" width="4" height="4"/><path d="M11 6.500h9.500"/><rect x="3.500" y="10" width="4" height="4"/><path d="M11 12h9.500"/><rect x="3.500" y="15.500" width="4" height="4"/><path d="M11 17.500h9.500"/>',
 };
 export function menuIconSvg(name, size = 14) {
   const p = MENU_ICONS[name];

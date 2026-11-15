@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.124 (2026-11-16)
+
+- **Rail view switch + filter chips** (Patrick picked the mock): `.vk-rail-head` / `.vk-rail-chips` head row, `.vk-rail-item` icon + label rows (`.is-later` dims, `__star` in `--depth`, `.vk-tag` right), `[data-group][hidden]`; `interactions/rail-view.js` (`railView(root, {app, defaultView, icons, onChange})`, remembered as `v3ktr-<app>-railView`); icons `railicons` / `raillabels`.
+
 ## 0.41.123 (2026-11-16)
 
 - **Pick on the clip** (Patrick approved the DIMENSOR MATCH3 mock): `.vk-vp-dot` (+ `.is-hover` / `.is-picked`) for tracked points and `.vk-vp-measure` for the two-point dashed line, both SVG overlay marks in `app/app.css`; new `pick` icon (cursor arrow over points) in `icons/menu-icons.js`. Row buttons stay normal-size `.vk-btn`.
