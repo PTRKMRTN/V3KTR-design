@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.125 (2026-11-17)
+
+- **DIMENSOR requests:** `.vk-react-wrap` + `.vk-react-ctl` (the react toggle inside a slider row, replacing the apps' local `dm-react-*` / `k-react-*`); `.vk-rail-item.is-disabled` / `[aria-disabled]` (dimmed, no hover); a normal `.vk-btn` inside a `.vk-row` now rests at `--bg-4` instead of the row's own `--bg-3`, so Pick 3 / Pick 1 / Pick 2 read as buttons.
+
 ## 0.41.124 (2026-11-16)
 
 - **Rail view switch + filter chips** (Patrick picked the mock): `.vk-rail-head` / `.vk-rail-chips` head row, `.vk-rail-item` icon + label rows (`.is-later` dims, `__star` in `--depth`, `.vk-tag` right), `[data-group][hidden]`; `interactions/rail-view.js` (`railView(root, {app, defaultView, icons, onChange})`, remembered as `v3ktr-<app>-railView`); icons `railicons` / `raillabels`.

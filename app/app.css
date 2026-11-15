@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.124 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.125 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -821,6 +821,17 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-rail-item .vk-tag{flex:none;font-size:8.5px;padding:1px 4px;}
 .vk-rail-item.is-later{opacity:.55;}
 [data-group][hidden]{display:none;}
+/* v0.41.125 (DIMENSOR requests, 2026-11-17). (1) The react toggle inside a slider: the row wears .vk-react-wrap, the toggle is .vk-row__ctl.vk-react-ctl (22px, right edge, centred), the value gets room (26px) so the
+   number never runs under it; the .vk-react panel opens under the row. DIMENSOR (dm-react-*) and KOMPOSITOR (k-react-*) kept the same local hooks; both can drop them. (2) A disabled rail item ("at its group's
+   maximum"): .is-disabled or aria-disabled="true" dims it to 40%, no hover fill, no pointer; the reason goes in its tip. (3) A normal .vk-btn sitting IN a .vk-row is --bg-3 on a --bg-3 row and read as plain text
+   (DIMENSOR's MATCH3 Floor / Origin / Scale rows): there it rests one step lighter, --bg-4; hover, pressed, bare and danger are unchanged. */
+.vk-react-wrap{position:relative;}
+.vk-react-wrap > .vk-scrub__val{padding-right:26px;}
+.vk-react-ctl{position:absolute;right:2px;top:50%;transform:translateY(-50%);z-index:2;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:none;color:var(--tx-2);cursor:pointer;}
+.vk-react-ctl svg{width:16px;height:16px;}
+.vk-rail-item.is-disabled,.vk-rail-item[aria-disabled="true"]{opacity:.4;cursor:default;}
+.vk-rail-item.is-disabled:hover,.vk-rail-item[aria-disabled="true"]:hover{background:none;color:var(--tx-1);}
+.vk-row .vk-btn:not(.vk-btn--bare):not(.vk-btn--danger):not(.is-on):not(.is-hover):not(:hover):not([aria-pressed="true"]){background:var(--bg-4);}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
