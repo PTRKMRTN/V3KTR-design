@@ -2,7 +2,7 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
-## 0.41.122 (2026-11-16)
+## 0.41.123 (2026-11-16)
 
 - **Pick on the clip** (Patrick approved the DIMENSOR MATCH3 mock): `.vk-vp-dot` (+ `.is-hover` / `.is-picked`) for tracked points and `.vk-vp-measure` for the two-point dashed line, both SVG overlay marks in `app/app.css`; new `pick` icon (cursor arrow over points) in `icons/menu-icons.js`. Row buttons stay normal-size `.vk-btn`.
 

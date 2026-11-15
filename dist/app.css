@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.122
+/* V3KTR design tokens · v0.41.123
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -148,7 +148,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.122 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.123 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -951,7 +951,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* A readout pill over the viewport (v0.41.58, from DIMENSOR's path pill; PROCESSOR's crop dims and the SVG .vp-ro are the same thing): "Ground", "Height 1.41", "Aim: Logo", "38 deg". Accent fill, on-accent
    mono 10px / 600, 2px 6px, never takes the pointer. The app positions it (position:absolute beside the cursor or the handle). A DOM overlay uses this; an SVG overlay draws the same box and text from the tokens. */
 .vk-vp-pill{display:inline-block;background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.04em;padding:2px 6px;white-space:nowrap;pointer-events:none;}
-/* Pick-on-the-clip dots and the measure line (v0.41.122, Patrick 2026-11-16, DIMENSOR MATCH3 camera tracking; mock V3KTR-COWORK/reports/match3-pick-mock/). SVG overlay marks, drawn on a viewport while a pick mode is on.
+/* Pick-on-the-clip dots and the measure line (v0.41.123, Patrick 2026-11-16, DIMENSOR MATCH3 camera tracking; mock V3KTR-COWORK/reports/match3-pick-mock/). SVG overlay marks, drawn on a viewport while a pick mode is on.
    A tracked point is `<circle class="vk-vp-dot" r="2.5">`: accent at 0.6 with a 1px dark halo. `.is-hover` (the point under the cursor) grows to 6 and takes --hover at full strength; the app also draws its thin white crosshair there. `.is-picked` is white with a 2px
    accent ring at r=4. The radii are CSS (`r`), so the app only toggles the class. The measure line is `<line class="vk-vp-measure">` between two picked points: 1.5px dashed accent; the app places a `.vk-vp-pill` ("DISTANCE 1.84") at its midpoint. */
 .vk-vp-dot{r:2.5px;fill:var(--accent);opacity:.6;stroke:none;filter:drop-shadow(0 0 1px rgba(0,0,0,.85));pointer-events:none;}

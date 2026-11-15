@@ -109,7 +109,7 @@ export const MENU_ICONS = {
   vfield: '<path d="M3 6.7L6 2.3M4.3 3L6 2.3L5.9 4.2M9.9 6.2L14.1 2.8M12.2 3.1L14.1 2.8L13.5 4.6M16.9 5.1L22.1 3.9M20.4 3.3L22.1 3.9L20.8 5.2" opacity="0.6"/><path d="M2.2 13.3L6.8 10.7M4.9 10.6L6.8 10.7L5.9 12.3M9.3 12.5L14.7 11.5M12.9 10.8L14.7 11.5L13.2 12.8M16.9 11.2L22.1 12.8M20.8 11.4L22.1 12.8L20.2 13.3M1.8 19.9L7.2 19.1M5.4 18.4L7.2 19.1L5.7 20.3M9.4 18.8L14.6 20.2M13.3 18.8L14.6 20.2L12.8 20.8M17.5 17.7L21.5 21.3M21 19.5L21.5 21.3L19.6 21"/>',
   grid3d: '<path d="M3 16.5L12 21L21 16.5L21 7.5L12 3L3 7.5ZM12 12L12 3M12 12L3 16.5M12 12L21 16.5"/><path d="M9 13.5L18 18M15 13.5L6 18M9 13.5L9 4.5M3 13.5L12 9M15 13.5L15 4.5M21 13.5L12 9M6 15L15 19.5M18 15L9 19.5M6 15L6 6M3 10.5L12 6M18 15L18 6M21 10.5L12 6" opacity="0.6"/>',
   hexfield: '<path d="M4.9 11.8L8.5 12.8L8.5 14.9L4.9 16L1.3 14.9L1.3 12.8ZM12.2 3.8L15.8 4.8L15.8 6.9L12.2 8L8.6 6.9L8.6 4.8ZM19.5 7.8L23.1 8.8L23.1 10.9L19.5 12L15.9 10.9L15.9 8.8Z"/><path d="M1.3 14.9v5L4.9 21L8.5 19.9V14.9M4.9 16v5M8.6 6.9v13L12.2 21L15.8 19.9V6.9M12.2 8v13M15.9 10.9v9L19.5 21L23.1 19.9V10.9M19.5 12v9" opacity="0.6"/>',
-  // (MATCH3, v0.41.122) Pick on the clip: a cursor arrow over tracked points
+  // (MATCH3, v0.41.123) Pick on the clip: a cursor arrow over tracked points
   pick: '<path d="M5 3.500v13.500l3.500-3.300 2.700 5.300 2-1-2.700-5.200H16.500z"/><circle cx="14.500" cy="5" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="19.500" cy="9.500" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="18.500" cy="17.500" r="1.300" fill="currentColor" stroke="none" opacity="0.6"/>',
 };
 export function menuIconSvg(name, size = 14) {
