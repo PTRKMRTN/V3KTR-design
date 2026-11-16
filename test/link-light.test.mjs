@@ -40,7 +40,7 @@ try {
   if (SHEET) { await p.screenshot({ path: SHEET, fullPage: true }); console.log('sheet:', SHEET); }   // the resting states, before any click or focus
   const marks = (i) => p.evaluate((i) => [...document.querySelectorAll(`#l${i} .vk-link__mark`)].map((m) => ({ tag: m.tagName, text: m.textContent, cls: m.className, label: m.getAttribute('aria-label'), tip: m.dataset.tip })), i);
   let m = await marks(0);
-  ok(m.map((x) => x.text).join('') === 'PKD', 'order is always P K D');
+  ok(m.map((x) => x.text).join('') === 'PKDI', 'order is always P K D I');
   ok(m[0].cls.includes('is-self') && m[0].tag === 'SPAN' && m[0].label === 'PROCESSOR (this app)', 'this app: marked, not a button, labelled');
   ok(m[1].cls.includes('is-linked') && m[1].tag === 'BUTTON' && /KOMPOSITOR is connected/.test(m[1].label), 'linked peer: a button with a word');
   ok(m[2].cls.includes('is-absent') && m[2].tag === 'SPAN' && /DIMENSOR isn't open/.test(m[2].label), 'not open: grey, labelled');

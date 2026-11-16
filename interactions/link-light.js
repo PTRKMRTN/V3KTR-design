@@ -1,11 +1,11 @@
-// V3KTR link light (v0.26.0): which V3KTR apps are open and linked in this browser, the same in all three apps' top bars
+// V3KTR link light (v0.26.0): which V3KTR apps are open and linked in this browser, the same in all four apps' top bars
 // (CONNECTIVITY.md W2.3 + W4.5; protocol: LINK-PROTOCOL.md hello/bye, a peer drops after 90 s of silence). This draws
 // it; the app's own link code says who is linked.
 //
 //   const light = mountLinkLight(el, { self: 'processor', onFocus: (app) => link.send(app, { type: 'focus' }) });
 //   light.update({ state: 'ready', peers: ['kompositor'] });   // state: 'off' | 'connecting' | 'ready'
 //
-// Three marks, P · K · D, always in that order, so they sit in the same place in every app:
+// Four marks, P · K · D · I, always in that order, so they sit in the same place in every app:
 //   this app   its letter in its own colour, no fill           tip "PROCESSOR (this app)"
 //   linked     a solid tile in that app's colour, dark letter  tip "KOMPOSITOR is open and linked. Click to switch to it."
 //              it is a real <button>: click or Enter calls onFocus(app)
@@ -13,7 +13,7 @@
 //   no link    (state 'off' or 'connecting') the other two read as not open, and their tip says why
 // Never colour alone: every mark has a tip (data-tip, shown by installTips) and an aria-label with the word.
 
-export const LINK_APPS = [['processor', 'P', 'PROCESSOR'], ['kompositor', 'K', 'KOMPOSITOR'], ['dimensor', 'D', 'DIMENSOR']];
+export const LINK_APPS = [['processor', 'P', 'PROCESSOR'], ['kompositor', 'K', 'KOMPOSITOR'], ['dimensor', 'D', 'DIMENSOR'], ['inceptor', 'I', 'INCEPTOR']];
 
 const TIPS = {
   self: (n) => `${n} (this app)`,

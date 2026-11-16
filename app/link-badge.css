@@ -9,6 +9,7 @@
 .vk-lnk[data-owner="processor"]{--owner:var(--processor);--owner-hover:var(--processor-hover);}
 .vk-lnk[data-owner="kompositor"]{--owner:var(--kompositor);--owner-hover:var(--kompositor-hover);}
 .vk-lnk[data-owner="dimensor"]{--owner:var(--dimensor);--owner-hover:var(--dimensor-hover);}
+.vk-lnk[data-owner="inceptor"]{--owner:var(--inceptor);--owner-hover:var(--inceptor-hover);}
 button.vk-lnk{cursor:pointer;}
 button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),var(--bg-0));color:var(--tx-0);}
 /* Update available: the one state with an action of its own, so a solid fill in the owner's colour */

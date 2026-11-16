@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.132 (2026-11-17)
+
+- **Link light is P · K · D · I** (Patrick approved): `LINK_APPS` in `interactions/link-light.js` gains `inceptor / I / INCEPTOR`; `app/link.css` colours the I mark in the cobalt; `app/link-badge.css` adds the `inceptor` badge owner. Every app's top bar shows the fourth mark when it pulls this tag.
+
 ## 0.41.131 (2026-11-17)
 
 - **INCEPTOR logo width** (found by INCEPTOR): `themes/themes.css` gets `[data-app="inceptor"] { --brand-logo-w:113.5px; }` (21.05 high × 151/28). Without it the shared `.vk-brand-logo` had width 0 under INCEPTOR and rendered invisible.
