@@ -23,8 +23,8 @@ export function wheelFactor({ deltaX = 0, deltaY = 0, deltaMode = 0, ctrlKey = f
   return Math.min(1.5, Math.max(0.7, Math.exp(-dy * k)));
 }
 /** Clamp, with the 100 % detent: a step that crosses `one` lands on it. */
-export function stepZoom(prev, factor, one = 1) {
-  let z = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, prev * factor));
+export function stepZoom(prev, factor, one = 1, min = ZOOM_MIN, max = ZOOM_MAX) {
+  let z = Math.max(min, Math.min(max, prev * factor));
   if ((prev - one) * (z - one) < 0) z = one;
   return z;
 }
@@ -34,12 +34,12 @@ export function zoomAt(view, zoom, cx = 0, cy = 0) {
   return { zoom, panX: view.panX + cx * (1 - ratio), panY: view.panY + cy * (1 - ratio) };
 }
 
-export function bindNav(well, { centre, canPan = () => true, get, set, one = () => 1, fit, skip = () => false }) {
+export function bindNav(well, { centre, canPan = () => true, get, set, one = () => 1, fit, skip = () => false, min = ZOOM_MIN, max = ZOOM_MAX }) {   // min / max (v0.41.145, INCEPTOR: 0.01 to 64)
   const onWheel = (e) => {
     if (skip(e)) return;
     e.preventDefault();
     const v = get(), c = centre();
-    set(zoomAt(v, stepZoom(v.zoom, wheelFactor(e), one()), e.clientX - c.x, e.clientY - c.y));
+    set(zoomAt(v, stepZoom(v.zoom, wheelFactor(e), one(), min, max), e.clientX - c.x, e.clientY - c.y));
   };
   let drag = null;
   const onDown = (e) => {

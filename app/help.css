@@ -13,9 +13,10 @@
 .vk-tip b{display:block;font-weight:700;}
 /* from .rail-btn .tip em */
 .vk-tip em{display:block;margin-top:3px;font-style:normal;font-size:10px;line-height:1.4;
-  opacity:0.7;white-space:normal;max-width:190px;}
+  opacity:0.9;white-space:normal;max-width:190px;}
 /* from .rail-btn:hover .tip */
 .vk-tip.is-shown{opacity:1;}
+.vk-tip[hidden]{display:none;}   /* v0.41.145: at rest the tip is hidden, so no empty role=tooltip sits in the page (axe aria-tooltip-name) */
 /* Help (v0.24.0; V3KTR-PROJEKT/strategy/HELP-PATTERN.md, approved 2026-10-02). Behaviour (when a tip opens and closes)
    lives in interactions/help.js. ⛔ None of these adds anything to the default view: a tip shows only on hover, focus or
    long-press; a parameter description only while View → Helper Text is on; hints and empty states REPLACE existing text. */
@@ -25,7 +26,7 @@
 .vk-param-desc{display:none;font-size:10.5px;line-height:1.4;color:var(--tx-2);padding:2px 9px 6px;max-width:44ch;}
 [data-helper-text="on"] .vk-param-desc{display:block;}
 /* T3 hint: what's missing and what to do, in a sentence, where the missing thing would be. Real text, never an image. */
-.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2);}
+.vk-hint{font-size:11.5px;line-height:1.45;color:var(--tx-2-hi);}
 .vk-hint b{color:var(--tx-1);font-weight:500;}
 /* T3 empty state: a short title and one line saying how to start, in place of the missing content. An existing icon
    may lead it; don't add one. */

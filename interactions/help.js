@@ -25,18 +25,18 @@
 
 const isMac = () => typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '');
 
-/** "Ctrl+Shift+S" → "⌘⇧S" on a Mac, "Ctrl+Shift+S" elsewhere. "Mod" means Ctrl / ⌘. */
+/** "Ctrl+Shift+S" → "⌘⇧S" on a Mac, "Ctrl+Shift+S" elsewhere. "Mod" means Ctrl / ⌘. "Control" (v0.41.145) is the real Control key: "Ctrl" elsewhere, ⌃ on a Mac. */
 export function keyLabel(combo, mac = isMac()) {
   if (!combo) return '';
-  if (!mac) return combo.replace(/\bMod\b/g, 'Ctrl');
-  const map = { Mod: '⌘', Ctrl: '⌘', Cmd: '⌘', Shift: '⇧', Alt: '⌥', Option: '⌥', Enter: '↩', Backspace: '⌫', Delete: '⌦', Esc: '⎋' };
+  if (!mac) return combo.replace(/\bMod\b/g, 'Ctrl').replace(/\bControl\b/g, 'Ctrl');
+  const map = { Mod: '⌘', Ctrl: '⌘', Control: '⌃', Cmd: '⌘', Shift: '⇧', Alt: '⌥', Option: '⌥', Enter: '↩', Backspace: '⌫', Delete: '⌦', Esc: '⎋' };
   return combo.split('+').map((k) => map[k.trim()] ?? k.trim()).join('');
 }
 
 /** Install the shared tip behaviour on a root (default: the document). Returns a function that removes it. */
 export function installTips({ root = document, delay = 400, warm = 500, doc = root.ownerDocument || root } = {}) {
   const tip = doc.createElement('div');
-  tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip');
+  tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip'); tip.hidden = true;   // hidden at rest (v0.41.145)
   (doc.body || doc.documentElement).appendChild(tip);
   let target = null, pending = null, timer = 0, lastHidden = 0, shownByFocus = false, blurTimer = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
@@ -69,7 +69,7 @@ export function installTips({ root = document, delay = 400, warm = 500, doc = ro
     clearTimeout(timer); cancelBlur();
     if (!el || !el.dataset.tip || redundant(el)) return;
     if (target && target !== el) hide();
-    target = el; shownByFocus = byFocus; fill(el); tip.classList.add('is-shown'); place(el);
+    target = el; shownByFocus = byFocus; tip.hidden = false; fill(el); tip.classList.add('is-shown'); place(el);
     const d = (el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
     if (!d.includes(tip.id)) el.setAttribute('aria-describedby', [...d, tip.id].join(' '));
   }
@@ -80,7 +80,7 @@ export function installTips({ root = document, delay = 400, warm = 500, doc = ro
       const d = (target.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== tip.id);
       d.length ? target.setAttribute('aria-describedby', d.join(' ')) : target.removeAttribute('aria-describedby');
     }
-    target = null; shownByFocus = false; tip.classList.remove('is-shown');
+    target = null; shownByFocus = false; tip.classList.remove('is-shown'); tip.hidden = true;
   }
 
   const on = [];

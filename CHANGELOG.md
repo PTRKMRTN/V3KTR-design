@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.145 (2026-11-16)
+
+- **INCEPTOR findings, batch 2: rule fixes in shared classes** (no visible change beyond contrast and heights): `--tx-2-hi` (#a8a8a8) for muted text on raised grounds (menu keys and labels 3.29 → 4.78:1, `.vk-hint`, `.vk-sec-sub`, the wheel labels); disabled menu rows keep the pointer; the tip is hidden at rest and its description is at 90 %; a locked row no longer dims its own lock; `--row-h-sm` 22px and `.vk-btn--sm.vk-btn--ic` at 22px; `.vk-row--stack`; segs on a filled row rest at `--bg-4`; `.vk-btn-row--fit` breaks only with a roll group; `.vk-sec-add[aria-disabled]`.
+- **Behaviour:** `bindNav` `min` / `max`; `vfly` `face`; `keyLabel` `Control` = the real Control key; `scrub.js` `isResetKey`.
+- **Test:** `test/interactions.test.mjs`'s hover-hold toast now lasts 1500 ms (it was flaky at 250 ms under load).
+
 ## 0.41.144 (2026-11-16)
 
 - **The specimen is live at design.v3ktr.com, key-locked** (Patrick, cards `DS-specimen-address` and `DS-specimen-deploy-step`): worker `v3ktr-design`, `deploy/specimen/`, `scripts/publish-specimen.mjs`. Checked: without the link, `/`, `/specimen/`, `/fonts/fonts.css` and a wrong key all return 404 with `noindex`; with it, 200. Every release now ends with `node scripts/publish-specimen.mjs` (AGENTS.md).

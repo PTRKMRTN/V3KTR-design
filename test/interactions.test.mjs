@@ -77,8 +77,9 @@ try {
   let ts = await t(); ok(ts.length === 1 && ts[0][0] === 'alert' && ts[0][1] === "Couldn't read that file. Try a PNG, JPG or WebP.", 'error toast: template text, role alert');
   await p.evaluate(() => window.toast('Saved', { ms: 300 })); ts = await t(); ok(ts.length === 1 && ts[0][0] === 'status' && ts[0][1] === 'Saved', 'one at a time; news is role status');
   await p.waitForTimeout(450); ok((await t()).length === 0, 'closes on its own');
-  await p.evaluate(() => window.toast('Held', { ms: 250 })); await p.hover('.vk-toast'); await p.waitForTimeout(400); ok((await t()).length === 1, 'held while hovered');
-  await p.mouse.move(2, 2); await p.waitForTimeout(350); ok((await t()).length === 0, 'closes after the pointer leaves');
+  // 1500 ms, not 250: under load the hover could land after a 250 ms toast had already closed (flaky since v0.41.x; seen 2026-11-16)
+  await p.evaluate(() => window.toast('Held', { ms: 1500 })); await p.hover('.vk-toast'); await p.waitForTimeout(1700); ok((await t()).length === 1, 'held while hovered');
+  await p.mouse.move(2, 2); await p.waitForTimeout(1700); ok((await t()).length === 0, 'closes after the pointer leaves');
   await p.evaluate(() => window.toast('Esc me', { ms: 5000 })); await p.keyboard.press('Escape'); ok((await t()).length === 0, 'Esc closes');
   // a host: centred on the host, not the window
   await p.evaluate(() => { const v = document.createElement('div'); v.id = 'vp'; v.style.cssText = 'position:absolute;left:300px;top:60px;width:400px;height:300px'; document.body.appendChild(v); });

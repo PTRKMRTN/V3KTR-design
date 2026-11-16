@@ -8,7 +8,8 @@
 //   const f = vfly(el, { onPick: (value, label) => … });   → { value, set(value, silent), close(), destroy() }
 // Picking sets aria-checked, writes the tile's text from data-short (or the option's text), closes. Esc, outside click or a second click close.
 // Left / Right move between options when open; Enter or Space picks.
-export function vfly(el, { onPick } = {}) {
+// face(option) → HTML for the tile (v0.41.145, INCEPTOR: icon faces); by default the tile shows data-short or the option's text.
+export function vfly(el, { onPick, face } = {}) {
   const tile = el.querySelector(':scope > .vk-vtools__t'), box = el.querySelector(':scope > .vk-vtools__opts');
   const opts = () => [...box.querySelectorAll('.vk-vtools__o')];
   const open = () => { box.hidden = false; tile.setAttribute('aria-expanded', 'true'); (opts().find((o) => o.getAttribute('aria-checked') === 'true') || opts()[0])?.focus(); };
@@ -16,7 +17,7 @@ export function vfly(el, { onPick } = {}) {
   const set = (value, silent) => {
     const o = opts().find((x) => x.dataset.value === String(value)); if (!o) return;
     opts().forEach((x) => x.setAttribute('aria-checked', x === o ? 'true' : 'false'));
-    tile.textContent = o.dataset.short || o.textContent;
+    if (face) tile.innerHTML = face(o); else tile.textContent = o.dataset.short || o.textContent;
     if (!silent && onPick) onPick(o.dataset.value, o.textContent);
   };
   const onTile = () => (box.hidden ? open() : close());

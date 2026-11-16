@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.144
+/* V3KTR design tokens · v0.41.145
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -57,7 +57,8 @@
 
   /* Shape + spacing */
   --radius:0;   /* square corners everywhere (Patrick 2026-09-30). PROCESSOR declared 2px but never used it. */
-  --pad:22px; --row-h:26px;   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
+  --pad:22px; --row-h:26px; --row-h-sm:22px;   /* --row-h-sm (v0.41.145): a compact control row (chips, small section-head tools, a compact stack row) */
+  --tx-2-hi:#a8a8a8;   /* v0.41.145: muted text on a RAISED ground (menus and dialogs on --bg-3, panels on --bg-2): --tx-2 is 3.29:1 on --bg-3 and 4.10:1 on --bg-2; this is 4.78:1 and 5.95:1 */   /* PROCESSOR v0.571.0 spacing pass (was 12 / 28) */
   /* Panel sections (v0.32.0, Patrick 2026-10-03): space alone groups them, no divider lines ("when there are lots it
      creates noise"). A section is padded --sec-pad at the sides and the panel ends, --sec-gap (1.5 × --pad, 33px) sits
      between one section's last control and the next title, and a title sits --sec-head-gap above its first control. */

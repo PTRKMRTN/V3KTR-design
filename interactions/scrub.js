@@ -74,3 +74,6 @@ export function keyStep(value, dir, { min = 0, max = 1, unit = 0.01, shift = fal
   const v = value + dir * (shift ? (max - min) * 0.1 : unit);
   return Math.max(min, Math.min(max, v));
 }
+
+/** v0.41.145 (INCEPTOR): the keyboard reset for a focused scrub. Delete or Backspace puts the value back to its default, as a double-click does. */
+export const isResetKey = (e) => e.key === 'Delete' || e.key === 'Backspace';
