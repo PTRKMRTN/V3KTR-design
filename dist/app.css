@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.135
+/* V3KTR design tokens · v0.41.136
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -150,7 +150,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.135 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.136 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1003,7 +1003,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
 /* MUSIC LANE and REACT BLOCK (v0.41.58, Patrick 2026-10-27 "Approve as is"; docs/MUSIC-LANE-REACTIONS.md). A 24px lane under an audio clip with positioned event markers.
    <div class="vk-lane"><div class="vk-lane__span" data-kind="break" style="--x:.30;--w:.06"></div><button class="vk-lane__mark" data-kind="accent" style="--x:.12" aria-label="Accent at 0:12"></button></div>
-   --x is the marker's position as a fraction of the lane (0..1); kinds: accent, offbeat, hit, break, drop, build, inout. A DETECTED marker is the secondary (the machine); .is-hand (added, moved or accepted by
+   --x is the marker's position as a fraction of the lane (0..1); kinds: accent, offbeat, hit, roll, break, drop, build, inout. A DETECTED marker is the secondary (the machine); .is-hand (added, moved or accepted by
    the person) is the accent; .is-selected is white with an accent ring (the handle family). Every marker has a 24px hit area. The same glyph shapes are used in the legend and the Reactions rows. */
 .vk-lane{position:relative;height:24px;background:var(--bg-1);overflow:hidden;}
 .vk-lane__mark{--c:var(--accent-2);--ch:var(--accent-2-hover);--w:14px;--h:14px;--shape:polygon(50% 0,100% 50%,50% 100%,0 50%);position:absolute;top:50%;left:calc(var(--x,0) * 100%);width:24px;height:24px;transform:translate(-50%,-50%);padding:0;border:0;background:none;cursor:pointer;}
@@ -1018,6 +1018,8 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* v0.41.61 (Patrick chose set A, 2026-10-29): every glyph is a solid shape, no brackets or hairlines. */
 .vk-lane__mark[data-kind="offbeat"]{--w:8px;--h:8px;--shape:circle(50%);}
 .vk-lane__mark[data-kind="hit"]{--w:5px;--h:14px;--shape:inset(0 round 2px);}
+/* v0.41.136 (KOMPOSITOR): a roll = rapid repeated hits (a drum fill): three bars, the hit bar said three times. One polygon; the bars are joined along the bottom edge by zero-height runs, so it stays a solid set-A glyph. */
+.vk-lane__mark[data-kind="roll"]{--w:14px;--h:12px;--shape:polygon(0 0,21.4% 0,21.4% 100%,39.3% 100%,39.3% 0,60.7% 0,60.7% 100%,78.6% 100%,78.6% 0,100% 0,100% 100%,0 100%);}
 .vk-lane__mark[data-kind="drop"]{--w:14px;--h:12px;--shape:polygon(0 0,100% 0,50% 100%);}
 .vk-lane__mark[data-kind="build"]{--w:14px;--h:12px;--shape:polygon(0 100%,100% 0,100% 100%);}
 .vk-lane__mark[data-kind="break"]{--w:11px;--h:11px;--shape:inset(0 round 1px);}

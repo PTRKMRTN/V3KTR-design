@@ -18,7 +18,7 @@ Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edit
 
 ## 2. New (small)
 1. **The Music lane.** A 24 px lane under the audio clip, `--bg-1` ground, seven **marker shapes** (14 px grid, drawn as SVG glyphs; the same glyph appears in the lane, the legend and the Reactions rows so the list and the lane read as one):
-   - Accent: diamond. Off-beat accent: small diamond. Hit: thin vertical tick (2 px).
+   - Accent: diamond. Off-beat accent: small diamond. Hit: thin vertical tick (2 px). Roll (v0.41.136): three bars, a hit said three times.
    - Break: a span (12% secondary tint) with a bracket-bar glyph at its start. Build: a span with a rising wedge glyph.
    - Drop and return: downward triangle. Intro and outro: a bracket glyph at the very start and end.
    - **Colour:** detected = `--accent-2`; a marker you add, move or accept = `--accent` (the person's choice). Spans tint at 12% of the same colour.
@@ -30,7 +30,7 @@ Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edit
 4. **Icon `react`** (24 grid, two tones: the wave at 1, the dot solid), drawn in `V3KTR-COWORK/reports/music-reactive/icons.json`.
 
 ## 3. Proposed classes (when approved)
-`.vk-lane` (the 24 px lane), `.vk-lane__mark` (a positioned marker, `--x` as the fraction, `[data-kind="accent|offbeat|hit|break|drop|build|inout"]`, `.is-hand` for accent colour, `.is-selected`), `.vk-lane__span` (a break or build span), `.vk-react` (the REACT disclosure block: no box since v0.41.113 — a small grey `.vk-micro-label` heading inset 9px like row text, then Source / Amount / Feel as ordinary full-width `.vk-row`s flush with the panel). Tokens: none new. Icon: `react` in `icons/menu-icons.js`.
+`.vk-lane` (the 24 px lane), `.vk-lane__mark` (a positioned marker, `--x` as the fraction, `[data-kind="accent|offbeat|hit|roll|break|drop|build|inout"]`, `.is-hand` for accent colour, `.is-selected`), `.vk-lane__span` (a break or build span), `.vk-react` (the REACT disclosure block: no box since v0.41.113 — a small grey `.vk-micro-label` heading inset 9px like row text, then Source / Amount / Feel as ordinary full-width `.vk-row`s flush with the panel). Tokens: none new. Icon: `react` in `icons/menu-icons.js`.
 
 ## 4. Open questions for Patrick
 1. Launch scope: no freeze now, so this is for now unless you mark it for after launch.

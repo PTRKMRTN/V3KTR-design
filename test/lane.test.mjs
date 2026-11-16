@@ -24,6 +24,7 @@ try {
 <button class="vk-lane__mark is-selected" id="s" data-kind="accent" style="--x:.75"></button>
 <button class="vk-lane__mark" id="o" data-kind="offbeat" style="--x:.1"></button>
 <button class="vk-lane__mark" id="t" data-kind="hit" style="--x:.9"></button>
+<button class="vk-lane__mark" id="rl" data-kind="roll" style="--x:.4"></button>
 <button class="vk-lane__mark" id="x" data-kind="accent" style="--x:.6" hidden></button></div>
 <div class="vk-lane-rows" id="rows" style="width:400px"><div class="vk-lane-row" id="r1"><span class="vk-lane-row__head vk-micro-label">Accents</span><div class="vk-lane" id="l1"></div></div><div class="vk-lane-row" id="r2" hidden><span class="vk-lane-row__head"></span><div class="vk-lane"></div></div><div class="vk-lane-row" id="r3"><span class="vk-lane-row__head"></span><div class="vk-lane"></div></div></div>
 <div class="vk-react" id="rc"><span class="vk-micro-label">REACT</span></div></body>`);
@@ -33,6 +34,7 @@ try {
       aBg: cs('a', '::after').backgroundColor, hBg: cs('h', '::after').backgroundColor, sBg: cs('s', '::after').backgroundColor, sRing: cs('s', '::before').backgroundColor, sRingDisplay: cs('s', '::before').display, aRingDisplay: cs('a', '::before').display,
       rowsH: r('rows').height, r2d: cs('r2').display, headW: document.getElementById('r1').children[0].getBoundingClientRect().width, laneW: r('l1').width, headBg: getComputedStyle(document.getElementById('r1').children[0]).backgroundColor,
       aGlyphW: cs('a', '::after').width, oGlyphW: cs('o', '::after').width, tGlyphW: cs('t', '::after').width, tGlyphH: cs('t', '::after').height,
+      rlW: cs('rl', '::after').width, rlH: cs('rl', '::after').height, rlClip: cs('rl', '::after').clipPath, tClip: cs('t', '::after').clipPath,
       spLeft: r('sp').left - lane.left, spW: r('sp').width, xDisplay: cs('x').display, rcBg: cs('rc').backgroundColor, rcMl: cs('rc').marginLeft };
   });
   ok(m.lh === 24, 'the lane is 24px');
@@ -43,11 +45,12 @@ try {
   ok(m.aBg !== m.hBg, 'a plain marker is not the accent (negative control)');
   ok(m.sBg === 'rgb(244, 244, 244)' && m.sRing === 'rgb(255, 106, 67)' && m.sRingDisplay === 'block' && m.aRingDisplay === 'none', 'a selected marker is white with an accent ring behind it; an unselected one has no ring');
   ok(m.aGlyphW === '14px' && m.oGlyphW === '8px' && m.tGlyphW === '5px' && m.tGlyphH === '14px', 'glyph sizes: accent 14, off-beat 8, hit 5 x 14 (solid)');
+  ok(m.rlW === '14px' && m.rlH === '12px' && /^polygon\(/.test(m.rlClip) && m.rlClip !== m.tClip, 'roll (v0.41.136): three bars in one polygon, 14 x 12, not the hit bar');
   ok(m.rowsH === 49 && m.r2d === 'none', 'sub-rows: a row with no markers (hidden) takes no space; two 24px rows + 1px gap');
   ok(m.headW === 72 && Math.abs(m.laneW - 328) < 0.6 && m.headBg === 'rgb(43, 43, 43)', 'a row head is 72px on --bg-2 and the lane fills the rest');
   ok(Math.abs(m.spLeft - 120) < 0.6 && Math.abs(m.spW - 40) < 0.6, 'a span starts at --x and is --w of the lane wide');
   ok(m.xDisplay === 'none', 'a hidden marker is not displayed');
-  ok(m.rcBg === 'rgb(43, 43, 43)' && m.rcMl === '12px', 'the REACT block: --bg-2, indented 12px');
+  ok(m.rcBg === 'rgba(0, 0, 0, 0)' && m.rcMl === '0px', 'the REACT block has no box and no indent (v0.41.113)');
   ok(typeof MENU_ICONS.react === 'string' && MENU_ICONS.react.length > 20, 'the react icon exists');
   console.log(`lane: ${n} checks passed`);
 } finally { await b.close(); }

@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.136 (2026-11-17)
+
+- **Roll glyph on the Music lane** (asked by KOMPOSITOR; pending Patrick via `REQ-DS-lane-roll-r1`): `.vk-lane__mark[data-kind="roll"]`, three bars (the hit bar said three times), 14 × 12, a solid set-A shape like the others.
+- **Catalogue: Timeline and sound group**: music lane and its glyphs, Sound FX on a clip (pin, fades, ducking line), and the sound library row (type tag + `.vk-pin` on a 20px mini waveform: the existing pin works in a small box unchanged). Seven classes leave `pending.json` (58 left).
+
 ## 0.41.135 (2026-11-17)
 
 - **INCEPTOR icons batch 1, round 2** (QA reviewer, `VERDICT-DS-inceptor-icons-r1`): 13 of the 42 redrawn. Misses: `polygon` (was INCEPTOR's iso cube; now a flat-top hexagon with corner dots and one radius), `efAlign` (read as align-left; now needles turning along a flow line), `pathtype` / `autoadd` and `curvature` / `rubber` (same at 14px; pathtype is a T on a wave, autoadd a path end with a plus, rubber a curve with a dashed preview). Also `efColour` (palette), `efVis` (an eye fading out), `eyedrop`, `efSnap`, `efSpring`, and three the new check found: `efRand` (was the dice), `outline` (was the compound-path squares), `efStep`.
