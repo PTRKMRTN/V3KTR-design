@@ -1,0 +1,11 @@
+// design.v3ktr.com (the specimen, key-locked). Deploy with scripts/publish-specimen.mjs, never by hand.
+// First time only, done by Patrick or with his go: `npx wrangler secret put STAGE_KEY --config deploy/specimen/wrangler.jsonc`
+// (keep the key in E:\00 CLAUDE APPS\_ops\secrets\design-specimen.txt), and the custom domain below creates the DNS record.
+{
+  "name": "v3ktr-design",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "../../.publish/specimen", "binding": "ASSETS", "run_worker_first": true },
+  "routes": [{ "pattern": "design.v3ktr.com", "custom_domain": true }],
+  "workers_dev": false
+}
