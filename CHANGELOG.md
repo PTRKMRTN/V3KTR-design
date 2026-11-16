@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.154 (2026-11-16)
+
+- **Placeholder text passes contrast:** `.vk-input::placeholder` uses `--tx-2-hi` (a field is a raised fill; `--tx-2` was 4.10:1). An empty-state word in a picker row ("No template") uses `--tx-2-hi` too (QA reviewer, KOMPOSE story mock).
+
 ## 0.41.153 (2026-11-16)
 
 - **A note inline in a panel sits flat:** `.vk-note` inside a `.vk-section`, `.vk-scroll` or `.vk-modal` drops its floating shadow and its 320px cap; `.vk-note--pinned` keeps both (found by the QA reviewer on the KOMPOSE story mock).
