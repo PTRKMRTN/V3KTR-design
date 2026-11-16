@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.135 (2026-11-17)
+
+- **INCEPTOR icons batch 1, round 2** (QA reviewer, `VERDICT-DS-inceptor-icons-r1`): 13 of the 42 redrawn. Misses: `polygon` (was INCEPTOR's iso cube; now a flat-top hexagon with corner dots and one radius), `efAlign` (read as align-left; now needles turning along a flow line), `pathtype` / `autoadd` and `curvature` / `rubber` (same at 14px; pathtype is a T on a wave, autoadd a path end with a plus, rubber a curve with a dashed preview). Also `efColour` (palette), `efVis` (an eye fading out), `eyedrop`, `efSnap`, `efSpring`, and three the new check found: `efRand` (was the dice), `outline` (was the compound-path squares), `efStep`.
+- **`scripts/check-icon-dupes.mjs`**: renders every icon at 14px and reports look-alike pairs (Pearson correlation of the blurred ink maps) inside the INCEPTOR set, against the menu set, and with `--against <app icons.js>` against an app's own drawings. Run it before filing an icon batch. It catches same-drawing clashes; it does not catch two different drawings that merely read alike, or a wrong meaning.
+
 ## 0.41.134 (2026-11-17)
 
 - **Rail view width rule clarified** (DIMENSOR QA): the labels view is 192px but never narrower than the icons rail, so where the icons rail is wider (DIMENSOR's 4-column 206px above 1920px) both views share that width and the canvas edge does not move when the view flips. Rule text only (AGENTS.md, catalogue note); no CSS change, the apps own the rail width.
