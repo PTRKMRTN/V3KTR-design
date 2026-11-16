@@ -38,7 +38,7 @@ export default {
       } });
     }
     if (!eq(cookieOf(req), env.STAGE_KEY)) return notFound();
-    if (url.pathname === '/') url.pathname = '/specimen/index.html';
+    if (url.pathname === '/') url.pathname = '/specimen/';   // the assets layer serves /specimen/index.html at /specimen/ (it 307s the long form)
     const res = await env.ASSETS.fetch(new Request(url, req));
     const out = new Response(res.body, res);
     out.headers.set('x-robots-tag', 'noindex, nofollow');

@@ -15,4 +15,5 @@ mkdirSync(out + 'icons', { recursive: true });
 for (const f of readdirSync(root + 'icons').filter((x) => x.endsWith('.html'))) cpSync(root + 'icons/' + f, out + 'icons/' + f);
 console.log('built', out);
 if (process.argv.includes('--dry')) process.exit(0);
-execFileSync('npx', ['wrangler', 'deploy', '--config', root + 'deploy/specimen/wrangler.jsonc'], { stdio: 'inherit', shell: true });
+// run inside deploy/specimen with a relative config: the repo path has spaces, and npx on Windows needs a shell
+execFileSync('npx', ['wrangler', 'deploy', '--config', 'wrangler.jsonc'], { stdio: 'inherit', shell: true, cwd: root + 'deploy/specimen' });

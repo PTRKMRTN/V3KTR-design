@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.144 (2026-11-16)
+
+- **The specimen is live at design.v3ktr.com, key-locked** (Patrick, cards `DS-specimen-address` and `DS-specimen-deploy-step`): worker `v3ktr-design`, `deploy/specimen/`, `scripts/publish-specimen.mjs`. Checked: without the link, `/`, `/specimen/`, `/fonts/fonts.css` and a wrong key all return 404 with `noindex`; with it, 200. Every release now ends with `node scripts/publish-specimen.mjs` (AGENTS.md).
+
 ## 0.41.143 (2026-11-16)
 
 - **Three more Sound FX types** (Patrick added Reverse, Sub drop and Tick, via KOMPOSITOR): `--sx-reverse` (the Effectors fuchsia), `--sx-subdrop` (`#6f8fd6`, a deep blue, the one new colour), `--sx-tick` (the light text grey), and `.vk-tag--sx[data-sx="reverse"|"subdrop"|"tick"]`. The colours are provisional until Patrick looks (card `DS-sx-three-colours`, sheet `V3KTR-COWORK/reports/sx-types-ten/sheet.png`).
