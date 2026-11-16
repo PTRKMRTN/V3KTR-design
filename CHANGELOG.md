@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.153 (2026-11-16)
+
+- **A note inline in a panel sits flat:** `.vk-note` inside a `.vk-section`, `.vk-scroll` or `.vk-modal` drops its floating shadow and its 320px cap; `.vk-note--pinned` keeps both (found by the QA reviewer on the KOMPOSE story mock).
+- **Layers tree:** a hidden row keeps its eye-off control at full, as a locked row keeps its lock (the QA reviewer's default on r4, which passed).
+
 ## 0.41.152 (2026-11-16)
 
 - **A dialog never runs past the window** (DIMENSOR: Import SVG with its preview is 728px, so on a window under ~750px its Import / Cancel row went off-screen). `.vk-modal` is at most the window height less 22px top and bottom. New `.vk-modal__body`: wrap everything between the title and the actions in it (with `.vk-scrollbar` for the house bar) and the body scrolls while the title and the action row stay fixed. A modal without a body scrolls as a whole. Nothing changes for a dialog that fits.
