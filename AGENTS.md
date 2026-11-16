@@ -10,6 +10,9 @@ A lot of basic design-system rules have been slipping through (button sizes, hei
 3. **If nothing covers it, stop and ask Patrick** (`AskUserQuestion`, 2 to 4 options, recommended first) before building. Never invent a new control, size, colour, icon style or layout rule, and never make a one-off look "close enough". When Patrick decides, tell the design session so it goes into this repo and the other apps get it too.
 4. **Say so in the report.** A UI change names the shared classes it uses (or "no pattern, asked Patrick") and ships with a before/after sheet.
 
+## Never check out a tag in this folder (2026-11-16)
+`E:\00 CLAUDE APPS\V3KTR-design` is the design session's working clone and stays on `main`. Twice on 2026-11-16 another session ran `git checkout v0.41.1xx` here, so the design session built and rendered on old files. To read an older version: `git show v0.41.142:dist/app.css > <your folder>/app.css`, `git archive v0.41.142 | tar -x -C <your folder>`, or your app's own pull script; for a whole tree, `git worktree add <your folder> v0.41.142` outside this folder. Never `checkout`, `switch`, `reset` or `stash` here.
+
 ## Hard rules
 1. **Use tokens, never raw hex.** Every colour, radius, font and row height comes from `tokens.css` (`var(--…)`).
    If a value you need doesn't exist, add it HERE (new version), not in the app.
