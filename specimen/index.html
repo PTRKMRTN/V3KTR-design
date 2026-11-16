@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.149 ===== */
-/* V3KTR design tokens · v0.41.149
+/* ===== core: tokens.css v0.41.150 ===== */
+/* V3KTR design tokens · v0.41.150
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -97,7 +97,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.149 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.150 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -835,8 +835,8 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
    Use aria-disabled, not :disabled, so the tip still opens; the app guards the click and says why in the tip (data-tip-desc). Works on .vk-row and .vk-layer rows, selected or not. */
 .vk-row__ctl[aria-disabled="true"]{opacity:.4;cursor:default;}
 
-.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])),
-.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])){opacity:0.6;}   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
+.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock),
+.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock){opacity:0.6;}   /* v0.41.150: the .vk-lock corner mark stays whole too (INCEPTOR) */   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
 
 /* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
    toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):
@@ -3260,7 +3260,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.149</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.150</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

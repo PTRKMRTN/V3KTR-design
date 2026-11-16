@@ -231,6 +231,7 @@ Patrick's pass set the app standard: `--pad` 22, side panel 400, buttons 8/14, r
   - **A seg on a filled row rests at `--bg-4`**, as a button does.
   - **`.vk-btn-row--fit`** breaks the line only when the row holds a `.vk-roll-group`.
   - **`.vk-sec-add[aria-disabled="true"]`** has the shared disabled look.
+  - **v0.41.150:** `installTips({ host })` puts the tip inside the app's landmark (no transform / filter / zoom on it); a locked row keeps its `.vk-lock` corner mark whole.
   - **Behaviour:** `bindNav(…, { min, max })` sets the zoom range (default 0.2 to 12); `vfly(el, { face })` lets the tile show HTML (an icon) instead of text; `keyLabel('Control+…')` is the real Control key (⌃ on a Mac; `Ctrl` and `Mod` stay ⌘); `isResetKey(e)` in `scrub.js`: Delete or Backspace resets a focused scrub to its default.
   - **Abbreviated chips and their names:** when a chip shows "DEF", its accessible name must contain "DEF" (WCAG 2.5.3): use `data-tip` for the full name, or an `aria-label` that starts with the visible text ("DEF, Deform"), never an `aria-label` of the full name alone.
   - **A modal's actions are one size:** Cancel and the main action are both normal-size `.vk-btn` (the main one `--primary`); never a `--lg` beside a normal one.

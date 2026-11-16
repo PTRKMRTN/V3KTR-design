@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.150 (2026-11-16)
+
+- **`installTips({ host })`**: the tip element can live inside the app's landmark instead of `<body>`, so axe stops flagging `region` while a tip is open (INCEPTOR). The host must not set transform, filter or zoom (the tip is fixed). Default unchanged.
+- **A locked row no longer dims its `.vk-lock` corner mark** (INCEPTOR's param panel kept a local rule for it).
+
 ## 0.41.149 (2026-11-16)
 
 - **Tips show above dialogs.** `.vk-tip` was at z-index 1000 and `.vk-scrim` at 9500, so every tip inside a dialog sat behind its shade (KOMPOSITOR's greyed-out export Subtitles row; sheet `V3KTR-COWORK/reports/kmp-sprint/captions-finish/sheet-r2.png`). The tip is now at 10000, the top layer in every app.

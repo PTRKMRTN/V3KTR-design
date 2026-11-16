@@ -33,11 +33,13 @@ export function keyLabel(combo, mac = isMac()) {
   return combo.split('+').map((k) => map[k.trim()] ?? k.trim()).join('');
 }
 
-/** Install the shared tip behaviour on a root (default: the document). Returns a function that removes it. */
-export function installTips({ root = document, delay = 400, warm = 500, doc = root.ownerDocument || root } = {}) {
+/** Install the shared tip behaviour on a root (default: the document). Returns a function that removes it.
+ *  host (v0.41.150, INCEPTOR): where the tip element lives (default <body>). Pass the app's landmark (its <main> or role="application" root) so an open tip is inside a
+ *  landmark (axe "region"). The tip is position:fixed, so the host and its ancestors must not set transform, filter or zoom. */
+export function installTips({ root = document, delay = 400, warm = 500, doc = root.ownerDocument || root, host = null } = {}) {
   const tip = doc.createElement('div');
   tip.className = 'vk-tip'; tip.id = 'vk-tip-' + Math.random().toString(36).slice(2, 8); tip.setAttribute('role', 'tooltip'); tip.hidden = true;   // hidden at rest (v0.41.145)
-  (doc.body || doc.documentElement).appendChild(tip);
+  (host || doc.body || doc.documentElement).appendChild(tip);
   let target = null, pending = null, timer = 0, lastHidden = 0, shownByFocus = false, blurTimer = 0;
   const find = (el) => (el && el.closest ? el.closest('[data-tip]') : null);
 
