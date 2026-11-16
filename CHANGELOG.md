@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.152 (2026-11-16)
+
+- **A dialog never runs past the window** (DIMENSOR: Import SVG with its preview is 728px, so on a window under ~750px its Import / Cancel row went off-screen). `.vk-modal` is at most the window height less 22px top and bottom. New `.vk-modal__body`: wrap everything between the title and the actions in it (with `.vk-scrollbar` for the house bar) and the body scrolls while the title and the action row stay fixed. A modal without a body scrolls as a whole. Nothing changes for a dialog that fits.
+
 ## 0.41.151 (2026-11-16)
 
 - **`MENU_ICONS.eyedrop`**: sample a colour (INCEPTOR's approved `eyedrop` drawing, promoted to the shared set for PROCESSOR's Emit From key colour). `pick` stays the point pick.
