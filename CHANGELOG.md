@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.147 (2026-11-16)
+
+- **`MENU_ICONS.done`**, a check for the Done tile that leaves a viewport tool (`.vk-vtools__t--done`, first in the column). DIMENSOR drew it with `cursor` and KOMPOSITOR with a local check; both move to this one. Found by the QA reviewer on KOMPOSITOR's viewport controls.
+- **Narrow scrub text fixed:** Shift makes a drag or a wheel step fine; Shift+Up/Down moves 10% of the range, as every slider's keyboard does. `vscrub.js` already did this; only the AGENTS.md wording was wrong. No code change.
+
 ## 0.41.146 (2026-11-16)
 
 - **The label rule and the button sizes, written down** (Patrick 2026-11-16, narrowed after he pointed at the sheets). A small label BESIDE a button group or seg on the same row is a miss: the group's name goes above it. A row with its name in the left cell and ONE control on the right (select, field, number, swatch, a value, a single button) and a slider with its name inside are fine. Button size follows function: large only for Render, Export and Roll; a property latch (Underline, Strikethrough, Lock ratio, Scale strokes, Flip) is an icon toggle, not a text button. Rules in AGENTS.md "Labels and button sizes".
