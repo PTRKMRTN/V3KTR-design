@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.136 ===== */
-/* V3KTR design tokens · v0.41.136
+/* ===== core: tokens.css v0.41.137 ===== */
+/* V3KTR design tokens · v0.41.137
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.136 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.137 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -286,6 +286,22 @@
 /* from .param-tools, .gen-toolrow, .btn-row (left-aligned row of natural-width buttons) */
 /* items on a row share one height (Patrick 2026-10-24: "anything on a row needs to be the same height"): stretch, never center, so a .vk-roll-group (3px tray padding) and a plain .vk-btn beside it line up. */
 .vk-btn-row{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;}
+/* A row that tightens before it wraps (v0.41.137, INCEPTOR's roll row: Reset | [Randomise Evolve Bias Links] | Anchor Revert is 497px and dropped Revert to a second line in a 460px panel).
+   .vk-btn-row--fit makes the row a size container: under 500px the buttons and latches lose side padding (9 -> 7, 14 -> 8), under 450px more (5, 5), so the same row fits down to about 405px.
+   Narrower than that it wraps as before, but as a unit: whatever follows the roll group moves to the second line together (a full-width break after the group), never one button alone. */
+.vk-btn-row--fit{container-type:inline-size;}
+@container (max-width:500px){
+  .vk-btn-row--fit .vk-btn{padding-inline:7px;}
+  .vk-btn-row--fit .vk-tog{padding-inline:8px;}
+}
+@container (max-width:450px){
+  .vk-btn-row--fit .vk-btn,.vk-btn-row--fit .vk-tog{padding-inline:5px;}
+  .vk-btn-row--fit .vk-roll-rand{gap:5px;}
+}
+@container (max-width:404px){
+  .vk-btn-row--fit > .vk-roll-group ~ *{order:2;margin-top:-6px;}   /* the break below is a line of its own, so the row gap counts twice: take one back */
+  .vk-btn-row--fit::after{content:"";flex-basis:100%;height:0;order:1;}
+}
 /* a stack of buttons: each hugs its own text and sits left (Patrick 2026-10-24); never stretch them to one width */
 .vk-btn-col{display:flex;flex-direction:column;align-items:flex-start;gap:6px;}
 
@@ -3210,7 +3226,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.136</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.137</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

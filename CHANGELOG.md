@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.137 (2026-11-17)
+
+- **A button row that tightens before it wraps** (INCEPTOR reviewer follow-up: the seven-control roll row dropped Revert to a second line in a 460px panel): `.vk-btn-row--fit`. Under 500px the buttons and latches lose side padding, under 450px more, so INCEPTOR's roll row (497px) fits on one line down to 409px. Narrower, it wraps as a unit: everything after the roll group moves to the second line together. Measured sheets `V3KTR-COWORK/reports/roll-row-fit/before.png` / `after.png`. A row without the modifier is unchanged.
+
 ## 0.41.136 (2026-11-17)
 
 - **Roll glyph on the Music lane** (asked by KOMPOSITOR; pending Patrick via `REQ-DS-lane-roll-r1`): `.vk-lane__mark[data-kind="roll"]`, three bars (the hit bar said three times), 14 × 12, a solid set-A shape like the others.
