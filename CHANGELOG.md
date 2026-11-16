@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.133 (2026-11-17)
+
+- **Canvas navigation, shared** (asked by INCEPTOR; three app copies): `interactions/canvas-nav.js` (`bindNav`, `wheelFactor`, `stepZoom`, `zoomAt`, `ZOOM_MIN/MAX`) and `.vk-canvas-nav` (+ `.is-panning`) cursor rule; the maths is KOMPOSITOR's, which is PROCESSOR's. AGENTS.md rule, catalogue entry, `test/canvas-nav.test.mjs`.
+
 ## 0.41.132 (2026-11-17)
 
 - **Link light is P · K · D · I** (Patrick approved): `LINK_APPS` in `interactions/link-light.js` gains `inceptor / I / INCEPTOR`; `app/link.css` colours the I mark in the cobalt; `app/link-badge.css` adds the `inceptor` badge owner. Every app's top bar shows the fourth mark when it pulls this tag.

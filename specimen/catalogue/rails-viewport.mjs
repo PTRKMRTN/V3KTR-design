@@ -54,6 +54,14 @@ export default {
   <div class="vk-react"><span class="vk-micro-label">React to the music</span><div class="vk-row"><span>Band</span><span class="vk-scrub__val" style="margin-left:auto">Bass</span></div></div></div>`,
     },
     {
+      name: 'Canvas navigation',
+      since: '0.41.133',
+      rule: 'AGENTS.md "Canvas navigation"; interactions/canvas-nav.js',
+      classes: ['vk-canvas-nav'],
+      note: 'The well that pans and zooms: scroll zooms toward the cursor (100% detent), drag pans (grab / grabbing), middle-drag pans, double-click fits. Same in every app.',
+      html: `<div class="vk-canvas-well vk-canvas-nav" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono)">grab</div> <div class="vk-canvas-well vk-canvas-nav is-panning" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono);margin-top:10px">grabbing</div>`,
+    },
+    {
       name: 'Canvas well',
       since: '0.41.127',
       rule: 'CHANGELOG 0.41.127',

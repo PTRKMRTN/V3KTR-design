@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.132 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.133 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -843,6 +843,9 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-rail-scrollhint[hidden]{display:none;}
 .vk-rail-scrollhint.is-end{opacity:.3;}
 .vk-rail-scrollhint svg{width:8px;height:8px;flex:none;}
+/* Canvas navigation cursor (v0.41.133; behaviour in interactions/canvas-nav.js): the well that pans and zooms wears .vk-canvas-nav, grab at rest and grabbing while a pan is live (.is-panning). */
+.vk-canvas-nav{cursor:grab;touch-action:none;}
+.vk-canvas-nav.is-panning{cursor:grabbing;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
