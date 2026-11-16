@@ -22,6 +22,15 @@ export default {
   <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div>`,
     },
     {
+      name: 'Rail scroll hint',
+      since: '0.41.130',
+      rule: 'AGENTS.md "Rail scroll hint"; interactions/rail-scrollhint.js',
+      classes: ['vk-rail-scrollhint'],
+      note: 'In the rail header after the chips, outside the scroller: hidden unless the rail overflows; dimmed once at the bottom. The noun is the app\'s ("Scroll FX", "Scroll").',
+      html: `<div style="display:flex;gap:28px"><div style="width:144px"><div class="vk-rail-scrollhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
+  <div style="width:144px"><div class="vk-rail-scrollhint is-end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>`,
+    },
+    {
       name: 'Tool column: tiles, narrow scrub, fly-out',
       since: '0.41.119',
       rule: 'AGENTS.md "Tool-column extras"; interactions/vscrub.js, vfly.js',

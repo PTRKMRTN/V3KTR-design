@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.129 ===== */
-/* V3KTR design tokens · v0.41.129
+/* ===== core: tokens.css v0.41.130 ===== */
+/* V3KTR design tokens · v0.41.130
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.129 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.130 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -932,6 +932,12 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
    its own layout (margins, flex, overflow). PROCESSOR's hard-coded #1d1d1d and KOMPOSITOR's --well drop for this. */
 :root{--canvas-tile:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAABgmlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kc8rRFEUxz8zfowYjVAsZjFpWCE/amJjMWIoLGZG+bV588wPNTNe782kyVbZKkps/FrwF7BV1koRKVnLktig57x5aiRzbueez/3ee073ngvOaFrNGJU9kMnm9HAo6JuZnfO5nqnGSwuNtCiqoU1GRqOUtfdbHFa87rJqlT/3r9Utxg0VHDXCQ6qm54THhCdWcprFW8LNakpZFD4R7tTlgsI3lh6z+cnipM2fFuvR8DA4G4R9yV8c+8VqSs8Iy8vxZ9J59ec+1kvc8ex0RGKbuBeDMCGC+BhnhGEC9DIoc4Au+uiWFWXye4r5UyxLriqzRgGdJZKkyNEpal6qxyUmRI/LSFOw+v+3r0aiv8+u7g5C1aNpvraDaxO+Nkzz48A0vw6h4gHOs6X85X0YeBN9o6T598CzBqcXJS22DWfr0HqvKbpSlCrEnYkEvBxD/Sw0XUHtvN2zn32O7iC6Kl91CTu70CHnPQvfdOFn7CbV/UkAAAAJcEhZcwAALiMAAC4jAXilP3YAAAKmSURBVHic7dzdjqowGIXhBQIRdS7C+789IXvsQPdBE6LEA1bbD0uy3iM94GeeKJGGb6r7/Q61rfrbJ3CkhEUkLCJhEQmLSFhEwiISFpGwiIRFJCwiYREJi0hYRMIiEhZRE7GNc26eZw90XVdXVfZzsuvpHICqqtom5g+P2ebf7+80TQDc83m93Y7iNQyD+/sDUNd1+/MTsYekr+E0z8PjMXufspN9WqRSisFqTqfl9SG8VlJ1HfkRidms7/uu65a3hXutpJqmuV4ucbuKNL4cxOujVBV7kY2/ZpXvlVcKiRf4kr2ySyH9R2mZXhZSyPILvjQvIynkut0px8tOChnvDUvwMpVC3hvp73pZSyH7qsO3vHaQgsUSzQevYch+lNfGcdxBCkbrWSsvP88WR1maXvZvJwW7xb83r73WcEylELeetbFL33dtC8Du7EP9+ey990DbNKbHMsQC0EQtSJZ5FGgNnkpYRMIiEhaRsIiERSQsImERCYtIWETCIhIWkbCIhEUkLCJhEQmLSFhEwiISFpGwiIRFJCwiYREJi0hYRMIiEhaRsIhsnz9JnO/bWJh/BNB13VEfORrG0TmHhPm+jS3zj0/nbternZfV13CRAoC9HliepukxDN7scCZYb1JA/TKfaNHb/KOlV36slVRzOkXP921sPf9o5pUZ64OU5UVkaf08uY1XTqxvSYV28MqG9V2pkLVXHqwSpEKmXhmwypEK2XmlYpUmFTLySsIqUypk4RWPVbJUKLtXJFb5UqG8XjFY40GkQh+94nYVg/U231e2VGg9/7jnJ2vpEFKhlVdcMetZ/fk8ew/v27Y9hFQoff4x6h+U7TXfl73EM9caPJGwiIRFJCwiYREJi0hYRMIiEhaRsIiERSQsImERCYtIWETCIvoPOObKDArXHGMAAAAASUVORK5CYII=");}
 .vk-canvas-well{background-color:var(--canvas-well);background-image:var(--canvas-tile);background-repeat:repeat;background-position:center;background-size:38px 38px;}
+/* Rail scroll hint (v0.41.130, PROCESSOR's .rail-scrollhint made shared for DIMENSOR; behaviour in interactions/rail-scrollhint.js). In the rail's FIXED header right after the filter chips: a down chevron, the noun
+   ("Scroll FX" on an FX rail, "Scroll" on an Add rail), a down chevron; mono 8px caps in --tx-2. Hidden while the rail does not overflow; .is-end dims it once scrolled to the bottom. */
+.vk-rail-scrollhint{display:flex;align-items:center;justify-content:flex-start;gap:5px;padding:7px 0 10px;font-family:var(--mono);font-size:8px;letter-spacing:0.3px;text-transform:uppercase;line-height:1.1;color:var(--tx-2);transition:opacity .18s;}
+.vk-rail-scrollhint[hidden]{display:none;}
+.vk-rail-scrollhint.is-end{opacity:.3;}
+.vk-rail-scrollhint svg{width:8px;height:8px;flex:none;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}
@@ -3196,7 +3202,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.129</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.130</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3588,7 +3594,8 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     <button class="vk-rail-item is-later" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span class="vk-rail-item__nm">Connect</span><span class="vk-tag">V1.1</span></button>
     <button class="vk-rail-item is-disabled" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5L12 21L21 16.5L21 7.5L12 3L3 7.5ZM12 12L12 3M12 12L3 16.5M12 12L21 16.5"/><path d="M9 13.5L18 18M15 13.5L6 18M9 13.5L9 4.5M3 13.5L12 9M15 13.5L15 4.5M21 13.5L12 9M6 15L15 19.5M18 15L9 19.5M6 15L6 6M3 10.5L12 6M18 15L18 6M21 10.5L12 6" opacity="0.6"/></svg><span class="vk-rail-item__nm">At maximum</span></button>
   </div>
-  <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div></div><p class="th-note">A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app's tile grid (144px); labels view = rows (192px). Later rows dim; the depth star follows the name.</p></div><div class="spec-group"><div class="spec-caption">Tool column: tiles, narrow scrub, fly-out · v0.41.119 · AGENTS.md "Tool-column extras"; interactions/vscrub.js, vfly.js</div><div class="sp-demo"><div style="position:relative;width:360px;height:250px;background:var(--bg-1)"><div class="vk-vtools" style="position:absolute;right:12px;top:10px">
+  <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div></div><p class="th-note">A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app's tile grid (144px); labels view = rows (192px). Later rows dim; the depth star follows the name.</p></div><div class="spec-group"><div class="spec-caption">Rail scroll hint · v0.41.130 · AGENTS.md "Rail scroll hint"; interactions/rail-scrollhint.js</div><div class="sp-demo"><div style="display:flex;gap:28px"><div style="width:144px"><div class="vk-rail-scrollhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
+  <div style="width:144px"><div class="vk-rail-scrollhint is-end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div></div></div><p class="th-note">In the rail header after the chips, outside the scroller: hidden unless the rail overflows; dimmed once at the bottom. The noun is the app's ("Scroll FX", "Scroll").</p></div><div class="spec-group"><div class="spec-caption">Tool column: tiles, narrow scrub, fly-out · v0.41.119 · AGENTS.md "Tool-column extras"; interactions/vscrub.js, vfly.js</div><div class="sp-demo"><div style="position:relative;width:360px;height:250px;background:var(--bg-1)"><div class="vk-vtools" style="position:absolute;right:12px;top:10px">
     <button class="vk-vtools__t vk-vtools__t--done" aria-label="Done"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>
     <button class="vk-vtools__t" aria-pressed="true" aria-label="Brush"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18C6 8 10 8 12 13S18 18 21 6" opacity="0.6"/><circle cx="3" cy="18" r="1.8" fill="currentColor" stroke="none"/><circle cx="21" cy="6" r="1.8" fill="currentColor" stroke="none"/></svg></button>
     <div class="vk-vscrub" role="slider" aria-label="Radius" aria-valuenow="0.94"><i style="height:62%"></i><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" stroke-dasharray="2.200 2.600" opacity="0.6"/><path d="M12 12L18.500 6.500"/><circle cx="12" cy="12" r="1.800" fill="currentColor" stroke="none"/></svg><span>0.94</span></div>

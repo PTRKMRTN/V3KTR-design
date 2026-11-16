@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.130 (2026-11-17)
+
+- **Rail scroll hint**, shared (PROCESSOR's `.rail-scrollhint`, wanted by DIMENSOR): `.vk-rail-scrollhint` (+ `[hidden]`, `.is-end`) and `interactions/rail-scrollhint.js` `railScrollHint(hint, scroller)`; AGENTS.md rule; catalogue entry.
+
 ## 0.41.129 (2026-11-17)
 
 - **INCEPTOR logo and app icon** (Patrick supplied `brand/logo-v3ktr-inceptor.svg`): the logo joins the specimen's app logos (XML prolog and DOCTYPE stripped when inlined); `brand/icons/icon-inceptor.svg` + 32 / 180 / 512 PNG built by `scripts/build-icons.mjs` (dark I on the cobalt `#4d9bff` tile, same recipe as P / K / D).
