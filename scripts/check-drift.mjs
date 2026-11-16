@@ -40,5 +40,16 @@ for (const f of readdirSync(new URL('interactions/', root))) for (const m of rea
 const HOOK_ONLY = new Set(['vk-toast-region', 'vk-tip-']);
 for (const c of used) check(HOOK_ONLY.has(c) || new RegExp('\\.' + c + '(?![\\w-])').test(css),`class .${c} is used by interactions/ but has no rule in app/`);
 
+// 5. catalogue coverage (v0.41.128): every base .vk- class the bundle styles must be shown in the specimen. specimen/catalogue/pending.json is the
+// shrinking list of classes still to catalogue: a class missing from the specimen and not on it fails; a class on it that the specimen now shows fails too (delete it).
+{
+  const defined = new Set([...bundle.matchAll(/\.(vk-[a-z0-9_-]+)/g)].map((m) => m[1]).filter((c) => !/__|--/.test(c)));
+  const spec = read('specimen/index.html');
+  const shown = new Set([...spec.slice(spec.lastIndexOf('</style>')).matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)));
+  const pending = new Set(JSON.parse(read('specimen/catalogue/pending.json')));
+  for (const c of defined) check(shown.has(c) || pending.has(c), `class .${c} is styled but has no specimen entry (add it to specimen/catalogue/)`);
+  for (const c of pending) check(!shown.has(c), `class .${c} is in specimen/catalogue/pending.json but the specimen now shows it (delete it from the list)`);
+  console.log(`catalogue coverage: ${[...defined].filter((c) => shown.has(c)).length} of ${defined.size} base classes shown, ${pending.size} pending`);
+}
 if (fails.length) { console.error(`drift check: ${fails.length} problem(s)\n  - ` + fails.join('\n  - ')); process.exit(1); }
 console.log(`drift check: clean (${appFiles.length} app files whole in the bundle, ${SURFACES.length} surfaces offline, ${used.size} shared classes styled)`);

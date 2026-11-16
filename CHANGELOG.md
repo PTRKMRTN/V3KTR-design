@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.128 (2026-11-17)
+
+- **Component catalogue started** (Patrick 2026-11-17: catalogue the full library): specimen gets a Components tab built from `specimen/catalogue/*.mjs` (one entry per component: live demo, tag it arrived in, link to its rule). First group: rails and viewport tools (rail view switch, tool column + fly-out, react toggle, canvas well, pick dots / measure line). `check-drift` now has a coverage gate: a styled base `.vk-` class with no specimen entry fails unless it is on the shrinking `specimen/catalogue/pending.json` (65 of 121 pending).
+
 ## 0.41.127 (2026-11-17)
 
 - **Canvas well** (asked by INCEPTOR; the rule had been copied into three apps): token `--canvas-well` (#1d1d1d on the default ground), `.vk-canvas-well` (well colour + the V3KTR tile at 38px, centred), tile embedded as `--canvas-tile` and kept as `brand/canvas-tile.png` (byte-identical to the three app copies). Apps drop their local copies.

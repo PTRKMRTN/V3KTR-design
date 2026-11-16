@@ -107,6 +107,19 @@ const themeHtml = `<div class="spec-group"><div class="spec-caption">App themes 
   <p class="th-note">Red cells: under 4.5:1 for small text, or under ΔE 25 from a colour it must be told apart from. The secondary is the machine-drawn / live colour: timeline playhead and markers, live readouts, progress, ducking line, the second series of a graph.</p></div>`;
 const siteCss = read('site/site.css');
 
+
+// ---- Component catalogue (v0.41.128): specimen/catalogue/*.mjs, one entry per shipped component, rendered with the real CSS
+import { readdirSync } from 'node:fs';
+const menuIcons = JSON.parse(read('icons/menu-icons.json') || '{}');
+const iconBody = (n) => (menuIcons.icons || menuIcons)[n] || '';
+const icSvg = (n, z) => '<svg viewBox="0 0 24 24" width="' + z + '" height="' + z + '" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + iconBody(n) + '</svg>';
+const catDir = new URL('specimen/catalogue/', root);
+const catGroups = [];
+for (const file of readdirSync(catDir).filter((x) => x.endsWith('.mjs')).sort()) catGroups.push((await import(new URL(file, catDir).href)).default);
+const catHtml = catGroups.map((g, gi) => `<div class="cat-group" id="cat-${gi}"><h3 class="cat-h">${g.name}</h3><p class="th-note">${g.blurb}</p>${g.entries.map((e) => `<div class="spec-group"><div class="spec-caption">${e.name} · v${e.since} · ${e.rule}</div><div class="sp-demo">${e.html.replace(/\{\{ic:([a-z0-9]+):(\d+)\}\}/gi, (_, n, z) => icSvg(n, z))}</div><p class="th-note">${e.note}</p></div>`).join('')}</div>`).join('');
+const pickBtns = themes.map((t, i) => '<button type="button" data-app-pick="' + t.id + '" aria-pressed="' + (i === 0) + '">' + t.id.replace('-', ' · ') + '</button>').join('');
+const compLib = `<div class="spec-row th-pick" role="group" aria-label="App theme">${pickBtns}</div><p class="lede">Every shipped component, live. ${catGroups.length} group(s) so far; the drift check lists what is still missing.</p><div class="themed" data-app="processor" style="background:var(--bg-2);padding:20px">${catHtml}</div>`;
+
 const html = `<title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -170,6 +183,9 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-t td.warn{color:var(--danger)}
 .th-sw{display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
+.cat-h{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-0);margin:8px 0 4px}
+.cat-group{margin:0 0 28px}
+.sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
   <div class="top"><h1>V3KTR Design</h1><span class="ver">v${version}</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
@@ -177,6 +193,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
     <button role="tab" id="t-app" data-t="app" aria-selected="false">App layer</button>
+    <button role="tab" id="t-lib" data-t="lib" aria-selected="false">Components</button>
     <button role="tab" id="t-site" data-t="site" aria-selected="false">Site layer</button>
     <button role="tab" id="t-brand" data-t="brand" aria-selected="false">Logos</button>
   </div>
@@ -190,6 +207,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     ${typeHtml}
   </section>
   ${layer('app', 'App layer', 'Taken from PROCESSOR. Hover states are forced on with <code>.is-hover</code> so every state is visible at once. Switch the theme to see each app&rsquo;s colour on the same controls.', appCss, themeHtml + '<div id="app-themed" data-app="processor">' + compHtml + read('app/specimen.html') + '</div>')}
+  <section class="tab-panel" id="p-lib" data-tab="lib" hidden>${compLib}</section>
   ${brandHtml}
   ${layer('site', 'Site layer', 'Taken from site v2. Neutral: white only for links, buttons and active states; text in three greys (headings #b3b3b3, body #a3a3a3, muted #939393). App colour appears only inside [data-app].', siteCss, read('site/specimen.html'))}
 </div>
@@ -202,10 +220,10 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   }
   btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);try{history.replaceState(null,'','#'+b.dataset.t)}catch(e){}})});
   [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(b,_,all){b.addEventListener('click',function(){
-    document.getElementById('app-themed').setAttribute('data-app',b.dataset.appPick);
+    [].forEach.call(document.querySelectorAll('#app-themed,.themed'),function(t){t.setAttribute('data-app',b.dataset.appPick)});
     [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
   })});
-  var h=(location.hash||'').slice(1); if(h==='app'||h==='site'||h==='brand') show(h);
+  var h=(location.hash||'').slice(1); if(h==='app'||h==='site'||h==='brand'||h==='lib') show(h);
 })();
 </script>
 `;

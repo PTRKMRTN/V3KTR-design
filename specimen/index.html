@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.127 ===== */
-/* V3KTR design tokens · v0.41.127
+/* ===== core: tokens.css v0.41.128 ===== */
+/* V3KTR design tokens · v0.41.128
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.127 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.128 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -3191,13 +3191,17 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .th-t td.warn{color:var(--danger)}
 .th-sw{display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px}
 .th-note{font:11px var(--mono);color:var(--tx-2);margin:8px 0 0}
+.cat-h{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-0);margin:8px 0 4px}
+.cat-group{margin:0 0 28px}
+.sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.127</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.128</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
     <button role="tab" id="t-app" data-t="app" aria-selected="false">App layer</button>
+    <button role="tab" id="t-lib" data-t="lib" aria-selected="false">Components</button>
     <button role="tab" id="t-site" data-t="site" aria-selected="false">Site layer</button>
     <button role="tab" id="t-brand" data-t="brand" aria-selected="false">Logos</button>
   </div>
@@ -3575,6 +3579,25 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 </section>
 </div>
 </section>
+  <section class="tab-panel" id="p-lib" data-tab="lib" hidden><div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button><button type="button" data-app-pick="inceptor" aria-pressed="false">inceptor</button></div><p class="lede">Every shipped component, live. 1 group(s) so far; the drift check lists what is still missing.</p><div class="themed" data-app="processor" style="background:var(--bg-2);padding:20px"><div class="cat-group" id="cat-0"><h3 class="cat-h">Rails and viewport tools</h3><p class="th-note">The add-rail, the tool column over a canvas, and what is drawn on a viewport.</p><div class="spec-group"><div class="spec-caption">Rail view switch + filter chips · v0.41.124 · AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js</div><div class="sp-demo"><div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+  <div style="width:192px;background:var(--bg-1);padding:14px 11px">
+    <div class="vk-rail-head"><div class="vk-rail-chips"><button class="vk-chip vk-chip--group is-on">ALL</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-rose)">REP</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-amber)">DEF</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-teal)">STY</button></div><button class="vk-icon-tog" aria-label="Show icons"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.500" height="6.500"/><rect x="13.500" y="4" width="6.500" height="6.500"/><rect x="4" y="13.500" width="6.500" height="6.500"/><rect x="13.500" y="13.500" width="6.500" height="6.500"/></svg></button></div>
+    <div class="vk-group-label" style="--gcol:var(--type-rose);padding:6px 0 4px">REPLICATE</div>
+    <button class="vk-rail-item" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12"/><path d="M4 16V4h12"/></svg><span class="vk-rail-item__nm">Repeat<i class="vk-rail-item__star">★</i></span></button>
+    <button class="vk-rail-item" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><span class="vk-rail-item__nm">Mirror</span></button>
+    <button class="vk-rail-item is-later" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span class="vk-rail-item__nm">Connect</span><span class="vk-tag">V1.1</span></button>
+    <button class="vk-rail-item is-disabled" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5L12 21L21 16.5L21 7.5L12 3L3 7.5ZM12 12L12 3M12 12L3 16.5M12 12L21 16.5"/><path d="M9 13.5L18 18M15 13.5L6 18M9 13.5L9 4.5M3 13.5L12 9M15 13.5L15 4.5M21 13.5L12 9M6 15L15 19.5M18 15L9 19.5M6 15L6 6M3 10.5L12 6M18 15L18 6M21 10.5L12 6" opacity="0.6"/></svg><span class="vk-rail-item__nm">At maximum</span></button>
+  </div>
+  <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div></div><p class="th-note">A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app's tile grid (144px); labels view = rows (192px). Later rows dim; the depth star follows the name.</p></div><div class="spec-group"><div class="spec-caption">Tool column: tiles, narrow scrub, fly-out · v0.41.119 · AGENTS.md "Tool-column extras"; interactions/vscrub.js, vfly.js</div><div class="sp-demo"><div style="position:relative;width:360px;height:250px;background:var(--bg-1)"><div class="vk-vtools" style="position:absolute;right:12px;top:10px">
+    <button class="vk-vtools__t vk-vtools__t--done" aria-label="Done"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>
+    <button class="vk-vtools__t" aria-pressed="true" aria-label="Brush"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18C6 8 10 8 12 13S18 18 21 6" opacity="0.6"/><circle cx="3" cy="18" r="1.8" fill="currentColor" stroke="none"/><circle cx="21" cy="6" r="1.8" fill="currentColor" stroke="none"/></svg></button>
+    <div class="vk-vscrub" role="slider" aria-label="Radius" aria-valuenow="0.94"><i style="height:62%"></i><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" stroke-dasharray="2.200 2.600" opacity="0.6"/><path d="M12 12L18.500 6.500"/><circle cx="12" cy="12" r="1.800" fill="currentColor" stroke="none"/></svg><span>0.94</span></div>
+    <div class="vk-vscrub" role="slider" aria-label="Strength" aria-valuenow="50"><i style="height:50%"></i><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19C8 19 8.500 5 12 5C15.500 5 16 19 21 19"/><path d="M3 19H21" opacity="0.3"/><path d="M12 5V19" opacity="0.6"/></svg><span>50</span></div>
+    <div class="vk-vtools__fly"><button class="vk-vtools__t vk-vtools__t--val" aria-expanded="true">AUTO</button><div class="vk-vtools__opts" role="menu"><button class="vk-vtools__o" aria-checked="true">Auto · full</button><button class="vk-vtools__o">Full</button><button class="vk-vtools__o">50%</button></div></div>
+  </div><svg width="80" height="80" style="position:absolute;left:30px;top:80px"><circle class="vk-brush-ring" cx="40" cy="40" r="30"/></svg></div></div><p class="th-note">The column down the right of a viewport while a tool is on: 30px tiles, a done tile, a one-number vertical scrub, a value tile that folds a picker out to the left.</p></div><div class="spec-group"><div class="spec-caption">React toggle in a slider row · v0.41.125 · CHANGELOG 0.41.125</div><div class="sp-demo"><div style="width:300px"><div class="vk-scrub vk-react-wrap" style="--fill:40%"><span class="vk-scrub__label">Amount</span><span class="vk-scrub__val">0.40</span><button class="vk-row__ctl vk-react-ctl" aria-pressed="true" aria-label="React to the music"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h2.500l1.500-5 3 10 2.500-8 1.500 3H21" /><circle cx="21" cy="12" r="1.600" fill="currentColor" stroke="none"/></svg></button></div>
+  <div class="vk-react"><span class="vk-micro-label">React to the music</span><div class="vk-row"><span>Band</span><span class="vk-scrub__val" style="margin-left:auto">Bass</span></div></div></div></div><p class="th-note">The toggle sits inside the slider at its right edge (the value makes room); the react panel opens under the row.</p></div><div class="spec-group"><div class="spec-caption">Canvas well · v0.41.127 · CHANGELOG 0.41.127</div><div class="sp-demo"><div class="vk-canvas-well" style="width:240px;height:110px"></div></div><p class="th-note">The ground behind an image in a viewport: --canvas-well with the V3KTR tile at 38px, centred.</p></div><div class="spec-group"><div class="spec-caption">Viewport readouts: pill, pick dots, measure line · v0.41.123 · AGENTS.md "Pick on the clip"</div><div class="sp-demo"><svg width="360" height="130" style="background:#2b2926"><line class="vk-vp-measure" x1="60" y1="95" x2="290" y2="45"/>
+  <circle class="vk-vp-dot" cx="30" cy="40"/><circle class="vk-vp-dot" cx="130" cy="70"/><circle class="vk-vp-dot is-hover" cx="200" cy="25"/><circle class="vk-vp-dot is-picked" cx="60" cy="95"/><circle class="vk-vp-dot is-picked" cx="290" cy="45"/></svg>
+  <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div></div><p class="th-note">Marks drawn over a viewport: the readout pill, tracked-point dots (rest, hover, picked) and the dashed two-point measure line.</p></div></div></div></section>
   <section class="tab-panel" id="p-brand" data-tab="brand" hidden>
   <p class="lede">From Patrick's files. Every logo takes the colour it's placed in (currentColor). Apps use their app logo, never the wordmark plus separate text. Rules: brand/README.md.</p>
   <div class="spec-group"><div class="spec-caption">Master · logo-v3ktr.svg · neutral: white or grey</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)"><svg class="lg" fill="currentColor" viewBox="0 0 1377 537" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -4349,9 +4372,9 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   }
   btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);try{history.replaceState(null,'','#'+b.dataset.t)}catch(e){}})});
   [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(b,_,all){b.addEventListener('click',function(){
-    document.getElementById('app-themed').setAttribute('data-app',b.dataset.appPick);
+    [].forEach.call(document.querySelectorAll('#app-themed,.themed'),function(t){t.setAttribute('data-app',b.dataset.appPick)});
     [].forEach.call(document.querySelectorAll('[data-app-pick]'),function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
   })});
-  var h=(location.hash||'').slice(1); if(h==='app'||h==='site'||h==='brand') show(h);
+  var h=(location.hash||'').slice(1); if(h==='app'||h==='site'||h==='brand'||h==='lib') show(h);
 })();
 </script>
