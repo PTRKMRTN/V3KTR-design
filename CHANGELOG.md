@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.151 (2026-11-16)
+
+- **`MENU_ICONS.eyedrop`**: sample a colour (INCEPTOR's approved `eyedrop` drawing, promoted to the shared set for PROCESSOR's Emit From key colour). `pick` stays the point pick.
+- **Colour pick mode written down** under "Pick on the clip": eyedrop icon, a pill naming the step, one click samples the source pixel and ends the mode, Esc cancels. The entry's place in the colour row waits on Patrick (card `P-e8-eyedropper-place`).
+- **Labels rule:** a row's trailing icon toggles (react, lock, link, pick) do not count as a second control.
+
 ## 0.41.150 (2026-11-16)
 
 - **`installTips({ host })`**: the tip element can live inside the app's landmark instead of `<body>`, so axe stops flagging `region` while a tip is open (INCEPTOR). The host must not set transform, filter or zoom (the tip is fixed). Default unchanged.

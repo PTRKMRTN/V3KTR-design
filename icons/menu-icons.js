@@ -39,6 +39,7 @@ export const MENU_ICONS = {
   dup: '<rect x="8" y="8" width="12" height="12"/><path d="M4 16V4h12"/>',
   export: '<path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 20h16"/>',
   eye: '<path d="M2 12s4-6.5 10-6.5S22 12 22 12s-4 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/>',
+  eyedrop: '<path d="M14 4l6 6-3 1-7 7H6v-4l7-7z"/><path d="M6 18l-2.500 2.500" opacity="0.6"/><path d="M10.500 9.500l4 4" opacity="0.3"/>',   // v0.41.151: sample a colour (INCEPTOR's approved eyedrop, promoted; PROCESSOR Emit From key colour). A point pick stays 'pick'.
   eyeOff: '<path d="M3 3l18 18M6.5 7.5C3.800 9.300 2 12 2 12s4 6.500 10 6.500c1.700 0 3.200-.500 4.500-1.200M10 5.800A9 9 0 0112 5.500c6 0 10 6.500 10 6.500a16 16 0 01-2.600 3.200"/>',
   film: '<rect x="3" y="5" width="18" height="14"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/>',
   flip: '<path d="M12 3v18"/><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/>',
