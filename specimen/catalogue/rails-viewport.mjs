@@ -9,7 +9,7 @@ export default {
       since: '0.41.124',
       rule: 'AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js',
       classes: ['vk-rail-head', 'vk-rail-chips', 'vk-rail-item', 'vk-icon-tog', 'vk-tag', 'vk-group-title', 'vk-group-label'],
-      note: 'A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app\'s tile grid (144px); labels view = rows (192px). Later rows dim; the depth star follows the name.',
+      note: 'A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app\'s tile grid (144px); labels view = rows (192px, or the icons rail if that is wider). Later rows dim; the depth star follows the name.',
       html: `<div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
   <div style="width:192px;background:var(--bg-1);padding:14px 11px">
     <div class="vk-rail-head"><div class="vk-rail-chips"><button class="vk-chip vk-chip--group is-on">ALL</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-rose)">REP</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-amber)">DEF</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-teal)">STY</button></div><button class="vk-icon-tog" aria-label="Show icons">{{ic:railicons:15}}</button></div>

@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.133 ===== */
-/* V3KTR design tokens · v0.41.133
+/* ===== core: tokens.css v0.41.134 ===== */
+/* V3KTR design tokens · v0.41.134
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.133 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.134 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -3208,7 +3208,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.133</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.134</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3600,7 +3600,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
     <button class="vk-rail-item is-later" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span class="vk-rail-item__nm">Connect</span><span class="vk-tag">V1.1</span></button>
     <button class="vk-rail-item is-disabled" style="--gcol:var(--type-rose)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5L12 21L21 16.5L21 7.5L12 3L3 7.5ZM12 12L12 3M12 12L3 16.5M12 12L21 16.5"/><path d="M9 13.5L18 18M15 13.5L6 18M9 13.5L9 4.5M3 13.5L12 9M15 13.5L15 4.5M21 13.5L12 9M6 15L15 19.5M18 15L9 19.5M6 15L6 6M3 10.5L12 6M18 15L18 6M21 10.5L12 6" opacity="0.6"/></svg><span class="vk-rail-item__nm">At maximum</span></button>
   </div>
-  <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div></div><p class="th-note">A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app's tile grid (144px); labels view = rows (192px). Later rows dim; the depth star follows the name.</p></div><div class="spec-group"><div class="spec-caption">Rail scroll hint · v0.41.130 · AGENTS.md "Rail scroll hint"; interactions/rail-scrollhint.js</div><div class="sp-demo"><div style="display:flex;gap:28px"><div style="width:144px"><div class="vk-rail-scrollhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
+  <p class="th-note" style="max-width:36ch">Rest, star, later (V1.1) and disabled rows. The toggle's icon is the view it switches to.</p></div></div><p class="th-note">A head row: the group chips, then one toggle that flips icons-only and icon + label. Icons view = the app's tile grid (144px); labels view = rows (192px, or the icons rail if that is wider). Later rows dim; the depth star follows the name.</p></div><div class="spec-group"><div class="spec-caption">Rail scroll hint · v0.41.130 · AGENTS.md "Rail scroll hint"; interactions/rail-scrollhint.js</div><div class="sp-demo"><div style="display:flex;gap:28px"><div style="width:144px"><div class="vk-rail-scrollhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
   <div style="width:144px"><div class="vk-rail-scrollhint is-end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg><span>Scroll FX</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div></div></div><p class="th-note">In the rail header after the chips, outside the scroller: hidden unless the rail overflows; dimmed once at the bottom. The noun is the app's ("Scroll FX", "Scroll").</p></div><div class="spec-group"><div class="spec-caption">Tool column: tiles, narrow scrub, fly-out · v0.41.119 · AGENTS.md "Tool-column extras"; interactions/vscrub.js, vfly.js</div><div class="sp-demo"><div style="position:relative;width:360px;height:250px;background:var(--bg-1)"><div class="vk-vtools" style="position:absolute;right:12px;top:10px">
     <button class="vk-vtools__t vk-vtools__t--done" aria-label="Done"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button>
     <button class="vk-vtools__t" aria-pressed="true" aria-label="Brush"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18C6 8 10 8 12 13S18 18 21 6" opacity="0.6"/><circle cx="3" cy="18" r="1.8" fill="currentColor" stroke="none"/><circle cx="21" cy="6" r="1.8" fill="currentColor" stroke="none"/></svg></button>

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.134 (2026-11-17)
+
+- **Rail view width rule clarified** (DIMENSOR QA): the labels view is 192px but never narrower than the icons rail, so where the icons rail is wider (DIMENSOR's 4-column 206px above 1920px) both views share that width and the canvas edge does not move when the view flips. Rule text only (AGENTS.md, catalogue note); no CSS change, the apps own the rail width.
+
 ## 0.41.133 (2026-11-17)
 
 - **Canvas navigation, shared** (asked by INCEPTOR; three app copies): `interactions/canvas-nav.js` (`bindNav`, `wheelFactor`, `stepZoom`, `zoomAt`, `ZOOM_MIN/MAX`) and `.vk-canvas-nav` (+ `.is-panning`) cursor rule; the maths is KOMPOSITOR's, which is PROCESSOR's. AGENTS.md rule, catalogue entry, `test/canvas-nav.test.mjs`.
