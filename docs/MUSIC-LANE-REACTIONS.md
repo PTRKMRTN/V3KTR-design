@@ -17,7 +17,7 @@ Status: **shipped.** The lane and markers are in the design system since v0.41.5
 | Machine-detected vs your choice | the secondary-colour rule: detected = `--accent-2`, hand-placed or moved = `--accent` |
 
 ## 2. New (small)
-1. **The Music lane.** A 24 px lane under the audio clip, `--bg-1` ground, seven **marker shapes** (14 px grid, drawn as SVG glyphs; the same glyph appears in the lane, the legend and the Reactions rows so the list and the lane read as one):
+1. **The Music lane.** A 24 px lane under the audio clip, `--bg-1` ground, eight **marker shapes** (seven in the proposal; the roll joined in v0.41.136) (14 px grid, drawn as SVG glyphs; the same glyph appears in the lane, the legend and the Reactions rows so the list and the lane read as one):
    - Accent: diamond. Off-beat accent: small diamond. Hit: thin vertical tick (2 px). Roll (v0.41.136): three bars, a hit said three times.
    - Break: a span (12% secondary tint) with a bracket-bar glyph at its start. Build: a span with a rising wedge glyph.
    - Drop and return: downward triangle. Intro and outro: a bracket glyph at the very start and end.

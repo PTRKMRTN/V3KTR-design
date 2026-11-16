@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.139 (2026-11-16)
+
+- **Roll glyph, round 2** (QA reviewer, `VERDICT-DS-lane-roll-r1`; still pending Patrick): the three bars now have round ends like the hit bar and sit on whole pixels at 1× (3px bars, 2px apart, in a 15 × 12 box). A roll is derived from a run of hits, so it has **no selected state and takes no pointer** (the bracket-like ring is gone). Where it goes: the Reactions list's Rolls row (which borrowed the hit bar), and the start of a roll's stretch in the lane's Rolls sub-row; on a one-row lane a roll stays a stretch only.
+- `test/lane.test.mjs` now measures the roll's clip path: exactly three 3px bars and two 2px gaps (a triangle fails), no ring, no pointer. `docs/MUSIC-LANE-REACTIONS.md` says eight marker shapes.
+
 ## 0.41.138 (2026-11-16)
 
 - **Dates corrected:** entries 0.41.125 to 0.41.137, three AGENTS.md rules, one `app.css` comment and the INCEPTOR icon file header were dated 2026-11-17; the day was 2026-11-16. No behaviour change.

@@ -35,6 +35,10 @@ try {
       rowsH: r('rows').height, r2d: cs('r2').display, headW: document.getElementById('r1').children[0].getBoundingClientRect().width, laneW: r('l1').width, headBg: getComputedStyle(document.getElementById('r1').children[0]).backgroundColor,
       aGlyphW: cs('a', '::after').width, oGlyphW: cs('o', '::after').width, tGlyphW: cs('t', '::after').width, tGlyphH: cs('t', '::after').height,
       rlW: cs('rl', '::after').width, rlH: cs('rl', '::after').height, rlClip: cs('rl', '::after').clipPath, tClip: cs('t', '::after').clipPath,
+      rlRing: cs('rl', '::before').display, rlPe: cs('rl').pointerEvents,
+      // ink runs across the middle of the roll's clip path, sampled every quarter pixel: a roll is three bars with two gaps (the margin before the first bar is not a gap)
+      rlRuns: (() => { const m = cs('rl', '::after').clipPath.match(/^path\("(.*)"\)$/); if (!m) return null; const p = new Path2D(m[1]), x = document.createElement('canvas').getContext('2d'); const runs = []; let on = false, start = 0;
+        for (let q = 0; q <= 60; q++) { const hit = q < 60 && x.isPointInPath(p, q / 4 + 0.125, 6); if (hit !== on) { if (on) runs.push(['bar', (q - start) / 4]); else if (runs.length) runs.push(['gap', (q - start) / 4]); on = hit; start = q; } } return runs; })(),
       spLeft: r('sp').left - lane.left, spW: r('sp').width, xDisplay: cs('x').display, rcBg: cs('rc').backgroundColor, rcMl: cs('rc').marginLeft };
   });
   ok(m.lh === 24, 'the lane is 24px');
@@ -45,7 +49,11 @@ try {
   ok(m.aBg !== m.hBg, 'a plain marker is not the accent (negative control)');
   ok(m.sBg === 'rgb(244, 244, 244)' && m.sRing === 'rgb(255, 106, 67)' && m.sRingDisplay === 'block' && m.aRingDisplay === 'none', 'a selected marker is white with an accent ring behind it; an unselected one has no ring');
   ok(m.aGlyphW === '14px' && m.oGlyphW === '8px' && m.tGlyphW === '5px' && m.tGlyphH === '14px', 'glyph sizes: accent 14, off-beat 8, hit 5 x 14 (solid)');
-  ok(m.rlW === '14px' && m.rlH === '12px' && /^polygon\(/.test(m.rlClip) && m.rlClip !== m.tClip, 'roll (v0.41.136): three bars in one polygon, 14 x 12, not the hit bar');
+  ok(m.rlW === '15px' && m.rlH === '12px' && m.rlClip !== m.tClip, 'roll: a 15 x 12 box (13px of bars), not the hit bar');
+  { const bars = (m.rlRuns || []).filter((r) => r[0] === 'bar'), gaps = (m.rlRuns || []).filter((r) => r[0] === 'gap');
+    ok(bars.length === 3 && bars.every((r) => Math.abs(r[1] - 3) <= 0.25), 'roll: exactly three bars, each 3px wide (a triangle or one block fails here)');
+    ok(gaps.length === 2 && gaps.every((r) => Math.abs(r[1] - 2) <= 0.25), 'roll: two gaps of 2px between the bars'); }
+  ok(m.rlRing === 'none' && m.rlPe === 'none', 'roll: no selected ring and no pointer (derived from the hits, never selected)');
   ok(m.rowsH === 49 && m.r2d === 'none', 'sub-rows: a row with no markers (hidden) takes no space; two 24px rows + 1px gap');
   ok(m.headW === 72 && Math.abs(m.laneW - 328) < 0.6 && m.headBg === 'rgb(43, 43, 43)', 'a row head is 72px on --bg-2 and the lane fills the rest');
   ok(Math.abs(m.spLeft - 120) < 0.6 && Math.abs(m.spW - 40) < 0.6, 'a span starts at --x and is --w of the lane wide');

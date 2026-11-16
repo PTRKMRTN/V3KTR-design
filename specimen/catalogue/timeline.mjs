@@ -6,10 +6,10 @@ export default {
   entries: [
     {
       name: 'Music lane and event glyphs (set A)',
-      since: '0.41.136',
+      since: '0.41.139',
       rule: 'docs/MUSIC-LANE-REACTIONS.md; app.css "MUSIC LANE"',
       classes: ['vk-lane', 'vk-lane-rows', 'vk-lane-row'],
-      note: 'A 24px lane under an audio clip. Solid glyphs: accent (diamond), offbeat (dot), hit (bar), roll (three bars, v0.41.136), drop, build, break, in/out. Detected = the secondary colour; by hand = the accent; selected = white with an accent ring. A busy track splits into sub-rows.',
+      note: 'A 24px lane under an audio clip. Solid glyphs: accent (diamond), offbeat (dot), hit (bar), roll (three bars: derived from a run of hits, so never selected; it starts its stretch in the Rolls row), drop, build, break, in/out. Detected = the secondary colour; by hand = the accent; selected = white with an accent ring. A busy track splits into sub-rows.',
       html: `<div style="width:560px"><div class="vk-lane">
   <div class="vk-lane__span" data-kind="break" style="--x:.70;--w:.10"></div>
   <button class="vk-lane__mark" data-kind="accent" style="--x:.06" aria-label="Accent"></button>
@@ -20,12 +20,12 @@ export default {
   <button class="vk-lane__mark" data-kind="build" style="--x:.46" aria-label="Build"></button>
   <button class="vk-lane__mark" data-kind="break" style="--x:.54" aria-label="Break"></button>
   <button class="vk-lane__mark" data-kind="inout" style="--x:.62" aria-label="Intro"></button>
-  <button class="vk-lane__mark is-hand" data-kind="roll" style="--x:.84" aria-label="Roll, by hand"></button>
-  <button class="vk-lane__mark is-selected" data-kind="roll" style="--x:.92" aria-label="Roll, selected"></button>
+  <button class="vk-lane__mark is-hand" data-kind="accent" style="--x:.84" aria-label="Accent, by hand"></button>
+  <button class="vk-lane__mark is-selected" data-kind="accent" style="--x:.92" aria-label="Accent, selected"></button>
 </div>
 <div class="vk-lane-rows" style="margin-top:12px">
   <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Hits</span><div class="vk-lane"><button class="vk-lane__mark" data-kind="hit" style="--x:.2" aria-label="Hit"></button><button class="vk-lane__mark" data-kind="hit" style="--x:.5" aria-label="Hit"></button></div></div>
-  <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Rolls</span><div class="vk-lane"><button class="vk-lane__mark" data-kind="roll" style="--x:.35" aria-label="Roll"></button><button class="vk-lane__mark" data-kind="roll" style="--x:.8" aria-label="Roll"></button></div></div>
+  <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Rolls</span><div class="vk-lane"><i class="vk-lane__span" style="--x:.35;--w:.12"></i><span class="vk-lane__mark" data-kind="roll" style="--x:.35" aria-hidden="true"></span><i class="vk-lane__span is-hand" style="--x:.8;--w:.08"></i><span class="vk-lane__mark is-hand" data-kind="roll" style="--x:.8" aria-hidden="true"></span></div></div>
 </div></div>`,
     },
     {

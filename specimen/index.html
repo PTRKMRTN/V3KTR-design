@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.138 ===== */
-/* V3KTR design tokens · v0.41.138
+/* ===== core: tokens.css v0.41.139 ===== */
+/* V3KTR design tokens · v0.41.139
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.138 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.139 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -977,8 +977,12 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* v0.41.61 (Patrick chose set A, 2026-10-29): every glyph is a solid shape, no brackets or hairlines. */
 .vk-lane__mark[data-kind="offbeat"]{--w:8px;--h:8px;--shape:circle(50%);}
 .vk-lane__mark[data-kind="hit"]{--w:5px;--h:14px;--shape:inset(0 round 2px);}
-/* v0.41.136 (KOMPOSITOR): a roll = rapid repeated hits (a drum fill): three bars, the hit bar said three times. One polygon; the bars are joined along the bottom edge by zero-height runs, so it stays a solid set-A glyph. */
-.vk-lane__mark[data-kind="roll"]{--w:14px;--h:12px;--shape:polygon(0 0,21.4% 0,21.4% 100%,39.3% 100%,39.3% 0,60.7% 0,60.7% 100%,78.6% 100%,78.6% 0,100% 0,100% 100%,0 100%);}
+/* A roll = rapid repeated hits (a drum fill): the hit bar said three times (v0.41.136; r2 v0.41.139 after QA). Three 3px bars with round ends, 2px apart, 13 x 12.
+   A roll is DERIVED from a run of hits: it is never placed by hand and never selected, so it has no selected ring and takes no pointer (a click falls through to the lane).
+   Where it goes: at the start of the roll's span in the lane's own Rolls sub-row, and in the Reactions list. On a one-row lane the roll stays a span only; the hits under it already show it. */
+.vk-lane__mark[data-kind="roll"]{--w:15px;--h:12px;--shape:path("M1 1.5a1.5 1.5 0 0 1 3 0v9a1.5 1.5 0 0 1-3 0zM6 1.5a1.5 1.5 0 0 1 3 0v9a1.5 1.5 0 0 1-3 0zM11 1.5a1.5 1.5 0 0 1 3 0v9a1.5 1.5 0 0 1-3 0z");cursor:default;pointer-events:none;}
+.vk-lane__mark[data-kind="roll"]::after{left:calc(50% + .5px);}   /* the bars span 13px inside a 15px box (a 1px margin each side: a clip path touching the box edge rasterises soft); the half pixel puts all three bars on whole pixels at 1x */
+.vk-lane__mark[data-kind="roll"]::before{display:none;}
 .vk-lane__mark[data-kind="drop"]{--w:14px;--h:12px;--shape:polygon(0 0,100% 0,50% 100%);}
 .vk-lane__mark[data-kind="build"]{--w:14px;--h:12px;--shape:polygon(0 100%,100% 0,100% 100%);}
 .vk-lane__mark[data-kind="break"]{--w:11px;--h:11px;--shape:inset(0 round 1px);}
@@ -3226,7 +3230,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.138</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.139</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3628,7 +3632,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   </div><svg width="80" height="80" style="position:absolute;left:30px;top:80px"><circle class="vk-brush-ring" cx="40" cy="40" r="30"/></svg></div></div><p class="th-note">The column down the right of a viewport while a tool is on: 30px tiles, a done tile, a one-number vertical scrub, a value tile that folds a picker out to the left.</p></div><div class="spec-group"><div class="spec-caption">React toggle in a slider row · v0.41.125 · CHANGELOG 0.41.125</div><div class="sp-demo"><div style="width:300px"><div class="vk-scrub vk-react-wrap" style="--fill:40%"><span class="vk-scrub__label">Amount</span><span class="vk-scrub__val">0.40</span><button class="vk-row__ctl vk-react-ctl" aria-pressed="true" aria-label="React to the music"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h2.500l1.500-5 3 10 2.500-8 1.500 3H21" /><circle cx="21" cy="12" r="1.600" fill="currentColor" stroke="none"/></svg></button></div>
   <div class="vk-react"><span class="vk-micro-label">React to the music</span><div class="vk-row"><span>Band</span><span class="vk-scrub__val" style="margin-left:auto">Bass</span></div></div></div></div><p class="th-note">The toggle sits inside the slider at its right edge (the value makes room); the react panel opens under the row.</p></div><div class="spec-group"><div class="spec-caption">Canvas navigation · v0.41.133 · AGENTS.md "Canvas navigation"; interactions/canvas-nav.js</div><div class="sp-demo"><div class="vk-canvas-well vk-canvas-nav" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono)">grab</div> <div class="vk-canvas-well vk-canvas-nav is-panning" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono);margin-top:10px">grabbing</div></div><p class="th-note">The well that pans and zooms: scroll zooms toward the cursor (100% detent), drag pans (grab / grabbing), middle-drag pans, double-click fits. Same in every app.</p></div><div class="spec-group"><div class="spec-caption">Canvas well · v0.41.127 · CHANGELOG 0.41.127</div><div class="sp-demo"><div class="vk-canvas-well" style="width:240px;height:110px"></div></div><p class="th-note">The ground behind an image in a viewport: --canvas-well with the V3KTR tile at 38px, centred.</p></div><div class="spec-group"><div class="spec-caption">Viewport readouts: pill, pick dots, measure line · v0.41.123 · AGENTS.md "Pick on the clip"</div><div class="sp-demo"><svg width="360" height="130" style="background:#2b2926"><line class="vk-vp-measure" x1="60" y1="95" x2="290" y2="45"/>
   <circle class="vk-vp-dot" cx="30" cy="40"/><circle class="vk-vp-dot" cx="130" cy="70"/><circle class="vk-vp-dot is-hover" cx="200" cy="25"/><circle class="vk-vp-dot is-picked" cx="60" cy="95"/><circle class="vk-vp-dot is-picked" cx="290" cy="45"/></svg>
-  <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div></div><p class="th-note">Marks drawn over a viewport: the readout pill, tracked-point dots (rest, hover, picked) and the dashed two-point measure line.</p></div></div><div class="cat-group" id="cat-1"><h3 class="cat-h">Timeline and sound</h3><p class="th-note">The music lane and its event glyphs, and what is drawn on an audio clip.</p><div class="spec-group"><div class="spec-caption">Music lane and event glyphs (set A) · v0.41.136 · docs/MUSIC-LANE-REACTIONS.md; app.css "MUSIC LANE"</div><div class="sp-demo"><div style="width:560px"><div class="vk-lane">
+  <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div></div><p class="th-note">Marks drawn over a viewport: the readout pill, tracked-point dots (rest, hover, picked) and the dashed two-point measure line.</p></div></div><div class="cat-group" id="cat-1"><h3 class="cat-h">Timeline and sound</h3><p class="th-note">The music lane and its event glyphs, and what is drawn on an audio clip.</p><div class="spec-group"><div class="spec-caption">Music lane and event glyphs (set A) · v0.41.139 · docs/MUSIC-LANE-REACTIONS.md; app.css "MUSIC LANE"</div><div class="sp-demo"><div style="width:560px"><div class="vk-lane">
   <div class="vk-lane__span" data-kind="break" style="--x:.70;--w:.10"></div>
   <button class="vk-lane__mark" data-kind="accent" style="--x:.06" aria-label="Accent"></button>
   <button class="vk-lane__mark" data-kind="offbeat" style="--x:.14" aria-label="Offbeat"></button>
@@ -3638,13 +3642,13 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   <button class="vk-lane__mark" data-kind="build" style="--x:.46" aria-label="Build"></button>
   <button class="vk-lane__mark" data-kind="break" style="--x:.54" aria-label="Break"></button>
   <button class="vk-lane__mark" data-kind="inout" style="--x:.62" aria-label="Intro"></button>
-  <button class="vk-lane__mark is-hand" data-kind="roll" style="--x:.84" aria-label="Roll, by hand"></button>
-  <button class="vk-lane__mark is-selected" data-kind="roll" style="--x:.92" aria-label="Roll, selected"></button>
+  <button class="vk-lane__mark is-hand" data-kind="accent" style="--x:.84" aria-label="Accent, by hand"></button>
+  <button class="vk-lane__mark is-selected" data-kind="accent" style="--x:.92" aria-label="Accent, selected"></button>
 </div>
 <div class="vk-lane-rows" style="margin-top:12px">
   <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Hits</span><div class="vk-lane"><button class="vk-lane__mark" data-kind="hit" style="--x:.2" aria-label="Hit"></button><button class="vk-lane__mark" data-kind="hit" style="--x:.5" aria-label="Hit"></button></div></div>
-  <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Rolls</span><div class="vk-lane"><button class="vk-lane__mark" data-kind="roll" style="--x:.35" aria-label="Roll"></button><button class="vk-lane__mark" data-kind="roll" style="--x:.8" aria-label="Roll"></button></div></div>
-</div></div></div><p class="th-note">A 24px lane under an audio clip. Solid glyphs: accent (diamond), offbeat (dot), hit (bar), roll (three bars, v0.41.136), drop, build, break, in/out. Detected = the secondary colour; by hand = the accent; selected = white with an accent ring. A busy track splits into sub-rows.</p></div><div class="spec-group"><div class="spec-caption">Sound FX on a clip: anchor pin, fades, ducking line · v0.41.118 · AGENTS.md "Sound FX on the timeline"</div><div class="sp-demo"><div style="display:flex;gap:16px;flex-wrap:wrap"><div style="position:relative;width:260px;height:40px;overflow:hidden;background:color-mix(in srgb,var(--type-teal) 30%,var(--bg-0))"><span class="vk-clip-fade vk-clip-fade--in" style="--fw:50px"></span><span class="vk-clip-fh" style="left:50px"></span><span class="vk-clip-fade vk-clip-fade--out" style="--fw:70px"></span><span class="vk-pin" style="--x:120px"></span></div>
+  <div class="vk-lane-row"><span class="vk-lane-row__head vk-micro-label">Rolls</span><div class="vk-lane"><i class="vk-lane__span" style="--x:.35;--w:.12"></i><span class="vk-lane__mark" data-kind="roll" style="--x:.35" aria-hidden="true"></span><i class="vk-lane__span is-hand" style="--x:.8;--w:.08"></i><span class="vk-lane__mark is-hand" data-kind="roll" style="--x:.8" aria-hidden="true"></span></div></div>
+</div></div></div><p class="th-note">A 24px lane under an audio clip. Solid glyphs: accent (diamond), offbeat (dot), hit (bar), roll (three bars: derived from a run of hits, so never selected; it starts its stretch in the Rolls row), drop, build, break, in/out. Detected = the secondary colour; by hand = the accent; selected = white with an accent ring. A busy track splits into sub-rows.</p></div><div class="spec-group"><div class="spec-caption">Sound FX on a clip: anchor pin, fades, ducking line · v0.41.118 · AGENTS.md "Sound FX on the timeline"</div><div class="sp-demo"><div style="display:flex;gap:16px;flex-wrap:wrap"><div style="position:relative;width:260px;height:40px;overflow:hidden;background:color-mix(in srgb,var(--type-teal) 30%,var(--bg-0))"><span class="vk-clip-fade vk-clip-fade--in" style="--fw:50px"></span><span class="vk-clip-fh" style="left:50px"></span><span class="vk-clip-fade vk-clip-fade--out" style="--fw:70px"></span><span class="vk-pin" style="--x:120px"></span></div>
   <div style="position:relative;width:260px;height:40px;overflow:hidden;background:color-mix(in srgb,var(--type-slate) 30%,var(--bg-0))"><svg class="vk-duck" viewBox="0 0 1000 32" preserveAspectRatio="none"><polyline points="0,0 400,0 450,20 600,20 650,0 1000,0"/></svg></div></div></div><p class="th-note">The white pin is the sound's anchor (the moment it lines up on). Fade corners with a drag dot. The ducking line is the secondary colour because the machine draws it.</p></div><div class="spec-group"><div class="spec-caption">Sound library row: type tag and the pin on a mini waveform · v0.41.117 · AGENTS.md "Sound FX on the timeline"</div><div class="sp-demo"><div style="width:520px">
   <div class="vk-row" style="gap:10px"><span style="flex:1">Whoosh_Fast_03.wav</span><button class="vk-tag vk-tag--sx" data-sx="whoosh">Whoosh</button><span style="font:10px var(--mono);color:var(--tx-2);width:38px">0.9 s</span><span style="position:relative;width:160px;height:20px;background:var(--bg-1);flex:none"><svg viewBox="0 0 160 20" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 12C30 4 70 2 100 9s40 8 60 5V20H0z" fill="var(--sx-whoosh)" opacity=".55"/></svg><span class="vk-pin" style="--x:62%"></span></span></div>
   <div class="vk-row" style="gap:10px"><span style="flex:1">Impact_Metal_Stab_07.wav</span><button class="vk-tag vk-tag--sx" data-sx="hit">Hit</button><span style="font:10px var(--mono);color:var(--tx-2);width:38px">2.4 s</span><span style="position:relative;width:160px;height:20px;background:var(--bg-1);flex:none"><svg viewBox="0 0 160 20" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M4 1L160 9v2L4 19z" fill="var(--sx-hit)" opacity=".55"/></svg><span class="vk-pin vk-pin--auto" style="--x:3%"></span></span></div>
