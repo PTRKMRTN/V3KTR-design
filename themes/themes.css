@@ -34,6 +34,7 @@
 [data-app="processor"]  { --brand-logo-w:120.95px; }
 [data-app="kompositor"] { --brand-logo-w:128.35px; }
 [data-app="dimensor"]   { --brand-logo-w:113.45px; }
+[data-app="inceptor"]   { --brand-logo-w:113.5px; }
 
 /* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
    chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline

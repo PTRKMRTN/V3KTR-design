@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.130 ===== */
-/* V3KTR design tokens · v0.41.130
+/* ===== core: tokens.css v0.41.131 ===== */
+/* V3KTR design tokens · v0.41.131
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -93,7 +93,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.130 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.131 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1407,6 +1407,7 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
 [data-app="processor"]  { --brand-logo-w:120.95px; }
 [data-app="kompositor"] { --brand-logo-w:128.35px; }
 [data-app="dimensor"]   { --brand-logo-w:113.45px; }
+[data-app="inceptor"]   { --brand-logo-w:113.5px; }
 
 /* FX GROUP CONTEXTS (Patrick 2026-09-30). data-group="…" on any element sets --gcol to that group's colour, so its
    chips (.vk-chip--group / .vs-chip--group) and titles (.vk-group-title / .vs-group-title) take it without inline
@@ -3202,7 +3203,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.130</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.131</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

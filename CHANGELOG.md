@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.131 (2026-11-17)
+
+- **INCEPTOR logo width** (found by INCEPTOR): `themes/themes.css` gets `[data-app="inceptor"] { --brand-logo-w:113.5px; }` (21.05 high × 151/28). Without it the shared `.vk-brand-logo` had width 0 under INCEPTOR and rendered invisible.
+
 ## 0.41.130 (2026-11-17)
 
 - **Rail scroll hint**, shared (PROCESSOR's `.rail-scrollhint`, wanted by DIMENSOR): `.vk-rail-scrollhint` (+ `[hidden]`, `.is-end`) and `interactions/rail-scrollhint.js` `railScrollHint(hint, scroller)`; AGENTS.md rule; catalogue entry.
