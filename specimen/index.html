@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.147 ===== */
-/* V3KTR design tokens · v0.41.147
+/* ===== core: tokens.css v0.41.148 ===== */
+/* V3KTR design tokens · v0.41.148
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -45,7 +45,7 @@
   --type-violet:#a386cb;
   /* Sound FX types (v0.41.117): the same hues as the FX groups, one meaning each in sound lists. */
   --sx-whoosh:var(--type-teal); --sx-hit:var(--type-rust); --sx-riser:var(--type-violet); --sx-braam:var(--type-rose); --sx-drone:var(--type-sage); --sx-glitch:var(--type-amber); --sx-other:var(--tx-2);
-  /* v0.41.143 (Patrick 2026-11-16 added three types, via KOMPOSITOR; colours pending his look, card DS-sx-three-colours): Reverse = the Effectors fuchsia; Sub drop = a deep blue,
+  /* v0.41.143 (Patrick 2026-11-16 added three types, via KOMPOSITOR; colours approved by Patrick 2026-11-16, card DS-sx-three-colours "Yes, as on the sheet"): Reverse = the Effectors fuchsia; Sub drop = a deep blue,
      the one new colour (the eight type hues are taken and slate sits ΔE 10 from Other's grey); Tick = the light text grey (a small neutral click, told from Other by lightness). */
   --sx-reverse:var(--type-fuchsia); --sx-subdrop:#6f8fd6; --sx-tick:var(--tx-1);
   /* --type-fuchsia (v0.35.8, Patrick 2026-10-08): DIMENSOR's Effectors rail group, which had been borrowing
@@ -97,7 +97,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.147 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.148 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -757,6 +757,12 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-sec-add{margin-left:auto;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
 /* Two or more add buttons on one bar (two add buttons, sec-actions; DIMENSOR Cameras: + camera, + Multiplane): they sit together at the right. The first visible one takes the auto margin, the rest follow at 6px. */
 .vk-sec-add:not([hidden]) ~ .vk-sec-add{margin-left:6px;}
+/* Section Reset (v0.41.148, Patrick 2026-11-16, card DS-section-reset "Small Reset at the right of the heading": "Make sure it has space on the left, its currently too close to the heading").
+   <div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
+   Only on a section whose settings can all be put back; never a second Reset where the section has a Reset | Randomise row. The heading keeps 22px clear on its right. */
+.vk-sec-bar > .vk-sec-head{margin-right:var(--pad);}
+.vk-sec-reset{margin-left:auto;flex:none;}
+.vk-sec-reset ~ .vk-sec-add{margin-left:6px;}
 .vk-sec-add:hover{background:var(--bg-4);color:var(--tx-0);}
 .vk-sec-add[aria-disabled="true"]{opacity:.38;cursor:not-allowed;}.vk-sec-add[aria-disabled="true"]:hover{background:var(--bg-3);color:var(--tx-1);}   /* v0.41.145 */
 .vk-sec-add:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
@@ -930,7 +936,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-dot.is-hover{r:6px;fill:var(--hover);opacity:1;}
 .vk-vp-dot.is-picked{r:4px;fill:var(--tx-0);stroke:var(--accent);stroke-width:2px;opacity:1;}
 .vk-vp-measure{stroke:var(--accent);stroke-width:1.5px;stroke-dasharray:5 4;stroke-opacity:.9;fill:none;pointer-events:none;}
-/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group, 3 letters,
+/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group; v0.41.148: full names with counts by default, 3 letters only where space forces it,
    ALL + one per group, one at a time) wrapping in .vk-rail-chips, then ONE .vk-icon-tog at the right end that flips the view; its icon is the view you would switch TO. Icons view = the tile grid (the app's own, 144px / 177px
    at 4 columns); labels view = .vk-rail-item rows in a 192px rail: 14px icon in the group colour (--gcol), 12px name, a star after it in --depth, a .vk-tag at the right. .is-later (V1.1 / LATER) dims to 55% in rows and 40% on tiles. */
 .vk-rail-head{display:flex;align-items:flex-start;gap:4px;margin-bottom:10px;}
@@ -1016,8 +1022,8 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-lane__span{position:absolute;left:calc(var(--x,0) * 100%);width:calc(var(--w,0) * 100%);top:6px;bottom:6px;background:color-mix(in srgb,var(--accent-2) 12%,transparent);pointer-events:none;}
 .vk-lane__span.is-hand{background:color-mix(in srgb,var(--accent) 12%,transparent);}
 /* v0.41.113 (Patrick via KOMPOSITOR, 2026-11-13): no box. REACT is a small grey heading, then Source / Amount / Feel are ordinary full-width rows, flush with every other row (the old bg-2 box hid the Amount scrub track and the inset pushed rows out of line). */
-.vk-react{margin:3px 0 6px;padding:0;background:none;}
-.vk-react > .vk-micro-label{display:block;margin:0 0 6px;padding:0 9px;}
+.vk-react{margin:12px 0 6px;padding:0;background:none;}   /* v0.41.148 (Patrick 2026-11-16: "more space above than below"): 12px above the head, 4px under it */
+.vk-react > .vk-micro-label{display:block;margin:0 0 4px;padding:0 9px;}
 /* Feel-style row (v0.41.114, from KOMPOSITOR): a normal-size .vk-seg does not fit beside its label in a 26px row, so the row grows and the seg takes its own line under the word. */
 .vk-react .vk-row:has(> .vk-seg),.vk-row--stack{height:auto;min-height:var(--row-h);flex-wrap:wrap;padding:4px 9px 6px;row-gap:2px;}
 .vk-react .vk-row > .vk-seg,.vk-row--stack > .vk-seg,.vk-row--stack > .vk-btn-row{margin:0;flex:1 1 100%;}   /* v0.41.146: a button group too (no label beside a group, Patrick 2026-11-16) */
@@ -3254,7 +3260,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.147</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.148</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3637,10 +3643,11 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 </section>
 </div>
 </section>
-  <section class="tab-panel" id="p-lib" data-tab="lib" hidden><div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button><button type="button" data-app-pick="inceptor" aria-pressed="false">inceptor</button></div><p class="lede">Every shipped component, live. 3 group(s) so far; the drift check lists what is still missing.</p><div class="themed" data-app="processor" style="background:var(--bg-2);padding:20px"><div class="cat-group" id="cat-0"><h3 class="cat-h">Dialogs</h3><p class="th-note">What sits inside a modal dialog.</p><div class="spec-group"><div class="spec-caption">Dialog preview: a live view you can turn · v0.41.142 · AGENTS.md "Dialog preview"</div><div class="sp-demo"><div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+  <section class="tab-panel" id="p-lib" data-tab="lib" hidden><div class="spec-row th-pick" role="group" aria-label="App theme"><button type="button" data-app-pick="processor" aria-pressed="true">processor</button><button type="button" data-app-pick="kompositor" aria-pressed="false">kompositor</button><button type="button" data-app-pick="dimensor" aria-pressed="false">dimensor</button><button type="button" data-app-pick="inceptor" aria-pressed="false">inceptor</button></div><p class="lede">Every shipped component, live. 4 group(s) so far; the drift check lists what is still missing.</p><div class="themed" data-app="processor" style="background:var(--bg-2);padding:20px"><div class="cat-group" id="cat-0"><h3 class="cat-h">Dialogs</h3><p class="th-note">What sits inside a modal dialog.</p><div class="spec-group"><div class="spec-caption">Dialog preview: a live view you can turn · v0.41.142 · AGENTS.md "Dialog preview"</div><div class="sp-demo"><div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
   <div class="vk-modal" style="width:360px"><div class="vk-modal__title">Import SVG</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview vk-canvas-nav"><svg viewBox="0 0 360 190"><ellipse cx="140" cy="100" rx="52" ry="48" fill="#e2572e"/><path d="M196 62l58-10v70l-58 10z" fill="#19b5b1"/><path d="M264 132l30-80 22 80z" fill="#f6c51f"/></svg></div><span class="vk-dlg-preview__hint">Drag to turn</span><div class="vk-scrub" style="--fill:35%"><span class="vk-scrub__label">Extrude</span><span class="vk-scrub__val">0.35</span></div></div></div>
   <div class="vk-modal" style="width:300px"><div class="vk-modal__title">Import SVG</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview is-empty">No shapes to extrude</div></div></div>
-</div></div><p class="th-note">The picture box at the top of an import dialog: 190px tall on the canvas well, holding a live view that redraws as the options change; grab to turn it. Empty state: a line of text.</p></div></div><div class="cat-group" id="cat-1"><h3 class="cat-h">Rails and viewport tools</h3><p class="th-note">The add-rail, the tool column over a canvas, and what is drawn on a viewport.</p><div class="spec-group"><div class="spec-caption">Rail view switch + filter chips · v0.41.124 · AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js</div><div class="sp-demo"><div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+</div></div><p class="th-note">The picture box at the top of an import dialog: 190px tall on the canvas well, holding a live view that redraws as the options change; grab to turn it. Empty state: a line of text.</p></div></div><div class="cat-group" id="cat-1"><h3 class="cat-h">Panels</h3><p class="th-note">Section headings and the tools that sit on them.</p><div class="spec-group"><div class="spec-caption">Section Reset · v0.41.148 · AGENTS.md "Labels and button sizes" (A Reset in a section heading)</div><div class="sp-demo"><div class="vk-section" style="width:356px;padding:0"><div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button type="button" class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
+  <div class="vk-scrub" style="--fill:50%"><span class="vk-scrub__label">Rotate</span><span class="vk-scrub__val">0°</span></div></div></div><p class="th-note">A small text Reset at the right end of a section heading, the heading kept clear of it. Only where every setting in the section can be put back; never beside a Reset | Randomise row.</p></div></div><div class="cat-group" id="cat-2"><h3 class="cat-h">Rails and viewport tools</h3><p class="th-note">The add-rail, the tool column over a canvas, and what is drawn on a viewport.</p><div class="spec-group"><div class="spec-caption">Rail view switch + filter chips · v0.41.124 · AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js</div><div class="sp-demo"><div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
   <div style="width:192px;background:var(--bg-1);padding:14px 11px">
     <div class="vk-rail-head"><div class="vk-rail-chips"><button class="vk-chip vk-chip--group is-on">ALL</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-rose)">REP</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-amber)">DEF</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-teal)">STY</button></div><button class="vk-icon-tog" aria-label="Show icons"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.500" height="6.500"/><rect x="13.500" y="4" width="6.500" height="6.500"/><rect x="4" y="13.500" width="6.500" height="6.500"/><rect x="13.500" y="13.500" width="6.500" height="6.500"/></svg></button></div>
     <div class="vk-group-label" style="--gcol:var(--type-rose);padding:6px 0 4px">REPLICATE</div>
@@ -3659,7 +3666,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   </div><svg width="80" height="80" style="position:absolute;left:30px;top:80px"><circle class="vk-brush-ring" cx="40" cy="40" r="30"/></svg></div></div><p class="th-note">The column down the right of a viewport while a tool is on: 30px tiles, a done tile, a one-number vertical scrub, a value tile that folds a picker out to the left.</p></div><div class="spec-group"><div class="spec-caption">React toggle in a slider row · v0.41.125 · CHANGELOG 0.41.125</div><div class="sp-demo"><div style="width:300px"><div class="vk-scrub vk-react-wrap" style="--fill:40%"><span class="vk-scrub__label">Amount</span><span class="vk-scrub__val">0.40</span><button class="vk-row__ctl vk-react-ctl" aria-pressed="true" aria-label="React to the music"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h2.500l1.500-5 3 10 2.500-8 1.500 3H21" /><circle cx="21" cy="12" r="1.600" fill="currentColor" stroke="none"/></svg></button></div>
   <div class="vk-react"><span class="vk-micro-label">React to the music</span><div class="vk-row"><span>Band</span><span class="vk-scrub__val" style="margin-left:auto">Bass</span></div></div></div></div><p class="th-note">The toggle sits inside the slider at its right edge (the value makes room); the react panel opens under the row.</p></div><div class="spec-group"><div class="spec-caption">Canvas navigation · v0.41.133 · AGENTS.md "Canvas navigation"; interactions/canvas-nav.js</div><div class="sp-demo"><div class="vk-canvas-well vk-canvas-nav" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono)">grab</div> <div class="vk-canvas-well vk-canvas-nav is-panning" style="width:240px;height:90px;display:flex;align-items:center;justify-content:center;color:var(--tx-2);font:10px var(--mono);margin-top:10px">grabbing</div></div><p class="th-note">The well that pans and zooms: scroll zooms toward the cursor (100% detent), drag pans (grab / grabbing), middle-drag pans, double-click fits. Same in every app.</p></div><div class="spec-group"><div class="spec-caption">Canvas well · v0.41.127 · CHANGELOG 0.41.127</div><div class="sp-demo"><div class="vk-canvas-well" style="width:240px;height:110px"></div></div><p class="th-note">The ground behind an image in a viewport: --canvas-well with the V3KTR tile at 38px, centred.</p></div><div class="spec-group"><div class="spec-caption">Viewport readouts: pill, pick dots, measure line · v0.41.123 · AGENTS.md "Pick on the clip"</div><div class="sp-demo"><svg width="360" height="130" style="background:#2b2926"><line class="vk-vp-measure" x1="60" y1="95" x2="290" y2="45"/>
   <circle class="vk-vp-dot" cx="30" cy="40"/><circle class="vk-vp-dot" cx="130" cy="70"/><circle class="vk-vp-dot is-hover" cx="200" cy="25"/><circle class="vk-vp-dot is-picked" cx="60" cy="95"/><circle class="vk-vp-dot is-picked" cx="290" cy="45"/></svg>
-  <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div></div><p class="th-note">Marks drawn over a viewport: the readout pill, tracked-point dots (rest, hover, picked) and the dashed two-point measure line.</p></div></div><div class="cat-group" id="cat-2"><h3 class="cat-h">Timeline and sound</h3><p class="th-note">The music lane and its event glyphs, and what is drawn on an audio clip.</p><div class="spec-group"><div class="spec-caption">Music lane and event glyphs (set A) · v0.41.139 · docs/MUSIC-LANE-REACTIONS.md; app.css "MUSIC LANE"</div><div class="sp-demo"><div style="width:560px"><div class="vk-lane">
+  <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div></div><p class="th-note">Marks drawn over a viewport: the readout pill, tracked-point dots (rest, hover, picked) and the dashed two-point measure line.</p></div></div><div class="cat-group" id="cat-3"><h3 class="cat-h">Timeline and sound</h3><p class="th-note">The music lane and its event glyphs, and what is drawn on an audio clip.</p><div class="spec-group"><div class="spec-caption">Music lane and event glyphs (set A) · v0.41.139 · docs/MUSIC-LANE-REACTIONS.md; app.css "MUSIC LANE"</div><div class="sp-demo"><div style="width:560px"><div class="vk-lane">
   <div class="vk-lane__span" data-kind="break" style="--x:.70;--w:.10"></div>
   <button class="vk-lane__mark" data-kind="accent" style="--x:.06" aria-label="Accent"></button>
   <button class="vk-lane__mark" data-kind="offbeat" style="--x:.14" aria-label="Offbeat"></button>

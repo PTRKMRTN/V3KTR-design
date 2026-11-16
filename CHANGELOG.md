@@ -2,6 +2,15 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.148 (2026-11-16)
+
+Patrick's answers of 2026-11-16, all four apps:
+- **Section Reset** (card `DS-section-reset`): `.vk-sec-reset`, a small text Reset at the RIGHT end of a section heading (`.vk-btn.vk-btn--sm.vk-sec-reset` in the `.vk-sec-bar`), with the heading kept 22px clear. Only where every setting in the section can be put back, and never beside a Reset | Randomise row.
+- **A heading sits closer to what it heads.** "make sure the in params/control headings have more space above than below." The react block's head was 6px from both its owner row and its first row; it is now 12px above and 4px below. Every sub-heading keeps more space above than below (sections: 22 / 6).
+- **Rail filter chips use full names with counts** by default, shortened to 3 letters only where space forces it ("it is actually preferred unless there are space limitations"). The drawer bar keeps its 3–4 letter chips: that is the space case.
+- **Sound FX colours approved** (card `DS-sx-three-colours`, "Yes, as on the sheet"): Reverse fuchsia, Sub drop `#6f8fd6`, Tick the light grey. No longer provisional.
+- **Labels rule, three more cases** (questions from the lead and INCEPTOR): a seg turned into a label + dropdown row only to keep its label beside it goes BACK to a seg with its name above (`.vk-row--stack`); a tick box's own text, a seg's option text and a unit suffix are part of the control, not inline labels.
+
 ## 0.41.147 (2026-11-16)
 
 - **`MENU_ICONS.done`**, a check for the Done tile that leaves a viewport tool (`.vk-vtools__t--done`, first in the column). DIMENSOR drew it with `cursor` and KOMPOSITOR with a local check; both move to this one. Found by the QA reviewer on KOMPOSITOR's viewport controls.

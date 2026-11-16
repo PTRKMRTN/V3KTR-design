@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.147 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.148 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -658,6 +658,12 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-sec-add{margin-left:auto;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
 /* Two or more add buttons on one bar (two add buttons, sec-actions; DIMENSOR Cameras: + camera, + Multiplane): they sit together at the right. The first visible one takes the auto margin, the rest follow at 6px. */
 .vk-sec-add:not([hidden]) ~ .vk-sec-add{margin-left:6px;}
+/* Section Reset (v0.41.148, Patrick 2026-11-16, card DS-section-reset "Small Reset at the right of the heading": "Make sure it has space on the left, its currently too close to the heading").
+   <div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
+   Only on a section whose settings can all be put back; never a second Reset where the section has a Reset | Randomise row. The heading keeps 22px clear on its right. */
+.vk-sec-bar > .vk-sec-head{margin-right:var(--pad);}
+.vk-sec-reset{margin-left:auto;flex:none;}
+.vk-sec-reset ~ .vk-sec-add{margin-left:6px;}
 .vk-sec-add:hover{background:var(--bg-4);color:var(--tx-0);}
 .vk-sec-add[aria-disabled="true"]{opacity:.38;cursor:not-allowed;}.vk-sec-add[aria-disabled="true"]:hover{background:var(--bg-3);color:var(--tx-1);}   /* v0.41.145 */
 .vk-sec-add:focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);}
@@ -831,7 +837,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-dot.is-hover{r:6px;fill:var(--hover);opacity:1;}
 .vk-vp-dot.is-picked{r:4px;fill:var(--tx-0);stroke:var(--accent);stroke-width:2px;opacity:1;}
 .vk-vp-measure{stroke:var(--accent);stroke-width:1.5px;stroke-dasharray:5 4;stroke-opacity:.9;fill:none;pointer-events:none;}
-/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group, 3 letters,
+/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group; v0.41.148: full names with counts by default, 3 letters only where space forces it,
    ALL + one per group, one at a time) wrapping in .vk-rail-chips, then ONE .vk-icon-tog at the right end that flips the view; its icon is the view you would switch TO. Icons view = the tile grid (the app's own, 144px / 177px
    at 4 columns); labels view = .vk-rail-item rows in a 192px rail: 14px icon in the group colour (--gcol), 12px name, a star after it in --depth, a .vk-tag at the right. .is-later (V1.1 / LATER) dims to 55% in rows and 40% on tiles. */
 .vk-rail-head{display:flex;align-items:flex-start;gap:4px;margin-bottom:10px;}
@@ -917,8 +923,8 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-lane__span{position:absolute;left:calc(var(--x,0) * 100%);width:calc(var(--w,0) * 100%);top:6px;bottom:6px;background:color-mix(in srgb,var(--accent-2) 12%,transparent);pointer-events:none;}
 .vk-lane__span.is-hand{background:color-mix(in srgb,var(--accent) 12%,transparent);}
 /* v0.41.113 (Patrick via KOMPOSITOR, 2026-11-13): no box. REACT is a small grey heading, then Source / Amount / Feel are ordinary full-width rows, flush with every other row (the old bg-2 box hid the Amount scrub track and the inset pushed rows out of line). */
-.vk-react{margin:3px 0 6px;padding:0;background:none;}
-.vk-react > .vk-micro-label{display:block;margin:0 0 6px;padding:0 9px;}
+.vk-react{margin:12px 0 6px;padding:0;background:none;}   /* v0.41.148 (Patrick 2026-11-16: "more space above than below"): 12px above the head, 4px under it */
+.vk-react > .vk-micro-label{display:block;margin:0 0 4px;padding:0 9px;}
 /* Feel-style row (v0.41.114, from KOMPOSITOR): a normal-size .vk-seg does not fit beside its label in a 26px row, so the row grows and the seg takes its own line under the word. */
 .vk-react .vk-row:has(> .vk-seg),.vk-row--stack{height:auto;min-height:var(--row-h);flex-wrap:wrap;padding:4px 9px 6px;row-gap:2px;}
 .vk-react .vk-row > .vk-seg,.vk-row--stack > .vk-seg,.vk-row--stack > .vk-btn-row{margin:0;flex:1 1 100%;}   /* v0.41.146: a button group too (no label beside a group, Patrick 2026-11-16) */
