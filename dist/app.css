@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.141
+/* V3KTR design tokens · v0.41.142
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -150,7 +150,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.141 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.142 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1020,6 +1020,13 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* Canvas navigation cursor (v0.41.133; behaviour in interactions/canvas-nav.js): the well that pans and zooms wears .vk-canvas-nav, grab at rest and grabbing while a pan is live (.is-panning). */
 .vk-canvas-nav{cursor:grab;touch-action:none;}
 .vk-canvas-nav.is-panning{cursor:grabbing;}
+/* Dialog preview (v0.41.142, Patrick 2026-11-16 picked option A of DIMENSOR's mock V3KTR-COWORK/reports/svg2-preview-mock/): the picture box at the top of an import dialog.
+   .vk-dlg-preview is full dialog width, 190px tall, on the canvas well; it holds a live view of the result (a <canvas>) that redraws as the options change. Add .vk-canvas-nav to the box when it can be
+   turned (grab / grabbing), and put .vk-dlg-preview__hint ("Drag to turn") under it. .is-empty shows a centred line of text instead (no file yet, or nothing to show). */
+.vk-dlg-preview{display:block;position:relative;width:100%;height:190px;box-sizing:border-box;overflow:hidden;background-color:var(--canvas-well);background-image:var(--canvas-tile);background-repeat:repeat;background-position:center;background-size:38px 38px;}
+.vk-dlg-preview>canvas,.vk-dlg-preview>img,.vk-dlg-preview>svg{display:block;width:100%;height:100%;object-fit:contain;}
+.vk-dlg-preview.is-empty{display:flex;align-items:center;justify-content:center;color:var(--tx-2);font-size:12px;}
+.vk-dlg-preview__hint{display:block;margin:6px 0 12px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-2);}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}

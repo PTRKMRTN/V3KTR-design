@@ -36,9 +36,12 @@ No app has shipped a keyframe UI yet, so the first approved mockup sets the lang
 
 The design-system session agrees with each recommendation. None is a rule until Patrick picks.
 
+## Decided
+
+- **A diamond is a key in every app; a round dot means "something drives this setting"** (Patrick, 2026-11-16, Decisions card DS-diamond-means-key, "Diamond = key everywhere"). INCEPTOR's "driven" mark becomes the `link` icon. Recorded in AGENTS.md.
+
 ## Open, for Patrick
 
-- **INCEPTOR's ◇ means "driven", not "key".** If rule 1 stands, INCEPTOR's driven badge and row chip need another mark (the `link` icon is the candidate), because a diamond would mean two things in the suite.
 - **Size of the key diamond.** The Music lane's accent diamond is 14px. Keys can sit close together; a smaller diamond (10px) would also tell a key lane from the Music lane.
 - **A Hold key's shape.** Whether Hold needs its own glyph (a square) or only shows in the inspector.
 - **New drawings needed if approved:** a `key` icon for the row control, and any glyph beyond the diamond.

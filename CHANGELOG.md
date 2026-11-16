@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.142 (2026-11-16)
+
+- **A diamond is a keyframe in every app; a round dot means "something drives this setting"** (Patrick, Decisions card `DS-diamond-means-key`). AGENTS.md rule; `docs/KEYFRAMES-DRAFT.md` records it. INCEPTOR's "driven" mark is the `link` icon from now on.
+- **Dialog preview** (Patrick picked option A of DIMENSOR's import mock, card `DS-dialog-3d-preview`): `.vk-dlg-preview` (190px, on the canvas well, holds a live view; `.is-empty`) and `.vk-dlg-preview__hint` ("Drag to turn"); pair it with `.vk-canvas-nav` when it turns. AGENTS.md rule; catalogue entry in a new Dialogs group.
+
 ## 0.41.141 (2026-11-16)
 
 - **Lattice and cage points** (DIMENSOR CAGE1 asked which shape a cage corner takes): `docs/VIEWPORT-HANDLES.md` §8 now says a lattice corner is a **diamond** and every other control point a circle, as §3's sharp and smooth points; the square stays the camera aim target's (§13). The same holds for path nodes in a vector editor (INCEPTOR). This corrects a design-session relay that had called a corner a square.
