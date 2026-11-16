@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.143 (2026-11-16)
+
+- **Three more Sound FX types** (Patrick added Reverse, Sub drop and Tick, via KOMPOSITOR): `--sx-reverse` (the Effectors fuchsia), `--sx-subdrop` (`#6f8fd6`, a deep blue, the one new colour), `--sx-tick` (the light text grey), and `.vk-tag--sx[data-sx="reverse"|"subdrop"|"tick"]`. The colours are provisional until Patrick looks (card `DS-sx-three-colours`, sheet `V3KTR-COWORK/reports/sx-types-ten/sheet.png`).
+
 ## 0.41.142 (2026-11-16)
 
 - **A diamond is a keyframe in every app; a round dot means "something drives this setting"** (Patrick, Decisions card `DS-diamond-means-key`). AGENTS.md rule; `docs/KEYFRAMES-DRAFT.md` records it. INCEPTOR's "driven" mark is the `link` icon from now on.
