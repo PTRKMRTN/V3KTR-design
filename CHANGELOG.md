@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.127 (2026-11-17)
+
+- **Canvas well** (asked by INCEPTOR; the rule had been copied into three apps): token `--canvas-well` (#1d1d1d on the default ground), `.vk-canvas-well` (well colour + the V3KTR tile at 38px, centred), tile embedded as `--canvas-tile` and kept as `brand/canvas-tile.png` (byte-identical to the three app copies). Apps drop their local copies.
+
 ## 0.41.126 (2026-11-17)
 
 - **INCEPTOR icons, batch 1** (Patrick: two-tone like everywhere else): `icons/inceptor-icons.js` (`INCEPTOR_ICONS`, `inceptorIconSvg`) redraws the tools row (select to corner, 36) and the Effector family (efTrans to efSnap, 9) in the menu-icon language with construction at 0.6 / 0.3. Names match INCEPTOR's `IC` keys. Sheet `V3KTR-COWORK/reports/inceptor-icons-1/sheet.png`; panels, FX families and generators follow.

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.126
+/* V3KTR design tokens · v0.41.127
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -6,6 +6,7 @@
   /* Ground — neutral greys. Panels are a lighter FILL, never a frame. */
   --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
   --line:#171717;
+  --canvas-well:color-mix(in srgb, var(--bg-0) 60%, var(--line));   /* the viewport / canvas ground behind an image (v0.41.127): #1d1d1d on the default ground, same as PROCESSOR and KOMPOSITOR */
 
   /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
   --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
@@ -148,7 +149,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.126 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.127 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -982,6 +983,11 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-rail-item.is-disabled,.vk-rail-item[aria-disabled="true"]{opacity:.4;cursor:default;}
 .vk-rail-item.is-disabled:hover,.vk-rail-item[aria-disabled="true"]:hover{background:none;color:var(--tx-1);}
 .vk-row .vk-btn:not(.vk-btn--bare):not(.vk-btn--danger):not(.is-on):not(.is-hover):not(:hover):not([aria-pressed="true"]){background:var(--bg-4);}
+/* The canvas well (v0.41.127, from INCEPTOR: the same rule was copied into PROCESSOR, KOMPOSITOR and INCEPTOR; Patrick 2026-11-16 "the canvas background the same as processor and kompositor"). The ground behind the image in a
+   viewport: --canvas-well with the 100px V3KTR tile (brand/canvas-tile.png, embedded here as --canvas-tile, so a vendored app.css needs no file) repeating at 38px, centred. Put it on the viewport / canvas element; the app keeps
+   its own layout (margins, flex, overflow). PROCESSOR's hard-coded #1d1d1d and KOMPOSITOR's --well drop for this. */
+:root{--canvas-tile:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAABgmlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kc8rRFEUxz8zfowYjVAsZjFpWCE/amJjMWIoLGZG+bV588wPNTNe782kyVbZKkps/FrwF7BV1koRKVnLktig57x5aiRzbueez/3ee073ngvOaFrNGJU9kMnm9HAo6JuZnfO5nqnGSwuNtCiqoU1GRqOUtfdbHFa87rJqlT/3r9Utxg0VHDXCQ6qm54THhCdWcprFW8LNakpZFD4R7tTlgsI3lh6z+cnipM2fFuvR8DA4G4R9yV8c+8VqSs8Iy8vxZ9J59ec+1kvc8ex0RGKbuBeDMCGC+BhnhGEC9DIoc4Au+uiWFWXye4r5UyxLriqzRgGdJZKkyNEpal6qxyUmRI/LSFOw+v+3r0aiv8+u7g5C1aNpvraDaxO+Nkzz48A0vw6h4gHOs6X85X0YeBN9o6T598CzBqcXJS22DWfr0HqvKbpSlCrEnYkEvBxD/Sw0XUHtvN2zn32O7iC6Kl91CTu70CHnPQvfdOFn7CbV/UkAAAAJcEhZcwAALiMAAC4jAXilP3YAAAKmSURBVHic7dzdjqowGIXhBQIRdS7C+789IXvsQPdBE6LEA1bbD0uy3iM94GeeKJGGb6r7/Q61rfrbJ3CkhEUkLCJhEQmLSFhEwiISFpGwiIRFJCwiYREJi0hYRMIiEhZRE7GNc26eZw90XVdXVfZzsuvpHICqqtom5g+P2ebf7+80TQDc83m93Y7iNQyD+/sDUNd1+/MTsYekr+E0z8PjMXufspN9WqRSisFqTqfl9SG8VlJ1HfkRidms7/uu65a3hXutpJqmuV4ucbuKNL4cxOujVBV7kY2/ZpXvlVcKiRf4kr2ySyH9R2mZXhZSyPILvjQvIynkut0px8tOChnvDUvwMpVC3hvp73pZSyH7qsO3vHaQgsUSzQevYch+lNfGcdxBCkbrWSsvP88WR1maXvZvJwW7xb83r73WcEylELeetbFL33dtC8Du7EP9+ey990DbNKbHMsQC0EQtSJZ5FGgNnkpYRMIiEhaRsIiERSQsImERCYtIWETCIhIWkbCIhEUkLCJhEQmLSFhEwiISFpGwiIRFJCwiYREJi0hYRMIiEhaRsIhsnz9JnO/bWJh/BNB13VEfORrG0TmHhPm+jS3zj0/nbternZfV13CRAoC9HliepukxDN7scCZYb1JA/TKfaNHb/KOlV36slVRzOkXP921sPf9o5pUZ64OU5UVkaf08uY1XTqxvSYV28MqG9V2pkLVXHqwSpEKmXhmwypEK2XmlYpUmFTLySsIqUypk4RWPVbJUKLtXJFb5UqG8XjFY40GkQh+94nYVg/U231e2VGg9/7jnJ2vpEFKhlVdcMetZ/fk8ew/v27Y9hFQoff4x6h+U7TXfl73EM9caPJGwiIRFJCwiYREJi0hYRMIiEhaRsIiERSQsImERCYtIWETCIvoPOObKDArXHGMAAAAASUVORK5CYII=");}
+.vk-canvas-well{background-color:var(--canvas-well);background-image:var(--canvas-tile);background-repeat:repeat;background-position:center;background-size:38px 38px;}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */
 .vk-vp-pill[hidden],.vk-sec-add[hidden],.vk-sec-bar[hidden],.vk-roll-pair[hidden],.vk-roll-blends[hidden],.vk-roll-rand[hidden],.vk-btn-col[hidden],.vk-btn-row[hidden],.vk-tag[hidden]{display:none;}

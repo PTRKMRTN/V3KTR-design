@@ -91,7 +91,7 @@ The `:root` block is excluded. Counts are occurrences.
 | `rgba(8,9,11,0.8 / 0.66 / 0.88 / 0.97 / 0.72)` | 5 | `.rz-overlay`, `.crop-rect`, `.dlr-overlay`, `.nogpu-gate`, `.ui-overlay` | One blue-tinted near-black at five alphas. Suggest one core `--scrim`, neutral (`rgba(0,0,0,…)`) or kept as is, with at most two strengths. `.ui-overlay` is `--app-scrim`. |
 | `rgba(15,17,19,0.86)` | 1 | `.depth-status` | Blue-tinted as well. Keep as `--app-toast-bg` or neutralise. |
 | `#616161` | 1 | `.lb-node`, `.vp-node` | Keep as an app token (control-node grey). |
-| `#1d1d1d` | 1 | `.canvas-wrap` | Keep as an app token (canvas well). |
+| `#1d1d1d` | 1 | `.canvas-wrap` | Now shared (v0.41.127): `--canvas-well` + `.vk-canvas-well`. |
 | `#363636` | 1 | `#gpuCanvas`, `.refine-canvas` | Keep (checker pair with `#282828`). |
 | `rgba(0,0,0,0.85)` | 1 | `.vp-overlay svg` (drop shadow) | Keep: it is for handle legibility. |
 | `rgba(0,0,0,.45)` | 1 | `.signup-note` | `--app-shadow-note`. Collapse into the shadow tokens. |
