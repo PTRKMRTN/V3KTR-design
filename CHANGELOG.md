@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.126 (2026-11-17)
+
+- **INCEPTOR icons, batch 1** (Patrick: two-tone like everywhere else): `icons/inceptor-icons.js` (`INCEPTOR_ICONS`, `inceptorIconSvg`) redraws the tools row (select to corner, 36) and the Effector family (efTrans to efSnap, 9) in the menu-icon language with construction at 0.6 / 0.3. Names match INCEPTOR's `IC` keys. Sheet `V3KTR-COWORK/reports/inceptor-icons-1/sheet.png`; panels, FX families and generators follow.
+
 ## 0.41.125 (2026-11-17)
 
 - **DIMENSOR requests:** `.vk-react-wrap` + `.vk-react-ctl` (the react toggle inside a slider row, replacing the apps' local `dm-react-*` / `k-react-*`); `.vk-rail-item.is-disabled` / `[aria-disabled]` (dimmed, no hover); a normal `.vk-btn` inside a `.vk-row` now rests at `--bg-4` instead of the row's own `--bg-3`, so Pick 3 / Pick 1 / Pick 2 read as buttons.
