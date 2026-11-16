@@ -8,7 +8,7 @@
    STALE left after a tip was parked near the right edge; place() then measures that narrow width, moves the box left,
    and the description grows back over the rail. max-content makes the measured width the real one. */
 .vk-tip{position:fixed;width:max-content;background:var(--hover);color:var(--bg-2);font-size:var(--fs-ctrl);padding:8px 12px;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:1000;}
+  opacity:0;pointer-events:none;transition:opacity 0.12s;box-shadow:var(--app-shadow-tip);z-index:10000;}   /* v0.41.149: above the dialog scrim (.vk-scrim 9500), so a tip inside a dialog is readable (found by KOMPOSITOR) */
 /* from .rail-btn .tip b */
 .vk-tip b{display:block;font-weight:700;}
 /* from .rail-btn .tip em */

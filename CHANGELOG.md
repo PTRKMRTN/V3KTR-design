@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.149 (2026-11-16)
+
+- **Tips show above dialogs.** `.vk-tip` was at z-index 1000 and `.vk-scrim` at 9500, so every tip inside a dialog sat behind its shade (KOMPOSITOR's greyed-out export Subtitles row; sheet `V3KTR-COWORK/reports/kmp-sprint/captions-finish/sheet-r2.png`). The tip is now at 10000, the top layer in every app.
+- **Layers tree rule** (Patrick approved r3 on 2026-11-16 with four calls; mock `V3KTR-COWORK/reports/layers-tree-mock/mock-r4.png`): AGENTS.md "Layers tree". INCEPTOR builds it locally (`in-`) until a second app needs it.
+
 ## 0.41.148 (2026-11-16)
 
 Patrick's answers of 2026-11-16, all four apps:
