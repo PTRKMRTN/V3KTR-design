@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.146 (2026-11-16)
+
+- **The label rule and the button sizes, written down** (Patrick 2026-11-16, narrowed after he pointed at the sheets). A small label BESIDE a button group or seg on the same row is a miss: the group's name goes above it. A row with its name in the left cell and ONE control on the right (select, field, number, swatch, a value, a single button) and a slider with its name inside are fine. Button size follows function: large only for Render, Export and Roll; a property latch (Underline, Strikethrough, Lock ratio, Scale strokes, Flip) is an icon toggle, not a text button. Rules in AGENTS.md "Labels and button sizes".
+- `.vk-row--stack` now also takes a `.vk-btn-row` (a group of toggles or buttons) under its label, and its `.vk-row__label` takes the whole first line.
+
 ## 0.41.145 (2026-11-16)
 
 - **INCEPTOR findings, batch 2: rule fixes in shared classes** (no visible change beyond contrast and heights): `--tx-2-hi` (#a8a8a8) for muted text on raised grounds (menu keys and labels 3.29 → 4.78:1, `.vk-hint`, `.vk-sec-sub`, the wheel labels); disabled menu rows keep the pointer; the tip is hidden at rest and its description is at 90 %; a locked row no longer dims its own lock; `--row-h-sm` 22px and `.vk-btn--sm.vk-btn--ic` at 22px; `.vk-row--stack`; segs on a filled row rest at `--bg-4`; `.vk-btn-row--fit` breaks only with a roll group; `.vk-sec-add[aria-disabled]`.
