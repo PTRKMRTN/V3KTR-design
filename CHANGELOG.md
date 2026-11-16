@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.141 (2026-11-16)
+
+- **Lattice and cage points** (DIMENSOR CAGE1 asked which shape a cage corner takes): `docs/VIEWPORT-HANDLES.md` §8 now says a lattice corner is a **diamond** and every other control point a circle, as §3's sharp and smooth points; the square stays the camera aim target's (§13). The same holds for path nodes in a vector editor (INCEPTOR). This corrects a design-session relay that had called a corner a square.
+- `interactions/link-badge.js` `NAMES` gains `inceptor` (asked by PROCESSOR), so it agrees with `LINK_APPS`. No visible change: the upper-case fallback already said INCEPTOR.
+
 ## 0.41.140 (2026-11-16)
 
 - **INCEPTOR icons batch 1, round 3: the Pen tool** (Patrick on the Review Inbox card: "only one, the pen tool. it might be better to have it close to the pencil tool but utilising the ink spot end for the pen"). The pen takes the pencil's diagonal barrel and ends in a nib with its ink spot and slit; under it a curved stroke where the pencil has a straight one. The other 41 icons are accepted and unchanged.

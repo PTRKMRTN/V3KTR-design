@@ -39,7 +39,7 @@ export const BADGE_ICONS = {
 
 export const NOT_RESPONDING_MS = 30000;
 export const LINK_POLICIES = [['onRequest', 'On request'], ['live', 'Live'], ['manual', 'Manual']];
-const NAMES = { processor: 'PROCESSOR', kompositor: 'KOMPOSITOR', dimensor: 'DIMENSOR' };
+const NAMES = { processor: 'PROCESSOR', kompositor: 'KOMPOSITOR', dimensor: 'DIMENSOR', inceptor: 'INCEPTOR' };
 const nameOf = (app) => NAMES[app] || String(app || 'its app').toUpperCase();
 
 export function badgeOf(rec = {}) {

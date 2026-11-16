@@ -54,6 +54,7 @@ Keys: Delete / Backspace deletes the selected point, C closes the curve, S / A /
 - **Axis arrow:** 2 px shaft, 10 px cone head, a 6 px dot at the origin, a 24 px hit ring at the head (shown on hover).
 - **Angle arc:** a 2 px arc, a 16% accent wedge, 1 px radius lines at 0.6, a 12 px white handle with ring at the moving end, a pill with the value.
 - **Plane:** a quad outline 1 px at 0.6 with a 16% fill, diamond corner handles (8 px), a 12 px white centre handle to move it.
+- **Lattice / cage points** (v0.41.141, DIMENSOR CAGE1; INCEPTOR's envelope and mesh warp): the point shapes of section 3, nothing new. A corner of the lattice is a **diamond** (a sharp point), every other control point a **circle**; both 10 px at rest, 12 px hot, white with the accent ring when selected. Points behind the subject at 0.3; lattice lines the 1 px auxiliary line at 0.6 on the outer edges, 0.3 inside. The **square stays the camera aim target's** (section 13) and is never a curve or lattice point. Path nodes in a vector editor follow the same rule: corner node = diamond, smooth node = circle.
 - **Gimbal rings:** three rings through the subject's centre, 2 px at 1 (the active ring), 1.5 px at 0.6, 1 px at 0.3, a 12 px white handle on the active ring, a 6 px dot at the centre. Sits on the subject (PROCESSOR's rule).
 
 ## 9. Not decided here
