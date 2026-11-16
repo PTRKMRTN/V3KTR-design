@@ -55,6 +55,10 @@
    selected. The default wash and the selected colour-blend would recolour it to the app hue and hide what was chosen (the chip rule's swatch
    exception). State is carried by the label and the check instead: put <span class="vk-thumb__chk">✓</span> in the tile. */
 .vk-thumb--true-colour .vk-thumb__pic::after{display:none;}
+/* v0.41.155 (Patrick 2026-11-16: "roll tiles no grey border, image to edges"): a roll result (a next roll, an Explorer roll, a variation) is .vk-thumb--bleed: the
+   picture covers the tile to its edges, with no ground or margin around it. Render the result itself to the tile's full size (no inset in the drawing). */
+.vk-thumb--bleed .vk-thumb__pic{background:none;}
+.vk-thumb--bleed .vk-thumb__pic>img,.vk-thumb--bleed .vk-thumb__pic>canvas,.vk-thumb--bleed .vk-thumb__pic>video{object-fit:cover;}
 /* A TILE THAT IS A <button> (v0.41.33, from PROCESSOR's tile foundation: a picker tile takes focus and arrow keys, so it is a real button): reset the browser's button
    styling so it looks exactly like a div tile. The keyboard focus ring is the shared :focus-visible one, which this reset deliberately does not remove. */
 button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;}

@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.155 (2026-11-16)
+
+Patrick 2026-11-16 (INCEPTOR panels card), all apps:
+- **No box around a control group.** `.vk-row--stack` (and the react block's seg rows) lose their fill: the name sits on the panel ground above its seg or button group, flush with it, 12 above / 4 below; no hover; the group's buttons rest at `--bg-3`.
+- **Left-aligned params.** `.vk-sec-add` no longer pushes to the right: a section's + follows its heading (14px). Head tools follow the heading; the section Reset alone stays at the right end. Layer-row controls wait on card `DS-layer-controls-left`.
+- **`.vk-thumb--bleed`** for roll result tiles: the picture covers the tile, no grey ground or inset.
+
 ## 0.41.154 (2026-11-16)
 
 - **Placeholder text passes contrast:** `.vk-input::placeholder` uses `--tx-2-hi` (a field is a raised fill; `--tx-2` was 4.10:1). An empty-state word in a picker row ("No template") uses `--tx-2-hi` too (QA reviewer, KOMPOSE story mock).

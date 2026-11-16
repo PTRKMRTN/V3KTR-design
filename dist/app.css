@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.154
+/* V3KTR design tokens · v0.41.155
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -154,7 +154,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.154 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.155 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -820,13 +820,13 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* a section head with an add button at its right end ("Add camera"): a 22px icon button, the shared "add an item to this list" head */
 .vk-sec-bar{display:flex;align-items:center;margin:0 0 var(--sec-head-gap);}
 .vk-sec-bar > .vk-sec-head{margin:0;}
-.vk-sec-add{margin-left:auto;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
+.vk-sec-add{margin-left:0;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
 /* Two or more add buttons on one bar (two add buttons, sec-actions; DIMENSOR Cameras: + camera, + Multiplane): they sit together at the right. The first visible one takes the auto margin, the rest follow at 6px. */
 .vk-sec-add:not([hidden]) ~ .vk-sec-add{margin-left:6px;}
 /* Section Reset (v0.41.148, Patrick 2026-11-16, card DS-section-reset "Small Reset at the right of the heading": "Make sure it has space on the left, its currently too close to the heading").
    <div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
    Only on a section whose settings can all be put back; never a second Reset where the section has a Reset | Randomise row. The heading keeps 22px clear on its right. */
-.vk-sec-bar > .vk-sec-head{margin-right:var(--pad);}
+.vk-sec-bar > .vk-sec-head{margin-right:var(--sec-head-gap);}   /* v0.41.155: head tools follow the heading 14px after it (Patrick: "keep as much left aligned as possible in the params areas"); only .vk-sec-reset is pushed to the right end */
 .vk-sec-reset{margin-left:auto;flex:none;}
 .vk-sec-reset ~ .vk-sec-add{margin-left:6px;}
 .vk-sec-add:hover{background:var(--bg-4);color:var(--tx-0);}
@@ -1094,6 +1094,14 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-react .vk-row:has(> .vk-seg),.vk-row--stack{height:auto;min-height:var(--row-h);flex-wrap:wrap;padding:4px 9px 6px;row-gap:2px;}
 .vk-react .vk-row > .vk-seg,.vk-row--stack > .vk-seg,.vk-row--stack > .vk-btn-row{margin:0;flex:1 1 100%;}   /* v0.41.146: a button group too (no label beside a group, Patrick 2026-11-16) */
 .vk-row--stack > .vk-row__label{flex:1 1 100%;}   /* v0.41.145: .vk-row--stack = the same label-above-seg row anywhere (INCEPTOR) */
+/* v0.41.155 (Patrick 2026-11-16: "we don't need the box around source controls … deciding we should remove it from the apps, its not needed"): a stacked group has NO box.
+   The name sits on the panel ground above its seg or button group, flush with the controls' left edge; 12px above the name, 4px from the name to the group; no hover
+   (it is not a list row). The group's buttons rest at their normal --bg-3, as they do anywhere off a filled row. */
+.vk-row.vk-row--stack,.vk-react .vk-row:has(> .vk-seg){background:none;padding:0;margin:12px 0 3px;min-height:0;row-gap:4px;cursor:default;color:var(--tx-1);}
+.vk-row.vk-row--stack:hover,.vk-row.vk-row--stack.is-hover,.vk-react .vk-row:has(> .vk-seg):hover{background:none;color:var(--tx-1);}
+.vk-row--stack .vk-seg button:not(.is-on):not(.is-hover):not(:hover):not([aria-pressed="true"]):not(:disabled):not(.is-disabled),
+.vk-react .vk-row:has(> .vk-seg) .vk-seg button:not(.is-on):not(.is-hover):not(:hover):not([aria-pressed="true"]):not(:disabled):not(.is-disabled),
+.vk-row--stack .vk-btn:not(.vk-btn--bare):not(.vk-btn--danger):not(.is-on):not(.is-hover):not(:hover):not([aria-pressed="true"]){background:var(--bg-3);}
 .vk-lane[hidden],.vk-react[hidden],.vk-lane__mark[hidden],.vk-lane__span[hidden]{display:none;}
 .vk-live{color:var(--accent-2);}                                      /* a readout that is live: fps, a progress percentage */
 .vk-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;
@@ -1487,6 +1495,10 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
    selected. The default wash and the selected colour-blend would recolour it to the app hue and hide what was chosen (the chip rule's swatch
    exception). State is carried by the label and the check instead: put <span class="vk-thumb__chk">✓</span> in the tile. */
 .vk-thumb--true-colour .vk-thumb__pic::after{display:none;}
+/* v0.41.155 (Patrick 2026-11-16: "roll tiles no grey border, image to edges"): a roll result (a next roll, an Explorer roll, a variation) is .vk-thumb--bleed: the
+   picture covers the tile to its edges, with no ground or margin around it. Render the result itself to the tile's full size (no inset in the drawing). */
+.vk-thumb--bleed .vk-thumb__pic{background:none;}
+.vk-thumb--bleed .vk-thumb__pic>img,.vk-thumb--bleed .vk-thumb__pic>canvas,.vk-thumb--bleed .vk-thumb__pic>video{object-fit:cover;}
 /* A TILE THAT IS A <button> (v0.41.33, from PROCESSOR's tile foundation: a picker tile takes focus and arrow keys, so it is a real button): reset the browser's button
    styling so it looks exactly like a div tile. The keyboard focus ring is the shared :focus-visible one, which this reset deliberately does not remove. */
 button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;}
