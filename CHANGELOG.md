@@ -36,7 +36,7 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
 ## 0.41.126 (2026-11-17)
 
-- **INCEPTOR icons, batch 1** (Patrick: two-tone like everywhere else): `icons/inceptor-icons.js` (`INCEPTOR_ICONS`, `inceptorIconSvg`) redraws the tools row (select to corner, 36) and the Effector family (efTrans to efSnap, 9) in the menu-icon language with construction at 0.6 / 0.3. Names match INCEPTOR's `IC` keys. Sheet `V3KTR-COWORK/reports/inceptor-icons-1/sheet.png`; panels, FX families and generators follow.
+- **INCEPTOR icons, batch 1** (Patrick: two-tone like everywhere else): `icons/inceptor-icons.js` (`INCEPTOR_ICONS`, `inceptorIconSvg`) redraws the tools row (select to corner, 33) and the Effector family (efTrans to efSnap, 9) in the menu-icon language with construction at 0.6 / 0.3. Names match INCEPTOR's `IC` keys. Sheet `V3KTR-COWORK/reports/inceptor-icons-1/sheet.png`; panels, FX families and generators follow.
 
 ## 0.41.125 (2026-11-17)
 
