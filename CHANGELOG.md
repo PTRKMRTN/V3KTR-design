@@ -2,57 +2,62 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
-## 0.41.137 (2026-11-17)
+## 0.41.138 (2026-11-16)
+
+- **Dates corrected:** entries 0.41.125 to 0.41.137, three AGENTS.md rules, one `app.css` comment and the INCEPTOR icon file header were dated 2026-11-17; the day was 2026-11-16. No behaviour change.
+- **Docs:** `docs/MUSIC-LANE-REACTIONS.md` status says shipped (it still said proposal). `docs/KEYFRAMES-DRAFT.md` records DIMENSOR's KEY1 mockups and their recommendations (10px key, no Hold glyph, a three-state row control, key marks never clipped), and that a key set by the person's own edit is the person's, not the machine's. Still a draft.
+
+## 0.41.137 (2026-11-16)
 
 - **A button row that tightens before it wraps** (INCEPTOR reviewer follow-up: the seven-control roll row dropped Revert to a second line in a 460px panel): `.vk-btn-row--fit`. Under 500px the buttons and latches lose side padding, under 450px more, so INCEPTOR's roll row (497px) fits on one line down to 409px. Narrower, it wraps as a unit: everything after the roll group moves to the second line together. Measured sheets `V3KTR-COWORK/reports/roll-row-fit/before.png` / `after.png`. A row without the modifier is unchanged.
 
-## 0.41.136 (2026-11-17)
+## 0.41.136 (2026-11-16)
 
 - **Roll glyph on the Music lane** (asked by KOMPOSITOR; pending Patrick via `REQ-DS-lane-roll-r1`): `.vk-lane__mark[data-kind="roll"]`, three bars (the hit bar said three times), 14 × 12, a solid set-A shape like the others.
 - **Catalogue: Timeline and sound group**: music lane and its glyphs, Sound FX on a clip (pin, fades, ducking line), and the sound library row (type tag + `.vk-pin` on a 20px mini waveform: the existing pin works in a small box unchanged). Seven classes leave `pending.json` (58 left).
 
-## 0.41.135 (2026-11-17)
+## 0.41.135 (2026-11-16)
 
 - **INCEPTOR icons batch 1, round 2** (QA reviewer, `VERDICT-DS-inceptor-icons-r1`): 13 of the 42 redrawn. Misses: `polygon` (was INCEPTOR's iso cube; now a flat-top hexagon with corner dots and one radius), `efAlign` (read as align-left; now needles turning along a flow line), `pathtype` / `autoadd` and `curvature` / `rubber` (same at 14px; pathtype is a T on a wave, autoadd a path end with a plus, rubber a curve with a dashed preview). Also `efColour` (palette), `efVis` (an eye fading out), `eyedrop`, `efSnap`, `efSpring`, and three the new check found: `efRand` (was the dice), `outline` (was the compound-path squares), `efStep`.
 - **`scripts/check-icon-dupes.mjs`**: renders every icon at 14px and reports look-alike pairs (Pearson correlation of the blurred ink maps) inside the INCEPTOR set, against the menu set, and with `--against <app icons.js>` against an app's own drawings. Run it before filing an icon batch. It catches same-drawing clashes; it does not catch two different drawings that merely read alike, or a wrong meaning.
 
-## 0.41.134 (2026-11-17)
+## 0.41.134 (2026-11-16)
 
 - **Rail view width rule clarified** (DIMENSOR QA): the labels view is 192px but never narrower than the icons rail, so where the icons rail is wider (DIMENSOR's 4-column 206px above 1920px) both views share that width and the canvas edge does not move when the view flips. Rule text only (AGENTS.md, catalogue note); no CSS change, the apps own the rail width.
 
-## 0.41.133 (2026-11-17)
+## 0.41.133 (2026-11-16)
 
 - **Canvas navigation, shared** (asked by INCEPTOR; three app copies): `interactions/canvas-nav.js` (`bindNav`, `wheelFactor`, `stepZoom`, `zoomAt`, `ZOOM_MIN/MAX`) and `.vk-canvas-nav` (+ `.is-panning`) cursor rule; the maths is KOMPOSITOR's, which is PROCESSOR's. AGENTS.md rule, catalogue entry, `test/canvas-nav.test.mjs`.
 
-## 0.41.132 (2026-11-17)
+## 0.41.132 (2026-11-16)
 
 - **Link light is P · K · D · I** (Patrick approved): `LINK_APPS` in `interactions/link-light.js` gains `inceptor / I / INCEPTOR`; `app/link.css` colours the I mark in the cobalt; `app/link-badge.css` adds the `inceptor` badge owner. Every app's top bar shows the fourth mark when it pulls this tag.
 
-## 0.41.131 (2026-11-17)
+## 0.41.131 (2026-11-16)
 
 - **INCEPTOR logo width** (found by INCEPTOR): `themes/themes.css` gets `[data-app="inceptor"] { --brand-logo-w:113.5px; }` (21.05 high × 151/28). Without it the shared `.vk-brand-logo` had width 0 under INCEPTOR and rendered invisible.
 
-## 0.41.130 (2026-11-17)
+## 0.41.130 (2026-11-16)
 
 - **Rail scroll hint**, shared (PROCESSOR's `.rail-scrollhint`, wanted by DIMENSOR): `.vk-rail-scrollhint` (+ `[hidden]`, `.is-end`) and `interactions/rail-scrollhint.js` `railScrollHint(hint, scroller)`; AGENTS.md rule; catalogue entry.
 
-## 0.41.129 (2026-11-17)
+## 0.41.129 (2026-11-16)
 
 - **INCEPTOR logo and app icon** (Patrick supplied `brand/logo-v3ktr-inceptor.svg`): the logo joins the specimen's app logos (XML prolog and DOCTYPE stripped when inlined); `brand/icons/icon-inceptor.svg` + 32 / 180 / 512 PNG built by `scripts/build-icons.mjs` (dark I on the cobalt `#4d9bff` tile, same recipe as P / K / D).
 
-## 0.41.128 (2026-11-17)
+## 0.41.128 (2026-11-16)
 
-- **Component catalogue started** (Patrick 2026-11-17: catalogue the full library): specimen gets a Components tab built from `specimen/catalogue/*.mjs` (one entry per component: live demo, tag it arrived in, link to its rule). First group: rails and viewport tools (rail view switch, tool column + fly-out, react toggle, canvas well, pick dots / measure line). `check-drift` now has a coverage gate: a styled base `.vk-` class with no specimen entry fails unless it is on the shrinking `specimen/catalogue/pending.json` (65 of 121 pending).
+- **Component catalogue started** (Patrick 2026-11-16: catalogue the full library): specimen gets a Components tab built from `specimen/catalogue/*.mjs` (one entry per component: live demo, tag it arrived in, link to its rule). First group: rails and viewport tools (rail view switch, tool column + fly-out, react toggle, canvas well, pick dots / measure line). `check-drift` now has a coverage gate: a styled base `.vk-` class with no specimen entry fails unless it is on the shrinking `specimen/catalogue/pending.json` (65 of 121 pending).
 
-## 0.41.127 (2026-11-17)
+## 0.41.127 (2026-11-16)
 
 - **Canvas well** (asked by INCEPTOR; the rule had been copied into three apps): token `--canvas-well` (#1d1d1d on the default ground), `.vk-canvas-well` (well colour + the V3KTR tile at 38px, centred), tile embedded as `--canvas-tile` and kept as `brand/canvas-tile.png` (byte-identical to the three app copies). Apps drop their local copies.
 
-## 0.41.126 (2026-11-17)
+## 0.41.126 (2026-11-16)
 
 - **INCEPTOR icons, batch 1** (Patrick: two-tone like everywhere else): `icons/inceptor-icons.js` (`INCEPTOR_ICONS`, `inceptorIconSvg`) redraws the tools row (select to corner, 33) and the Effector family (efTrans to efSnap, 9) in the menu-icon language with construction at 0.6 / 0.3. Names match INCEPTOR's `IC` keys. Sheet `V3KTR-COWORK/reports/inceptor-icons-1/sheet.png`; panels, FX families and generators follow.
 
-## 0.41.125 (2026-11-17)
+## 0.41.125 (2026-11-16)
 
 - **DIMENSOR requests:** `.vk-react-wrap` + `.vk-react-ctl` (the react toggle inside a slider row, replacing the apps' local `dm-react-*` / `k-react-*`); `.vk-rail-item.is-disabled` / `[aria-disabled]` (dimmed, no hover); a normal `.vk-btn` inside a `.vk-row` now rests at `--bg-4` instead of the row's own `--bg-3`, so Pick 3 / Pick 1 / Pick 2 read as buttons.
 

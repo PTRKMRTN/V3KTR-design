@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.137
+/* V3KTR design tokens · v0.41.138
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -150,7 +150,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.137 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.138 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -989,7 +989,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-rail-item .vk-tag{flex:none;font-size:8.5px;padding:1px 4px;}
 .vk-rail-item.is-later{opacity:.55;}
 [data-group][hidden]{display:none;}
-/* v0.41.125 (DIMENSOR requests, 2026-11-17). (1) The react toggle inside a slider: the row wears .vk-react-wrap, the toggle is .vk-row__ctl.vk-react-ctl (22px, right edge, centred), the value gets room (26px) so the
+/* v0.41.125 (DIMENSOR requests, 2026-11-16). (1) The react toggle inside a slider: the row wears .vk-react-wrap, the toggle is .vk-row__ctl.vk-react-ctl (22px, right edge, centred), the value gets room (26px) so the
    number never runs under it; the .vk-react panel opens under the row. DIMENSOR (dm-react-*) and KOMPOSITOR (k-react-*) kept the same local hooks; both can drop them. (2) A disabled rail item ("at its group's
    maximum"): .is-disabled or aria-disabled="true" dims it to 40%, no hover fill, no pointer; the reason goes in its tip. (3) A normal .vk-btn sitting IN a .vk-row is --bg-3 on a --bg-3 row and read as plain text
    (DIMENSOR's MATCH3 Floor / Origin / Scale rows): there it rests one step lighter, --bg-4; hover, pressed, bare and danger are unchanged. */

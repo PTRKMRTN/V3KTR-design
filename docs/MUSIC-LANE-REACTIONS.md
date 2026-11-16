@@ -1,6 +1,6 @@
-# Music lane, Reactions list and the react control: proposal (NOT shipped)
+# Music lane, Reactions list and the react control (SHIPPED)
 
-Status: **proposal and mockup**, requested by KOMPOSITOR for music-reactive edits (Patrick 2026-10-27: "one of the top priorities now"; scope `V3KTR-PROJEKT/research/kompositor-music-reactive-scoping-2026-10.md` §3 to 5). Mockup: `V3KTR-COWORK/reports/music-reactive/music.png` (`build.mjs`). The lane markers have since shipped (v0.41.58); the rest waits for Patrick's look. The launch freeze is lifted (2026-10-29): planned work is for now unless Patrick marks it for after launch. Principle (Patrick): simple usability and UI, some flexibility, never a node graph.
+Status: **shipped.** The lane and markers are in the design system since v0.41.58 (solid glyph set A v0.41.61, the roll glyph v0.41.136, pending Patrick), the react block since v0.41.58 (boxless since v0.41.113); KOMPOSITOR shipped the Reactions list and the react control in October 2026 (confirmed by the KOMPOSITOR session, 2026-11-16). What follows is the original proposal, kept for the reasoning; where it differs from `app/app.css`, the CSS and AGENTS.md are right. Requested by KOMPOSITOR for music-reactive edits (Patrick 2026-10-27: "one of the top priorities now"; scope `V3KTR-PROJEKT/research/kompositor-music-reactive-scoping-2026-10.md` §3 to 5). Mockup: `V3KTR-COWORK/reports/music-reactive/music.png` (`build.mjs`). The launch freeze is lifted (2026-10-29): planned work is for now unless Patrick marks it for after launch. Principle (Patrick): simple usability and UI, some flexibility, never a node graph.
 
 ## 1. Built from existing pieces
 | Need | Existing piece |

@@ -1,4 +1,4 @@
-// V3KTR INCEPTOR icons (v0.41.126, r2 v0.41.135, Patrick 2026-11-17: "the two tone icons as everywhere else for INCEPTOR"). THE SOURCE: edit this file.
+// V3KTR INCEPTOR icons (v0.41.126, r2 v0.41.135, Patrick 2026-11-16: "the two tone icons as everywhere else for INCEPTOR"). THE SOURCE: edit this file.
 // Same language as icons/menu-icons.js: a 24-unit grid, a 1.4 stroke in currentColor, round caps and joins, no fills except small dots.
 // Two tones: the drawing itself at full strength, its construction (handles, nodes, guides, axes) at opacity 0.6, and the faintest context at 0.3.
 // Replaces INCEPTOR's one-weight prototype drawings (V3KTR-INCEPTOR src/ui/icons.js) group by group; this first batch is the tools row and the Effector family.
