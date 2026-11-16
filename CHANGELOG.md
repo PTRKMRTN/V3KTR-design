@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.156 (2026-11-16)
+
+- **Eyedropper placement decided** (Patrick, card P-e8-eyedropper-place): a `.vk-icon-tog` with `MENU_ICONS.eyedrop` between the hex value and the swatch in a colour row, accent while armed. Rule text only (PROCESSOR v1.19.0 ships it).
+
 ## 0.41.155 (2026-11-16)
 
 Patrick 2026-11-16 (INCEPTOR panels card), all apps:
