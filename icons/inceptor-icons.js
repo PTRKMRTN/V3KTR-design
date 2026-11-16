@@ -1,4 +1,4 @@
-// V3KTR INCEPTOR icons (v0.41.126, r2 v0.41.135, Patrick 2026-11-16: "the two tone icons as everywhere else for INCEPTOR"). THE SOURCE: edit this file.
+// V3KTR INCEPTOR icons (v0.41.126, r2 v0.41.135, r3 v0.41.140 = the pen, Patrick 2026-11-16: "the two tone icons as everywhere else for INCEPTOR"). THE SOURCE: edit this file.
 // Same language as icons/menu-icons.js: a 24-unit grid, a 1.4 stroke in currentColor, round caps and joins, no fills except small dots.
 // Two tones: the drawing itself at full strength, its construction (handles, nodes, guides, axes) at opacity 0.6, and the faintest context at 0.3.
 // Replaces INCEPTOR's one-weight prototype drawings (V3KTR-INCEPTOR src/ui/icons.js) group by group; this first batch is the tools row and the Effector family.
@@ -8,7 +8,7 @@ export const INCEPTOR_ICONS = {
   // tools
   select: '<path d="M6 3.500l12 8.200-5.200 1.100L16 19.200l-2.400 1.100-3.200-6.300L6 17.600z"/>',
   direct: '<path d="M9 5l10 7.200-4.800 1 3 6.300-2.300 1.100-3-6.200L9 18z"/><path d="M3.500 3.500h4v4h-4z" opacity="0.6"/>',
-  pen: '<path d="M12 2.500l6 9.500-6 3.500-6-3.500z"/><path d="M12 15.500V21M9 21h6" opacity="0.6"/>' + dot(12, 10.400, 1, 1.200),
+  pen: '<path d="M17 4l3 3-5 4.900v2.200L4.500 19.500 9.900 9h2.200z"/><path d="M12.100 9l2.900 2.900M9.600 14.400l-5.100 5.100" opacity="0.6"/><path d="M11 21.500c3.500 0 4.500-1.500 9-1.500" opacity="0.3"/>' + dot(9.800, 14.200, 1, 1.300),
   smartpen: '<path d="M9 3l5 8-5 3.500-5-3.500z"/><path d="M9 14.500V17" opacity="0.6"/><path d="M10 20c3 0 3-3 6-3s3 3 5 3" opacity="0.6"/>' + dot(9, 9.500, 1, 1.200),
   curvature: '<path d="M3.500 18c3-13 14-13 17 0"/><path d="M3.500 18h.1M20.500 18h.1" opacity="0.6"/>' + dot(12, 8.300, 1, 1.500),
   polyline: '<path d="M4 18l5-9 5 6 6-10"/>' + dot(4, 18) + dot(9, 9) + dot(14, 15) + dot(20, 5),

@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.140 (2026-11-16)
+
+- **INCEPTOR icons batch 1, round 3: the Pen tool** (Patrick on the Review Inbox card: "only one, the pen tool. it might be better to have it close to the pencil tool but utilising the ink spot end for the pen"). The pen takes the pencil's diagonal barrel and ends in a nib with its ink spot and slit; under it a curved stroke where the pencil has a straight one. The other 41 icons are accepted and unchanged.
+- **A disabled seg option** (asked by DIMENSOR): `.vk-seg button:disabled` / `.is-disabled` (38%, no pointer) and `[aria-disabled="true"]` (38%, keeps the pointer so the tip can say why), the same two forms as `.vk-btn`.
+
 ## 0.41.139 (2026-11-16)
 
 - **Roll glyph, round 2** (QA reviewer, `VERDICT-DS-lane-roll-r1`; still pending Patrick): the three bars now have round ends like the hit bar and sit on whole pixels at 1× (3px bars, 2px apart, in a 15 × 12 box). A roll is derived from a run of hits, so it has **no selected state and takes no pointer** (the bracket-like ring is gone). Where it goes: the Reactions list's Rolls row (which borrowed the hit bar), and the start of a roll's stretch in the lane's Rolls sub-row; on a one-row lane a roll stays a stretch only.
