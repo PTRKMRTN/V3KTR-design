@@ -55,6 +55,7 @@ const ICONS = {
   'icon-processor': letterIcon('P', '#00e5a0', '#1c1c1c'),
   'icon-kompositor': letterIcon('K', '#ff6a43', '#1c1c1c'),
   'icon-dimensor': letterIcon('D', '#bb6fff', '#1c1c1c'),
+  'icon-inceptor': letterIcon('I', '#4d9bff', '#1c1c1c'),
 };
 
 const out = new URL('brand/icons/', root);

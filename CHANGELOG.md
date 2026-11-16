@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.129 (2026-11-17)
+
+- **INCEPTOR logo and app icon** (Patrick supplied `brand/logo-v3ktr-inceptor.svg`): the logo joins the specimen's app logos (XML prolog and DOCTYPE stripped when inlined); `brand/icons/icon-inceptor.svg` + 32 / 180 / 512 PNG built by `scripts/build-icons.mjs` (dark I on the cobalt `#4d9bff` tile, same recipe as P / K / D).
+
 ## 0.41.128 (2026-11-17)
 
 - **Component catalogue started** (Patrick 2026-11-17: catalogue the full library): specimen gets a Components tab built from `specimen/catalogue/*.mjs` (one entry per component: live demo, tag it arrived in, link to its rule). First group: rails and viewport tools (rail view switch, tool column + fly-out, react toggle, canvas well, pick dots / measure line). `check-drift` now has a coverage gate: a styled base `.vk-` class with no specimen entry fails unless it is on the shrinking `specimen/catalogue/pending.json` (65 of 121 pending).

@@ -54,7 +54,7 @@ const layer = (id, title, blurb, css, frag) => `
 
 // every pullable app file (help, link, side view, link badge, sections), so the page shows what an app gets
 const appCss = ['app/app.css', 'app/help.css', 'app/link.css', 'app/side-view.css', 'app/link-badge.css', 'app/sections.css', 'app/frames.css', 'app/status.css', 'app/thumbs.css'].map(read).join('\n');
-const logo = (f) => read('brand/' + f).replace(/<svg /, '<svg class="lg" ');
+const logo = (f) => read('brand/' + f).replace(/<\?xml[^>]*>\s*/, '').replace(/<!DOCTYPE[^>]*>\s*/, '').replace(/<svg /, '<svg class="lg" ');
 const compHtml = `
 <div class="spec-group"><div class="spec-caption">Panel sections · v0.32.0 · space alone, no lines · app/sections.css</div>
   <div class="sp-demo"><div class="vk-section"><div class="vk-sec-label">Render</div><div class="vk-scrub" style="--fill:0%"><span class="vk-scrub__label">Shading</span><span class="vk-scrub__val">Render ▾</span></div></div><div class="vk-section"><div class="vk-sec-label">Quality</div><div class="vk-scrub" style="--fill:40%"><div class="vk-scrub__fill"></div><span class="vk-scrub__label">Denoise</span><span class="vk-scrub__val">On</span></div></div></div>
@@ -81,7 +81,7 @@ const brandHtml = `<section class="tab-panel" id="p-brand" data-tab="brand" hidd
   <div class="spec-group"><div class="spec-caption">Master · logo-v3ktr.svg · neutral: white or grey</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)">${logo('logo-v3ktr.svg')}</div><div class="lg-box lg-big" style="color:#a3a3a3">${logo('logo-v3ktr.svg')}</div></div></div>
   <div class="spec-group"><div class="spec-caption">Solo · logo-v3ktr-solo.svg</div><div class="lg-row"><div class="lg-box lg-big" style="color:var(--tx-0)">${logo('logo-v3ktr-solo.svg')}</div><div class="lg-box lg-big" style="color:#a3a3a3">${logo('logo-v3ktr-solo.svg')}</div></div></div>
   <div class="spec-group"><div class="spec-caption">App logos · in their locked colours (data-app sets --accent)</div>
-    ${['processor','kompositor','dimensor'].map((a) => `<div class="lg-app" data-app="${a}" style="color:var(--accent)">${logo('logo-v3ktr-' + a + '.svg')}</div>`).join('')}
+    ${['processor','kompositor','dimensor','inceptor'].map((a) => `<div class="lg-app" data-app="${a}" style="color:var(--accent)">${logo('logo-v3ktr-' + a + '.svg')}</div>`).join('')}
   </div>
   <div class="spec-group"><div class="spec-caption">Social icons · brand/social · Simple Icons (CC0), third-party trademarks · neutral only · rest #a3a3a3 / hover white</div>
     <div class="lg-social">${['instagram','x','youtube','bluesky','facebook','tiktok'].map((n) => `<span class="lg-soc" title="${n}">${read('brand/social/' + n + '.svg')}</span>`).join('')}</div>
