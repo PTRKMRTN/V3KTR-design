@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.159 (2026-11-18)
+
+QA reviewer's round on INCEPTOR icon batch 2 (`REQ-DS-inceptor-icons-b2-r2`):
+- **`invertdepth` redrawn** to show a change: a dome at full, a dashed ghost bowl under it and a reversing arrow beside it (it read as a lens or a struck-through O).
+- **`scripts/check-icon-dupes.mjs`:** `--shared fav,faved` also compares new shared icons against every other shared drawing, and `--control` plants a copy of `lock` (as an INCEPTOR icon) and of `eye` (as a new shared icon) and exits 0 only if both fail. The favourite star pair `fav ~ faved` is exempt (the same star, outline and solid).
+- **The new icons and `fav` / `faved` are NOT adopted yet:** they wait for Patrick (one rule exception, the solid `faved`). The AGENTS.md note says so.
+
 ## 0.41.158 (2026-11-18)
 
 Patrick's answers on card `DS-layer-controls-left`:
