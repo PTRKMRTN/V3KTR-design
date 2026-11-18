@@ -5,6 +5,14 @@ export default {
   blurb: 'The add-rail, the tool column over a canvas, and what is drawn on a viewport.',
   entries: [
     {
+      name: 'Tool fly-out as a list',
+      since: '0.41.165',
+      rule: 'AGENTS.md "Tool fly-out as a list"',
+      classes: ['vk-vtools__fly--list', 'vk-vtools__opts--list'],
+      note: 'A group whose options carry names opens a stacked list to the LEFT of its tile, touching it. The list is one step lighter than the tool tiles (--bg-4) and so is the tile that opened it, so they read as one piece and the column is not a blob of equal tiles. The chosen option is the accent fill; a hover is the app-colour tint. A group tile wears a corner mark. Opens upward (.is-up) near the window bottom.',
+      html: `<div style="display:flex;justify-content:flex-end;width:340px;height:260px;padding:6px 0"><div class="vk-vtools" style="align-items:flex-end"><button class="vk-vtools__t" aria-label="Select">{{ic:cursor:16}}</button><div class="vk-vtools__fly vk-vtools__fly--list"><button class="vk-vtools__t" aria-haspopup="menu" aria-expanded="true" aria-label="Shapes">{{ic:frame:16}}</button><div class="vk-vtools__opts vk-vtools__opts--list" role="menu" aria-label="Shapes"><button class="vk-vtools__o" role="menuitemradio" aria-checked="true">{{ic:frame:14}}<span>Rectangle</span><kbd>M</kbd></button><button class="vk-vtools__o" role="menuitemradio" aria-checked="false">{{ic:crop:14}}<span>Ellipse</span><kbd>L</kbd></button><button class="vk-vtools__o" role="menuitemradio" aria-checked="false">{{ic:curve:14}}<span>Polygon</span></button><button class="vk-vtools__o" role="menuitemradio" aria-checked="false">{{ic:doc:14}}<span>Line</span><kbd>\</kbd></button></div></div><button class="vk-vtools__t" aria-label="Hand">{{ic:camera:16}}</button><button class="vk-vtools__t" aria-label="Zoom">{{ic:zoom:16}}</button></div></div>`,
+    },
+    {
       name: 'Rail view switch + filter chips',
       since: '0.41.124',
       rule: 'AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js',

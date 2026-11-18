@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.165 (2026-11-18)
+
+- **Tool fly-out as a list** (Patrick 2026-11-18, card `DS-tool-flyouts`, "B"): `.vk-vtools__fly--list` + `.vk-vtools__opts--list`, a vertical list opening left of its tile on `--bg-4` (one step lighter than the tiles), the opening tile matching, a corner mark on group tiles, `.is-up` near the window bottom. Short value fly-outs are unchanged.
+- **A one-time notice** is a news toast plus a remembered flag (PROCESSOR's integrated-graphics notice). Rule text only.
+
 ## 0.41.164 (2026-11-18)
 
 - **Flare skip / place, refined** (Patrick on K-flare-override, "Skip and place: both"): both are normal buttons in the actions row under the Flare heading; each starts a pick mode with a pill, Skip stays armed (pressed fill) until Esc, a second press or Done, Place ends after one click; the tool column shows Done while a mode is on; skipped lights get a row toggle to bring them back. Rule text only.
