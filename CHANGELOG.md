@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.163 (2026-11-18)
+
+- **INCEPTOR icon batch 3** (card `DS-tool-tile-faces`, Patrick 2026-11-18: "A: icons on the on/off tiles"): `closenear` (the Pencil's Close near start) and `symmetric` (the Width tool's Symmetric), the two on/off tool controls with no icon yet (`rubber` and `autoadd` are batch 1). Duplicate check clean, with a control run. **Pending Patrick's approval** (REQ-DS-inceptor-icons-b3-r1); not to be adopted before.
+
 ## 0.41.162 (2026-11-18)
 
 - **Roll rows have no tray** (Patrick, INCEPTOR's Generators and FX stack): PROCESSOR's `Reset | [Randomise + latch]` (`.vk-roll-pair`) with further latches as their own `.vk-roll-blends` tiles on a second line; `.vk-roll-group` is deprecated for roll rows.

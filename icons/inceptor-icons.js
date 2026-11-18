@@ -56,7 +56,10 @@ export const INCEPTOR_ICONS = {
   scalestrokes: '<path d="M3.500 3.500h11v11h-11z"/><path d="M6.500 6.500h5v5h-5z" opacity="0.6"/><path d="M13 13l7.500 7.500M15.500 20.500h5v-5"/>',
   dash: '<path d="M3 15h3.500M9.500 15h3.500M16 15h5"/><path d="M3 9h18" opacity="0.3"/>',
   invertdepth: '<path d="M3 12h12" opacity="0.3"/><path d="M3.500 11.500c1.200-5.500 9.800-5.500 11 0"/><path d="M3.500 12.500c1.200 5.500 9.800 5.500 11 0" stroke-dasharray="1.600 2" opacity="0.6"/><path d="M19.500 7v10M17.500 9l2-2 2 2M17.500 15l2 2 2-2"/>',
-  goinside: '<path d="M4 4h16v16H4z" opacity="0.6"/><path d="M12 12h6v6h-6z"/><path d="M6.500 6.500l5 5M12 8.500v3h-3"/>'
+  goinside: '<path d="M4 4h16v16H4z" opacity="0.6"/><path d="M12 12h6v6h-6z"/><path d="M6.500 6.500l5 5M12 8.500v3h-3"/>',
+  // batch 3 (card DS-tool-tile-faces, Patrick 2026-11-18: A, icons on the on/off tiles): the two tool toggles with no icon yet (rubber and autoadd are batch 1); pending Patrick
+  closenear: '<path d="M7 17C2 10 9 3 16 6s4 9 0 12c-2 1.500-4 1-5.500.500"/><path d="M11 17a4 4 0 1 0-8 0 4 4 0 1 0 8 0" opacity="0.6"/>' + dot(7, 17, 1, 1.300),
+  symmetric: '<path d="M3 8.500c3-4 5 3 9 0s6-3.500 9 0"/><path d="M3 15.500c3 4 5-3 9 0s6 3.500 9 0" opacity="0.6"/><path d="M3 12h18" stroke-dasharray="2 2" opacity="0.3"/>'
 };
 export function inceptorIconSvg(name, size = 14) {
   const b = INCEPTOR_ICONS[name]; if (!b) return '';
