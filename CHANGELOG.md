@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.164 (2026-11-18)
+
+- **Flare skip / place, refined** (Patrick on K-flare-override, "Skip and place: both"): both are normal buttons in the actions row under the Flare heading; each starts a pick mode with a pill, Skip stays armed (pressed fill) until Esc, a second press or Done, Place ends after one click; the tool column shows Done while a mode is on; skipped lights get a row toggle to bring them back. Rule text only.
+
 ## 0.41.163 (2026-11-18)
 
 - **INCEPTOR icon batch 3** (card `DS-tool-tile-faces`, Patrick 2026-11-18: "A: icons on the on/off tiles"): `closenear` (the Pencil's Close near start) and `symmetric` (the Width tool's Symmetric), the two on/off tool controls with no icon yet (`rubber` and `autoadd` are batch 1). Duplicate check clean, with a control run. **Pending Patrick's approval** (REQ-DS-inceptor-icons-b3-r1); not to be adopted before.
