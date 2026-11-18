@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.171 (2026-11-18)
+
+- **Toolbar modes: Minimal and Expanded** (Patrick 2026-11-18). Minimal = the v0.41.170 push block (default). Expanded = every tile in labelled groups, flat, neutral, two columns when the stack fits the window else three (`.vk-vtools--expanded`, `.vk-vtools--cols3`, `.vk-vtools__grid`, `.vk-vtools__glabel`). One setting, View › Toolbar, beside View › Workspace. The view controls leave the tool column and become the bottom floating viewport toolbar (existing pattern), in both modes. A docked rail was tried and dropped. Mocks: `V3KTR-COWORK/reports/flyout-mock/rail-r5-compare.png`. Specimen entry added.
+
 ## 0.41.170 (2026-11-18)
 
 - **Tool groups open as a solid block that pushes the tiles below down** (Patrick 2026-11-18, card `DS-tool-push`: option 3, "this would need to work for single column too, and have a rule on when it actually goes to two column"). New: `.vk-vtools__t--grp` (group tile with corner mark), `.vk-vtools__block` + `.vk-vtools__bm` (the members, one solid block), `.vk-vtools--cols2` (two columns, the block spans both), tone `--vk-push-tone`. **Removed:** the fly-out list (`.vk-vtools__fly--list`, `.vk-vtools__opts--list`, v0.41.165, held since .168), never shipped in an app. The one-vs-two-column rule is in AGENTS.md (one column only when the largest group fits when open; decided from window height, never on open); its numbers are on card `DS-tool-push-rule`, pending Patrick. Mock and measurements: `reports/flyout-mock/push3.png`. Specimen entry added.
