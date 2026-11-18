@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.160 (2026-11-18)
+
+- **Section actions** (Patrick 2026-11-18, card `DS-add-action`, "B: labelled buttons under the heading"): a section's add action, and its other actions, are a row of plain labelled `.vk-btn` in `.vk-sec-tools` directly under the heading, the same in every app (KOMPOSITOR's Groups was first). Verb and noun, primary add first, housekeeping last, normal size. `.vk-sec-add` (the icon +) is DEPRECATED for add actions and kept so pinned apps keep working. Supersedes the "two add buttons on a section bar" rule (v0.41.69). `.vk-sec-tools` now has a catalogue entry.
+
 ## 0.41.159 (2026-11-18)
 
 QA reviewer's round on INCEPTOR icon batch 2 (`REQ-DS-inceptor-icons-b2-r2`):

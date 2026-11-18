@@ -4,6 +4,15 @@ export default {
   blurb: 'Section headings and the tools that sit on them.',
   entries: [
     {
+      name: 'Section actions: labelled buttons under the heading',
+      since: '0.41.160',
+      rule: 'AGENTS.md "Section actions"',
+      classes: ['vk-sec-tools'],
+      note: 'A section\'s add action, and its other actions, are a row of plain labelled buttons directly under the heading (Patrick 2026-11-18, option B). Verb and noun, primary add first, housekeeping last, normal size, hugging their text, wrapping at 6px. The icon + (.vk-sec-add) is deprecated for add actions.',
+      html: `<div style="width:356px"><div class="vk-sec-bar"><h3 class="vk-sec-head">Layers</h3></div><div class="vk-sec-tools"><button type="button" class="vk-btn">Add item</button><button type="button" class="vk-btn">New layer</button><button type="button" class="vk-btn">Group</button><button type="button" class="vk-btn">Collapse all</button></div>
+  <div class="vk-sec-bar" style="margin-top:var(--sec-gap)"><h3 class="vk-sec-head">Swatches</h3><button type="button" class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset swatches">Reset</button></div><div class="vk-sec-tools"><button type="button" class="vk-btn">Add swatch</button></div></div>`,
+    },
+    {
       name: 'Section Reset',
       since: '0.41.148',
       rule: 'AGENTS.md "Labels and button sizes" (A Reset in a section heading)',

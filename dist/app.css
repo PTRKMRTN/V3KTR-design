@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.159
+/* V3KTR design tokens · v0.41.160
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -154,7 +154,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.159 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.160 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -820,6 +820,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* a section head with an add button at its right end ("Add camera"): a 22px icon button, the shared "add an item to this list" head */
 .vk-sec-bar{display:flex;align-items:center;margin:0 0 var(--sec-head-gap);}
 .vk-sec-bar > .vk-sec-head{margin:0;}
+/* DEPRECATED (v0.41.160): use .vk-sec-tools with labelled buttons for a section's actions. */
 .vk-sec-add{margin-left:0;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:var(--bg-3);color:var(--tx-1);cursor:pointer;}
 /* Two or more add buttons on one bar (two add buttons, sec-actions; DIMENSOR Cameras: + camera, + Multiplane): they sit together at the right. The first visible one takes the auto margin, the rest follow at 6px. */
 .vk-sec-add:not([hidden]) ~ .vk-sec-add{margin-left:6px;}
@@ -1194,6 +1195,9 @@ button.vk-tag--sx:focus-visible{outline:var(--focus-ring);outline-offset:var(--f
 .vk-gridkids{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tile,96px),1fr));gap:8px;margin:3px 0;}
 
 /* Groups toolbar (labelled, Patrick 2026-10-30: "we might need labels here", in the style of the Reset / Randomise / Blends row): a row of text .vk-btn under the section head: Add, Remove (acts on the selected group), Expand all, Collapse all. Wraps when narrow. */
+/* Section actions (v0.41.160, Patrick 2026-11-18, card DS-add-action, "B: labelled buttons under the heading"): a section's add (and other) actions are a row of plain labelled
+   .vk-btn directly under the heading, left-aligned, wrapping at 6px gaps: <div class="vk-sec-bar"><h3 class="vk-sec-head">Swatches</h3></div><div class="vk-sec-tools"><button class="vk-btn">Add swatch</button></div>.
+   KOMPOSITOR's Groups toolbar was the first. This is the one rule for every app; .vk-sec-add (the icon +) is DEPRECATED for add actions (kept so pinned apps keep working). */
 .vk-sec-tools{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:0 0 var(--sec-head-gap);}
 /* Reveal on hover or focus: a control that shows only when its row or tile is hovered, or it has keyboard focus (the bin on a group row, the remove on a media tile). */
 .vk-reveal{opacity:0;transition:opacity .1s;}
