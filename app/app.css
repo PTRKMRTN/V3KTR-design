@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.156 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.157 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -76,7 +76,7 @@
 .vk-btn--lg{min-height:0;padding:8px 14px;transition:all 0.12s;}
 
 /* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
-.vk-btn--sm{min-height:0;font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+.vk-btn--sm{min-height:0;height:var(--row-h-sm);box-sizing:border-box;font-size:9px;padding:0 7px;letter-spacing:0.06em;}   /* v0.41.157: 22px (--row-h-sm), the same as a chip, a small icon button and the section Reset; a text .vk-btn--sm rendered 18px beside them (INCEPTOR) */
 /* COMPACT (v0.41.31, Patrick 2026-10-23, from PROCESSOR): the middle size for a tool row in a side panel (Reset / Randomise / +Features /
    +Blends). 22px tall; four of them plus Reset fit a 272px tray where the standard button overflows it by ~75px, and it is
    readable where --sm (16px, 9px text) is a footnote size. */
@@ -332,7 +332,7 @@
 .vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
   text-transform:uppercase;line-height:1;padding:8px 0 6px;}
 /* from .looks-group-label, .mi-group-label */
-.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);}
+.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2-hi);}   /* v0.41.157: --tx-2 was 3.3-4.1:1 on a raised ground (INCEPTOR) */
 
 /* ---------------------------------------------------------------- workspace tabs */
 
@@ -745,8 +745,13 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
    Use aria-disabled, not :disabled, so the tip still opens; the app guards the click and says why in the tip (data-tip-desc). Works on .vk-row and .vk-layer rows, selected or not. */
 .vk-row__ctl[aria-disabled="true"]{opacity:.4;cursor:default;}
 
-.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock),
-.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock){opacity:0.6;}   /* v0.41.150: the .vk-lock corner mark stays whole too (INCEPTOR) */   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
+.vk-row.is-locked:not(:has(.vk-lockctl))>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock),
+.vk-layer.is-locked:not(:has(.vk-lockctl))>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock){opacity:0.6;}
+/* v0.41.157 (INCEPTOR): mark the lock control .vk-lockctl and ONLY it is spared; any other pressed control in the row (a pressed eye) dims with the rest. A row with no .vk-lockctl keeps the rule above (any pressed row control counts as the lock). */
+.vk-row.is-locked:has(.vk-lockctl)>:not(.vk-lockctl):not(:has(.vk-lockctl)):not(.vk-lock),
+.vk-layer.is-locked:has(.vk-lockctl)>:not(.vk-lockctl):not(:has(.vk-lockctl)):not(.vk-lock){opacity:0.6;}
+/* a disabled seg option in a locked row is dimmed once (the row's 60%), not twice (60% x 38%) */
+.is-locked .vk-seg button:disabled,.is-locked .vk-seg button.is-disabled,.is-locked .vk-seg button[aria-disabled="true"]{opacity:1;}   /* v0.41.150: the .vk-lock corner mark stays whole too (INCEPTOR) */   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
 
 /* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
    toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):

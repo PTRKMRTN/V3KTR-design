@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.156 ===== */
-/* V3KTR design tokens · v0.41.156
+/* ===== core: tokens.css v0.41.157 ===== */
+/* V3KTR design tokens · v0.41.157
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -97,7 +97,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.156 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.157 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -175,7 +175,7 @@
 .vk-btn--lg{min-height:0;padding:8px 14px;transition:all 0.12s;}
 
 /* from .inline-btn.sm, .layer .lmask, .seg.mask-cmb button (SMALL) */
-.vk-btn--sm{min-height:0;font-size:9px;padding:3px 7px;letter-spacing:0.06em;}
+.vk-btn--sm{min-height:0;height:var(--row-h-sm);box-sizing:border-box;font-size:9px;padding:0 7px;letter-spacing:0.06em;}   /* v0.41.157: 22px (--row-h-sm), the same as a chip, a small icon button and the section Reset; a text .vk-btn--sm rendered 18px beside them (INCEPTOR) */
 /* COMPACT (v0.41.31, Patrick 2026-10-23, from PROCESSOR): the middle size for a tool row in a side panel (Reset / Randomise / +Features /
    +Blends). 22px tall; four of them plus Reset fit a 272px tray where the standard button overflows it by ~75px, and it is
    readable where --sm (16px, 9px text) is a footnote size. */
@@ -431,7 +431,7 @@
 .vk-group-label{font-size:9px;font-weight:var(--head-weight);letter-spacing:0.18em;color:var(--gcol,var(--tx-1));
   text-transform:uppercase;line-height:1;padding:8px 0 6px;}
 /* from .looks-group-label, .mi-group-label */
-.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2);}
+.vk-micro-label{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx-2-hi);}   /* v0.41.157: --tx-2 was 3.3-4.1:1 on a raised ground (INCEPTOR) */
 
 /* ---------------------------------------------------------------- workspace tabs */
 
@@ -844,8 +844,13 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
    Use aria-disabled, not :disabled, so the tip still opens; the app guards the click and says why in the tip (data-tip-desc). Works on .vk-row and .vk-layer rows, selected or not. */
 .vk-row__ctl[aria-disabled="true"]{opacity:.4;cursor:default;}
 
-.vk-row.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock),
-.vk-layer.is-locked>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock){opacity:0.6;}   /* v0.41.150: the .vk-lock corner mark stays whole too (INCEPTOR) */   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
+.vk-row.is-locked:not(:has(.vk-lockctl))>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock),
+.vk-layer.is-locked:not(:has(.vk-lockctl))>:not(.vk-row__ctl[aria-pressed="true"]):not(:has(.vk-row__ctl[aria-pressed="true"])):not(.vk-lock){opacity:0.6;}
+/* v0.41.157 (INCEPTOR): mark the lock control .vk-lockctl and ONLY it is spared; any other pressed control in the row (a pressed eye) dims with the rest. A row with no .vk-lockctl keeps the rule above (any pressed row control counts as the lock). */
+.vk-row.is-locked:has(.vk-lockctl)>:not(.vk-lockctl):not(:has(.vk-lockctl)):not(.vk-lock),
+.vk-layer.is-locked:has(.vk-lockctl)>:not(.vk-lockctl):not(:has(.vk-lockctl)):not(.vk-lock){opacity:0.6;}
+/* a disabled seg option in a locked row is dimmed once (the row's 60%), not twice (60% x 38%) */
+.is-locked .vk-seg button:disabled,.is-locked .vk-seg button.is-disabled,.is-locked .vk-seg button[aria-disabled="true"]{opacity:1;}   /* v0.41.150: the .vk-lock corner mark stays whole too (INCEPTOR) */   /* v0.41.145: a wrapper holding the lock is not dimmed, so the lock stays at full (found by INCEPTOR and the QA reviewer) */
 
 /* A small icon-only toggle that ISN'T a row control and ISN'T grouped in a .vk-seg (a standalone square control in a
    toolbar or rail — PROCESSOR's viewport Controls toggle, KOMPOSITOR's lane lock/dice/pace/link, DIMENSOR's FX lock):
@@ -3281,7 +3286,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.156</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.157</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3672,7 +3677,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   <div class="vk-modal" style="width:360px"><div class="vk-modal__title">Import SVG</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview vk-canvas-nav"><svg viewBox="0 0 360 190"><ellipse cx="140" cy="100" rx="52" ry="48" fill="#e2572e"/><path d="M196 62l58-10v70l-58 10z" fill="#19b5b1"/><path d="M264 132l30-80 22 80z" fill="#f6c51f"/></svg></div><span class="vk-dlg-preview__hint">Drag to turn</span><div class="vk-scrub" style="--fill:35%"><span class="vk-scrub__label">Extrude</span><span class="vk-scrub__val">0.35</span></div></div></div>
   <div class="vk-modal" style="width:300px"><div class="vk-modal__title">Import SVG</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview is-empty">No shapes to extrude</div></div></div>
 </div></div><p class="th-note">The picture box at the top of an import dialog: 190px tall on the canvas well, holding a live view that redraws as the options change; grab to turn it. Empty state: a line of text.</p></div></div><div class="cat-group" id="cat-1"><h3 class="cat-h">Panels</h3><p class="th-note">Section headings and the tools that sit on them.</p><div class="spec-group"><div class="spec-caption">Section Reset · v0.41.148 · AGENTS.md "Labels and button sizes" (A Reset in a section heading)</div><div class="sp-demo"><div class="vk-section" style="width:356px;padding:0"><div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button type="button" class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
-  <div class="vk-scrub" style="--fill:50%"><span class="vk-scrub__label">Rotate</span><span class="vk-scrub__val">0°</span></div></div></div><p class="th-note">A small text Reset at the right end of a section heading, the heading kept clear of it. Only where every setting in the section can be put back; never beside a Reset | Randomise row.</p></div></div><div class="cat-group" id="cat-2"><h3 class="cat-h">Rails and viewport tools</h3><p class="th-note">The add-rail, the tool column over a canvas, and what is drawn on a viewport.</p><div class="spec-group"><div class="spec-caption">Rail view switch + filter chips · v0.41.124 · AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js</div><div class="sp-demo"><div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+  <div class="vk-scrub" style="--fill:50%"><span class="vk-scrub__label">Rotate</span><span class="vk-scrub__val">0°</span></div></div></div><p class="th-note">A small text Reset at the right end of a section heading, the heading kept clear of it. Only where every setting in the section can be put back; never beside a Reset | Randomise row.</p></div><div class="spec-group"><div class="spec-caption">Locked row: only the lock stays whole · v0.41.157 · AGENTS.md "Locked row" (v0.41.157)</div><div class="sp-demo"><div style="width:300px"><div class="vk-layer is-locked" style="display:flex;align-items:center;gap:6px;height:26px;padding:0 6px"><button class="vk-row__ctl" aria-pressed="true" aria-label="Show" data-tip="Show"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3l18 18M6.500 7.500C3.800 9.300 2 12 2 12s4 6.500 10 6.500c1.500 0 2.900-.4 4.200-1"/></svg></button><span class="vk-layer__name" style="flex:1">Array</span><button class="vk-row__ctl vk-lockctl" aria-pressed="true" aria-label="Unlock" data-tip="Unlock"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 11h12v9H6z"/><path d="M8.500 11V8a3.500 3.500 0 0 1 7 0v3"/></svg></button></div></div></div><p class="th-note">A locked row dims to 60% except the lock control. Mark the lock .vk-lockctl and ONLY it is spared: a pressed eye (hidden) or any other pressed control dims with the row. A row with no .vk-lockctl keeps the older rule (any pressed row control counts as the lock).</p></div></div><div class="cat-group" id="cat-2"><h3 class="cat-h">Rails and viewport tools</h3><p class="th-note">The add-rail, the tool column over a canvas, and what is drawn on a viewport.</p><div class="spec-group"><div class="spec-caption">Rail view switch + filter chips · v0.41.124 · AGENTS.md "Rail view switch + filter chips"; interactions/rail-view.js</div><div class="sp-demo"><div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
   <div style="width:192px;background:var(--bg-1);padding:14px 11px">
     <div class="vk-rail-head"><div class="vk-rail-chips"><button class="vk-chip vk-chip--group is-on">ALL</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-rose)">REP</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-amber)">DEF</button><button class="vk-chip vk-chip--group" style="--gcol:var(--type-teal)">STY</button></div><button class="vk-icon-tog" aria-label="Show icons"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.500" height="6.500"/><rect x="13.500" y="4" width="6.500" height="6.500"/><rect x="4" y="13.500" width="6.500" height="6.500"/><rect x="13.500" y="13.500" width="6.500" height="6.500"/></svg></button></div>
     <div class="vk-group-label" style="--gcol:var(--type-rose);padding:6px 0 4px">REPLICATE</div>

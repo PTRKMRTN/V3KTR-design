@@ -2,6 +2,16 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.157 (2026-11-18)
+
+INCEPTOR findings (sections 6 and 7 of `V3KTR-COWORK/notes/INCEPTOR-DESIGN-FINDINGS-2026-11-16.md`):
+- **`.vk-lockctl`:** mark the lock control and a locked row spares only it; a pressed eye or any other pressed control now dims with the row. Rows with no marker keep the old rule.
+- **A disabled seg option in a locked row** is dimmed once (60%), not twice (23%).
+- **`.vk-micro-label`** uses `--tx-2-hi`.
+- **`.vk-btn--sm` is 22px** (`--row-h-sm`), so a small text tool button ("Side view", the section Reset) lines up with chips and small icon buttons (it rendered 18px).
+- **`MENU_ICONS.fav` / `faved`:** the favourite star, outline and solid.
+- **Chip name rule:** an abbreviated count keeps the visible text in the accessible name ("Lucide 2.1k, 2,055 items").
+
 ## 0.41.156 (2026-11-16)
 
 - **Eyedropper placement decided** (Patrick, card P-e8-eyedropper-place): a `.vk-icon-tog` with `MENU_ICONS.eyedrop` between the hex value and the swatch in a colour row, accent while armed. Rule text only (PROCESSOR v1.19.0 ships it).

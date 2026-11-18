@@ -59,7 +59,9 @@ const sims = await p.evaluate(async (icons) => {
 await b.close();
 // Policy. Inside the set: a pair at or over the threshold fails. Against the shared menu set: fails at 0.90 unless it is the SAME VERB drawn the same on purpose.
 // Against an app's own drawings that are not redrawn yet: listed as a warning (they are settled when their batch is drawn, and then count as "inside the set").
-const SAME_VERB = new Set(['select~menu:cursor', 'zoom~menu:zoom', 'zoom~menu:zoomin', 'zoom~menu:zoomout', 'fit~menu:frame', 'efTrans~menu:move', 'efTrans~menu:pan']);
+const SAME_VERB = new Set(['select~menu:cursor', 'zoom~menu:zoom', 'zoom~menu:zoomin', 'zoom~menu:zoomout', 'fit~menu:frame', 'efTrans~menu:move', 'efTrans~menu:pan',
+  // v0.41.157: eyedrop was PROMOTED to the shared set (same drawing, same name: the shared one takes over); star (the shape tool) and fav (the favourite) are both a star and never sit in one control group
+  'eyedrop~menu:eyedrop', 'star~menu:fav', 'star~menu:faved']);
 const MENU_FAIL = 0.90;
 const fails = [], warns = [];
 for (const [a, c, d] of sims) {

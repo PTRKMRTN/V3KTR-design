@@ -12,5 +12,13 @@ export default {
       html: `<div class="vk-section" style="width:356px;padding:0"><div class="vk-sec-bar"><h3 class="vk-sec-head">Transform</h3><button type="button" class="vk-btn vk-btn--sm vk-sec-reset" data-tip="Reset Transform">Reset</button></div>
   <div class="vk-scrub" style="--fill:50%"><span class="vk-scrub__label">Rotate</span><span class="vk-scrub__val">0°</span></div></div>`,
     },
+    {
+      name: 'Locked row: only the lock stays whole',
+      since: '0.41.157',
+      rule: 'AGENTS.md "Locked row" (v0.41.157)',
+      classes: ['vk-lockctl'],
+      note: 'A locked row dims to 60% except the lock control. Mark the lock .vk-lockctl and ONLY it is spared: a pressed eye (hidden) or any other pressed control dims with the row. A row with no .vk-lockctl keeps the older rule (any pressed row control counts as the lock).',
+      html: `<div style="width:300px"><div class="vk-layer is-locked" style="display:flex;align-items:center;gap:6px;height:26px;padding:0 6px"><button class="vk-row__ctl" aria-pressed="true" aria-label="Show" data-tip="Show"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3l18 18M6.500 7.500C3.800 9.300 2 12 2 12s4 6.500 10 6.500c1.500 0 2.900-.4 4.200-1"/></svg></button><span class="vk-layer__name" style="flex:1">Array</span><button class="vk-row__ctl vk-lockctl" aria-pressed="true" aria-label="Unlock" data-tip="Unlock"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 11h12v9H6z"/><path d="M8.500 11V8a3.500 3.500 0 0 1 7 0v3"/></svg></button></div></div>`,
+    },
   ],
 };
