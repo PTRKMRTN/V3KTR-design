@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.158 (2026-11-18)
+
+Patrick's answers on card `DS-layer-controls-left`:
+- **Stack and layer row controls stay at the row's end** ("B: keep them at the row's end"); the Layers tree's fixed slot is the same. The "waits for his card" notes are gone.
+- **The section Reset moves to just after the heading name** ("reset button should move to after name"), 14px after it, like the + and other head tools. `.vk-sec-reset` no longer pushes right.
+- **Open, on a Decisions card (`DS-add-action`):** under the left-aligned rule, a heading's add action as a `+` after the heading or a labelled button under it ("Add swatch").
+
 ## 0.41.157 (2026-11-18)
 
 INCEPTOR findings (sections 6 and 7 of `V3KTR-COWORK/notes/INCEPTOR-DESIGN-FINDINGS-2026-11-16.md`):
