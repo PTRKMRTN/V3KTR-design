@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.168 (2026-11-18)
+
+- **The tool fly-out as a list (v0.41.165) is HELD.** Patrick sent a push-down sketch after choosing it; Decisions card `DS-tool-push` compares the two (mock `reports/flyout-mock/push.png`, Shapes with seven members, his three two-column options, his tint note) and replaces the list unless he says otherwise. Nothing is removed; apps wait. Rule text only.
+
 ## 0.41.167 (2026-11-18)
 
 - **Approved by Patrick (2026-11-18):** INCEPTOR icon batch 2, all seven (`underline`, `strikethrough`, `lockratio`, `scalestrokes`, `dash`, `invertdepth`, `goinside`; card `DS-inceptor-icons-b2`), and the shared favourite star `fav` / `faved`, with its one exception to "no fills except dots": `faved` stays a solid star (card `DS-faved-solid-star`). INCEPTOR and any app may adopt them now. Batch 3 (`closenear`, `symmetric`) and `pause` are still pending. Notes only; no drawing changed.
