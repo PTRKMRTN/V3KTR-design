@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.172 (2026-11-19)
+
+- **Horizontal narrow scrub** `.vk-vscrub--h` (INCEPTOR's zoom % in the bottom viewport toolbar, which had a local override): 26px, icon and number side by side, fill left to right; `interactions/vscrub.js` reads the modifier (drag along x, Left/Right arrows). Specimen entry added.
+- **Toolbar numbers updated to INCEPTOR's measurements** (notes only): Minimal one column from a window about 819px tall (collapsed column 350px once the view tools left it); Expanded 576px in two columns (about 839px window), 448px in three (about 711px window); at 1366×768 Expanded scrolls, a trim is Patrick's call. The bottom view row carries no "View" label.
+
 ## 0.41.171 (2026-11-18)
 
 - **Toolbar modes: Minimal and Expanded** (Patrick 2026-11-18). Minimal = the v0.41.170 push block (default). Expanded = every tile in labelled groups, flat, neutral, two columns when the stack fits the window else three (`.vk-vtools--expanded`, `.vk-vtools--cols3`, `.vk-vtools__grid`, `.vk-vtools__glabel`). One setting, View › Toolbar, beside View › Workspace. The view controls leave the tool column and become the bottom floating viewport toolbar (existing pattern), in both modes. A docked rail was tried and dropped. Mocks: `V3KTR-COWORK/reports/flyout-mock/rail-r5-compare.png`. Specimen entry added.
