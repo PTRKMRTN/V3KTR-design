@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.169 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.170 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -797,18 +797,21 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vtools__t--val:focus-within{outline:2px solid var(--accent);outline-offset:-2px;}
 /* TILE FLY-OUT (v0.41.119, Patrick 2026-11-13: the native select list looked off-brand; "tiles folding out to the left", the option-A flyout of the tool-controls mock). A picker in a tool column: .vk-vtools__fly wraps the face tile (.vk-vtools__t--val, shows the value) and .vk-vtools__opts, a row of 30px option tiles that opens to its LEFT, level with the tile, 2px apart. Option = .vk-vtools__o (hugs its text, 9px side padding, mono 10px caps); the chosen one is accent-filled. Behaviour interactions/vfly.js. Replaces the old transparent-select value tile. */
 .vk-vtools__fly{position:relative;}
-/* FLY-OUT AS A LIST (v0.41.165, Patrick 2026-11-18, card DS-tool-flyouts, "B: a left fly-out, stacked vertically"; "flyout background colour should be slightly brighter or darker than the tool bar tiles, and the selected tool tile bg should match so the flyout looks slightly different to the toolbar and not a big blob of tiles"). For a group whose options carry a name (icon + name + key), e.g. INCEPTOR's Shapes:
-   <div class="vk-vtools__fly vk-vtools__fly--list"><button class="vk-vtools__t" aria-haspopup="menu" aria-expanded="true">icon</button><div class="vk-vtools__opts vk-vtools__opts--list" role="menu"><button class="vk-vtools__o" role="menuitemradio" aria-checked="true"><svg/><span>Rectangle</span><kbd>M</kbd></button>…</div></div>
-   The list opens to the LEFT of its tile, touching it, and pushes nothing. It sits on --bg-4, one step lighter than the tiles (--bg-3), with the menu shadow; the face tile that opened it is --bg-4 too (the existing aria-expanded look), so tile and list read as one piece and the column is not a blob of equal tiles. A hovered option takes the app-colour tint (as a menu item does), the chosen one the accent fill. A group's tile wears a small corner mark ("there is more here"). Add .is-up to the list when it would run past the window bottom: it then opens upward, its bottom on the tile's bottom. Short value options (a render scale "1x 2x 4x") keep the plain horizontal fly-out above. */
-.vk-vtools__fly--list > .vk-vtools__t{position:relative;}
-.vk-vtools__fly--list > .vk-vtools__t::after{content:"";position:absolute;right:3px;bottom:3px;border:3px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.7;}
-.vk-vtools__opts.vk-vtools__opts--list{right:100%;flex-direction:column;gap:0;align-items:stretch;min-width:150px;background:var(--bg-4);box-shadow:var(--app-shadow-pop);}
-.vk-vtools__opts.vk-vtools__opts--list.is-up{top:auto;bottom:0;}
-.vk-vtools__opts--list .vk-vtools__o{display:flex;align-items:center;gap:6px;justify-content:flex-start;background:none;}
-.vk-vtools__opts--list .vk-vtools__o svg{width:14px;height:14px;flex:none;}
-.vk-vtools__opts--list .vk-vtools__o kbd{margin-left:auto;padding-left:14px;font:9px var(--mono);opacity:.8;}
-.vk-vtools__opts--list .vk-vtools__o:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-4));color:var(--tx-0);}
-.vk-vtools__opts--list .vk-vtools__o[aria-checked="true"]{background:var(--accent);color:var(--on-accent);}
+/* TOOL GROUPS AS A SOLID BLOCK THAT PUSHES (v0.41.170, Patrick 2026-11-18, card DS-tool-push, "i like (3)"). Replaces the fly-out list of v0.41.165. A group tile opens its members as ONE solid block under it and the tiles below move down. Markup:
+   <div class="vk-vtools"> ... <button class="vk-vtools__t vk-vtools__t--grp is-open" aria-expanded="true" aria-controls="b1">icon</button><div class="vk-vtools__block" id="b1" role="radiogroup" aria-label="Shapes"><button class="vk-vtools__bm" role="radio" aria-checked="true">icon</button>...</div> ... </div>
+   Two columns: add .vk-vtools--cols2 to the column; the block then spans both columns and the app puts it after the last tile of the group tile's row. The tone (--vk-push-tone) is shared by the open group tile and the block; the chosen member is a stronger step. When one column or two is a rule, see AGENTS.md. */
+.vk-vtools{--vk-push-tone:color-mix(in srgb,var(--accent) 42%,var(--bg-3));--vk-push-on:color-mix(in srgb,var(--accent) 66%,var(--bg-3));}
+.vk-vtools__t--grp{position:relative;}
+.vk-vtools__t--grp::after{content:"";position:absolute;right:3px;bottom:3px;border:3px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.7;}
+.vk-vtools__t.vk-vtools__t--grp.is-open,.vk-vtools__t.vk-vtools__t--grp[aria-expanded="true"]{background:var(--vk-push-tone);color:var(--tx-0);}
+.vk-vtools__block{display:grid;grid-template-columns:30px;background:var(--vk-push-tone);color:var(--tx-0);flex-shrink:0;}
+.vk-vtools--cols2{display:grid;grid-template-columns:30px 30px;gap:2px;align-items:start;justify-items:stretch;}
+.vk-vtools--cols2 .vk-vtools__block{grid-template-columns:30px 30px;grid-column:1/-1;}
+.vk-vtools__bm{width:30px;height:30px;padding:0;border:0;background:none;color:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.vk-vtools__bm svg{width:16px;height:16px;display:block;}
+.vk-vtools__bm:hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--vk-push-tone));}
+.vk-vtools__bm[aria-checked="true"]{background:var(--vk-push-on);}
+.vk-vtools__bm:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
 .vk-vtools__t[aria-expanded="true"]{color:var(--accent);background:var(--bg-4);}
 .vk-vtools__opts{position:absolute;right:calc(100% + 2px);top:0;display:flex;gap:2px;z-index:15;}
 .vk-vtools__opts[hidden]{display:none;}

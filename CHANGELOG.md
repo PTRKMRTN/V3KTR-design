@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.170 (2026-11-18)
+
+- **Tool groups open as a solid block that pushes the tiles below down** (Patrick 2026-11-18, card `DS-tool-push`: option 3, "this would need to work for single column too, and have a rule on when it actually goes to two column"). New: `.vk-vtools__t--grp` (group tile with corner mark), `.vk-vtools__block` + `.vk-vtools__bm` (the members, one solid block), `.vk-vtools--cols2` (two columns, the block spans both), tone `--vk-push-tone`. **Removed:** the fly-out list (`.vk-vtools__fly--list`, `.vk-vtools__opts--list`, v0.41.165, held since .168), never shipped in an app. The one-vs-two-column rule is in AGENTS.md (one column only when the largest group fits when open; decided from window height, never on open); its numbers are on card `DS-tool-push-rule`, pending Patrick. Mock and measurements: `reports/flyout-mock/push3.png`. Specimen entry added.
+
 ## 0.41.169 (2026-11-18)
 
 - **INCEPTOR icon batch 3 approved by Patrick** (2026-11-18, review card `DS-inceptor-icons-b3-r1`, no note): `closenear` (the Pencil's Close near start) and `symmetric` (the Width tool's Symmetric). INCEPTOR may adopt them. Only `pause` (the Welcome animation's toggle) is still pending. Notes only; no drawing changed.
