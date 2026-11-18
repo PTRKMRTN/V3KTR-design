@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.161 (2026-11-18)
+
+- **Section actions, made explicit** (KOMPOSITOR asked while moving Import… and Expand): every button that acts on or opens a section's content (Add, New, Import…, Expand, Side view, Collapse all, Save) goes in the row under the heading; the heading line carries only the section Reset, after the name. So `--sm` in a section head now means that Reset. Rule text only.
+
 ## 0.41.160 (2026-11-18)
 
 - **Section actions** (Patrick 2026-11-18, card `DS-add-action`, "B: labelled buttons under the heading"): a section's add action, and its other actions, are a row of plain labelled `.vk-btn` in `.vk-sec-tools` directly under the heading, the same in every app (KOMPOSITOR's Groups was first). Verb and noun, primary add first, housekeeping last, normal size. `.vk-sec-add` (the icon +) is DEPRECATED for add actions and kept so pinned apps keep working. Supersedes the "two add buttons on a section bar" rule (v0.41.69). `.vk-sec-tools` now has a catalogue entry.
