@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.169 (2026-11-18)
+
+- **INCEPTOR icon batch 3 approved by Patrick** (2026-11-18, review card `DS-inceptor-icons-b3-r1`, no note): `closenear` (the Pencil's Close near start) and `symmetric` (the Width tool's Symmetric). INCEPTOR may adopt them. Only `pause` (the Welcome animation's toggle) is still pending. Notes only; no drawing changed.
+
 ## 0.41.168 (2026-11-18)
 
 - **The tool fly-out as a list (v0.41.165) is HELD.** Patrick sent a push-down sketch after choosing it; Decisions card `DS-tool-push` compares the two (mock `reports/flyout-mock/push.png`, Shapes with seven members, his three two-column options, his tint note) and replaces the list unless he says otherwise. Nothing is removed; apps wait. Rule text only.
