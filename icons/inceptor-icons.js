@@ -49,7 +49,7 @@ export const INCEPTOR_ICONS = {
   efSpring: '<path d="M6 12h1.500l1.300-4.500 2.600 9 2.600-9 2.600 9 1.300-4.500H18"/><path d="M4 6v12M20 6v12" opacity="0.6"/>',
   efStep: '<path d="M5 17h3.500v-4H12V9h3.500V5H19"/><path d="M3 3v18h18" opacity="0.3"/>',
   efSnap: '<path d="M4 8.500h16M4 15.500h16M8.500 4v16M15.500 4v16" opacity="0.6"/><path d="M15.500 12.300a3.200 3.200 0 1 0 .1 0"/>' + dot(15.500, 15.500, 1, 1.200),
-  // batch 2: property latches and two panel icons (Patrick 2026-11-16: option toggles are icon toggles; pending his approval of this batch)
+  // batch 2: property latches and two panel icons (Patrick 2026-11-16: option toggles are icon toggles; APPROVED by Patrick 2026-11-18, "Approve all seven")
   underline: '<path d="M7 4v8a5 5 0 0 0 10 0V4"/><path d="M5 20.500h14" opacity="0.6"/>',
   strikethrough: '<path d="M16.500 7.500C16.100 5.600 14.500 4.500 12 4.500c-2.700 0-4.500 1.300-4.500 3.300 0 1.700 1.500 2.500 4.500 3.200"/><path d="M12 13c3 .7 4.500 1.500 4.500 3.200 0 2-1.800 3.300-4.500 3.300-2.600 0-4.200-1.100-4.600-3.100"/><path d="M4 12h16" opacity="0.6"/>',
   lockratio: '<path d="M9 12h6v5H9z"/><path d="M10.300 12v-1.200a1.700 1.700 0 0 1 3.400 0V12"/><path d="M4 9.500V4h5.500M20 14.500V20h-5.500" opacity="0.6"/>',

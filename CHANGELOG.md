@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.167 (2026-11-18)
+
+- **Approved by Patrick (2026-11-18):** INCEPTOR icon batch 2, all seven (`underline`, `strikethrough`, `lockratio`, `scalestrokes`, `dash`, `invertdepth`, `goinside`; card `DS-inceptor-icons-b2`), and the shared favourite star `fav` / `faved`, with its one exception to "no fills except dots": `faved` stays a solid star (card `DS-faved-solid-star`). INCEPTOR and any app may adopt them now. Batch 3 (`closenear`, `symmetric`) and `pause` are still pending. Notes only; no drawing changed.
+
 ## 0.41.166 (2026-11-18)
 
 - **`MENU_ICONS.pause`** (two bars, the twin of `play`): the Welcome animation's Pause / Play toggle. **Pending Patrick** with the Welcome screen (REQ-DS-welcome-r2); apps do not adopt it before.
