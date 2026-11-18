@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.166 (2026-11-18)
+
+- **`MENU_ICONS.pause`** (two bars, the twin of `play`): the Welcome animation's Pause / Play toggle. **Pending Patrick** with the Welcome screen (REQ-DS-welcome-r2); apps do not adopt it before.
+
 ## 0.41.165 (2026-11-18)
 
 - **Tool fly-out as a list** (Patrick 2026-11-18, card `DS-tool-flyouts`, "B"): `.vk-vtools__fly--list` + `.vk-vtools__opts--list`, a vertical list opening left of its tile on `--bg-4` (one step lighter than the tiles), the opening tile matching, a corner mark on group tiles, `.is-up` near the window bottom. Short value fly-outs are unchanged.
