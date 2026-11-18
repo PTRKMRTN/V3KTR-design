@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.162 (2026-11-18)
+
+- **Roll rows have no tray** (Patrick, INCEPTOR's Generators and FX stack): PROCESSOR's `Reset | [Randomise + latch]` (`.vk-roll-pair`) with further latches as their own `.vk-roll-blends` tiles on a second line; `.vk-roll-group` is deprecated for roll rows.
+- **Three answers from existing patterns:** a per-title Look choice (two-option seg, name above), a flare's place a light (the pick mode) and skip a light (a row toggle). Rule text only, plus a deprecation comment.
+
 ## 0.41.161 (2026-11-18)
 
 - **Section actions, made explicit** (KOMPOSITOR asked while moving Import… and Expand): every button that acts on or opens a section's content (Add, New, Import…, Expand, Side view, Collapse all, Save) goes in the row under the heading; the heading line carries only the section Reset, after the name. So `--sm` in a section head now means that Reset. Rule text only.
