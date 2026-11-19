@@ -20,6 +20,10 @@ A lot of basic design-system rules have been slipping through (button sizes, hei
 3. **App colours are LOCKED (Patrick 2026-09-30).** PROCESSOR aqua `#00e5a0`, KOMPOSITOR mandarin `#ff6a43`, DIMENSOR violet `#bb6fff`, each with hover / dim / light-ground ink (`themes/themes.css`, tokens `--processor*`, `--kompositor*`, `--dimensor*`). An app sets `data-app="…"` on its root and uses `--accent` / `--hover`; never a raw hex. The V3KTR brand itself is neutral. Don't reopen.
 4. **Dark only.** No light mode or theming in v1.
 5. A visual change to a live app ships with a before/after sheet.
+6. **1920×1080 is the baseline screen (Patrick, via the lead, 2026-11-19; told to INCEPTOR, applies to every app unless Patrick says it is INCEPTOR only).** Smaller windows mean a device or a low-spec laptop.
+   - **Design and judge at 1080 first:** mocks, before/after sheets and review checks are made at 1920×1080.
+   - **On smaller windows plain scroll or wrap is acceptable** (a column that scrolls, a row that wraps).
+   - **Do not spend a new pattern or a Decisions card on small-window layout.** Earlier small-window rules stay as they are (the Minimal push block's one-or-two-columns rule, the Welcome's height-following stage) but are not extended or tuned further; a short-window check is a smoke test (nothing unreachable, Start and close still on screen), not a design target.
 
 ## Layers: how surfaces differ without drifting
 The system has three layers. Every surface takes the core plus exactly one layer.
