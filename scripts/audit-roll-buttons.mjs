@@ -15,6 +15,7 @@ const res = await p.evaluate(() => {
   const seen = [];
   for (const e of document.querySelectorAll('button, [role="button"], .vk-btn')) {
     const r = e.getBoundingClientRect(); if (r.width < 4 || r.height < 4 || getComputedStyle(e).visibility === 'hidden') continue;
+    if (e.closest('.vk-thumb')) continue;   // a roll RESULT tile (Roll 1 to 6 previews) is not a roll button: the die stays on the Randomise above it
     const text = (e.textContent || '').replace(/\s+/g, ' ').trim(); if (!text || text.length > 40 || !WORDS.test(text)) continue;
     const own = !!e.querySelector('.vk-roll-rand__dice');
     const auto = e.classList.contains('vk-roll-rand') && getComputedStyle(e, '::before').content !== 'none';
