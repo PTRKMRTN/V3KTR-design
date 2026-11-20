@@ -2,9 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.179 (2026-11-20)
+
+- **Removable tags: size rule and tips, text and specimen only** (QA `REQ-DS-removable-tags-r4`). The size line is now the per-line rule that was measured: four tags fit a 424px line only at 101px or less each, three at 137px or less, two up to the 149px cut, so eight tags take 2, 3 or 4 lines (98px each: 2 lines, row 100px; 105px each: 3 lines, 128px; cut names: 4 lines, 156px); the "54px" that was never measured is gone (narrowest 57). The specimen's x buttons carry `data-tip="Remove <name>"` and its disabled Add selected `data-tip` + `data-tip-desc`; AGENTS.md gives the tips as the shared `data-tip` + `data-tip-desc` pair and adds the fourth disabled cause (the effect's own object together with already-listed ones); `test/tags.test.mjs` checks the specimen markup. No CSS rule changed.
+
 ## 0.41.178 (2026-11-20)
 
-- **Removable tags: text corrections only** (QA `REQ-DS-removable-tags-r3`, escalated for two wrong claims). The size line now states what was measured (a tag is at most 149px at the 16-character cut, so eight cut names take 4 lines, row about 156px; eight short names 2 lines, about 100px); the disabled Add selected has one tip per cause, each with a reason and a next step; the long-name tip is on the name span `.vk-tags__t`, as built. No CSS rule changed.
+- **Removable tags: text corrections only** (QA `REQ-DS-removable-tags-r3`, escalated for two wrong claims). The size line now states what was measured (see 0.41.179 for the per-line rule); the disabled Add selected has one tip per cause, each with a reason and a next step; the long-name tip is on the name span `.vk-tags__t`, as built. No CSS rule changed.
 
 ## 0.41.177 (2026-11-20)
 

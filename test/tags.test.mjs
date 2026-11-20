@@ -61,5 +61,12 @@ try {
   await p.click('#a .vk-tags__x'); await p.waitForTimeout(100);
   ok(await p.evaluate(() => document.querySelectorAll('#a .vk-tags__tag').length === 1 && window.removed.slice(-1)[0] === 'Late'), 'a tag added after mount works, and onRemove returning false cancels the removal');
   await p.close();
+  // the specimen markup follows the rule: every x has a data-tip, every disabled Add selected a data-tip and a data-tip-desc (a negative control strips them and the check fails)
+  const cat = (await import('../specimen/catalogue/panels.mjs')).default.entries.find((e) => e.classes && e.classes.includes('vk-tags'));
+  ok(!!cat, 'the specimen has a vk-tags entry');
+  const audit = (html) => { const xs = html.match(/<button[^>]*vk-tags__x[^>]*>/g) || [], dis = html.match(/<button[^>]*aria-disabled="true"[^>]*>/g) || []; return { xs: xs.length, xsNoTip: xs.filter((t) => !/data-tip="Remove /.test(t)).length, dis: dis.length, disNoDesc: dis.filter((t) => !/data-tip="Add selected"/.test(t) || !/data-tip-desc="[^"]+\./.test(t)).length }; };
+  const au = audit(cat.html); ok(au.xs >= 3 && au.xsNoTip === 0 && au.dis >= 1 && au.disNoDesc === 0, `every x in the specimen has data-tip="Remove …", every disabled Add selected data-tip + data-tip-desc (${JSON.stringify(au)})`);
+  const bad = audit(cat.html.replace(/ data-tip="Remove [^"]*"/g, '').replace(/ data-tip-desc="[^"]*"/g, ''));
+  ok(bad.xsNoTip > 0 && bad.disNoDesc > 0, `NEGATIVE CONTROL: the same markup without the tips fails the audit (${JSON.stringify(bad)})`);
   console.log(`tags: ${n} checks passed`);
 } finally { await b.close(); }
