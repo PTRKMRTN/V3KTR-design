@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.174 (2026-11-20)
+
+- **Every roll / randomise button carries the die, automatically** (Patrick 2026-11-20: "check all roll buttons have a die"; DIMENSOR's Roll scene, Full random and Random hue had none). A `.vk-roll-rand` with no die of its own in its markup now draws the solid die (the same path as `ROLL_DICE_SVG`, a mask in `currentColor`, 13x15) before its label; a button that carries `ROLL_DICE_SVG` keeps that one only (`:has`), so nothing doubles. An app only has to put `.vk-roll-rand` on the button. New `scripts/audit-roll-buttons.mjs <url>` lists roll / random buttons with no die in a running page; `test/roll-die.test.mjs` (9 checks, negative control). AGENTS.md rule added next to the dice rule.
+
 ## 0.41.173 (2026-11-20)
 
 - **Blends switch inset** (Patrick 2026-11-20, request eh9zv3rnlqk3jwrxh36f: in a param header row the knob looked tight against the left edge). `.vk-roll-blends__sw` had padding but no `box-sizing`, so its 30x16 track drew 34x20 and the 12px knob sat 2px from the left and right but 4px from the top and bottom. It is now `box-sizing:border-box`: a 30x16 track with the knob 2px from every side, off and on, the same as `.vk-switch`. The Blends tile is 4px narrower. Measured from pixels at 1x and 2x (`V3KTR-COWORK/reports/switch-inset/`).
