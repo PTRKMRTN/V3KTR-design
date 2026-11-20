@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.177 (2026-11-20)
+
+- **Removable tags** (Patrick 2026-11-20, INCEPTOR's Avoid row: cards DS-removable-tags, -add, -case, -add-label). New `app/tags.css` (`.vk-tags`, `__tag`, `__t`, `__x`, `__more`, `__live`; in `dist/app.css`): flat neutral 22px tags with the name as typed in 12px, the x as the shared 22px row control, "Add selected" a normal button under the tags, a hover guard scoped to a stack row that holds a tag list. New `interactions/tags.js` `mountTags(row, { onRemove })`: click, Enter, Space, Delete or Backspace on an x removes it, focus moves to the next x, else the previous, else the add button, a live region says "Removed Logo". AGENTS.md rule "Removable tags", specimen entry, `test/tags.test.mjs` (15 checks, two negative controls).
+
 ## 0.41.176 (2026-11-20)
 
 - **The shared scroll fade works in both directions, automatically** (Patrick 2026-11-20, card DS-horizontal-edge-fade; QA `REQ-DS-horizontal-edge-fade-r2`). `scrollFade()` also sets `data-fade-left` / `data-fade-right` on an element that scrolls sideways (axis read from its `overflow`; a row with `overflow-y:hidden` never fades top or bottom); `app/frames.css` masks with two gradients intersected, only while a fade shows; new `.vk-scroll--x` for a one-row bar that scrolls sideways with no bar (DIMENSOR's Library bar: it deletes its local `.pal-chips` mask and `fade()` and takes this). `scrollFades()` picks up `.vk-scroll--x`. New `test/edge-fade.test.mjs` (19 checks, negative control); `test/frames.test.mjs` now waits for frames instead of fixed 80 ms (it flaked under load). Note for apps: an existing `.vk-scroll` that scrolls sideways now fades left and right too.

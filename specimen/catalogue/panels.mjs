@@ -29,5 +29,14 @@ export default {
       note: 'A locked row dims to 60% except the lock control. Mark the lock .vk-lockctl and ONLY it is spared: a pressed eye (hidden) or any other pressed control dims with the row. A row with no .vk-lockctl keeps the older rule (any pressed row control counts as the lock).',
       html: `<div style="width:300px"><div class="vk-layer is-locked" style="display:flex;align-items:center;gap:6px;height:26px;padding:0 6px"><button class="vk-row__ctl" aria-pressed="true" aria-label="Show" data-tip="Show"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3l18 18M6.500 7.500C3.800 9.300 2 12 2 12s4 6.500 10 6.500c1.500 0 2.900-.4 4.200-1"/></svg></button><span class="vk-layer__name" style="flex:1">Array</span><button class="vk-row__ctl vk-lockctl" aria-pressed="true" aria-label="Unlock" data-tip="Unlock"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 11h12v9H6z"/><path d="M8.500 11V8a3.500 3.500 0 0 1 7 0v3"/></svg></button></div></div>`,
     },
+    {
+      name: 'Removable tag list (the Avoid row)',
+      since: '0.41.177',
+      rule: 'AGENTS.md "Removable tags"',
+      classes: ['vk-tags'],
+      note: 'A list of the things an effect refers to: one flat tag per item, its name as typed in 12px, an x to remove it (the shared 22px row control: removing never deletes the item, so an x, not a trash). The name sits above in the real stack row; "Add selected" is a normal button on its own line under the tags, dimmed with its reason in the tip when nothing useful is selected. Tags are 22px high, 6px apart, and wrap. interactions/tags.js: Delete, Backspace, Enter or Space on a focused x removes it and moves focus to the next x (or the add button), and a live region says "Removed Logo".',
+      html: `<div style="width:424px;background:var(--bg-1);padding:6px 0 12px"><div class="vk-row vk-row--stack"><span class="vk-row__label">Avoid</span><div class="vk-tags" role="list" aria-label="Avoid">${['Title', 'Logo', 'Subtitle', 'Badge', 'Caption two', 'Frame'].map((n) => '<span class="vk-tags__tag" role="listitem"><span class="vk-tags__t">' + n + '</span><button type="button" class="vk-row__ctl vk-tags__x" aria-label="Remove ' + n + '"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>').join('')}</div><div class="vk-btn-row vk-tags__more"><button type="button" class="vk-btn" data-tags-add>Add selected</button></div></div>
+  <div class="vk-row vk-row--stack" style="margin-top:16px"><span class="vk-row__label">Avoid (nothing selected)</span><div class="vk-btn-row vk-tags__more"><button type="button" class="vk-btn" aria-disabled="true">Add selected</button></div></div></div>`,
+    },
   ],
 };

@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.176
+/* V3KTR design tokens · v0.41.177
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -155,7 +155,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.176 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.177 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1603,3 +1603,27 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
 .vk-tour__btn{background:var(--tour-hi);color:var(--on-accent);--focus-ring:2px solid var(--tx-0);}
 .vk-tour__btn:hover:not(:disabled){background:color-mix(in srgb,var(--tour-hi) 80%,#fff);}
 @media (prefers-reduced-motion:reduce){.vk-tour__box{transition:none;}}
+
+/* V3KTR removable tag list (v0.41.177; Patrick 2026-11-20: the tint tag with an x (card DS-removable-tags), a labelled button under the tags (DS-removable-tags-add), names as typed like the Layers tree (DS-removable-tags-case),
+   "Add selected" replacing "Add object" (DS-removable-tags-add-label); first user INCEPTOR's "Avoid" row on Repel, Text flow, Pile and Cloth; rules AGENTS.md "Removable tags"; behaviour interactions/tags.js; tested test/tags.test.mjs).
+   A list of the things an effect or setting refers to: one flat tag per item with an x to remove it. A tag is a REFERENCE (removing it never deletes the item), so it is an x, not a trash. Markup, in the real stack row (name above):
+
+   <div class="vk-row vk-row--stack"><span class="vk-row__label">Avoid</span>
+     <div class="vk-tags" role="list" aria-label="Avoid"><span class="vk-tags__tag" role="listitem"><span class="vk-tags__t">Logo</span><button type="button" class="vk-row__ctl vk-tags__x" data-tip="Remove Logo" aria-label="Remove Logo">x icon</button></span> …</div>
+     <div class="vk-btn-row vk-tags__more"><button type="button" class="vk-btn" data-tags-add>Add selected</button></div></div>
+
+   Add selected is a normal 26px `.vk-btn` on its own line under the tags; with nothing useful selected it is `aria-disabled="true"` with its reason in the tip ("a disabled control says why"). */
+.vk-row--stack > .vk-tags{flex:1 1 100%;}
+.vk-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+/* the tag: 22px (--row-h-sm, the same height as a chip and the x), a neutral tint (8% --tx-1 over --bg-0, the .vk-tag recipe, no new colour), no border; the name as typed in 12px, the Layers tree's type */
+.vk-tags__tag{display:inline-flex;align-items:center;height:var(--row-h-sm);background:color-mix(in srgb,var(--tx-1) 8%,var(--bg-0));color:var(--tx-1);}
+.vk-tags__t{padding:0 2px 0 8px;font:12px/1 var(--sans);max-width:16ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}   /* a long name is cut with an ellipsis and its full name is the tag's data-tip */
+/* the x is the shared row control (.vk-row__ctl: the hover hand-off and the accent on aria-pressed), 22px square; its focus ring sits inside the tag so it never covers the name */
+.vk-tags__x{display:inline-flex;align-items:center;justify-content:center;width:22px;height:var(--row-h-sm);padding:0;border:0;background:transparent;color:var(--tx-2-hi);cursor:pointer;flex:none;}
+.vk-tags__x svg{display:block;width:11px;height:11px;}
+.vk-tags__x:focus-visible,.vk-tags__x.is-focus{outline-offset:-2px;}
+.vk-tags__more{margin-top:2px;}
+/* the shared hover hand-off (.vk-row:has(.vk-row__ctl:hover)) would tint the whole Avoid row when an x is hovered; a stack row that holds a tag list stays clear. Scoped to .vk-tags, so no other stack row changes. */
+.vk-row.vk-row--stack:has(> .vk-tags):has(.vk-row__ctl:not([aria-disabled="true"]):hover):not(.is-selected){background:none;}
+/* a polite live region for "Removed Logo" (visually hidden; interactions/tags.js creates it) */
+.vk-tags__live{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
