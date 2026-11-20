@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.177 ===== */
-/* V3KTR design tokens · v0.41.177
+/* ===== core: tokens.css v0.41.178 ===== */
+/* V3KTR design tokens · v0.41.178
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -98,7 +98,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.177 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.178 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1555,12 +1555,12 @@ button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;te
      <div class="vk-tags" role="list" aria-label="Avoid"><span class="vk-tags__tag" role="listitem"><span class="vk-tags__t">Logo</span><button type="button" class="vk-row__ctl vk-tags__x" data-tip="Remove Logo" aria-label="Remove Logo">x icon</button></span> …</div>
      <div class="vk-btn-row vk-tags__more"><button type="button" class="vk-btn" data-tags-add>Add selected</button></div></div>
 
-   Add selected is a normal 26px `.vk-btn` on its own line under the tags; with nothing useful selected it is `aria-disabled="true"` with its reason in the tip ("a disabled control says why"). */
+   Add selected is a normal 26px `.vk-btn` on its own line under the tags; with nothing useful selected it is `aria-disabled="true"` and its tip gives the reason and the next step, one tip per cause ("a disabled control says why"). */
 .vk-row--stack > .vk-tags{flex:1 1 100%;}
 .vk-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
 /* the tag: 22px (--row-h-sm, the same height as a chip and the x), a neutral tint (8% --tx-1 over --bg-0, the .vk-tag recipe, no new colour), no border; the name as typed in 12px, the Layers tree's type */
 .vk-tags__tag{display:inline-flex;align-items:center;height:var(--row-h-sm);background:color-mix(in srgb,var(--tx-1) 8%,var(--bg-0));color:var(--tx-1);}
-.vk-tags__t{padding:0 2px 0 8px;font:12px/1 var(--sans);max-width:16ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}   /* a long name is cut with an ellipsis and its full name is the tag's data-tip */
+.vk-tags__t{padding:0 2px 0 8px;font:12px/1 var(--sans);max-width:16ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}   /* a long name is cut with an ellipsis and its full name is a data-tip on this name span */
 /* the x is the shared row control (.vk-row__ctl: the hover hand-off and the accent on aria-pressed), 22px square; its focus ring sits inside the tag so it never covers the name */
 .vk-tags__x{display:inline-flex;align-items:center;justify-content:center;width:22px;height:var(--row-h-sm);padding:0;border:0;background:transparent;color:var(--tx-2-hi);cursor:pointer;flex:none;}
 .vk-tags__x svg{display:block;width:11px;height:11px;}
@@ -3404,7 +3404,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.177</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.178</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>

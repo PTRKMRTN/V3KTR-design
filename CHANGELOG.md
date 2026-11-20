@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.178 (2026-11-20)
+
+- **Removable tags: text corrections only** (QA `REQ-DS-removable-tags-r3`, escalated for two wrong claims). The size line now states what was measured (a tag is at most 149px at the 16-character cut, so eight cut names take 4 lines, row about 156px; eight short names 2 lines, about 100px); the disabled Add selected has one tip per cause, each with a reason and a next step; the long-name tip is on the name span `.vk-tags__t`, as built. No CSS rule changed.
+
 ## 0.41.177 (2026-11-20)
 
 - **Removable tags** (Patrick 2026-11-20, INCEPTOR's Avoid row: cards DS-removable-tags, -add, -case, -add-label). New `app/tags.css` (`.vk-tags`, `__tag`, `__t`, `__x`, `__more`, `__live`; in `dist/app.css`): flat neutral 22px tags with the name as typed in 12px, the x as the shared 22px row control, "Add selected" a normal button under the tags, a hover guard scoped to a stack row that holds a tag list. New `interactions/tags.js` `mountTags(row, { onRemove })`: click, Enter, Space, Delete or Backspace on an x removes it, focus moves to the next x, else the previous, else the add button, a live region says "Removed Logo". AGENTS.md rule "Removable tags", specimen entry, `test/tags.test.mjs` (15 checks, two negative controls).
