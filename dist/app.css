@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.175
+/* V3KTR design tokens · v0.41.176
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -155,7 +155,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.175 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.176 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1390,7 +1390,8 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
      touches no other separator, frame edge or page edge and lines up with the scroll areas beside it. It belongs to the
      frame before it (above, or to the left) by default; either neighbour may own it.
    - a scroll area FADES at an edge that has more content past it: top once it has been scrolled, bottom while there is
-     more below (interactions/scroll-fade.js sets the data attributes). The fade is a mask, so it works on any ground.
+     more below, and left / right the same way on an area that scrolls sideways (interactions/scroll-fade.js sets the four data attributes
+     and finds the axis itself; v0.41.176). The fade is a mask, so it works on any ground.
    - optional: a vertical separator can carry a resize GRIP (.vk-fsep__grip), a --grip square centred on the line in
      the separator colour with the icon in the ground colour (interactions/split-grip.js). */
 /* no overflow clip on the frame: the scroll area is what scrolls, and a clip would cut the grip in half (and focusing the
@@ -1414,7 +1415,7 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 /* the square where a vertical and a horizontal bar meet is otherwise the browser's white (v0.41.30, found by KOMPOSITOR's EDIT timeline) */
 .vk-scrollbar::-webkit-scrollbar-corner,.vk-scroll::-webkit-scrollbar-corner{background:transparent;}
 @supports not selector(::-webkit-scrollbar){.vk-scrollbar,.vk-scroll{scrollbar-width:thin;scrollbar-color:var(--bg-4) transparent;}}
-.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;}
+.vk-scroll{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;margin:var(--pad);--fade-t:0px;--fade-b:0px;--fade-l:0px;--fade-r:0px;}
 /* .rail-scroll: an icon-only rail (no text, navigation chrome rather than a content area) — never .vk-scroll,
    which must always show the house bar. Promoted to a real shared class (v0.41.13, from DIMENSOR's conformance-
    audit follow-up): PROCESSOR and DIMENSOR had each already built this exact rule locally (--pad inset, the same
@@ -1430,12 +1431,20 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 .rail-scroll:is([data-fade-top],[data-fade-bottom]){
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
           mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
-.vk-scroll[data-fade-top]{--fade-t:var(--scroll-fade);}
-.vk-scroll[data-fade-bottom]{--fade-b:var(--scroll-fade);}
-/* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context */
-.vk-scroll:is([data-fade-top],[data-fade-bottom]){
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);
-          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%);}
+.vk-scroll[data-fade-top],.vk-scroll--x[data-fade-top]{--fade-t:var(--scroll-fade);}
+.vk-scroll[data-fade-bottom],.vk-scroll--x[data-fade-bottom]{--fade-b:var(--scroll-fade);}
+.vk-scroll[data-fade-left],.vk-scroll--x[data-fade-left]{--fade-l:var(--scroll-fade);}
+.vk-scroll[data-fade-right],.vk-scroll--x[data-fade-right]{--fade-r:var(--scroll-fade);}
+/* the mask only while a fade shows (v0.36.1): an area at rest keeps no mask, so no clip and no stacking context. Two gradients, one per axis, INTERSECTED (v0.41.176): a corner where a vertical and a
+   sideways fade meet is dimmed by both; an axis with no fade is a gradient with 0px stops, fully opaque. */
+:is(.vk-scroll,.vk-scroll--x):is([data-fade-top],[data-fade-bottom],[data-fade-left],[data-fade-right]){
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%),linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade-t),#000 calc(100% - var(--fade-b)),transparent 100%),linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect;}
+/* .vk-scroll--x (v0.41.176): a ROW that scrolls sideways with no bar and no arrow (a one-row bar that cannot wrap: DIMENSOR's Library bar). It has no margin or frame inset of its own (it sits in a bar, not a frame),
+   hides its scrollbar, and its fade is the only hint that more lies past an edge. Put it on the row itself; the vertical wheel mapping is the app's own. */
+.vk-scroll--x{min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;--fade-t:0px;--fade-b:0px;--fade-l:0px;--fade-r:0px;}
+.vk-scroll--x::-webkit-scrollbar{display:none;}
 .vk-scroll > .vk-section{padding:0;}
 .vk-scroll > .vk-section:first-child,.vk-scroll > .vk-section:last-child{padding:0;}
 /* a fixed head (title row, action row) above a scroll area: same side inset, no bottom inset of its own; the scroll

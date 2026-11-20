@@ -137,15 +137,15 @@ try {
   ok(!f.top && f.bot, `a long area at its start fades at the bottom only`);
   ok(/transparent|rgba\(0, 0, 0, 0\)/.test(f.mask) && /22px/.test(f.mask), `the bottom fade is a real 22px mask (${String(f.mask).slice(0, 90)})`);
   await p.evaluate(() => { const e = document.getElementById('sc-top'); e.scrollTop = e.scrollHeight / 3; });
-  await p.waitForTimeout(80);
+  await p.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(r)))));   // frame-synchronised: the fade updates on a frame, a fixed wait flaked under load
   f = await fade('sc-top');
   ok(f.top && f.bot, 'mid-way it fades at both ends');
   await p.evaluate(() => { const e = document.getElementById('sc-top'); e.scrollTop = e.scrollHeight; });
-  await p.waitForTimeout(80);
+  await p.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(r)))));   // frame-synchronised: the fade updates on a frame, a fixed wait flaked under load
   f = await fade('sc-top');
   ok(f.top && !f.bot, 'at the end it fades at the top only');
   await p.evaluate(() => { document.querySelector('#sc-bot .vk-section').insertAdjacentHTML('beforeend', '<div style="height:900px"></div>'); });
-  await p.waitForTimeout(150);
+  await p.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(r)))));   // frame-synchronised: the fade updates on a frame, a fixed wait flaked under load
   f = await fade('sc-bot');
   ok(f.bot, 'content that grows past the area turns its bottom fade on without the app calling update()');
   const restMask = await p.evaluate(() => getComputedStyle(document.getElementById('sc-mid')).maskImage);

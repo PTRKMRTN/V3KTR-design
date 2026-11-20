@@ -103,5 +103,13 @@ export default {
   <circle class="vk-vp-dot" cx="30" cy="40"/><circle class="vk-vp-dot" cx="130" cy="70"/><circle class="vk-vp-dot is-hover" cx="200" cy="25"/><circle class="vk-vp-dot is-picked" cx="60" cy="95"/><circle class="vk-vp-dot is-picked" cx="290" cy="45"/></svg>
   <div style="margin-top:8px"><span class="vk-vp-pill">DISTANCE 1.84</span></div>`,
     },
+    {
+      name: 'Sideways row with an edge fade',
+      since: '0.41.176',
+      rule: 'AGENTS.md "Workspace frames" rule 3',
+      classes: ['vk-scroll--x'],
+      note: 'A one-row bar that cannot wrap and scrolls sideways has no bar and no arrow, so its fade is the only hint that more lies past an edge: right at its start, both sides in the middle, left at its end, nothing at all when it fits. scrollFade() finds the axis by itself (an element that scrolls sideways gets left and right, one that scrolls down gets top and bottom, both ways gets both) and the mask intersects the two. Shown at its start: the right edge fades.',
+      html: `<div class="vk-scroll--x" data-fade-right style="display:flex;gap:6px;width:300px;padding:6px 0">${['Materials', 'Presets', 'Lighting', 'Environment', 'Looks', 'Scenes', 'Stacks'].map((n) => '<button class="vk-chip vk-chip--group" style="flex:none">' + n + '</button>').join('')}</div>`,
+    },
   ],
 };
