@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.173 (2026-11-20)
+
+- **Blends switch inset** (Patrick 2026-11-20, request eh9zv3rnlqk3jwrxh36f: in a param header row the knob looked tight against the left edge). `.vk-roll-blends__sw` had padding but no `box-sizing`, so its 30x16 track drew 34x20 and the 12px knob sat 2px from the left and right but 4px from the top and bottom. It is now `box-sizing:border-box`: a 30x16 track with the knob 2px from every side, off and on, the same as `.vk-switch`. The Blends tile is 4px narrower. Measured from pixels at 1x and 2x (`V3KTR-COWORK/reports/switch-inset/`).
+- Comment only: the rail-head note now says full names with no count on the face (it still said counts).
+
 ## 0.41.172 (2026-11-19)
 
 - **Horizontal narrow scrub** `.vk-vscrub--h` (INCEPTOR's zoom % in the bottom viewport toolbar, which had a local override): 26px, icon and number side by side, fill left to right; `interactions/vscrub.js` reads the modifier (drag along x, Left/Right arrows). Specimen entry added.

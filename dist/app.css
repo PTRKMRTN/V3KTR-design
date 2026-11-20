@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.172
+/* V3KTR design tokens · v0.41.173
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -154,7 +154,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.172 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.173 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -339,7 +339,7 @@
 .vk-roll-rand > .vk-roll-rand__dice{width:13px;height:15px;flex:none;}   /* (0,2,0): an app's own `.vk-btn > svg{12px}` icon rule must not squash the die (KOMPOSITOR found it) */
 .vk-roll-blends{display:flex;align-items:center;gap:8px;padding:0 8px;background:var(--bg-4);border:0;color:var(--tx-1);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0;cursor:pointer;}
 .vk-roll-blends:hover{color:var(--tx-0);background:color-mix(in srgb,var(--bg-4) 80%,var(--tx-0));}
-.vk-roll-blends__sw{width:30px;height:16px;padding:2px;background:var(--bg-0);display:flex;align-items:center;flex:none;}
+.vk-roll-blends__sw{box-sizing:border-box;width:30px;height:16px;padding:2px;background:var(--bg-0);display:flex;align-items:center;flex:none;}   /* v0.41.173 (Patrick 2026-11-20, "the knob's left padding is smaller than top/bottom"): without border-box the 2px padding was added to 30x16, so the track drew 34x20 and the 12px knob sat 2px from the sides but 4px from the top and bottom; now 30x16, 2px on every side, the same track as .vk-switch */
 .vk-roll-blends__sw i{width:12px;height:12px;background:var(--tx-2);display:block;}
 .vk-roll-blends.is-on .vk-roll-blends__sw,.vk-roll-blends[aria-checked="true"] .vk-roll-blends__sw{background:var(--accent);}
 .vk-roll-blends.is-on .vk-roll-blends__sw i,.vk-roll-blends[aria-checked="true"] .vk-roll-blends__sw i{background:var(--on-accent);margin-left:auto;}
@@ -1035,7 +1035,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-vp-dot.is-hover{r:6px;fill:var(--hover);opacity:1;}
 .vk-vp-dot.is-picked{r:4px;fill:var(--tx-0);stroke:var(--accent);stroke-width:2px;opacity:1;}
 .vk-vp-measure{stroke:var(--accent);stroke-width:1.5px;stroke-dasharray:5 4;stroke-opacity:.9;fill:none;pointer-events:none;}
-/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group; v0.41.148: full names with counts by default, 3 letters only where space forces it,
+/* Rail view switch + group filter (v0.41.124, Patrick 2026-11-16; mock V3KTR-COWORK/reports/rail-view-mock/; behaviour in interactions/rail-view.js). An add-rail has a head row: the FX-group chips (.vk-chip--group; v0.41.148: full names with no count on the face (the count is in the tip), 3 letters only where space forces it,
    ALL + one per group, one at a time) wrapping in .vk-rail-chips, then ONE .vk-icon-tog at the right end that flips the view; its icon is the view you would switch TO. Icons view = the tile grid (the app's own, 144px / 177px
    at 4 columns); labels view = .vk-rail-item rows in a 192px rail: 14px icon in the group colour (--gcol), 12px name, a star after it in --depth, a .vk-tag at the right. .is-later (V1.1 / LATER) dims to 55% in rows and 40% on tiles. */
 .vk-rail-head{display:flex;align-items:flex-start;gap:4px;margin-bottom:10px;}
