@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.174
+/* V3KTR design tokens · v0.41.175
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,6 +90,7 @@
   --tint-field:18%;    /* a field being typed in */
   --thumb-wash:.32;    /* a hovered thumbnail */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
+  --tour-hi:#fff04d; --tour-hi-glow:rgba(255,240,77,.22);   /* v0.41.175 (Patrick 2026-11-19, card DS-welcome-highlight-colour: lemon): the Welcome tour's highlight, one value in every app: the box outline, the part name, Back and Next. Not an app colour, not a status colour (12:1 on the panel, 13.5 CIEDE2000 from caution, 32 from the nearest app accent). Nothing else takes it. */
 }
 
 /* V3KTR app themes · LOCKED (Patrick 2026-09-30; INCEPTOR cobalt added 2026-11-14)
@@ -154,7 +155,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.174 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.175 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1542,3 +1543,54 @@ button.vk-lnk:hover{background:color-mix(in srgb,var(--owner) var(--tint-ctrl),v
 button.vk-thumb{border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;}
 /* A TILE THAT FAILS TO LOAD keeps the deliberate "nothing here yet" X (.is-empty on the picture) and stays fully operable: the label, aria-label and data-tip carry
    the choice, and choosing it still works. Never hide the tile, never leave a src-less <img>, never show the browser's broken-image frame. */
+
+/* V3KTR Welcome and tour (v0.41.175; Patrick approved the tour into the system 2026-11-20, cards DS-welcome-r13 and DS-welcome-tour-approve; rules in AGENTS.md "Welcome and tour"; behaviour interactions/tour.js).
+   A first-open modal (and Help > Welcome) that shows the app as a screenshot and outlines its parts one at a time. It is a `.vk-modal.vk-welcome` split top to bottom: the deck (head row, screenshot, caption row)
+   over a slightly darker box with the links and the hint. Markup, appended to <body> inside a `.vk-scrim.is-on`:
+
+   <div class="vk-scrim is-on"><div class="vk-modal vk-welcome" role="dialog" aria-modal="true" aria-labelledby="wt">
+     <div class="vk-modal__body vk-scrollbar"><div class="vk-welcome__deck">
+       <div class="vk-welcome__head"><div class="vk-welcome__top"><div class="vk-welcome__logo" id="wt" aria-label="Welcome to KOMPOSITOR">…app logo svg…</div>
+         <button class="vk-btn vk-btn--primary" data-tour="start">Get started</button></div>
+         <p class="vk-welcome__line">A quick look at the parts of KOMPOSITOR.</p></div>
+       <div class="vk-tour"><div class="vk-tour__stage" role="img" aria-label="A screenshot of KOMPOSITOR with six parts, outlined one at a time: …"><img src="…" alt=""><div class="vk-tour__box"></div></div>
+         <div class="vk-tour__bar"><div class="vk-tour__cap" aria-live="polite" aria-atomic="true"><div class="vk-tour__head"><span class="vk-tour__n"></span><b class="vk-tour__name"></b></div><p class="vk-tour__txt"></p></div>
+           <div class="vk-tour__nav"><button class="vk-btn vk-tour__btn" data-tour="back">Back</button><button class="vk-btn vk-tour__btn" data-tour="next">Next</button></div></div></div>
+     </div></div>
+     <div class="vk-welcome__more"><div class="vk-welcome__links"><a class="vk-menu-item vk-welcome__link" href="…"><span class="vk-menu-ic">icon</span><span>Guide</span><span class="vk-welcome__link-d">how KOMPOSITOR works</span></a> …</div>
+       <p class="vk-hint">Open this again from Help › Welcome.</p></div></div></div>
+
+   The picture is the app's own screenshot at 1920 x 1080 (each app supplies its own and its own part list); `mountTour()` places the box from rects in those pixels. */
+.vk-welcome{width:1040px;max-width:calc(100% - 24px);}
+.vk-welcome__deck{padding-bottom:16px;}
+.vk-welcome__head{padding:18px 22px 0;}
+.vk-welcome__top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}   /* the logo at the left, Get started at the right, tops on one line (r12) */
+.vk-welcome__logo{height:22px;color:var(--accent);}
+.vk-welcome__logo svg{height:22px;width:auto;display:block;}
+.vk-welcome__line{margin:10px 0 0;color:var(--tx-1);font-size:13px;line-height:1.5;max-width:60ch;}
+/* the supplementary box: one ground step darker than the modal, its side padding 13px so the link icons line up with the deck's text at x = 22px (the rows carry 9px of their own) */
+.vk-welcome__more{background:var(--bg-1);padding:12px 13px 14px;}
+.vk-welcome__links{display:flex;flex-direction:column;gap:2px;margin:0;}
+.vk-welcome__link{display:flex;align-items:center;gap:9px;padding:0 9px;height:var(--row-h);text-decoration:none;}
+.vk-welcome__link-d{margin-left:auto;color:var(--tx-2-hi);font-size:11px;}
+.vk-welcome__more .vk-hint{margin:8px 9px 0;}
+
+/* the tour: a 16:9 stage that follows the window height (never taller than the modal can hold), a box, and one caption row */
+.vk-tour{margin:14px 22px 0;}
+.vk-tour__stage{position:relative;width:min(100%,calc((100vh - 400px) * 16 / 9));aspect-ratio:16/9;margin:0 auto;overflow:hidden;background:#111;isolation:isolate;}
+.vk-tour__stage > img{position:absolute;inset:0;width:100%;height:100%;display:block;}
+/* the highlight: a 2px outline in --tour-hi with the picture dimmed 42% outside it; it glides between parts and does not under reduced motion */
+.vk-tour__box{position:absolute;box-sizing:border-box;border:2px solid var(--tour-hi);box-shadow:0 0 0 100vmax color-mix(in srgb,#0c0c0e 42%,transparent),0 0 14px 2px var(--tour-hi-glow);transition:left .28s ease,top .28s ease,width .28s ease,height .28s ease;pointer-events:none;}
+.vk-tour__bar{width:min(100%,calc((100vh - 400px) * 16 / 9));margin:10px auto 0;display:grid;grid-template-columns:1fr auto;column-gap:16px;align-items:start;}
+.vk-tour__cap{min-width:0;}
+/* the heading and the buttons start on one pixel row: the heading is nudged up 2px so its capitals sit on the button top (measured at 1x and 2x; re-check if --row-h or the heading type changes) */
+.vk-tour__head{display:flex;align-items:flex-start;gap:12px;line-height:1;margin-top:-2px;padding-bottom:11px;}
+.vk-tour__n{font:600 10px var(--mono);letter-spacing:.14em;color:var(--tx-2-hi);}
+.vk-tour__name{font:700 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tour-hi);}
+.vk-tour__txt{margin:0;color:var(--tx-0);font-size:13px;line-height:1.45;}
+.vk-tour__nav{display:flex;gap:8px;align-items:flex-start;}
+/* Back and Next wear the highlight colour (Patrick 2026-11-19: visually linked to the box they steer); Get started stays the one primary in the app colour.
+   Their focus ring is white, not the app colour, so a focused lemon Next never looks like a second primary beside Get started (QA r12). */
+.vk-tour__btn{background:var(--tour-hi);color:var(--on-accent);--focus-ring:2px solid var(--tx-0);}
+.vk-tour__btn:hover:not(:disabled){background:color-mix(in srgb,var(--tour-hi) 80%,#fff);}
+@media (prefers-reduced-motion:reduce){.vk-tour__box{transition:none;}}

@@ -2,6 +2,10 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.175 (2026-11-20)
+
+- **Welcome tour added to the system** (Patrick approved it 2026-11-20: cards DS-welcome-r13, DS-welcome-tour-approve, DS-welcome-highlight-colour). New `app/tour.css` (`.vk-welcome*`, `.vk-tour*`; in `dist/app.css`), new `interactions/tour.js` `mountTour()`, new core tokens `--tour-hi` (lemon #fff04d) and `--tour-hi-glow`, AGENTS.md rule "Welcome and tour", specimen group "Welcome tour", `test/tour.test.mjs` (35 checks, negative control). Each app supplies its own 1920 x 1080 screenshot, part list and one line per part, then adopts it. Mock history `V3KTR-COWORK/reports/welcome-mock/r8` to `r13`; the local file size of the approved mock was 674,160 bytes.
+
 ## 0.41.174 (2026-11-20)
 
 - **Every roll / randomise button carries the die, automatically** (Patrick 2026-11-20: "check all roll buttons have a die"; DIMENSOR's Roll scene, Full random and Random hue had none). A `.vk-roll-rand` with no die of its own in its markup now draws the solid die (the same path as `ROLL_DICE_SVG`, a mask in `currentColor`, 13x15) before its label; a button that carries `ROLL_DICE_SVG` keeps that one only (`:has`), so nothing doubles. An app only has to put `.vk-roll-rand` on the button. New `scripts/audit-roll-buttons.mjs <url>` lists roll / random buttons with no die in a running page; `test/roll-die.test.mjs` (9 checks, negative control). AGENTS.md rule added next to the dice rule.

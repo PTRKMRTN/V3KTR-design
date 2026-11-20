@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.174
+/* V3KTR design tokens · v0.41.175
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -90,4 +90,5 @@
   --tint-field:18%;    /* a field being typed in */
   --thumb-wash:.32;    /* a hovered thumbnail */
   --focus-ring:2px solid var(--accent); --focus-offset:2px;
+  --tour-hi:#fff04d; --tour-hi-glow:rgba(255,240,77,.22);   /* v0.41.175 (Patrick 2026-11-19, card DS-welcome-highlight-colour: lemon): the Welcome tour's highlight, one value in every app: the box outline, the part name, Back and Next. Not an app colour, not a status colour (12:1 on the panel, 13.5 CIEDE2000 from caution, 32 from the nearest app accent). Nothing else takes it. */
 }
