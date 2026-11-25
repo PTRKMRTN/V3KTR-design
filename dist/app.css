@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.179
+/* V3KTR design tokens · v0.41.180
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -155,7 +155,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.179 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.180 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -696,7 +696,17 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 /* from .ui-msg */
 .vk-modal__msg{font-size:12.5px;line-height:1.55;color:var(--tx-1);padding:8px 18px 16px;white-space:pre-wrap;}
 /* from .ui-actions */
-.vk-modal__actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 16px;}
+.vk-modal__actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;padding:0 18px 16px;}   /* v0.41.180: flex-wrap, so three actions wrap right-aligned at the narrowest dialog (300px) instead of overflowing */
+/* A pick list inside a dialog (v0.41.180, PROCESSOR's "Use in an FX" dialog; REQ-DS-dialog-lists). The shared .vk-row is --bg-2, the dialog's own ground, so it would
+   be invisible until hovered: inside .vk-modal__list a row rests one step up (--bg-3), hover is a tint over that, and the selected row is the shared selected look. The list brings its
+   own 18px side padding (the dialog body has none), the same as .vk-modal__msg. */
+.vk-modal__list{padding:0 18px 14px;}
+.vk-modal__list .vk-row{background:var(--bg-3);}
+.vk-modal__list .vk-row:hover,.vk-modal__list .vk-row.is-hover{background:color-mix(in srgb,var(--accent) var(--tint-hover),var(--bg-3));}
+.vk-modal__list .vk-row.is-selected,.vk-modal__list .vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));}   /* the system selected look, over --bg-2: white on it is 4.86:1 at worst; over --bg-3 it measured 4.30:1, under AA */
+/* A short note at the right end of a row ("has an image", "no image"): 11px, --tx-2-hi, never wraps; white on a selected row like everything else on it. */
+.vk-row__note{margin-left:auto;flex:none;padding-left:8px;font-size:11px;color:var(--tx-2-hi);white-space:nowrap;}
+.vk-row.is-selected .vk-row__note,.vk-row[aria-selected="true"] .vk-row__note{color:var(--tx-0);}
 /* A tall dialog (v0.41.152, DIMENSOR's Import SVG with a preview is 728px): a modal never runs past the window. It is at most the window height less 22px
    above and below. Wrap everything between the title and the actions in .vk-modal__body (add .vk-scrollbar for the house bar): the body scrolls and the
    title and the action row stay put. A modal without a body scrolls as a whole, so its actions are still reachable. */
