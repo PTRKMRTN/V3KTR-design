@@ -46,7 +46,7 @@ export function badgeOf(rec = {}) {
   const app = nameOf(rec.ownerApp);
   if (rec.state === 'frozen') return { state: 'frozen', word: 'Frozen', desc: 'Kept as it is: updates from its source are ignored' };
   if (rec.state === 'sourceClosed') return { state: 'closed', word: 'Source closed', desc: 'The source app is closed. Open it to update.' };
-  if (rec.notResponding) return { state: 'stale', word: 'Source not responding', desc: "The source app is open but isn't answering. Try again, or check it." };
+  if (rec.notResponding) return { state: 'stale', word: 'Source not responding', desc: "The source is open but not answering. Try again, or check it." };
   if (rec.state === 'updateAvailable' && rec.policy !== 'manual') return { state: 'update', word: 'Update available', desc: `${app} has a newer version. Click to use it` };
   if (rec.via === 'file') return { state: 'file', word: 'Sent as files', desc: 'This asset came in as files, not as a live link.' };
   // 12 words or fewer. An app whose badge can be dragged onto an image slot passes dragHint: true; the default tip never promises a drag.

@@ -20,7 +20,7 @@ export default {
       since: '0.41.180',
       rule: 'AGENTS.md "Dialog pick list, row note, three actions"',
       classes: ['vk-modal__list', 'vk-row__note'],
-      note: 'Rows inside a dialog sit one step up from its ground (--bg-3); hover and the selected row tint over that. A short note at the right end of a row is .vk-row__note (11px, --tx-2-hi, white on the selected row). The list brings its own 18px side padding.',
+      note: 'Rows inside a dialog sit one step up from its ground (--bg-3); hover and the selected row tint over that. A short note at the right end of a row is .vk-row__note (11px, --tx-2-hi, --tx-1 on a hovered row, white on the selected row). The list brings its own 18px side padding.',
       html: `<div class="vk-modal" style="width:360px"><div class="vk-modal__title">Use in an FX</div><div class="vk-modal__msg">Pick the image slot to fill with it. Your open image stays as it is.</div>
   <div class="vk-modal__list" role="listbox" aria-label="Image slots"><div class="vk-row is-selected" role="option" aria-selected="true" tabindex="0"><span class="vk-row__label">Image · Image</span><span class="vk-row__note">has an image</span></div><div class="vk-row" role="option" aria-selected="false" tabindex="-1"><span class="vk-row__label">Pattern · Stamp Image</span><span class="vk-row__note">no image</span></div><div class="vk-row" role="option" aria-selected="false" tabindex="-1"><span class="vk-row__label">Depth DOF · Aperture Image</span><span class="vk-row__note">no image</span></div></div>
   <div class="vk-modal__actions"><button class="vk-btn">Back</button></div></div>`,

@@ -70,6 +70,14 @@ try {
   ok(words(plain) <= 12 && words(live) <= 12 && !/Drag/.test(plain) && !/Drag/.test(live), `by default there is no hint, so an app without the drag never promises it (${plain}; ${live})`);
   ok(!/Drag/.test(badgeOf({ ownerApp: 'dimensor', policy: 'live', dragHint: false }).desc), 'dragHint: false is the same as the default');
   ok(!/Drag/.test(badgeOf({ ownerApp: 'dimensor', state: 'frozen', dragHint: true }).desc) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', via: 'file', dragHint: true }).desc) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', state: 'sourceClosed', dragHint: true }).desc), 'the other states carry no hint even with dragHint: true');
+  // every state's tip description is 12 words at most (the limit in AGENTS.md), not only the Linked ones
+  const STATES = [{ state: 'frozen' }, { state: 'sourceClosed' }, { notResponding: true }, { state: 'updateAvailable' }, { via: 'file' }, { policy: 'live' }, { dragHint: true }].map((r) => ({ ownerApp: 'kompositor', ...r }));
+  const over = STATES.filter((r) => words(badgeOf(r).desc) > 12).map((r) => badgeOf(r).word);
+  ok(over.length === 0, 'every badge state keeps its tip description to 12 words at most' + (over.length ? ' (over: ' + over.join(', ') + ')' : ''));
+  ok(words("The source app is open but isn't answering. Try again, or check it.") > 12, 'NEGATIVE CONTROL: the old Source not responding text (13 words) fails the same limit');
+  // the specimen shows the real word on both Linked chips, one owner, and says which chip has which tip
+  const spec = readFileSync(ROOT + 'specimen/index.html', 'utf8');
+  ok(!/Linked, draggable/.test(spec) && (spec.match(/<span>Linked<\/span>/g) || []).length >= 2 && /left chip carries the default tip/.test(spec), 'the specimen has two chips that both read Linked, and a note saying which carries which tip');
   // NEGATIVE CONTROL for the default: the old behaviour (hint on unless false) would have put the hint on a plain record
   const oldDefault = (rec) => (rec.dragHint === false ? 'plain' : 'Drag onto an image slot');
   ok(/Drag/.test(oldDefault({ ownerApp: 'dimensor' })) && !/Drag/.test(plain), 'NEGATIVE CONTROL: an on-by-default hint would show on a plain record; the shipped default does not');

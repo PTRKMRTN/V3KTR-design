@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.182 (2026-11-26)
+
+REQ-DS-dialog-lists r4, the three open items from `VERDICT-DS-dialog-lists-r3` (text and specimen only; no CSS or behaviour change except one tip's wording).
+- **Specimen:** the two Linked chips both read "Linked" (the word never changes) and share one owner; a note says the left chip carries the default tip and the right one, whose record has `dragHint: true`, carries the drag tip. The made-up word "Linked, draggable" is gone.
+- **Specimen caption** for the pick list with a note now says the note is `--tx-1` on a hovered row.
+- **Source not responding** tip is 12 words ("The source is open but not answering. Try again, or check it."), so every badge tip is within the limit. A test now checks every state, with a control that fails on the old 13-word text.
+- App pins: no change needed beyond the v0.41.181 re-pin PROCESSOR already owes (`dragHint: true`).
+
 ## 0.41.181 (2026-11-26)
 
 - **Dialog lists, QA round 3** (`REQ-DS-dialog-lists-r3`, answering the reviewer's six misses on v0.41.180). (1) The Linked tip is 12 words or fewer: `Linked to <APP>. Drag onto an image slot to copy it there` (12) with the hint, `Linked to <APP>. Updates when you ask` (7) without (card `DS-linked-tip-wording`, recommended option). (2) The drag hint is opt-in (`dragHint: true`), not on by default: PROCESSOR passes it, an app with no drag never says it has one. (3) The note on a hovered row is `--tx-1` (5.8 to 6.3:1 on the four app colours; `--tx-2-hi` was 3.78 to 4.11:1). (4) The specimen shows the Linked badge with its real tips and word counts, and AGENTS.md's Linked-asset badge entry names the hint, the 12-word limit and the opt-in. (5) AGENTS.md says the note is at least 16px from the label (it is). (6) A long pick list goes inside `.vk-modal__body`. Tests: `node test/dialog-lists.test.mjs` (tip at most 12 words, default has no hint, hover contrast on four app colours with a negative control, the note gap). **PROCESSOR re-pins once** and adds `dragHint: true` where it builds its Linked badge; DIMENSOR, KOMPOSITOR and INCEPTOR change nothing.
