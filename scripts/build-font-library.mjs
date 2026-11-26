@@ -12,7 +12,10 @@
 //                         under v1/ and its byte size) and `cr` (the credit, for a family whose licence asks for one)
 //   v1/files/<id>/<face>.woff2     lossless woff2 of the TTF (Darktech LDR stays the original .ttf)
 //   v1/licences/<id>.txt  the licence text of every family, v1/NOTICE.txt the designer / copyright / source list
-//   _headers              Cloudflare headers: CORS, Cross-Origin-Resource-Policy: cross-origin, long cache on /v1/
+//   cors.json             the bucket's CORS policy (GET and HEAD from any origin), for `wrangler r2 bucket cors set v3ktr-fonts --file cors.json`
+//   _headers              the same rules plus Cross-Origin-Resource-Policy and the year-long cache, for a host that reads a _headers file
+//                         (Cloudflare Pages or a Worker). An R2 custom domain does not read it: there the cache and CORP rule is the
+//                         Transform Rule in COWORK reports/asset-alignment/FONTS-HOST-SETUP.md step 5.
 //
 // Lossless on purpose, NOT subset by script (the brief said "subset by script"): a font with a Reserved Font Name counts as
 // modified under the OFL when glyphs are removed, and Darktech LDR (CC BY-SA 3.0) hands ShareAlike to anything adapted. woff2 is a
@@ -144,6 +147,7 @@ async function build() {
   const cat = { format: 'v3ktr-fonts', v: 1, base: `/${VER}/`, from: { format: src.format, v: src.v }, families };
   fs.writeFileSync(path.join(root, 'catalogue.json'), JSON.stringify(cat));
   fs.writeFileSync(path.join(root, 'NOTICE.txt'), notice);
+  fs.writeFileSync(path.join(out, 'cors.json'), JSON.stringify([{ AllowedOrigins: ['*'], AllowedMethods: ['GET', 'HEAD'], AllowedHeaders: ['*'], ExposeHeaders: ['Content-Length', 'ETag'], MaxAgeSeconds: 86400 }], null, 2) + '\n');
   fs.writeFileSync(path.join(out, '_headers'), [
     '/' + VER + '/*', '  Access-Control-Allow-Origin: *', '  Cross-Origin-Resource-Policy: cross-origin', '  Cache-Control: public, max-age=31536000, immutable', '  X-Content-Type-Options: nosniff', '',
     '/' + VER + '/catalogue.json', '  Cache-Control: public, max-age=3600', '',
