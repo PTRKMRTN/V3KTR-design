@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.184 (2026-11-26)
+
+Camera rig module (`REQ-DS-motion-rig-r1`; asked for by the motion-engine session, option A approved by the lead). A new behaviour file, no CSS, no UI pattern.
+- **`motion/rig.js`:** the shared real-camera motion engine, one ES module, no dependencies, no DOM, CPU only, deterministic (seeded mulberry32, fixed 240 Hz). Rigs: Handheld, Shoulder, Gimbal, Steadicam, Dolly, Crane, Drone, Tripod. Exports `createRig`, `applyToLookAt`, `rig2d`, `RIGS`, `RIG_IDS`, `AXES`, `VERSION` (`0.1.0`). Copied byte for byte from the motion-engine staging copy (COWORK `reports/motion-engine/core/rig.js`, sha256 f6a5a7e4debdeb15d70f...); the profile numbers are the proof-page values Patrick approved on 2026-11-26 and the frame comments in `applyToLookAt` are kept (the pivot and re-aim couplings depend on those signs).
+- **`test/rig.test.mjs`:** 16 checks (`node --test test/rig.test.mjs`), two are negative controls (the seam check fails without the loop cross-fade; the character check fails when two profiles are swapped). Import path fixed to `../motion/rig.js`.
+- **`motion/README.md`:** the API and frame conventions (the staging copy's README without its "where should it live" proposal).
+- **Pulled like `interactions/scrub.js`:** at a pinned design tag, path `motion/rig.js`; there is no dist copy. Consumers in order: DIMENSOR, then PROCESSOR and KOMPOSITOR.
+
 ## 0.41.183 (2026-11-26)
 
 INCEPTOR rail icons, batch 1 of 7 (`REQ-DS-inceptor-rail-icons-1`, QA PASS r3; Patrick approved all nine on card `DS-inceptor-rail-icons-1`, 2026-11-26). Icons and tooling only; no CSS or behaviour change.
