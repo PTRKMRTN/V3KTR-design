@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.193 (2026-11-27)
+
+INCEPTOR rail icons, batch 6 of 7 (`REQ-DS-inceptor-rail-icons-6`, QA PASS r3; Patrick approved all thirteen and the Square grid reuse on card `DS-inceptor-rail-icons-6`, 2026-11-27). Icons only; no CSS or behaviour change.
+- **Thirteen rail icons** in `icons/inceptor-icons.js`, keys are the GEN Patterns row names in lower case with spaces dropped: `checks`, `dots`, `stripes`, `truchet`, `islamic`, `moire`, `penrose`, `voronoi`, `wallpaper`, `weave`, `distgrid`, `isogrid`, `polar`. Same language and 14px measurement as the earlier batches; `truchet` was redrawn as a ring with four corner arcs, `penrose` and `isogrid` nudged after the QA reviewer's first round.
+- **One reuse, no new drawing:** the Square grid row uses the existing `grid` (INCEPTOR's placeholder key was `sqgrid`).
+- Still placeholders in INCEPTOR: Hex grid, Perspective and Circle pack.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.193 and maps the thirteen names plus Square grid through its `SAME_AS` aliases; its fallback stays for the rows not yet drawn.
+
 ## 0.41.192 (2026-11-27)
 
 Fonts and licence brief, parts 1.1 and 1.5 (REQ-DS-licence-online-r1/r2, REQ-DS-font-library-r1/r2/r3; Patrick 2026-11-26: one font set and one licence policy for every app). No CSS and nothing on screen changes.
