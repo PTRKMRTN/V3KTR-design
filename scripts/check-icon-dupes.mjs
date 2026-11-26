@@ -70,7 +70,8 @@ const sims = await p.evaluate(async ([icons, sharedNew]) => {
 await b.close();
 // Policy. Inside the set: a pair at or over the threshold fails. Against the shared menu set: fails at 0.90 unless it is the SAME VERB drawn the same on purpose.
 // Against an app's own drawings that are not redrawn yet: listed as a warning (they are settled when their batch is drawn, and then count as "inside the set").
-const SAME_VERB = new Set(['select~menu:cursor', 'zoom~menu:zoom', 'zoom~menu:zoomin', 'zoom~menu:zoomout', 'fit~menu:frame', 'efTrans~menu:move', 'efTrans~menu:pan',
+// done~menu:done: the shared Done check is deliberately one drawing in every app (MENU_ICONS.done, v0.41.147), so INCEPTOR's `done` is the same verb on purpose.
+const SAME_VERB = new Set(['done~menu:done', 'select~menu:cursor', 'zoom~menu:zoom', 'zoom~menu:zoomin', 'zoom~menu:zoomout', 'fit~menu:frame', 'efTrans~menu:move', 'efTrans~menu:pan',
   // v0.41.157: eyedrop was PROMOTED to the shared set (same drawing, same name: the shared one takes over); star (the shape tool) and fav (the favourite) are both a star and never sit in one control group
   'eyedrop~menu:eyedrop', 'star~menu:fav', 'star~menu:faved',
   // fav (off) and faved (on) are the same star, outline and solid

@@ -61,15 +61,15 @@ export const INCEPTOR_ICONS = {
   closenear: '<path d="M7 17C2 10 9 3 16 6s4 9 0 12c-2 1.500-4 1-5.500.500"/><path d="M11 17a4 4 0 1 0-8 0 4 4 0 1 0 8 0" opacity="0.6"/>' + dot(7, 17, 1, 1.300),
   symmetric: '<path d="M3 8.500c3-4 5 3 9 0s6-3.500 9 0"/><path d="M3 15.500c3 4 5-3 9 0s6 3.500 9 0" opacity="0.6"/><path d="M3 12h18" stroke-dasharray="2 2" opacity="0.3"/>',
   // rail batch 1 (INCEPTOR build session, 2026-11-26): FX rail Replicate (6) and Mask (3), the rows that drew the fallback squiggle. Keys are the lower-case row names.
-  array: '<path d="M3.500 5h5v5h-5z"/><path d="M9.500 5h5v5h-5zM3.500 13h5v5h-5z" opacity="0.6"/><path d="M15.500 5h5v5h-5zM9.500 13h5v5h-5z" opacity="0.3"/><path d="M15.500 13h5v5h-5z" opacity="0.3"/>',
-  blendsteps: '<circle cx="3.900" cy="12" r="1.400"/><rect x="6.900" y="10.300" width="3.400" height="3.400" rx="1.500" opacity="0.6"/><rect x="11.500" y="10" width="4" height="4" rx="0.600" opacity="0.6"/><path d="M16.500 9.500h5v5h-5z"/><path d="M3 18.500h18" opacity="0.3"/>',
+  array: '<path d="M3.500 7h4v4h-4z"/><path d="M10 7h4v4h-4zM3.500 13.500h4v4h-4z" opacity="0.6"/><path d="M16.500 7h4v4h-4zM10 13.500h4v4h-4z" opacity="0.3"/><path d="M16.500 13.500h4v4h-4z" opacity="0.3"/>',
+  blendsteps: '<circle cx="3.500" cy="12" r="2" fill="currentColor" stroke="none"/><rect x="7.800" y="9.500" width="5" height="5" rx="1.800" opacity="0.6"/><path d="M15.800 9h6v6h-6z"/>',
   depthsheets: '<path d="M3.500 20l4.500-4h12l-4.500 4z"/><path d="M3.500 14.500L8 10.500h12l-4.500 4z" opacity="0.6"/><path d="M3.500 9L8 5h12l-4.500 4z" opacity="0.3"/>',
   shatter: '<path d="M4 5l6.500-1-.5 6.500L4.500 9z"/><path d="M13.500 4.500L20 6l-1 5-6-1z"/><path d="M13.500 13.500l6-.5-1.500 6.500-5.500-.5z" opacity="0.6"/><path d="M4.500 12.500l6 .5-.5 6.500-4.500-1.500z" opacity="0.6"/>',
   slice: '<path d="M4 4h14L4 18z"/><path d="M20 6v14H6z"/><path d="M21 3L3 21" opacity="0.3"/>',
-  typetunnel: '<path d="M3.500 3.500h17v17h-17z" opacity="0.3"/><path d="M7 7h10v10H7z" opacity="0.6"/><path d="M3.500 3.500L7 7M20.500 3.500L17 7M3.500 20.500L7 17M20.500 20.500L17 17" opacity="0.3"/><path d="M10.500 10.500h3M12 10.500v3.200"/>',
+  typetunnel: '<path d="M3.500 3.500h17v17h-17z" opacity="0.3"/><path d="M6.500 6.500h11v11h-11z" opacity="0.6"/><path d="M3.500 3.500L6.500 6.500M20.500 3.500L17.500 6.500M3.500 20.500L6.500 17.500M20.500 20.500L17.500 17.500" opacity="0.3"/><path d="M9.200 9.200h5.600M12 9.200v5.800"/>',
   clipby: '<path d="M15 5.500H3.500v13H15" opacity="0.3"/><path d="M15 5.500a6.500 6.500 0 0 1 0 13" opacity="0.6"/><path d="M15 5.500a6.500 6.500 0 0 0 0 13z"/>',
   maskbyfield: '<path d="M12 4A6.500 6.500 0 0 0 12 17"/><path d="M12 4A6.500 6.500 0 0 1 12 17" stroke-dasharray="1.800 2.400" opacity="0.6"/><path d="M4.500 20.500H9"/><path d="M10 20.500h4.500" opacity="0.6"/><path d="M15.500 20.500H20" opacity="0.3"/>',
-  visbyfield: '<path d="M3.500 16c2.500-3.500 5-5 8.500-5s6 1.500 8.500 5c-2.500 3.500-5 5-8.500 5s-6-1.500-8.500-5z"/><circle cx="12" cy="16" r="2"/>' + dot(5, 5.500, 1, 1.500) + dot(9.500, 5.500, 1, 1.500) + dot(14, 5.500, 0.6, 1.500) + dot(18.500, 5.500, 0.3, 1.500),
+  visibilitybyfield: '<path d="M3.500 16c2.500-3.500 5-5 8.500-5s6 1.500 8.500 5c-2.500 3.500-5 5-8.500 5s-6-1.500-8.500-5z"/><circle cx="12" cy="16" r="2"/>' + dot(5, 5.500, 1, 1.500) + dot(9.500, 5.500, 1, 1.500) + dot(14, 5.500, 0.6, 1.500) + dot(18.500, 5.500, 0.3, 1.500),
 };
 export function inceptorIconSvg(name, size = 14) {
   const b = INCEPTOR_ICONS[name]; if (!b) return '';
