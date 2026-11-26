@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.191 (2026-11-26)
+
+REQ-DS-specimen-row (asked by INCEPTOR, ruled by its QA reviewer). Documentation only: no CSS, no behaviour.
+- **Asset browser shell, Results:** a row that draws the item in its own typeface (INCEPTOR's Font browser) is 44px with a 4px gap instead of 34px or less; the rest of the Results rule is unchanged. A row that is only text and facets stays 34px or less. INCEPTOR's Font browser already builds it this way.
+
 ## 0.41.190 (2026-11-26)
 
 REQ-DS-subhead-size (DIMENSOR asked which sub-heading size is meant). One CSS value change, no new class.
