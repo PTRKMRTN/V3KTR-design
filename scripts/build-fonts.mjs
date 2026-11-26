@@ -7,6 +7,8 @@
 import { copyFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
+// --library: the shared font library for fonts.v3ktr.com (brief 1.1), built from INCEPTOR's set; see build-font-library.mjs.
+if (process.argv.includes('--library')) { await import('./build-font-library.mjs'); process.exit(0); }
 const src = (pkg) => { for (const repo of ['V3KTR-dimensor', 'V3KTR-dimensor-wt']) { try { return dirname(createRequire(`file:///D:/00%20CLAUDE%20APPS/${repo}/package.json`).resolve(`@fontsource/${pkg}/package.json`)); } catch (e) {} } throw new Error(`@fontsource/${pkg} not found in a DIMENSOR checkout`); };
 const OUT = new URL('../fonts/', import.meta.url);
 mkdirSync(OUT, { recursive: true });

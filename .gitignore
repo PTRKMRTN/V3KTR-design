@@ -1,2 +1,4 @@
 .publish/
 .wrangler/
+
+scripts/font-tools/node_modules/

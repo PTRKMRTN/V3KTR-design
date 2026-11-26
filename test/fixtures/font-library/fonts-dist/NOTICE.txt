@@ -1,0 +1,11 @@
+INCEPTOR bundled fonts
+
+Each font below is distributed under the licence named beside it. The full licence text for every family is in
+licences/<id>.txt next to this file. The font files are unmodified copies of the files in the google/fonts
+repository (https://github.com/google/fonts, commit cc39c4c2c304bc368c9b7c311ea2bcc6013299fe), renamed only.
+
+Abril Fatface  (abril-fatface, version 1.001)
+  Licence: OFL-1.1  ·  licences/abril-fatface.txt
+  Designer: TypeTogether
+  Copyright (c) 2011, Copyright (c) 2011, TypeTogether (www.type-together.com info@type-together.com), with Reserved Font Names "Abril" and "Abril Fatface"
+  Source: google/fonts ofl/abrilfatface  ·  upstream https://github.com/googlefonts/abrilfatface @ 9d1486e10152a225e46f9d1f787410d7d269015e

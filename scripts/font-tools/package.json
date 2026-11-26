@@ -1,0 +1,9 @@
+{
+  "name": "v3ktr-font-tools",
+  "private": true,
+  "description": "Build tools for the shared font library (scripts/build-fonts.mjs --library): a woff2 encoder and a font reader. Not part of any shipped file. npm install here, then run the build.",
+  "dependencies": {
+    "opentype.js": "1.3.4",
+    "wawoff2": "2.0.1"
+  }
+}
