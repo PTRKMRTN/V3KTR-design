@@ -63,8 +63,10 @@ test('every rig closes its loop on every move (no jump, no kink)', () => {
   }
 });
 test('negative control: without the cross-fade the seam check fails', () => {
-  const s = seam(take('handheld', 'walk', 7, { _test: { noCrossfade: true } }));
-  assert.ok(s.pos > 1e-4 || s.ang > 0.01, 'the seam check must be able to fail');
+  // On the periodic `hold` move the position seam is 3.6e-11 m with the cross-fade and 1.35e-2 m without it, so this fails only if the cross-fade is really switched off.
+  // (On a one-shot move like `walk` the angle already jumps at the cut with the cross-fade on, so that check could not fail on what it guards.)
+  const s = seam(take('handheld', 'hold', 7, { _test: { noCrossfade: true } }));
+  assert.ok(s.pos > 1e-4, `the seam check must be able to fail (position seam ${s.pos} m)`);
 });
 
 test('steady speed passes through; a stop overshoots', () => {
