@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.185 (2026-11-26)
+
+INCEPTOR rail icons, batch 2 of 7 (`REQ-DS-inceptor-rail-icons-2`, QA PASS r3; Patrick approved all twelve on card `DS-inceptor-rail-icons-2`, 2026-11-26). Icons only; no CSS or behaviour change.
+- **Twelve rail icons** in `icons/inceptor-icons.js`, keys are the FX rail Effectors row names in lower case with spaces dropped: `cloth`, `fallandsettle`, `pile`, `repel`, `rope`, `softbody`, `springfollow`, `textanimator`, `textbounce`, `textspin`, `textwave`, `tilt`. Drawn in INCEPTOR's language (24 grid, 1.4 stroke, `currentColor`, tones 1 / 0.6 / 0.3, no fills except small dots) and measured at the rail's real size (14px icons in 24px rows): six were redrawn after the QA reviewer's 14px measurements (`cloth`, `rope`, `softbody`, `textwave`, `fallandsettle`, `tilt`), `cloth` and `softbody` once more.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.185 and maps the twelve names; its fallback stays for the rows not yet drawn.
+
 ## 0.41.184 (2026-11-26)
 
 Camera rig module (`REQ-DS-motion-rig-r1`; asked for by the motion-engine session, option A approved by the lead). A new behaviour file, no CSS, no UI pattern.
