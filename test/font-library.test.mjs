@@ -56,8 +56,10 @@ assert.equal(Buffer.compare(fs.readFileSync(path.join(V1, 'files/darktech-ldr/da
 for (const id of ['abril-fatface', 'kiwi-soda', 'y224', 'darktech-ldr']) assert.ok(fs.statSync(path.join(V1, 'licences', id + '.txt')).size > 100, `${id} has its licence`);
 assert.match(fs.readFileSync(path.join(V1, 'NOTICE.txt'), 'utf8'), /Darktech LDR[\s\S]*unedited/);
 const hdr = fs.readFileSync(path.join(OUT, '_headers'), 'utf8');
-const cors = JSON.parse(fs.readFileSync(path.join(OUT, 'cors.json'), 'utf8'));
-assert.deepEqual([cors[0].AllowedOrigins, cors[0].AllowedMethods], [['*'], ['GET', 'HEAD']], 'the bucket CORS policy: GET and HEAD from any origin');
+const corsDash = JSON.parse(fs.readFileSync(path.join(OUT, 'cors-dashboard.json'), 'utf8')), corsCli = JSON.parse(fs.readFileSync(path.join(OUT, 'cors-wrangler.json'), 'utf8'));
+assert.deepEqual([corsDash[0].AllowedOrigins, corsDash[0].AllowedMethods], [['*'], ['GET', 'HEAD']], 'the dashboard CORS policy: GET and HEAD from any origin');
+assert.deepEqual([corsCli.rules[0].allowed.origins, corsCli.rules[0].allowed.methods], [['*'], ['GET', 'HEAD']], 'the wrangler CORS file: the same policy in the documented {rules:[{allowed:{...}}]} shape');
+assert.equal(fs.existsSync(path.join(OUT, 'cors.json')), false, 'no ambiguous cors.json is written');
 assert.match(hdr, /Access-Control-Allow-Origin: \*/); assert.match(hdr, /Cross-Origin-Resource-Policy: cross-origin/); assert.match(hdr, /immutable/);
 assert.deepEqual(checkLibrary(OUT, SRC), [], 'the built library passes its own check');
 const cli = run('--check', OUT, '--from', SRC); assert.equal(cli.status, 0); assert.match(cli.stdout, /clean/);

@@ -2,8 +2,8 @@ V3KTR shared fonts
 
 Every font file in this library is a lossless woff2 re-encoding of the original font file: the font data is unchanged and the
 DSIG signature table, which any re-encode voids, is not carried. The exceptions are served as the original TTF, unchanged: darktech-ldr, roboto-flex.
-The set holds 145 families under the SIL Open Font Licence 1.1 and 7 under Apache-2.0 (each file is the unmodified font, so no change
-needs noting), and the extras named at the end. Not legal advice.
+The set holds 145 families under the SIL Open Font Licence 1.1 and 7 under Apache-2.0; the font data in each file is unmodified.
+The extras are named at the end. Not legal advice.
 
 INCEPTOR bundled fonts
 

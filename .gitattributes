@@ -1,0 +1,2 @@
+# the committed font library is byte-for-byte what the build wrote (the licence texts keep their CRLF endings)
+font-library/** -text

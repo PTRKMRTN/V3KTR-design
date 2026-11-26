@@ -15,10 +15,15 @@
 //                         under v1/ and its byte size) and `cr` (the credit, for a family whose licence asks for one)
 //   v1/files/<id>/<face>.woff2     lossless woff2 of the TTF; two families stay the original .ttf (KEEP_ORIGINAL below)
 //   v1/licences/<id>.txt  the licence text of every family, v1/NOTICE.txt the designer / copyright / source list
-//   cors.json             the bucket's CORS policy (GET and HEAD from any origin), for `wrangler r2 bucket cors set v3ktr-fonts --file cors.json`
-//   _headers              the same rules plus Cross-Origin-Resource-Policy and the year-long cache, for a host that reads a _headers file
-//                         (Cloudflare Pages or a Worker). An R2 custom domain does not read it: there the cache and CORP rule is the
-//                         Transform Rule in COWORK reports/asset-alignment/FONTS-HOST-SETUP.md step 5.
+//   cors-wrangler.json    the bucket's CORS policy in the shape `wrangler r2 bucket cors set v3ktr-fonts --file cors-wrangler.json` documents
+//                         ({"rules": [...]}); cors-dashboard.json is the same policy in the S3-style array the dashboard's CORS box takes.
+//                         Whoever applies it runs `wrangler r2 bucket cors list v3ktr-fonts` and keeps the output (the shape is from Cloudflare's
+//                         R2 CORS page, not tried against the live bucket).
+//   _headers              the cache and CORP rules for a host that reads a _headers file (Cloudflare Pages or a Worker). An R2 custom domain
+//                         does NOT read it. At the R2 host: CORP is one Transform Rule for the hostname; the year-long `immutable` Cache-Control
+//                         is a Transform Rule scoped to starts_with(http.request.uri.path, "/v1/files/") or "/v1/licences/" ONLY (a rule for the
+//                         whole hostname would make catalogue.json and NOTICE.txt immutable too); the catalogue and NOTICE get
+//                         `--cache-control "public, max-age=3600"` per object at upload. Exact steps: font-library/HOSTING.md.
 //
 // Lossless and whole-file, no subsetting (brief §1.1): a font with a Reserved Font Name counts as modified under the OFL when glyphs
 // are removed, and Darktech LDR (CC BY-SA 3.0) hands ShareAlike to anything adapted. woff2 is a reversible re-encoding of the same
@@ -177,7 +182,7 @@ async function build() {
   const srcNotice = fs.readFileSync(path.join(from, 'NOTICE.txt'), 'utf8');
   const gfCommit = (/google\/fonts[^)]*commit ([0-9a-f]{40})/.exec(srcNotice) || [])[1] || '';
   const nLic = (re) => families.filter((f) => re.test(f.l)).length;
-  let notice = `V3KTR shared fonts\n\nEvery font file in this library is a lossless woff2 re-encoding of the original font file: the font data is unchanged and the\nDSIG signature table, which any re-encode voids, is not carried. The exceptions are served as the original TTF, unchanged: ${[...KEEP_ORIGINAL].sort().join(', ')}.\nThe set holds ${nLic(/^OFL/)} families under the SIL Open Font Licence 1.1 and ${nLic(/^Apache/)} under Apache-2.0 (each file is the unmodified font, so no change\nneeds noting), and the extras named at the end. Not legal advice.\n\n` + srcNotice;
+  let notice = `V3KTR shared fonts\n\nEvery font file in this library is a lossless woff2 re-encoding of the original font file: the font data is unchanged and the\nDSIG signature table, which any re-encode voids, is not carried. The exceptions are served as the original TTF, unchanged: ${[...KEEP_ORIGINAL].sort().join(', ')}.\nThe set holds ${nLic(/^OFL/)} families under the SIL Open Font Licence 1.1 and ${nLic(/^Apache/)} under Apache-2.0; the font data in each file is unmodified.\nThe extras are named at the end. Not legal advice.\n\n` + srcNotice;
   if (extras) {
     notice += '\n\nExtra fonts (from DIMENSOR, added to the shared set 2026-11-26). Each is distributed under the licence named beside it.\n';
     for (const x of EXTRAS) {
@@ -193,7 +198,8 @@ async function build() {
   const cat = { format: 'v3ktr-fonts', v: 1, base: `/${VER}/`, from: { format: src.format, v: src.v, catalogueSha256: srcHash, googleFontsCommit: gfCommit, families: src.families.length }, families };
   fs.writeFileSync(path.join(root, 'catalogue.json'), JSON.stringify(cat));
   fs.writeFileSync(path.join(root, 'NOTICE.txt'), notice);
-  fs.writeFileSync(path.join(out, 'cors.json'), JSON.stringify([{ AllowedOrigins: ['*'], AllowedMethods: ['GET', 'HEAD'], AllowedHeaders: ['*'], ExposeHeaders: ['Content-Length', 'ETag'], MaxAgeSeconds: 86400 }], null, 2) + '\n');
+  fs.writeFileSync(path.join(out, 'cors-dashboard.json'), JSON.stringify([{ AllowedOrigins: ['*'], AllowedMethods: ['GET', 'HEAD'], AllowedHeaders: ['*'], ExposeHeaders: ['Content-Length', 'ETag'], MaxAgeSeconds: 86400 }], null, 2) + '\n');
+  fs.writeFileSync(path.join(out, 'cors-wrangler.json'), JSON.stringify({ rules: [{ allowed: { origins: ['*'], methods: ['GET', 'HEAD'], headers: ['*'] }, exposeHeaders: ['Content-Length', 'ETag'], maxAgeSeconds: 86400 }] }, null, 2) + '\n');
   fs.writeFileSync(path.join(out, '_headers'), [
     // No URL matches two Cache-Control rules: a header set by two matching rules is JOINED with a comma on Cloudflare Pages.
     '/' + VER + '/*', '  Access-Control-Allow-Origin: *', '  Cross-Origin-Resource-Policy: cross-origin', '  X-Content-Type-Options: nosniff', '',
