@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.183 (2026-11-26)
+
+INCEPTOR rail icons, batch 1 of 7 (`REQ-DS-inceptor-rail-icons-1`, QA PASS r3; Patrick approved all nine on card `DS-inceptor-rail-icons-1`, 2026-11-26). Icons and tooling only; no CSS or behaviour change.
+- **Nine rail icons** in `icons/inceptor-icons.js`, keys are the row names in lower case so INCEPTOR maps them one for one: Replicate `array`, `blendsteps`, `depthsheets`, `shatter`, `slice`, `typetunnel`; Mask `clipby`, `maskbyfield`, `visibilitybyfield`. Drawn in INCEPTOR's language (24 grid, 1.4 stroke, `currentColor`, tones 1 / 0.6 / 0.3, no fills except small dots) and checked at the rail's real size (14px icons in 24px rows).
+- **`scripts/check-icon-dupes.mjs`:** `done~menu:done` joins `SAME_VERB` (the shared `done` is one drawing in every app, v0.41.147), so the real run ends "no duplicate pairs"; the planted-copy control still fails.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.183 and maps the nine names; its fallback stays for the 72 rows not yet drawn.
+
 ## 0.41.182 (2026-11-26)
 
 REQ-DS-dialog-lists r4, the three open items from `VERDICT-DS-dialog-lists-r3` (text and specimen only; no CSS or behaviour change except one tip's wording).
