@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.188 (2026-11-26)
+
+INCEPTOR rail icons, batch 4 of 7 (`REQ-DS-inceptor-rail-icons-4`, QA PASS r3; Patrick approved all twelve and the three reuses on card `DS-inceptor-rail-icons-4`, 2026-11-26). Icons only; no CSS or behaviour change.
+- **Twelve rail icons** in `icons/inceptor-icons.js`, keys are the FX rail Style row names in lower case with spaces dropped: `bevelshade`, `castshadow`, `fieldgradient`, `flowlines`, `formhatch`, `glyphswap`, `guillochefill`, `metaball`, `offsetrings`, `outlinestroke`, `scanlines`, `trim`. Same language and 14px measurement as the earlier batches; five were redrawn after the QA reviewer's 14px measurements (`bevelshade`, `metaball`, `offsetrings`, `outlinestroke`, `trim`) and `flowlines` once more.
+- **Three reuses, no new drawing:** the Corners row uses `cornerR`, Dash uses `dash` and Text boxes uses `textblock`.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.188 and maps the twelve names plus the three reuses (Corners operator icon `cornerR`; `dashLine` and `text-boxes` through its aliases); its fallback stays for the rows not yet drawn.
+
 ## 0.41.187 (2026-11-26)
 
 INCEPTOR rail icons, batch 3 of 7 (`REQ-DS-inceptor-rail-icons-3`, QA PASS; Patrick approved all eight on card `DS-inceptor-rail-icons-3`, 2026-11-26). Icons only; no CSS or behaviour change.
