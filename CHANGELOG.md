@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.192 (2026-11-27)
+
+Fonts and licence brief, parts 1.1 and 1.5 (REQ-DS-licence-online-r1/r2, REQ-DS-font-library-r1/r2/r3; Patrick 2026-11-26: one font set and one licence policy for every app). No CSS and nothing on screen changes.
+- **`interactions/licence.js`** (no imports, vendors flat): the suite's one licence gate, credit record and credits text, merged from KOMPOSITOR's sounds/licence.js, credits.js and INCEPTOR's library licence gate. A licence is read from an SPDX id or the provider's own words; CC0, PDM, CC BY, MIT, ISC, Apache-2.0, OFL and V3KTR's own content are always shown, CC BY-SA behind Share-alike, NC behind personal use, ND and unknown never. A version nobody stated is never written down; only real versions are read. `creditsText` lists the items that ask for credit (`{ all: true }` lists every item given; an unknown licence is listed). Test: `node test/licence.test.mjs` (24 planted mutants caught).
+- **`interactions/online.js`** (no imports): the Ask / On / Off online-search switch, `gatedFetch` (refuses before `fetch`), `noticeFor(providers, { menu })`; the stored key is `vk.online`, an app's old key (KOMPOSITOR's `kmp.online`) is read once through `legacyKeys`.
+- **Shared font library build** (`node scripts/build-fonts.mjs --library`, `scripts/build-font-library.mjs`): INCEPTOR's 152 families and DIMENSOR's three extras (Kiwi Soda, Y224, Darktech LDR) as lossless whole-file woff2 (no subsetting; 155 families, 338 faces, 51.2 MB; Roboto Flex and Darktech LDR stay the original TTF), a catalogue (`v3ktr-fonts` v1, with the source hash and google/fonts commit), licence files, NOTICE, CORS files and headers for `fonts.v3ktr.com`. The faces are not in this repo; **the catalogue, NOTICE and 155 licence files are committed at `font-library/v1/`**, hosting steps in `font-library/HOSTING.md`. Tested: `node test/font-library.test.mjs`; `--verify` decodes every face and compares tables, outlines and glyph flags (335 faces, 0 different).
+- Not in this release (still to come from the same brief): the font picker, `app/asset-browser.css`, the licence tags and Licences dialog, the Library menu.
+
 ## 0.41.191 (2026-11-26)
 
 REQ-DS-specimen-row (asked by INCEPTOR, ruled by its QA reviewer). Documentation only: no CSS, no behaviour.
