@@ -1,0 +1,943 @@
+V3KTR shared fonts
+
+Every font file in this library is a lossless woff2 re-encoding of the original font file: the font data is unchanged and the
+DSIG signature table, which any re-encode voids, is not carried. The exceptions are served as the original TTF, unchanged: darktech-ldr, roboto-flex.
+The set holds 145 families under the SIL Open Font Licence 1.1 and 7 under Apache-2.0 (each file is the unmodified font, so no change
+needs noting), and the extras named at the end. Not legal advice.
+
+INCEPTOR bundled fonts
+
+Each font below is distributed under the licence named beside it. The full licence text for every family is in
+licences/<id>.txt next to this file. The font files are unmodified copies of the files in the google/fonts
+repository (https://github.com/google/fonts, commit cc39c4c2c304bc368c9b7c311ea2bcc6013299fe), renamed only.
+
+Abril Fatface  (abril-fatface, version 1.001)
+  Licence: OFL-1.1  ·  licences/abril-fatface.txt
+  Designer: TypeTogether
+  Copyright (c) 2011, Copyright (c) 2011, TypeTogether (www.type-together.com info@type-together.com), with Reserved Font Names "Abril" and "Abril Fatface"
+  Source: google/fonts ofl/abrilfatface  ·  upstream https://github.com/googlefonts/abrilfatface @ 9d1486e10152a225e46f9d1f787410d7d269015e
+
+Alegreya  (alegreya, version 2.009)
+  Licence: OFL-1.1  ·  licences/alegreya.txt
+  Designer: Juan Pablo del Peral, HT Fonts
+  Copyright 2011 The Alegreya Project Authors (https://github.com/huertatipografica/Alegreya)
+  Source: google/fonts ofl/alegreya  ·  upstream https://github.com/huertatipografica/Alegreya @ 1dd6b28b57c50e3168db1cbbb8086e7978abcfbf
+
+Aleo  (aleo, version 2.001)
+  Licence: OFL-1.1  ·  licences/aleo.txt
+  Designer: Alessio Laiso
+  Copyright 2013 The Aleo Project Authors (https://github.com/AlessioLaiso/aleo)
+  Source: google/fonts ofl/aleo  ·  upstream https://github.com/AlessioLaiso/aleo @ ce875e48d9983031648e87f38b7a269f4fbf5eb5
+
+Alfa Slab One  (alfa-slab-one, version 2.000)
+  Licence: OFL-1.1  ·  licences/alfa-slab-one.txt
+  Designer: JM Sol�
+  Copyright 2016 The Alfa Slab One Project Authors (http://www.jmsole.cl | info@jmsole.cl), with Reserved Font Name "Alfa Slab".
+  Source: google/fonts ofl/alfaslabone  ·  upstream https://github.com/googlefonts/alfaslabone @ b49726a15e80546c1faa6a616c1070c6de8b86be
+
+Allura  (allura, version 1.110)
+  Licence: OFL-1.1  ·  licences/allura.txt
+  Designer: Robert Leuschke
+  Copyright 2010 The Allura Project Authors (https://github.com/googlefonts/allura)
+  Source: google/fonts ofl/allura  ·  upstream https://github.com/googlefonts/allura @ 38a78b41510a10b1129c50fa5177b642bd2b4a19
+
+Amatic SC  (amatic-sc, version 2.505)
+  Licence: OFL-1.1  ·  licences/amatic-sc.txt
+  Designer: Vernon Adams, Ben Nathan, Thomas Jockin
+  Copyright 2015 The Amatic SC Project Authors (https://github.com/googlefonts/AmaticSC)
+  Source: google/fonts ofl/amaticsc  ·  upstream https://github.com/googlefonts/AmaticSC @ 308846136d2dcfb6aef2160d7e927698cdaf9c05
+
+Anton  (anton, version 2.116)
+  Licence: OFL-1.1  ·  licences/anton.txt
+  Designer: Vernon Adams
+  Copyright 2020 The Anton Project Authors (https://github.com/googlefonts/AntonFont.git)
+  Source: google/fonts ofl/anton  ·  upstream https://github.com/googlefonts/AntonFont @ beb92fcad87808357123bb66881b4032dc96efe7
+
+Antonio  (antonio, version 1.002)
+  Licence: OFL-1.1  ·  licences/antonio.txt
+  Designer: Vernon Adams
+  Copyright 2013 The Antonio Project Authors (https://github.com/googlefonts/antonioFont)
+  Source: google/fonts ofl/antonio  ·  upstream https://github.com/googlefonts/antonioFont @ 08562998b10c6c21a3505f47236b42f5d58c9909
+
+Architects Daughter  (architects-daughter, version 1.003 2010)
+  Licence: OFL-1.1  ·  licences/architects-daughter.txt
+  Designer: Kimberly Geswein
+  Copyright (c) 2010, Kimberly Geswein (kimberlygeswein.com)
+  Source: google/fonts ofl/architectsdaughter  ·  upstream https://github.com/googlefonts/architectsdaughter @ 55246f9edaf98669853e024e60e0575bd9d52ada
+
+Archivo  (archivo, version 2.001)
+  Licence: OFL-1.1  ·  licences/archivo.txt
+  Designer: Omnibus-Type
+  Copyright 2020 The Archivo Project Authors (https://github.com/Omnibus-Type/Archivo)
+  Source: google/fonts ofl/archivo  ·  upstream https://github.com/Omnibus-Type/Archivo @ b5d63988ce19d044d3e10362de730af00526b672
+
+Archivo Black  (archivo-black, version 1.006)
+  Licence: OFL-1.1  ·  licences/archivo-black.txt
+  Designer: Omnibus-Type
+  Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)
+  Source: google/fonts ofl/archivoblack  ·  upstream https://github.com/Omnibus-Type/ArchivoBlack @ 95df3c54d818473a3e362f30ae3059bd85b80036
+
+Archivo Narrow  (archivo-narrow, version 3.002)
+  Licence: OFL-1.1  ·  licences/archivo-narrow.txt
+  Designer: Omnibus-Type
+  Copyright 2019 The Archivo Narrow Project Authors (https://github.com/Omnibus-Type/ArchivoNarrow)
+  Source: google/fonts ofl/archivonarrow  ·  upstream https://github.com/Omnibus-Type/ArchivoNarrow @ 9793ec77b6682a26bc7a6ed523ca65cc3cb90aec
+
+Arimo  (arimo, version 1.341)
+  Licence: OFL-1.1  ·  licences/arimo.txt
+  Designer: Steve Matteson
+  Copyright 2020 The Arimo Project Authors (https://github.com/googlefonts/arimo)
+  Source: google/fonts ofl/arimo  ·  upstream https://github.com/googlefonts/arimo @ 4a6255f269916ae7ad3fc2706b0935e7621396b8
+
+Arvo  (arvo, version 1.006 2010 beta release)
+  Licence: OFL-1.1  ·  licences/arvo.txt
+  Designer: Anton Koovit
+  Copyright 2010 Anton Koovit.
+  Source: google/fonts ofl/arvo  ·  upstream https://github.com/antonxheight/Arvo @ ae906e99ab549103549c68252edfcb1816a6bf08
+
+Atkinson Hyperlegible Next  (atkinson-hyperlegible-next, version 2.001)
+  Licence: OFL-1.1  ·  licences/atkinson-hyperlegible-next.txt
+  Designer: Braille Institute, Applied Design Works, Elliott Scott, Megan Eiswerth, Letters From Sweden
+  Copyright 2020-2024 The Atkinson Hyperlegible Next Project Authors (https://github.com/googlefonts/atkinson-hyperlegible-next)
+  Source: google/fonts ofl/atkinsonhyperlegiblenext  ·  upstream https://github.com/googlefonts/atkinson-hyperlegible-next @ 7925f50f649b3813257faf2f4c0b381011f434f1
+
+Bangers  (bangers, version 2.100)
+  Licence: OFL-1.1  ·  licences/bangers.txt
+  Designer: Vernon Adams
+  Copyright 2010 The Bangers Project Authors (https://github.com/googlefonts/bangers)
+  Source: google/fonts ofl/bangers  ·  upstream https://github.com/googlefonts/bangers @ ca6d2f15db343ee373e9c62a127f3a48cd251228
+
+Bebas Neue  (bebas-neue, version 2.000)
+  Licence: OFL-1.1  ·  licences/bebas-neue.txt
+  Designer: Ryoichi Tsunekawa
+  Copyright 2019 The Bebas Neue Project Authors (https://github.com/dharmatype/Bebas-Neue)
+  Source: google/fonts ofl/bebasneue  ·  upstream https://github.com/dharmatype/Bebas-Neue @ 686d14af640c17af3691c597778f121d840d9051
+
+Big Shoulders Display  (big-shoulders-display, version 2.002)
+  Licence: OFL-1.1  ·  licences/big-shoulders-display.txt
+  Designer: Patric King
+  Copyright 2019 The Big Shoulders Project Authors (https://github.com/xotypeco/big_shoulders)
+  Source: google/fonts ofl/bigshouldersdisplay  ·  upstream https://github.com/xotypeco/big_shoulders @ 41153e6fe01d218e933919a1d08c8e45065bc8fe
+
+Bitter  (bitter, version 3.021)
+  Licence: OFL-1.1  ·  licences/bitter.txt
+  Designer: Sol Matas
+  Copyright 2011 The Bitter Project Authors (https://github.com/solmatas/BitterPro)
+  Source: google/fonts ofl/bitter  ·  upstream https://github.com/solmatas/BitterPro @ 3238d7ae2cb0b564b81225d68b3c893a40b1d3ce
+
+Black Ops One  (black-ops-one, version 1.004)
+  Licence: OFL-1.1  ·  licences/black-ops-one.txt
+  Designer: James Grieshaber, Eben Sorkin
+  Copyright 2022 The PinyonScript Project Authors (https://github.com/SorkinType/Black-Ops)
+  Source: google/fonts ofl/blackopsone  ·  upstream https://github.com/SorkinType/Black-Ops @ c955bed3517ad3d8606a8b0105d27538309fb70d
+
+Bodoni Moda  (bodoni-moda, version 2.005)
+  Licence: OFL-1.1  ·  licences/bodoni-moda.txt
+  Designer: Owen Earl
+  Copyright 2020 The Bodoni Moda Project Authors (https://github.com/indestructible-type/Bodoni)
+  Source: google/fonts ofl/bodonimoda  ·  upstream https://github.com/indestructible-type/Bodoni @ 30ce6cdc354ef179a3b72ba0f0e71826e599348c
+
+Bree Serif  (bree-serif, version 1.002)
+  Licence: OFL-1.1  ·  licences/bree-serif.txt
+  Designer: TypeTogether
+  Copyright (c) 2011, TypeTogether (www.type-together.com), with Reserved Font Names "Bree" and "Bree Serif"
+  Source: google/fonts ofl/breeserif  ·  upstream https://github.com/googlefonts/breeserif @ 31562b2b04ee21afb0c750ca2343fb761ae36dfb
+
+Bricolage Grotesque  (bricolage-grotesque, version 1.001)
+  Licence: OFL-1.1  ·  licences/bricolage-grotesque.txt
+  Designer: Mathieu Triay
+  Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+  Source: google/fonts ofl/bricolagegrotesque  ·  upstream https://github.com/ateliertriay/bricolage @ 84745e5b96261ae5f8c6c856e262fe78d1d6efdd
+
+Bungee  (bungee, version 2.000)
+  Licence: OFL-1.1  ·  licences/bungee.txt
+  Designer: David Jonathan Ross
+  Copyright 2023 The Bungee Project Authors (https://github.com/djrrb/Bungee)
+  Source: google/fonts ofl/bungee  ·  upstream https://github.com/djrrb/Bungee @ eb03cf69adab5094f6b84e95357789cdf3bfeb99
+
+Cardo  (cardo, version 1.0451)
+  Licence: OFL-1.1  ·  licences/cardo.txt
+  Designer: David Perry
+  Copyright (c) 2002-2011, David J. Perry (hospes02@scholarsfonts.net)
+  Source: google/fonts ofl/cardo  ·  upstream https://github.com/googlefonts/CardoFont @ b2bf876b4e251ac44b343605464dad86b336b38d
+
+Carlito  (carlito, version 1.104)
+  Licence: OFL-1.1  ·  licences/carlito.txt
+  Designer: Łukasz Dziedzic
+  Copyright 2013 The Carlito Project Authors (https://github.com/googlefonts/carlito)
+  Source: google/fonts ofl/carlito  ·  upstream https://github.com/googlefonts/carlito @ a8d610ee6e4ae5079a09f46c43da006abb23f5bd
+
+Caveat  (caveat, version 2.000)
+  Licence: OFL-1.1  ·  licences/caveat.txt
+  Designer: Impallari Type
+  Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+  Source: google/fonts ofl/caveat  ·  upstream https://github.com/googlefonts/caveat @ 59745e818ef7973e11e70cb1358d0e902b56c5fc
+
+Chivo  (chivo, version 2.002)
+  Licence: OFL-1.1  ·  licences/chivo.txt
+  Designer: Omnibus-Type
+  Copyright 2019 The Chivo Project Authors (https://github.com/Omnibus-Type/Chivo)
+  Source: google/fonts ofl/chivo  ·  upstream https://github.com/Omnibus-Type/Chivo @ d98623c96068cd02fbe9f22982d4b0504be8b851
+
+Cinzel  (cinzel, version 2.000)
+  Licence: OFL-1.1  ·  licences/cinzel.txt
+  Designer: Natanael Gama
+  Copyright 2020 The Cinzel Project Authors (https://github.com/NDISCOVER/Cinzel)
+  Source: google/fonts ofl/cinzel  ·  upstream https://github.com/NDISCOVER/Cinzel @ 8271e162a7c6064ff1e539ba86011b16b6a6184f
+
+Climate Crisis  (climate-crisis, version 1.007)
+  Licence: OFL-1.1  ·  licences/climate-crisis.txt
+  Designer: Daniel Coull, Eino Korkala
+  Copyright 2020 The Climate Crisis Project Authors (https://github.com/dancoull/ClimateCrisis)
+  Source: google/fonts ofl/climatecrisis  ·  upstream https://github.com/dancoull/ClimateCrisis @ 8e3882135dddeb43f582ae88f337589dbba625f4
+
+Cormorant Garamond  (cormorant-garamond, version 4.001)
+  Licence: OFL-1.1  ·  licences/cormorant-garamond.txt
+  Designer: Christian Thalmann
+  Copyright 2015 The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant)
+  Source: google/fonts ofl/cormorantgaramond  ·  upstream https://github.com/CatharsisFonts/Cormorant @ 6d210fd3550b7358ca62d6ba3e354ec1ec940813
+
+Courgette  (courgette, version 1.002)
+  Licence: OFL-1.1  ·  licences/courgette.txt
+  Designer: Karolina Lach
+  Copyright (c) 2012, Sorkin Type Co (www.sorkintype.com eben@eyebytes.com) with Reserved Font Name "Courgette".
+  Source: google/fonts ofl/courgette  ·  upstream https://github.com/googlefonts/courgette @ c7884413c3ff6401df0abd685b20e7d419db2684
+
+Courier Prime  (courier-prime, version 3.018)
+  Licence: OFL-1.1  ·  licences/courier-prime.txt
+  Designer: Alan Dague-Greene
+  Copyright 2015 The Courier Prime Project Authors (https://github.com/quoteunquoteapps/CourierPrime).
+  Source: google/fonts ofl/courierprime  ·  upstream https://github.com/quoteunquoteapps/CourierPrime @ 7fd585a2dd4c1612c79b3308e300923d1c13df93
+
+Cousine  (cousine, version 1.241)
+  Licence: OFL-1.1  ·  licences/cousine.txt
+  Designer: Steve Matteson
+  Copyright 2026 The Cousine Project Authors (https://github.com/googlefonts/cousine)
+  Source: google/fonts ofl/cousine  ·  upstream https://www.github.com/googlefonts/cousine @ c0fbdb438443968c884a5c13f5f9bee916a7f89b
+
+Creepster  (creepster, version 1.002)
+  Licence: OFL-1.1  ·  licences/creepster.txt
+  Designer: Sideshow
+  Copyright (c) 2011, Font Diner, Inc DBA Sideshow (diner@fontdiner.com), with Reserved Font Names "Creepster"
+  Source: google/fonts ofl/creepster  ·  upstream https://github.com/googlefonts/creepster @ 1c79da6f4d0cc0835ba16d20aba5c113e6245e7e
+
+Crimson Pro  (crimson-pro, version 1.003)
+  Licence: OFL-1.1  ·  licences/crimson-pro.txt
+  Designer: Jacques Le Bailly
+  Copyright 2018 The Crimson Pro Project Authors (https://github.com/Fonthausen/CrimsonPro)
+  Source: google/fonts ofl/crimsonpro  ·  upstream https://github.com/Fonthausen/CrimsonPro @ 24e8f7bf59ec45d77c67879ad80d97e5f94c787b
+
+Dancing Script  (dancing-script, version 2.001)
+  Licence: OFL-1.1  ·  licences/dancing-script.txt
+  Designer: Impallari Type
+  Copyright 2016 The Dancing Script Project Authors (https://github.com/googlefonts/DancingScript), with Reserved Font Name 'Dancing Script'.
+  Source: google/fonts ofl/dancingscript  ·  upstream https://github.com/googlefonts/DancingScript @ 291f87c05206179b6bfd53735a5638b5cc84e3b3
+
+DM Mono  (dm-mono, version 1.000)
+  Licence: OFL-1.1  ·  licences/dm-mono.txt
+  Designer: Colophon Foundry
+  Copyright 2020 The DM Mono Project Authors (https://www.github.com/googlefonts/dm-mono)
+  Source: google/fonts ofl/dmmono  ·  upstream https://github.com/googlefonts/dm-mono @ 57fadabfb200a77de2812540026c249dc3013077
+
+DM Sans  (dm-sans, version 4.004)
+  Licence: OFL-1.1  ·  licences/dm-sans.txt
+  Designer: Colophon Foundry
+  Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
+  Source: google/fonts ofl/dmsans  ·  upstream https://github.com/googlefonts/dm-fonts @ d0520ba03bd780f5dccb3024854463d44f699b78
+
+DM Serif Display  (dm-serif-display, version 5.200)
+  Licence: OFL-1.1  ·  licences/dm-serif-display.txt
+  Designer: Colophon Foundry
+  Copyright 2014 - 2017 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'. Copyright 2019 Google LLC.
+  Source: google/fonts ofl/dmserifdisplay  ·  upstream https://github.com/googlefonts/dm-fonts @ 027cea4e4f45827128860a4dec7b9a0852a295d7
+
+EB Garamond  (eb-garamond, version 1.003)
+  Licence: OFL-1.1  ·  licences/eb-garamond.txt
+  Designer: Georg Duffner, Octavio Pardo
+  Copyright 2017 The EB Garamond Project Authors (https://github.com/octaviopardo/EBGaramond12)
+  Source: google/fonts ofl/ebgaramond  ·  upstream https://github.com/octaviopardo/EBGaramond12 @ 106a4a6d377987459ae5e68673a4570f13b957fb
+
+Figtree  (figtree, version 2.002)
+  Licence: OFL-1.1  ·  licences/figtree.txt
+  Designer: Erik Kennedy
+  Copyright 2022 The Figtree Project Authors (https://github.com/erikdkennedy/figtree)
+  Source: google/fonts ofl/figtree  ·  upstream https://github.com/erikdkennedy/figtree @ 032dfa7fe219ef3a02890d6d3add84eacc9aebfe
+
+Fira Code  (fira-code, version 5.002)
+  Licence: OFL-1.1  ·  licences/fira-code.txt
+  Designer: The Mozilla Foundation, Telefonica S.A., Nikita Prokopov
+  Copyright 2014-2020 The Fira Code Project Authors (https://github.com/tonsky/FiraCode)
+  Source: google/fonts ofl/firacode  ·  upstream https://github.com/tonsky/FiraCode @ 8da49d55f8b5978c5f888dd85452b79aad16cca2
+
+Fira Sans  (fira-sans, version 4.203)
+  Licence: OFL-1.1  ·  licences/fira-sans.txt
+  Designer: Carrois Apostrophe
+  Digitized data copyright 2012-2016, The Mozilla Foundation and Telefonica S.A.
+  Source: google/fonts ofl/firasans  ·  upstream https://github.com/googlefonts/FiraGFVersion @ a7d6892325d5b7382e426bea13bd3ef2c32bd53e
+
+Fjalla One  (fjalla-one, version 1.002)
+  Licence: OFL-1.1  ·  licences/fjalla-one.txt
+  Designer: Sorkin Type, Irina Smirnova
+  Copyright 2012 The Fjalla Project Authors (https://github.com/SorkinType/FjallaOne)
+  Source: google/fonts ofl/fjallaone  ·  upstream https://github.com/SorkinType/FjallaOne @ e5fcc44bb44b8a84debd0cc070bad1360cc91761
+
+Frank Ruhl Libre  (frank-ruhl-libre, version 6.004)
+  Licence: OFL-1.1  ·  licences/frank-ruhl-libre.txt
+  Designer: Yanek Iontef
+  Copyright 2015 The Frank Ruhl Libre Project Authors (https://github.com/fontef/frankruhllibre)
+  Source: google/fonts ofl/frankruhllibre  ·  upstream https://github.com/fontef/frankruhllibre @ 2372d1998e51dc011f86554c0d23f1ccf44afddf
+
+Fraunces  (fraunces, version 1.000)
+  Licence: OFL-1.1  ·  licences/fraunces.txt
+  Designer: Undercase Type, Phaedra Charles, Flavia Zimbardi
+  Copyright 2020 The Fraunces Project Authors (github.com/undercasetype/Fraunces)
+  Source: google/fonts ofl/fraunces  ·  upstream https://github.com/undercasetype/Fraunces @ d6d385783609ceb11ac0f220f3abd9f1631c8a36
+
+Fredericka the Great  (fredericka-the-great, version 1.001)
+  Licence: OFL-1.1  ·  licences/fredericka-the-great.txt
+  Designer: Tart Workshop
+  Copyright (c) 2011 by Font Diner, Inc DBA Tart Workshop (diner@fontdiner.com) with Reseved Font Name "Fredericka the Great"
+  Source: google/fonts ofl/frederickathegreat  ·  upstream https://github.com/googlefonts/frederickathegreat @ ece6c2d0b4863f4df46bf100022c7bd2b008828f
+
+Geist  (geist, version 1.800)
+  Licence: OFL-1.1  ·  licences/geist.txt
+  Designer: Andr�s Briganti, Mateo Zaragoza, Guillermo Rauch, Evil Rabbit, Jos� Rago, Facundo Santana
+  Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font)
+  Source: google/fonts ofl/geist  ·  upstream https://github.com/vercel/geist-font @ a6d260e6cbc07eafdfad438f33601fe3c38b1e6f
+
+Geist Mono  (geist-mono, version 1.701)
+  Licence: OFL-1.1  ·  licences/geist-mono.txt
+  Designer: Andr�s Briganti, Mateo Zaragoza, Guillermo Rauch, Evil Rabbit, Jos� Rago, Facundo Santana
+  Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font.git)
+  Source: google/fonts ofl/geistmono  ·  upstream https://github.com/vercel/geist-font @ 77f0563c03009d6c15c6342183fa53b352255b22
+
+Gelasio  (gelasio, version 1.008)
+  Licence: OFL-1.1  ·  licences/gelasio.txt
+  Designer: Eben Sorkin
+  Copyright 2022 The Gelasio Project Authors (https://github.com/SorkinType/Gelasio)
+  Source: google/fonts ofl/gelasio  ·  upstream https://github.com/SorkinType/Gelasio @ 9228e69b160d79f33950e026293f6e13ba9780d0
+
+Great Vibes  (great-vibes, version 1.103)
+  Licence: OFL-1.1  ·  licences/great-vibes.txt
+  Designer: Robert Leuschke
+  Copyright 2010 The Great Vibes Pro Project Authors (https://github.com/googlefonts/great-vibes)
+  Source: google/fonts ofl/greatvibes  ·  upstream https://github.com/googlefonts/great-vibes @ f95eb967a3414e5accd65f4fa653c47f607654fa
+
+IBM Plex Mono  (ibm-plex-mono, version 2.3)
+  Licence: OFL-1.1  ·  licences/ibm-plex-mono.txt
+  Designer: Mike Abbink, Bold Monday
+  Copyright 2017 IBM Corp. All rights reserved.
+  Source: google/fonts ofl/ibmplexmono  ·  upstream https://github.com/googlefonts/plex @ 9ab3b5b3b96325fb20f365ee0804adca92024cbf
+
+IBM Plex Sans  (ibm-plex-sans, version 3.201)
+  Licence: OFL-1.1  ·  licences/ibm-plex-sans.txt
+  Designer: Mike Abbink, Bold Monday
+  Copyright 2019 IBM Corp. All rights reserved.
+  Source: google/fonts ofl/ibmplexsans  ·  upstream https://github.com/googlefonts/plex @ 3e312890b3b9e47378b30dedfe4196a42151243c
+
+IBM Plex Serif  (ibm-plex-serif, version 2.6)
+  Licence: OFL-1.1  ·  licences/ibm-plex-serif.txt
+  Designer: Mike Abbink, Bold Monday
+  Copyright 2020 IBM Corp. All rights reserved.
+  Source: google/fonts ofl/ibmplexserif  ·  upstream https://github.com/googlefonts/plex @ 43279c151110b30d65a582261a5ddefd5c75c7be
+
+Inconsolata  (inconsolata, version 3.001)
+  Licence: OFL-1.1  ·  licences/inconsolata.txt
+  Designer: Raph Levien
+  Copyright 2006 The Inconsolata Project Authors (https://github.com/cyrealtype/Inconsolata)
+  Source: google/fonts ofl/inconsolata  ·  upstream https://github.com/googlefonts/Inconsolata @ fc1fc21081558b39a2db43bfd9b65bf9acb50701
+
+Indie Flower  (indie-flower, version 2.000)
+  Licence: OFL-1.1  ·  licences/indie-flower.txt
+  Designer: Kimberly Geswein
+  Copyright 2010 The Indie Flower Authors (kimberlygeswein.com)
+  Source: google/fonts ofl/indieflower  ·  upstream https://github.com/googlefonts/indieflower @ db44d10c34c1d74011b7f3bee8c7c12123b6068e
+
+Instrument Sans  (instrument-sans, version 1.000)
+  Licence: OFL-1.1  ·  licences/instrument-sans.txt
+  Designer: Rodrigo Fuenzalida, Jordan Egstad
+  Copyright 2022 The Instrument Sans Project Authors (https://github.com/Instrument/instrument-sans)
+  Source: google/fonts ofl/instrumentsans  ·  upstream https://github.com/Instrument/instrument-sans @ 7fa22308a3d0c94ee2b3cd537a1196b65db34a3e
+
+Instrument Serif  (instrument-serif, version 1.000)
+  Licence: OFL-1.1  ·  licences/instrument-serif.txt
+  Designer: Rodrigo Fuenzalida, Jordan Egstad
+  Copyright 2022 The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif)
+  Source: google/fonts ofl/instrumentserif  ·  upstream https://github.com/Instrument/instrument-serif @ 65c0ef225f386a3c7e87570a4aa9cc0262c2fd81
+
+Inter  (inter, version 4.001)
+  Licence: OFL-1.1  ·  licences/inter.txt
+  Designer: Rasmus Andersson
+  Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
+  Source: google/fonts ofl/inter  ·  upstream https://www.github.com/rsms/inter @ 66647c0bbbe41a850d79d9c76fb13add3378940f
+
+Inter Tight  (inter-tight, version 3.004)
+  Licence: OFL-1.1  ·  licences/inter-tight.txt
+  Designer: Rasmus Andersson
+  Copyright 2022 The Inter Project Authors (https://github.com/rsms/inter-tight)
+  Source: google/fonts ofl/intertight  ·  upstream https://github.com/rsms/inter-gf-tight @ c194f94c60b569b47876811321f5ef1f0c2614a2
+
+JetBrains Mono  (jetbrains-mono, version 2.211)
+  Licence: OFL-1.1  ·  licences/jetbrains-mono.txt
+  Designer: JetBrains, Philipp Nurullin, Konstantin Bulenkov
+  Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+  Source: google/fonts ofl/jetbrainsmono  ·  upstream https://github.com/JetBrains/JetBrainsMono @ 19371302b95d218af43299bce79ddbddd0bc364d
+
+Josefin Sans  (josefin-sans, version 2.001)
+  Licence: OFL-1.1  ·  licences/josefin-sans.txt
+  Designer: Santiago Orozco
+  Copyright 2010 The Josefin Sans Project Authors (https://github.com/ThomasJockin/JosefinSansFont-master), with Reserved Font Name "Josefin Sans".
+  Source: google/fonts ofl/josefinsans  ·  upstream https://github.com/googlefonts/josefinsans @ bf6907e3a34924300dd407201262f62c2fc2a642
+
+Josefin Slab  (josefin-slab, version 2.100)
+  Licence: OFL-1.1  ·  licences/josefin-slab.txt
+  Designer: Santiago Orozco
+  Copyright 2020 The Josefin Slab Project Authors (https://github.com/googlefonts/josefinslab/), with Reserved Font Name Josefin.
+  Source: google/fonts ofl/josefinslab  ·  upstream https://github.com/googlefonts/josefinslab @ 61773366f714341802e5f131bd7181073094898f
+
+Jost  (jost, version 3.710)
+  Licence: OFL-1.1  ·  licences/jost.txt
+  Designer: Owen Earl
+  Copyright 2020 The Jost Project Authors (https://github.com/indestructible-type/Jost)
+  Source: google/fonts ofl/jost  ·  upstream https://github.com/indestructible-type/Jost @ 35f141c970538f1ed0f235789c19156b3ce2a762
+
+Kalam  (kalam, version 2.001)
+  Licence: OFL-1.1  ·  licences/kalam.txt
+  Designer: Indian Type Foundry
+  Copyright (c) 2014 Indian Type Foundry (info@indiantypefoundry.com)
+  Source: google/fonts ofl/kalam  ·  upstream https://github.com/itfoundry/kalam @ 03a4d8a33849b1ad9afdee95006bc66d2d4aed94
+
+Karla  (karla, version 2.004)
+  Licence: OFL-1.1  ·  licences/karla.txt
+  Designer: Jonny Pinhorn
+  Copyright 2019 The Karla Project Authors (https://github.com/googlefonts/karla)
+  Source: google/fonts ofl/karla  ·  upstream https://github.com/googlefonts/karla @ 69b25f663101efb4113dd7ed416c120dd2dce56a
+
+Kaushan Script  (kaushan-script, version 1.002)
+  Licence: OFL-1.1  ·  licences/kaushan-script.txt
+  Designer: Impallari Type
+  Copyright (c) 2011, Pablo Impallari (www.impallari.com|impallari@gmail.com), Copyright (c) 2011, Igino Marini. (www.ikern.com|mail@iginomarini.com), with Reserved Font Name Kaushan Script.
+  Source: google/fonts ofl/kaushanscript  ·  upstream https://github.com/googlefonts/kaushanscript @ 403737c6ee2ebaa649f2c68caaf3443d41b06a87
+
+Kreon  (kreon, version 2.002)
+  Licence: OFL-1.1  ·  licences/kreon.txt
+  Designer: Julia Petretta
+  Copyright 2018 The Kreon Project Authors (https://github.com/googlefonts/kreon), with Reserved Font Name "Kreon"
+  Source: google/fonts ofl/kreon  ·  upstream https://github.com/googlefonts/kreon @ d7f798b480013cfa899779d6dae4511fd3c310cb
+
+Lato  (lato, version 2.015)
+  Licence: OFL-1.1  ·  licences/lato.txt
+  Designer: Łukasz Dziedzic
+  Copyright (c) 2011-2015 by tyPoland Lukasz Dziedzic (http://www.typoland.com/) with Reserved Font Name "Lato". Licensed under the SIL Open Font License, Version 1.1 (http://scripts.sil.org/OFL).
+  Source: google/fonts ofl/lato  ·  upstream https://github.com/googlefonts/lato @ 3a099680152e3455ef6bc3eb4118ec5ef60e7e54
+
+League Gothic  (league-gothic, version 2.001)
+  Licence: OFL-1.1  ·  licences/league-gothic.txt
+  Designer: Tyler Finck, Caroline Hadilaksono, Micah Rich
+  Copyright 2020 The League Gothic Project Authors (https://github.com/theleagueof/league-gothic)
+  Source: google/fonts ofl/leaguegothic  ·  upstream https://github.com/sursly/league-gothic @ f1d4a1c8c1db3c4a32cc13763c5fbb1776b5d478
+
+Lexend  (lexend, version 1.007)
+  Licence: OFL-1.1  ·  licences/lexend.txt
+  Designer: Bonnie Shaver-Troup, Thomas Jockin, Santiago Orozco, H�ctor G�mez, Superunion
+  Copyright 2019 The Lexend Project Authors (https://github.com/googlefonts/lexend)
+  Source: google/fonts ofl/lexend  ·  upstream https://github.com/googlefonts/lexend @ 20491885ca2cf7ffc556432973e7bdbc701952b5
+
+Libre Baskerville  (libre-baskerville, version 2.005)
+  Licence: OFL-1.1  ·  licences/libre-baskerville.txt
+  Designer: Impallari Type
+  Copyright 2012 The Libre Baskerville Project Authors (https://github.com/impallari/Libre-Baskerville)
+  Source: google/fonts ofl/librebaskerville  ·  upstream https://github.com/impallari/Libre-Baskerville @ d20160cfa0ac4c532327f85b3ca4054acf92ed38
+
+Libre Caslon Text  (libre-caslon-text, version 2.000)
+  Licence: OFL-1.1  ·  licences/libre-caslon-text.txt
+  Designer: Pablo Impallari
+  Copyright 2020 The Libre Caslon Text Project Authors (https://github.com/thundernixon/Libre-Caslon)
+  Source: google/fonts ofl/librecaslontext  ·  upstream https://github.com/thundernixon/Libre-Caslon @ 52200a76d723e4a8cb9a566686ed1f56a794f39a
+
+Libre Franklin  (libre-franklin, version 3.000)
+  Licence: OFL-1.1  ·  licences/libre-franklin.txt
+  Designer: Impallari Type
+  Copyright 2020 The Libre Franklin Project Authors (https://github.com/googlefonts/Libre-Franklin)
+  Source: google/fonts ofl/librefranklin  ·  upstream https://github.com/googlefonts/Libre-Franklin @ 310b7eef1f7b7ba82322295e0034675ea68040b0
+
+Lilita One  (lilita-one, version 1.002)
+  Licence: OFL-1.1  ·  licences/lilita-one.txt
+  Designer: Juan Montoreano
+  Copyright (c) 2011 Juan Montoreano (juan@remolacha.biz), with Reserved Font Names "Lilita One"
+  Source: google/fonts ofl/lilitaone  ·  upstream https://github.com/googlefonts/lilitaone @ d3687864827cfeca4a14baaeaee95d151c37a6b9
+
+Limelight  (limelight, version 1.002)
+  Licence: OFL-1.1  ·  licences/limelight.txt
+  Designer: Nicole Fally, Sorkin Type
+  Copyright (c) 2010 by Sorkin Type Co (eben@eyebytes.com) with Reserved Font Name Limelight. This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL
+  Source: google/fonts ofl/limelight  ·  upstream https://github.com/googlefonts/limelight @ 31b7c7ff554824625fa31a95eba9add137a88080
+
+Literata  (literata, version 3.103)
+  Licence: OFL-1.1  ·  licences/literata.txt
+  Designer: TypeTogether
+  Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)
+  Source: google/fonts ofl/literata  ·  upstream https://github.com/googlefonts/literata @ 0c2761b727a1b3a7cffd313c37f0f5163dfc7a63
+
+Lobster  (lobster, version 2.100)
+  Licence: OFL-1.1  ·  licences/lobster.txt
+  Designer: Impallari Type
+  Copyright 2010 The Lobster Project Authors (https://github.com/impallari/The-Lobster-Font), with Reserved Font Name "Lobster".
+  Source: google/fonts ofl/lobster  ·  upstream https://github.com/impallari/The-Lobster-Font @ 0796aa8aa42f6cbc89fa61be4a2a12fdcd2b8998
+
+Lora  (lora, version 3.008)
+  Licence: OFL-1.1  ·  licences/lora.txt
+  Designer: Cyreal
+  Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name "Lora".
+  Source: google/fonts ofl/lora  ·  upstream https://github.com/cyrealtype/Lora-Cyrillic @ 403b1a66ca2e79f81d749c5299559e168591a4df
+
+Luckiest Guy  (luckiest-guy, version 1.001)
+  Licence: Apache-2.0  ·  licences/luckiest-guy.txt
+  Designer: Astigmatic
+  Copyright (c) 2010 by Brian J. Bonislawsky DBA Astigmatic (AOETI). All rights reserved. Available under the Apache 2.0 licence. http://www.apache.org/licenses/LICENSE-2.0.html
+  Source: google/fonts apache/luckiestguy  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+Manrope  (manrope, version 4.505)
+  Licence: OFL-1.1  ·  licences/manrope.txt
+  Designer: Mikhail Sharanda
+  Copyright 2019 The Manrope Project Authors (https://github.com/googlefonts/manrope)
+  Source: google/fonts ofl/manrope  ·  upstream https://github.com/googlefonts/manrope @ 6f81ebecdf65e4463b798cc07b16a4f8d5216917
+
+Marcellus  (marcellus, version 1.000)
+  Licence: OFL-1.1  ·  licences/marcellus.txt
+  Designer: Astigmatic
+  Copyright (c) 2012 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Name "Marcellus"
+  Source: google/fonts ofl/marcellus  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+Martian Mono  (martian-mono, version 1.000)
+  Licence: OFL-1.1  ·  licences/martian-mono.txt
+  Designer: Roman Shamin, Evil Martians
+  Copyright 2020 The Martian Mono Project Authors (https://github.com/evilmartians/mono)
+  Source: google/fonts ofl/martianmono  ·  upstream https://github.com/evilmartians/mono @ 17865aac562a1a800888de6604f7251f135cf3b5
+
+Merienda  (merienda, version 2.001)
+  Licence: OFL-1.1  ·  licences/merienda.txt
+  Designer: Eduardo Tunni
+  Copyright 2017 The Merienda Project Authors (https://github.com/etunni/merienda)
+  Source: google/fonts ofl/merienda  ·  upstream https://github.com/etunni/merienda @ 15f2f36d29595fa3dd6cf068323ef44bc0713b56
+
+Merriweather  (merriweather, version 2.100)
+  Licence: OFL-1.1  ·  licences/merriweather.txt
+  Designer: Sorkin Type
+  Copyright 2024 The Merriweather Project Authors (https://github.com/EbenSorkin/Merriweather4) with Reserved Font Name "Merriweather".
+  Source: google/fonts ofl/merriweather  ·  upstream https://github.com/EbenSorkin/Merriweather4 @ e586023aa0fe1dba9a7d4ec80fa8b9e546cb7ecf
+
+Monoton  (monoton, version 1.000)
+  Licence: OFL-1.1  ·  licences/monoton.txt
+  Designer: Vernon Adams
+  Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk) with Reserved Font Name 'Monoton'. All rights reserved.
+  Source: google/fonts ofl/monoton  ·  upstream https://github.com/googlefonts/monoton @ db46b75aa0eb707b7ba00a5dfaa97b8004d10a3b
+
+Montserrat  (montserrat, version 9.000)
+  Licence: OFL-1.1  ·  licences/montserrat.txt
+  Designer: Julieta Ulanovsky, Sol Matas, Juan Pablo del Peral, Jacques Le Bailly
+  Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)
+  Source: google/fonts ofl/montserrat  ·  upstream https://github.com/JulietaUla/Montserrat @ cc8daf2e7085006b9c112542fc82b58afc13521d
+
+Mulish  (mulish, version 3.603)
+  Licence: OFL-1.1  ·  licences/mulish.txt
+  Designer: Vernon Adams, Cyreal, Jacques Le Bailly
+  Copyright 2016 The Mulish Project Authors (https://github.com/googlefonts/mulish)
+  Source: google/fonts ofl/mulish  ·  upstream https://github.com/googlefonts/mulish @ 5503f7a18ce79870148b9f9cb8e592ac44c044c3
+
+Newsreader  (newsreader, version 1.003)
+  Licence: OFL-1.1  ·  licences/newsreader.txt
+  Designer: Production Type
+  Copyright 2020 The Newsreader Project Authors (http://github.com/productiontype/Newsreader)
+  Source: google/fonts ofl/newsreader  ·  upstream https://github.com/productiontype/NewsReader @ 1ece6a8bfe5db1a2b90c76cc1fe5d3b2eed5dcf3
+
+Noto Sans  (noto-sans, version 2.015)
+  Licence: OFL-1.1  ·  licences/noto-sans.txt
+  Designer: Google
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)
+  Source: google/fonts ofl/notosans  ·  upstream https://github.com/notofonts/latin-greek-cyrillic @ c4a321e123e4d4ff315f57f4e0adf294fe3a95be
+
+Noto Serif  (noto-serif, version 2.015)
+  Licence: OFL-1.1  ·  licences/noto-serif.txt
+  Designer: Google
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)
+  Source: google/fonts ofl/notoserif  ·  upstream https://github.com/notofonts/latin-greek-cyrillic @ c4a321e123e4d4ff315f57f4e0adf294fe3a95be
+
+Nunito  (nunito, version 3.602)
+  Licence: OFL-1.1  ·  licences/nunito.txt
+  Designer: Vernon Adams, Cyreal, Jacques Le Bailly
+  Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)
+  Source: google/fonts ofl/nunito  ·  upstream https://github.com/googlefonts/nunito @ 8c6a9bb9732545b9ed53f29ec5e1ab0ff53c4e6f
+
+Nunito Sans  (nunito-sans, version 3.101)
+  Licence: OFL-1.1  ·  licences/nunito-sans.txt
+  Designer: Vernon Adams, Jacques Le Bailly, Manvel Shmavonyan, Alexei Vanyashin
+  Copyright 2016 The Nunito Sans Project Authors (https://github.com/Fonthausen/NunitoSans)
+  Source: google/fonts ofl/nunitosans  ·  upstream https://github.com/googlefonts/NunitoSans @ 058bd7a2f33d6ad5ef1df985b3db403622016a8c
+
+Open Sans  (open-sans, version 3.003)
+  Licence: OFL-1.1  ·  licences/open-sans.txt
+  Designer: Steve Matteson
+  Copyright 2020 The Open Sans Project Authors (https://github.com/googlefonts/opensans)
+  Source: google/fonts ofl/opensans  ·  upstream https://github.com/googlefonts/opensans @ bd7e37632246368c60fdcbd374dbf9bad11969b6
+
+Oswald  (oswald, version 4.103)
+  Licence: OFL-1.1  ·  licences/oswald.txt
+  Designer: Vernon Adams, Kalapi Gajjar, Cyreal
+  Copyright 2016 The Oswald Project Authors (https://github.com/googlefonts/OswaldFont)
+  Source: google/fonts ofl/oswald  ·  upstream https://github.com/googlefonts/OswaldFont @ 89795261ac9eeb9aa8cd99f43982c4e4b0e53261
+
+Outfit  (outfit, version 1.100)
+  Licence: OFL-1.1  ·  licences/outfit.txt
+  Designer: Smartsheet Inc, Rodrigo Fuenzalida
+  Copyright 2021 The Outfit Project Authors (https://github.com/Outfitio/Outfit-Fonts)
+  Source: google/fonts ofl/outfit  ·  upstream https://github.com/Outfitio/Outfit-Fonts @ 902773808eb372f70fb34e8946dd1ffe604efc79
+
+Pacifico  (pacifico, version 3.001)
+  Licence: OFL-1.1  ·  licences/pacifico.txt
+  Designer: Vernon Adams, Jacques Le Bailly, Botjo Nikoltchev, Ani Petrova
+  Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)
+  Source: google/fonts ofl/pacifico  ·  upstream https://github.com/googlefonts/Pacifico @ aff5d08efd4883cd58a660b4b688a73edcea3d92
+
+Parisienne  (parisienne, version 1.000)
+  Licence: OFL-1.1  ·  licences/parisienne.txt
+  Designer: Astigmatic
+  Copyright (c) 2012 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Name "Parisienne"
+  Source: google/fonts ofl/parisienne  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+Patrick Hand  (patrick-hand, version 1.003)
+  Licence: OFL-1.1  ·  licences/patrick-hand.txt
+  Designer: Patrick Wagesreiter
+  Copyright (c) 2010-2012 Patrick Wagesreiter (mail@patrickwagesreiter.at)
+  Source: google/fonts ofl/patrickhand  ·  upstream https://github.com/googlefonts/patrickhand @ a70e130475521d427ad02d34ed04206193ba1a5a
+
+Permanent Marker  (permanent-marker, version 1.001)
+  Licence: Apache-2.0  ·  licences/permanent-marker.txt
+  Designer: Font Diner
+  Copyright (c) 2010 by Font Diner, Inc. All rights reserved.
+  Source: google/fonts apache/permanentmarker  ·  upstream https://github.com/googlefonts/permanentmarker @ b0786e381d1475883fef04d2f3c7541fe51efe93
+
+Pixelify Sans  (pixelify-sans, version 1.000)
+  Licence: OFL-1.1  ·  licences/pixelify-sans.txt
+  Designer: Stefie Justprince
+  Copyright 2021 The Pixelify Sans Project Authors (https://github.com/eifetx/Pixelify-Sans)
+  Source: google/fonts ofl/pixelifysans  ·  upstream https://github.com/eifetx/Pixelify-Sans @ 39df74aba80df8157546034b878e8be1eb565ced
+
+Playfair  (playfair, version 2.203)
+  Licence: OFL-1.1  ·  licences/playfair.txt
+  Designer: Claus Eggers S�rensen
+  Copyright 2005 The Playfair Project Authors (https://github.com/clauseggers/Playfair)
+  Source: google/fonts ofl/playfair  ·  upstream https://github.com/googlefonts/Playfair @ a49f9f9dc9a2924641cefba3f5e33ac1c5aa4264
+
+Playfair Display  (playfair-display, version 1.203)
+  Licence: OFL-1.1  ·  licences/playfair-display.txt
+  Designer: Claus Eggers S�rensen
+  Copyright 2017 The Playfair Display Project Authors (https://github.com/clauseggers/Playfair-Display), with Reserved Font Name "Playfair Display".
+  Source: google/fonts ofl/playfairdisplay  ·  upstream https://github.com/aaronbell/Playfair-Display @ e9c6c4f96e929d6b39cf13d8349816c4424e4254
+
+Playpen Sans  (playpen-sans, version 2.000)
+  Licence: OFL-1.1  ·  licences/playpen-sans.txt
+  Designer: TypeTogether, Laura Meseguer, Veronika Burian, Jos� Scaglione, Kostas Bartsokas, Vera Evstafieva, Tom Grace, Yorlmar Campos
+  Copyright 2023 The Playpen Sans Project Authors (https://github.com/TypeTogether/Playpen-Sans)
+  Source: google/fonts ofl/playpensans  ·  upstream https://github.com/TypeTogether/Playpen-Sans @ e9de3f5df6328821ed98775d347b8da652fc47fc
+
+Plus Jakarta Sans  (plus-jakarta-sans, version 2.071)
+  Licence: OFL-1.1  ·  licences/plus-jakarta-sans.txt
+  Designer: Tokotype
+  Copyright 2020 The Plus Jakarta Sans Project Authors (https://github.com/tokotype/PlusJakartaSans)
+  Source: google/fonts ofl/plusjakartasans  ·  upstream https://github.com/tokotype/PlusJakartaSans @ 163c006ff169bbb932757276b98a26f36a1409d8
+
+Poppins  (poppins, version 4.004)
+  Licence: OFL-1.1  ·  licences/poppins.txt
+  Designer: Indian Type Foundry, Jonny Pinhorn, Ninad Kale
+  Copyright 2020 The Poppins Project Authors (https://github.com/itfoundry/Poppins)
+  Source: google/fonts ofl/poppins  ·  upstream https://github.com/itfoundry/Poppins @ 738d9d691b66f1ad917123c58df104d16c74e1a7
+
+Prata  (prata, version 2.000)
+  Licence: OFL-1.1  ·  licences/prata.txt
+  Designer: Cyreal
+  Copyright 2011 The Prata Project Authors (contact@cyreal.org)
+  Source: google/fonts ofl/prata  ·  upstream https://github.com/cyrealtype/Prata @ db5f3799a47eb51bbfe0cb572986d26b37f8ec9e
+
+Press Start 2P  (press-start-2p, version 3.000)
+  Licence: OFL-1.1  ·  licences/press-start-2p.txt
+  Designer: CodeMan38
+  Copyright 2012 The Press Start 2P Project Authors (cody@zone38.net), with Reserved Font Name "Press Start 2P"
+  Source: google/fonts ofl/pressstart2p  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+PT Sans  (pt-sans, version 2.003W OFL)
+  Licence: OFL-1.1  ·  licences/pt-sans.txt
+  Designer: ParaType
+  Copyright � 2009 ParaType Ltd (yakupov@paratype.com). All rights reserved.
+  Source: google/fonts ofl/ptsans  ·  upstream https://github.com/googlefonts/ptsans @ bcb93f7b9b2c39cf3c75d87be570444f91d0f0b6
+
+PT Sans Narrow  (pt-sans-narrow, version 2.003W OFL)
+  Licence: OFL-1.1  ·  licences/pt-sans-narrow.txt
+  Designer: ParaType
+  Copyright � 2009 ParaType Ltd (yakupov@paratype.com). All rights reserved.
+  Source: google/fonts ofl/ptsansnarrow  ·  upstream https://github.com/googlefonts/ptsansnarrow @ ff02de9bb277e04d35751bac43e7df176f1382c8
+
+PT Serif  (pt-serif, version 1.000W OFL)
+  Licence: OFL-1.1  ·  licences/pt-serif.txt
+  Designer: ParaType
+  Copyright � 2010 ParaType Ltd (yakupov@paratype.com). All rights reserved.
+  Source: google/fonts ofl/ptserif  ·  upstream https://github.com/googlefonts/ptserif @ 54cfef3107a5fd42ecbb6d7ce9d2e5f7978458f3
+
+Public Sans  (public-sans, version 2.001)
+  Licence: OFL-1.1  ·  licences/public-sans.txt
+  Designer: USWDS, Dan Williams, Pablo Impallari, Rodrigo Fuenzalida
+  Copyright 2015 The Public Sans Project Authors (https://github.com/uswds/public-sans)
+  Source: google/fonts ofl/publicsans  ·  upstream https://github.com/uswds/public-sans @ c7923167a592d941646f99fb7b5fba17aa7d69e1
+
+Quicksand  (quicksand, version 3.006)
+  Licence: OFL-1.1  ·  licences/quicksand.txt
+  Designer: Andrew Paglinawan
+  Copyright 2019 The Quicksand Project Authors (https://github.com/andrew-paglinawan/QuicksandFamily.git), with Reserved Font Name "Quicksand"
+  Source: google/fonts ofl/quicksand  ·  upstream https://github.com/ThomasJockin/QuicksandFamily @ 02ead1c009102a433b9cd155f611df1e5f49bd9c
+
+Raleway  (raleway, version 4.026)
+  Licence: OFL-1.1  ·  licences/raleway.txt
+  Designer: Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida
+  Copyright 2010 The Raleway Project Authors (impallari@gmail.com), with Reserved Font Name "Raleway".
+  Source: google/fonts ofl/raleway  ·  upstream https://github.com/theleagueof/raleway @ 938ac770222935d0d9d7b7b60e9373afd0cc5543
+
+Recursive  (recursive, version 1.085)
+  Licence: OFL-1.1  ·  licences/recursive.txt
+  Designer: Arrow Type, Stephen Nixon
+  Copyright 2019 The Recursive Project Authors (github.com/arrowtype/recursive)
+  Source: google/fonts ofl/recursive  ·  upstream https://github.com/arrowtype/recursive @ 071fc21f217781110d67e8d0bf5021f31cbdcb85
+
+Red Hat Mono  (red-hat-mono, version 1.030)
+  Licence: OFL-1.1  ·  licences/red-hat-mono.txt
+  Designer: MCKL
+  Copyright 2024 The Red Hat Project Authors (https://github.com/RedHatOfficial/RedHatFont)
+  Source: google/fonts ofl/redhatmono  ·  upstream https://github.com/RedHatOfficial/RedHatFont @ 32287097803f6c58136b60bc7a4a594a7fcbd689
+
+Righteous  (righteous, version 1.000)
+  Licence: OFL-1.1  ·  licences/righteous.txt
+  Designer: Astigmatic
+  Copyright (c) 2011 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Name "Righteous"
+  Source: google/fonts ofl/righteous  ·  upstream https://github.com/librefonts/righteous @ 583c13c301c5e1dd0a4ae2d7b6cd42bc9c58f953
+
+Roboto  (roboto, version 3.015)
+  Licence: OFL-1.1  ·  licences/roboto.txt
+  Designer: Christian Robertson, ParaType, Font Bureau
+  Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)
+  Source: google/fonts ofl/roboto  ·  upstream https://github.com/googlefonts/roboto-classic @ 91d5d3e5b81efa04a77925cc609fdcdd7ee663d1
+
+Roboto Condensed  (roboto-condensed, version 3.008)
+  Licence: OFL-1.1  ·  licences/roboto-condensed.txt
+  Designer: Christian Robertson
+  Copyright 2011 Google Inc. All Rights Reserved.
+  Source: google/fonts ofl/robotocondensed  ·  upstream https://github.com/googlefonts/roboto-classic @ 8aa699a9a715be7ecf6be41171e2851a580f0fb8
+
+Roboto Flex  (roboto-flex, version 3.200)
+  Licence: OFL-1.1  ·  licences/roboto-flex.txt
+  Designer: Font Bureau, David Berlow, Santiago Orozco, Irene Vlachou, Ilya Ruderman, Yury Ostromentsky, Mikhail Strukov
+  Copyright 2017 The Roboto Flex Project Authors (https://github.com/googlefonts/roboto-flex)
+  Source: google/fonts ofl/robotoflex  ·  upstream https://github.com/googlefonts/Roboto-Flex @ 739e06dc46ebb14cddd88b9768a6c1504d4677f6
+
+Roboto Mono  (roboto-mono, version 3.001)
+  Licence: OFL-1.1  ·  licences/roboto-mono.txt
+  Designer: Christian Robertson
+  Copyright 2015 The Roboto Mono Project Authors (https://github.com/googlefonts/robotomono)
+  Source: google/fonts ofl/robotomono  ·  upstream https://github.com/googlefonts/RobotoMono @ 111eb14e367888c9374da4da0b018e72cf8ac46d
+
+Roboto Serif  (roboto-serif, version 1.008)
+  Licence: OFL-1.1  ·  licences/roboto-serif.txt
+  Designer: Commercial Type, Greg Gazdowicz
+  Copyright 2020 The Roboto Serif Project Authors (https://github.com/googlefonts/RobotoSerif)
+  Source: google/fonts ofl/robotoserif  ·  upstream https://github.com/googlefonts/roboto-serif @ 1ecc2513e8215b569246a5802f18aa4b0e1d67a5
+
+Roboto Slab  (roboto-slab, version 2.002)
+  Licence: Apache-2.0  ·  licences/roboto-slab.txt
+  Designer: Christian Robertson
+  Copyright 2018 The Roboto Slab Project Authors (https://github.com/googlefonts/robotoslab)
+  Source: google/fonts apache/robotoslab  ·  upstream https://github.com/googlefonts/robotoslab @ 67af3ce9c4ca574419e1295b6165a2eeee112e6e
+
+Rock Salt  (rock-salt, version 1.001)
+  Licence: Apache-2.0  ·  licences/rock-salt.txt
+  Designer: Sideshow
+  Copyright (c) 2010 by Font Diner, Inc DBA Sideshow. All rights reserved.
+  Source: google/fonts apache/rocksalt  ·  upstream https://github.com/googlefonts/rocksalt @ 549a707ac164f35706d9580c300c916db01c006a
+
+Rokkitt  (rokkitt, version 3.103)
+  Licence: OFL-1.1  ·  licences/rokkitt.txt
+  Designer: Vernon Adams
+  Copyright 2016 The Rokkit Project Authors (https://github.com/googlefonts/RokkittFont)
+  Source: google/fonts ofl/rokkitt  ·  upstream https://github.com/Fonthausen/RokkittFont @ 762d1439aaa7cf4a590f604451dfc2e1c6970b9f
+
+Rubik  (rubik, version 2.300)
+  Licence: OFL-1.1  ·  licences/rubik.txt
+  Designer: Hubert and Fischer, Meir Sadan, Cyreal, Daniel Grumer, Omaima Dajani
+  Copyright 2015 The Rubik Project Authors (https://github.com/googlefonts/rubik)
+  Source: google/fonts ofl/rubik  ·  upstream https://github.com/googlefonts/rubik @ 9167c98fa8699d75ee51769eba20d81beb16bcb5
+
+Russo One  (russo-one, version 1.001)
+  Licence: OFL-1.1  ·  licences/russo-one.txt
+  Designer: Jovanny Lemonad
+  Copyright (c) 2011-2012, Jovanny Lemonad (lemonad@jovanny.ru), with Reserved Font Name "Russo"
+  Source: google/fonts ofl/russoone  ·  upstream https://github.com/googlefonts/russoone @ c3624ce1f3553320cc4383eedb77ae4812b7533a
+
+Sacramento  (sacramento, version 1.000)
+  Licence: OFL-1.1  ·  licences/sacramento.txt
+  Designer: Astigmatic
+  Copyright (c) 2012 by Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com), with Reserved Font Name 'Sacramento'
+  Source: google/fonts ofl/sacramento  ·  upstream https://github.com/googlefonts/SacramentoFont @ 86d34cf5a57af8dfa41c01e32a9529ed6aa499b6
+
+Satisfy  (satisfy, version 1.001)
+  Licence: Apache-2.0  ·  licences/satisfy.txt
+  Designer: Sideshow
+  Copyright (c) 2011 by Font Diner, Inc. All rights reserved.
+  Source: google/fonts apache/satisfy  ·  upstream https://github.com/googlefonts/satisfy @ 71c2cb4999531a26319c8c4d290426bdc7ac0284
+
+Shantell Sans  (shantell-sans, version 1.011)
+  Licence: OFL-1.1  ·  licences/shantell-sans.txt
+  Designer: Shantell Martin, Arrow Type, Anya Danilova
+  Copyright 2022 The Shantell Sans Project Authors (https://github.com/arrowtype/shantell-sans)
+  Source: google/fonts ofl/shantellsans  ·  upstream https://github.com/arrowtype/shantell-sans @ 68f5eca1490a58973b2a814d3a7d0f61291fd0c9
+
+Shrikhand  (shrikhand, version 1.001)
+  Licence: OFL-1.1  ·  licences/shrikhand.txt
+  Designer: Jonny Pinhorn
+  Copyright (c) 2015 Jonny Pinhorn (jonpinhorn.typedesign@gmail.com)
+  Source: google/fonts ofl/shrikhand  ·  upstream https://github.com/jonpinhorn/shrikhand @ c11c9b0720fba977fad7cb4f339ebacdba1d1394
+
+Sofia Sans Condensed  (sofia-sans-condensed, version 4.101)
+  Licence: OFL-1.1  ·  licences/sofia-sans-condensed.txt
+  Designer: Lettersoup, Botio Nikoltchev, Ani Petrova
+  Copyright 2019 The Sofia Sans Project Authors (https://github.com/lettersoup/Sofia-Sans)
+  Source: google/fonts ofl/sofiasanscondensed  ·  upstream https://github.com/lettersoup/Sofia-Sans @ 185877d082cebb40facd65143326147431863688
+
+Sofia Sans Extra Condensed  (sofia-sans-extra-condensed, version 4.101)
+  Licence: OFL-1.1  ·  licences/sofia-sans-extra-condensed.txt
+  Designer: Lettersoup, Botio Nikoltchev, Ani Petrova
+  Copyright 2019 The Sofia Sans Project Authors (https://github.com/lettersoup/Sofia-Sans)
+  Source: google/fonts ofl/sofiasansextracondensed  ·  upstream https://github.com/lettersoup/Sofia-Sans @ 185877d082cebb40facd65143326147431863688
+
+Sora  (sora, version 2.000)
+  Licence: OFL-1.1  ·  licences/sora.txt
+  Designer: Jonathan Barnbrook, Juli�n Moncada
+  Copyright 2019 The Sora Project Authors (https://github.com/sora-xor/sora-font)
+  Source: google/fonts ofl/sora  ·  upstream https://github.com/sora-xor/sora-font @ 7f9a9c5d0ccd1c099cfac420aa27133df1c5fdc4
+
+Source Code Pro  (source-code-pro, version 1.026)
+  Licence: OFL-1.1  ·  licences/source-code-pro.txt
+  Designer: Paul D. Hunt
+  � 2010 - 2020 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name Source.
+  Source: google/fonts ofl/sourcecodepro  ·  upstream https://github.com/adobe-fonts/source-code-pro @ 803b7e23ec97ae58b6232ea76519a76d428ba268
+
+Source Sans 3  (source-sans-3, version 3.052)
+  Licence: OFL-1.1  ·  licences/source-sans-3.txt
+  Designer: Paul D. Hunt
+  � 2023 Adobe (http://www.adobe.com/), with Reserved Font Name Source
+  Source: google/fonts ofl/sourcesans3  ·  upstream https://github.com/adobe-fonts/source-sans @ 272b22b02e097e8eff1372111f88b5ab6063499f
+
+Source Serif 4  (source-serif-4, version 4.004)
+  Licence: OFL-1.1  ·  licences/source-serif-4.txt
+  Designer: Frank Grie�hammer
+  � 2014 - 2021 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name Source.
+  Source: google/fonts ofl/sourceserif4  ·  upstream https://github.com/adobe-fonts/source-serif @ b3980ade53bb3d023a0006076d05349236b309b1
+
+Space Grotesk  (space-grotesk, version 2.000)
+  Licence: OFL-1.1  ·  licences/space-grotesk.txt
+  Designer: Florian Karsten
+  Copyright 2020 The Space Grotesk Project Authors (https://github.com/floriankarsten/space-grotesk)
+  Source: google/fonts ofl/spacegrotesk  ·  upstream https://github.com/floriankarsten/space-grotesk @ 03507d024a01282884232081fc6011c09ff4e849
+
+Space Mono  (space-mono, version 1.003)
+  Licence: OFL-1.1  ·  licences/space-mono.txt
+  Designer: Colophon Foundry
+  Copyright 2016 The Space Mono Project Authors (https://github.com/googlefonts/spacemono)
+  Source: google/fonts ofl/spacemono  ·  upstream https://github.com/googlefonts/spacemono @ 329858c2c4dbd3476f972a4ae00624b018cf4b81
+
+Special Elite  (special-elite, version 1.001)
+  Licence: Apache-2.0  ·  licences/special-elite.txt
+  Designer: Astigmatic
+  Copyright (c) 2010 by Brian J. Bonislawsky DBA Astigmatic (AOETI). All rights reserved. Available under the Apache 2.0 licence. http://www.apache.org/licenses/LICENSE-2.0.html
+  Source: google/fonts apache/specialelite  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+STIX Two Text  (stix-two-text, version 2.13 b171)
+  Licence: OFL-1.1  ·  licences/stix-two-text.txt
+  Designer: Tiro Typeworks, Ross Mills, John Hudson, Paul Hanslow
+  Copyright 2001-2021 The STIX Fonts Project Authors (https://github.com/stipub/stixfonts)
+  Source: google/fonts ofl/stixtwotext  ·  upstream https://github.com/stipub/stixfonts @ c4afdf3fa5390159ef24aca1db5e957487c23897
+
+Syne  (syne, version 2.200)
+  Licence: OFL-1.1  ·  licences/syne.txt
+  Designer: Bonjour Monde, Lucas Descroix, George Triantafyllakos
+  Copyright 2019 The Syne Project Authors (https://gitlab.com/bonjour-monde/fonderie/syne-typeface)
+  Source: google/fonts ofl/syne  ·  upstream https://gitlab.com/bonjour-monde/fonderie/syne-typeface @ d9098c0a72125d411dbb225a2e5a61dc15265ffc
+
+Teko  (teko, version 2.000)
+  Licence: OFL-1.1  ·  licences/teko.txt
+  Designer: Indian Type Foundry
+  Copyright 2023 The Teko Project Authors (https://www.github.com/googlefonts/teko)
+  Source: google/fonts ofl/teko  ·  upstream https://www.github.com/googlefonts/teko @ 6715caf853f342eef57ea367b6c2991cd3928398
+
+Titan One  (titan-one, version 1.001)
+  Licence: OFL-1.1  ·  licences/titan-one.txt
+  Designer: Rodrigo Fuenzalida
+  Copyright (c) 2011 Rodrigo Fuenzalida (hello@rfuenzalida.com), with Reserved Font Name "Titan One"
+  Source: google/fonts ofl/titanone  ·  upstream https://github.com/googlefonts/titanone @ 3b375772c4145f5ba1f3d7ec9d604b437f54daa9
+
+Unbounded  (unbounded, version 1.701)
+  Licence: OFL-1.1  ·  licences/unbounded.txt
+  Designer: NaN
+  Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)
+  Source: google/fonts ofl/unbounded  ·  upstream https://github.com/googlefonts/unbounded @ f3ec43228a864a72487e41552e2140efab9884ea
+
+UnifrakturMaguntia  (unifrakturmaguntia, version 2010-11-24)
+  Licence: OFL-1.1  ·  licences/unifrakturmaguntia.txt
+  Designer: j. 'mach' wust
+  Copyright (c) 2010 j. 'mach' wust (j.mach.wust@gmail.com) with Reserved Font Name UnifrakturMaguntia. Copyright (c) 2009 Peter Wiegel (wiegel@peter-wiegel.de). This Font Software is licensed under the SIL Open Font License, Version 1.1.
+  Source: google/fonts ofl/unifrakturmaguntia  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+Victor Mono  (victor-mono, version 1.561)
+  Licence: OFL-1.1  ·  licences/victor-mono.txt
+  Designer: Rune Bj�rner�s
+  Copyright 2023 The Victor Mono Project Authors (https://github.com/rubjo/victor-mono-font)
+  Source: google/fonts ofl/victormono  ·  upstream https://github.com/rubjo/victor-mono-font @ 8c00076e5afe53f3707db3ec0865b93f6d464b04
+
+Vollkorn  (vollkorn, version 5.001)
+  Licence: OFL-1.1  ·  licences/vollkorn.txt
+  Designer: Friedrich Althausen
+  Copyright 2018 The Vollkorn Project Authors (https://github.com/FAlthausen/Vollkorn-Typeface)
+  Source: google/fonts ofl/vollkorn  ·  upstream https://github.com/FAlthausen/Vollkorn-Typeface @ 38ab7a896bd6b163ac7f834ec696d6c68e5dedd6
+
+Work Sans  (work-sans, version 2.012)
+  Licence: OFL-1.1  ·  licences/work-sans.txt
+  Designer: Wei Huang
+  Copyright 2019 The Work Sans Project Authors (https://github.com/weiweihuanghuang/Work-Sans)
+  Source: google/fonts ofl/worksans  ·  upstream https://github.com/weiweihuanghuang/Work-Sans @ b35c81086186162164947bd39574683073d9b268
+
+Yellowtail  (yellowtail, version 001.002)
+  Licence: Apache-2.0  ·  licences/yellowtail.txt
+  Designer: Astigmatic
+  Copyright (c) 2011 by Brian J. Bonislawsky DBA Astigmatic (AOETI). All rights reserved. Available under the Apache 2.0 licence. http://www.apache.org/licenses/LICENSE-2.0.html
+  Source: google/fonts apache/yellowtail  ·  upstream https://github.com/googlefonts/googlefontdirectory-hg @ 52f780bc9d197280a9f430574e179a5f233c56b6
+
+Zilla Slab  (zilla-slab, version 1.1)
+  Licence: OFL-1.1  ·  licences/zilla-slab.txt
+  Designer: Typotheque
+  Copyright 2017, The Mozilla Foundation
+  Source: google/fonts ofl/zillaslab  ·  upstream https://github.com/mozilla/zilla-slab @ 6dcec520f9b23ad7f380b7ce3e8072be95fe0004
+
+
+Extra fonts (from DIMENSOR, added to the shared set 2026-11-26). Each is distributed under the licence named beside it.
+
+Kiwi Soda  (kiwi-soda)
+  Licence: CC-BY-4.0  ·  licences/kiwi-soda.txt
+  Credit: Kiwi Soda by jeti
+  Source: https://www.dafont.com/kiwisoda.font
+
+Y224  (y224)
+  Licence: CC0-1.0  ·  licences/y224.txt
+  Credit: Y224 by GGBotNet (courtesy credit; none required)
+  Source: https://www.dafont.com/y224.font
+
+Darktech LDR  (darktech-ldr)
+  Licence: CC-BY-SA-3.0  ·  licences/darktech-ldr.txt
+  Credit: Darktech LDR by Michal "Neoqueto" Nowak, CC BY-SA 3.0
+  Source: https://www.dafont.com/darktech-ldr.font
+  Served as the original file, unedited (CC BY-SA 3.0: a modified copy would have to be shared under the same licence).
