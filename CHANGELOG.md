@@ -5,10 +5,10 @@ Semver. Apps pin a tag; a major bump means a consumer may render differently.
 ## 0.41.186 (2026-11-26)
 
 DIMENSOR's SVG import dialog (`REQ-DS-dlg-checker`; Patrick chose an automatic ground on card `D-svg2-picture-ground`). CSS and tokens, one new modifier, one dialog fix.
-- **`.vk-dlg-preview--checker`:** the preview well becomes a transparency checker for a flat picture: `--checker-a` #777777 and `--checker-b` #8e8e8e in `--checker-cell` (8px) squares (three new tokens). It reads for a near-black logo (4.22 / 5.76) and a white one (4.48 / 3.28) with no brightness measurement; a mid-grey logo still vanishes on it (1.1 / 1.2). Not applied to `.is-empty`; the app turns it off for a live 3D view.
+- **`.vk-dlg-preview--checker`:** the preview well becomes a transparency checker for a flat picture: `--checker-a` #777777 and `--checker-b` #8e8e8e in `--checker-cell` (8px) squares (three new tokens). It reads for a near-black logo (4.22 / 5.76) and a white one (4.48 / 3.28) with no brightness measurement, but not for every grey: at 3.2:1 on both squares a grey logo reads only from black to about #2a2a2a and from about #fdfdfd up; charcoal #333333 and off-white #eeeeee are 2.8:1 on one square, greys from about #5c5c5c to #afafaf are under 1.5:1 on one square (#838383 is 1.18 / 1.16). Not applied to `.is-empty`; the app turns it off for a live 3D view. Not for a photograph or a render.
 - **`.vk-modal .vk-scrub`:** a slider in a dialog rests on `--bg-3` (its track was `--bg-2`, the dialog's own ground, so the empty part drew nothing). Applies to every dialog slider.
 - Specimen: a new Dialogs entry (near-black, white and mid-grey logos on the checker, with the slider); the existing dialog preview demo now shows its slider track. Test: `node test/dlg-checker.test.mjs`.
-- App pins: DIMENSOR adopts the class and drops its local `.vk-dlg-preview--checker` and `.dlg .vk-scrub` rules; other apps with a dialog slider get the track with no change.
+- App pins: DIMENSOR adopts the class and drops its local `.vk-dlg-preview--checker` and `.dlg .vk-scrub` rules. **INCEPTOR's Render dialog sliders (Precision, Margin, Pen width, Scale, Loops) have no track of their own, so they get the visible track at its next pin (it pins v0.41.149).** PROCESSOR and KOMPOSITOR have no dialog slider.
 
 ## 0.41.185 (2026-11-26)
 
