@@ -2,6 +2,11 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.190 (2026-11-26)
+
+REQ-DS-subhead-size (DIMENSOR asked which sub-heading size is meant). One CSS value change, no new class.
+- **`.vk-micro-label`** is 9px with 0.14em letter-spacing, the same as `.vk-sec-sub` (it was 8.5px / 0.16em). Every micro-label is one size: a sub-heading (`.vk-sub-head`), a group's name above a seg or control (DIMENSOR's `choice()`, Relief, Include / How far, its `lbl()` sub-titles), the react block's head and a lane head. `.vk-sub-head` still only adds the gap above and below. **No app edit:** every app that draws a name with `.vk-micro-label` gets the half pixel, and DIMENSOR's `test/grouplabels.mjs` (one size, spacing and colour on a column) still holds because the sub-heads and the names above controls change together. `.vk-menu-label` (menu group labels) is a different class and stays 8.5px. Test: `node test/sub-head.test.mjs`.
+
 ## 0.41.189 (2026-11-26)
 
 INCEPTOR rail icons, batch 5 of 7 (`REQ-DS-inceptor-rail-icons-5`, QA PASS r3; Patrick approved all ten and the Spiral reuse on card `DS-inceptor-rail-icons-5`, 2026-11-26). Icons only; no CSS or behaviour change.
