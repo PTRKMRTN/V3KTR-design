@@ -2,6 +2,12 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.187 (2026-11-26)
+
+INCEPTOR rail icons, batch 3 of 7 (`REQ-DS-inceptor-rail-icons-3`, QA PASS; Patrick approved all eight on card `DS-inceptor-rail-icons-3`, 2026-11-26). Icons only; no CSS or behaviour change.
+- **Eight rail icons** in `icons/inceptor-icons.js`, keys are the FX rail Deform row names in lower case with spaces dropped: `depthrelief`, `fieldwarp`, `noisewarp`, `wobble`, `pathonpath`, `puckerbloat`, `surfacewrap`, `textflow`. Same language and 14px measurement as batches 1 and 2; four were redrawn after the QA reviewer's 14px measurements (`noisewarp`, `pathonpath`, `puckerbloat`, `surfacewrap`).
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.187 and maps the eight names; its fallback stays for the rows not yet drawn.
+
 ## 0.41.186 (2026-11-26)
 
 DIMENSOR's SVG import dialog (`REQ-DS-dlg-checker`; Patrick chose an automatic ground on card `D-svg2-picture-ground`). CSS and tokens, one new modifier, one dialog fix.
