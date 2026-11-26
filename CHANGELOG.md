@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.189 (2026-11-26)
+
+INCEPTOR rail icons, batch 5 of 7 (`REQ-DS-inceptor-rail-icons-5`, QA PASS r3; Patrick approved all ten and the Spiral reuse on card `DS-inceptor-rail-icons-5`, 2026-11-26). Icons only; no CSS or behaviour change.
+- **Ten rail icons** in `icons/inceptor-icons.js`, keys are the GEN Shapes row names in lower case with spaces dropped: `blob`, `starburst`, `superformula`, `guilloche`, `lissajous`, `waves`, `attractor`, `harmonograph`, `spirograph`, `stringart`. Same language and 14px measurement as the earlier batches; `attractor`, `stringart` and `waves` were redrawn after the QA reviewer's 14px measurements, `attractor` twice (the last form is tolerance-simplified, not thinned).
+- **One reuse, no new drawing:** the Spiral row uses the existing `spiral`.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.189 and maps the ten names plus Spiral through its `SAME_AS` aliases (the GEN rows carry a `gen-` prefix); its fallback stays for the rows not yet drawn.
+
 ## 0.41.188 (2026-11-26)
 
 INCEPTOR rail icons, batch 4 of 7 (`REQ-DS-inceptor-rail-icons-4`, QA PASS r3; Patrick approved all twelve and the three reuses on card `DS-inceptor-rail-icons-4`, 2026-11-26). Icons only; no CSS or behaviour change.
