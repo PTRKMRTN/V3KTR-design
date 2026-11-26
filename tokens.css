@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.185
+/* V3KTR design tokens · v0.41.186
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -7,6 +7,7 @@
   --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
   --line:#171717;
   --canvas-well:color-mix(in srgb, var(--bg-0) 60%, var(--line));   /* the viewport / canvas ground behind an image (v0.41.127): #1d1d1d on the default ground, same as PROCESSOR and KOMPOSITOR */
+  --checker-a:#777777; --checker-b:#8e8e8e; --checker-cell:8px;   /* v0.41.186: the transparency checker behind a flat picture (.vk-dlg-preview--checker): two neutral mid greys, at least 3.2:1 against both a near-black and a white logo (measured by DIMENSOR: #777777 / #8e8e8e); raw values on purpose, a logo does not follow the theme */
 
   /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
   --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;

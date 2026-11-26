@@ -1,4 +1,4 @@
-/* V3KTR design tokens · v0.41.185
+/* V3KTR design tokens · v0.41.186
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -7,6 +7,7 @@
   --bg-0:#212121; --bg-1:#212121; --bg-2:#2b2b2b; --bg-3:#3a3a3a; --bg-4:#444444;
   --line:#171717;
   --canvas-well:color-mix(in srgb, var(--bg-0) 60%, var(--line));   /* the viewport / canvas ground behind an image (v0.41.127): #1d1d1d on the default ground, same as PROCESSOR and KOMPOSITOR */
+  --checker-a:#777777; --checker-b:#8e8e8e; --checker-cell:8px;   /* v0.41.186: the transparency checker behind a flat picture (.vk-dlg-preview--checker): two neutral mid greys, at least 3.2:1 against both a near-black and a white logo (measured by DIMENSOR: #777777 / #8e8e8e); raw values on purpose, a logo does not follow the theme */
 
   /* Text — neutral greys, to match the neutral ground. Settled 2026-09-29: no cool/blue tint. */
   --tx-0:#f4f4f4; --tx-1:#cfcfcf; --tx-2:#8a8a8a;
@@ -155,7 +156,7 @@
 [data-group="output"]   { --gcol: var(--adjust); }
 [data-group="simulate"] { --gcol: var(--type-violet); }
 
-/* V3KTR app layer · v0.41.185 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.186 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -1094,6 +1095,12 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-dlg-preview{display:block;position:relative;width:100%;height:190px;box-sizing:border-box;overflow:hidden;background-color:var(--canvas-well);background-image:var(--canvas-tile);background-repeat:repeat;background-position:center;background-size:38px 38px;}
 .vk-dlg-preview>canvas,.vk-dlg-preview>img,.vk-dlg-preview>svg{display:block;width:100%;height:100%;object-fit:contain;}
 .vk-dlg-preview.is-empty{display:flex;align-items:center;justify-content:center;color:var(--tx-2);font-size:12px;}
+/* v0.41.186 (DIMENSOR SVG import, Patrick 2026-11-26, card D-svg2-picture-ground, "C: an automatic ground"): a FLAT picture (a logo, an SVG) on the dark well can vanish (a dark logo on the dark box is about 1.1:1).
+   Add .vk-dlg-preview--checker to the preview while it holds a picture: the well becomes a transparency checker, --checker-a / --checker-b in --checker-cell (8px) squares, which reads for dark and light pictures alike and needs no brightness measurement.
+   It never applies to .is-empty (a line of text on a mid grey would fail), and the app switches it off for a live 3D view (a rendered scene keeps the canvas well). A mid-grey picture still vanishes on it; that is the cost of one rule for both. */
+.vk-dlg-preview--checker:not(.is-empty){background-color:var(--checker-a);background-image:conic-gradient(var(--checker-b) 25%,transparent 0 50%,var(--checker-b) 0 75%,transparent 0);background-size:calc(var(--checker-cell) * 2) calc(var(--checker-cell) * 2);background-position:center;}
+/* v0.41.186 (DIMENSOR Export depth pass): a slider in a dialog rests on --bg-3. The shared track is --bg-2, which is the dialog's own ground, so its empty part drew nothing. Scoped to .vk-modal, so no other slider changes (like .vk-modal__list .vk-row). */
+.vk-modal .vk-scrub{background:var(--bg-3);}
 .vk-dlg-preview__hint{display:block;margin:6px 0 12px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-2);}
 /* THE [hidden] TRAP (found by DIMENSOR, 2026-10-25): a class that sets display (inline-block, flex...) beats the browser's [hidden]{display:none}, so a hidden element still shows. Every shared class that sets display and
    that an app toggles with the hidden attribute carries its own [hidden] rule; add one to any new such class. */

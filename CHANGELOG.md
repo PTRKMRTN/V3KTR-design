@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.186 (2026-11-26)
+
+DIMENSOR's SVG import dialog (`REQ-DS-dlg-checker`; Patrick chose an automatic ground on card `D-svg2-picture-ground`). CSS and tokens, one new modifier, one dialog fix.
+- **`.vk-dlg-preview--checker`:** the preview well becomes a transparency checker for a flat picture: `--checker-a` #777777 and `--checker-b` #8e8e8e in `--checker-cell` (8px) squares (three new tokens). It reads for a near-black logo (4.22 / 5.76) and a white one (4.48 / 3.28) with no brightness measurement; a mid-grey logo still vanishes on it (1.1 / 1.2). Not applied to `.is-empty`; the app turns it off for a live 3D view.
+- **`.vk-modal .vk-scrub`:** a slider in a dialog rests on `--bg-3` (its track was `--bg-2`, the dialog's own ground, so the empty part drew nothing). Applies to every dialog slider.
+- Specimen: a new Dialogs entry (near-black, white and mid-grey logos on the checker, with the slider); the existing dialog preview demo now shows its slider track. Test: `node test/dlg-checker.test.mjs`.
+- App pins: DIMENSOR adopts the class and drops its local `.vk-dlg-preview--checker` and `.dlg .vk-scrub` rules; other apps with a dialog slider get the track with no change.
+
 ## 0.41.185 (2026-11-26)
 
 INCEPTOR rail icons, batch 2 of 7 (`REQ-DS-inceptor-rail-icons-2`, QA PASS r3; Patrick approved all twelve on card `DS-inceptor-rail-icons-2`, 2026-11-26). Icons only; no CSS or behaviour change.

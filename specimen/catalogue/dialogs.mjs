@@ -47,5 +47,17 @@ export default {
   <div class="vk-modal" style="width:300px"><div class="vk-modal__title">Import SVG</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview is-empty">No shapes to extrude</div></div></div>
 </div>`,
     },
+    {
+      name: 'Dialog preview on a flat picture: the transparency checker',
+      since: '0.41.186',
+      rule: 'AGENTS.md "Dialog preview"',
+      classes: ['vk-dlg-preview--checker'],
+      note: 'A flat picture (a logo, an SVG) on the dark well can vanish. With .vk-dlg-preview--checker the well is a transparency checker of two neutral mid greys (--checker-a, --checker-b, 8px squares): a near-black logo and a white logo both read, with no measurement. A mid-grey picture still disappears on it. Never on .is-empty. The slider in a dialog now has a visible empty track.',
+      html: `<div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+  <div class="vk-modal" style="width:300px"><div class="vk-modal__title">Near-black logo</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview vk-dlg-preview--checker"><svg viewBox="0 0 264 190"><circle cx="132" cy="95" r="52" fill="#111"/><path d="M110 96l22-30 22 30-22 30z" fill="#303030"/></svg></div><div class="vk-scrub" style="--fill:35%"><span class="vk-scrub__label">Depth</span><span class="vk-scrub__val">12 mm</span></div></div></div>
+  <div class="vk-modal" style="width:300px"><div class="vk-modal__title">White logo</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview vk-dlg-preview--checker"><svg viewBox="0 0 264 190"><circle cx="132" cy="95" r="52" fill="#fff"/><path d="M110 96l22-30 22 30-22 30z" fill="#d9d9d9"/></svg></div><div class="vk-scrub" style="--fill:35%"><span class="vk-scrub__label">Depth</span><span class="vk-scrub__val">12 mm</span></div></div></div>
+  <div class="vk-modal" style="width:300px"><div class="vk-modal__title">Mid-grey logo (the limit)</div><div style="padding:0 18px 16px"><div class="vk-dlg-preview vk-dlg-preview--checker"><svg viewBox="0 0 264 190"><circle cx="132" cy="95" r="52" fill="#838383"/></svg></div></div></div>
+</div>`,
+    },
   ],
 };
