@@ -61,7 +61,7 @@ export const INCEPTOR_ICONS = {
   closenear: '<path d="M7 17C2 10 9 3 16 6s4 9 0 12c-2 1.500-4 1-5.500.500"/><path d="M11 17a4 4 0 1 0-8 0 4 4 0 1 0 8 0" opacity="0.6"/>' + dot(7, 17, 1, 1.300),
   symmetric: '<path d="M3 8.500c3-4 5 3 9 0s6-3.500 9 0"/><path d="M3 15.500c3 4 5-3 9 0s6 3.500 9 0" opacity="0.6"/><path d="M3 12h18" stroke-dasharray="2 2" opacity="0.3"/>',
   // rail batch 1 (INCEPTOR build session, 2026-11-26): FX rail Replicate (6) and Mask (3), the rows that drew the fallback squiggle. Keys are the lower-case row names.
-  array: '<path d="M3.500 7h4v4h-4z"/><path d="M10 7h4v4h-4zM3.500 13.500h4v4h-4z" opacity="0.6"/><path d="M16.500 7h4v4h-4zM10 13.500h4v4h-4z" opacity="0.3"/><path d="M16.500 13.500h4v4h-4z" opacity="0.3"/>',
+  array: '<path d="M2.500 6.400h3.800v3.800H2.500z"/><path d="M10.100 6.400h3.800v3.800h-3.800zM2.500 14h3.800v3.800H2.500z" opacity="0.6"/><path d="M17.700 6.400h3.800v3.800h-3.800zM10.100 14h3.800v3.800h-3.800z" opacity="0.3"/><path d="M17.700 14h3.800v3.800h-3.800z" opacity="0.3"/>',
   blendsteps: '<circle cx="3.500" cy="12" r="2" fill="currentColor" stroke="none"/><rect x="7.800" y="9.500" width="5" height="5" rx="1.800" opacity="0.6"/><path d="M15.800 9h6v6h-6z"/>',
   depthsheets: '<path d="M3.500 20l4.500-4h12l-4.500 4z"/><path d="M3.500 14.500L8 10.500h12l-4.500 4z" opacity="0.6"/><path d="M3.500 9L8 5h12l-4.500 4z" opacity="0.3"/>',
   shatter: '<path d="M4 5l6.500-1-.5 6.500L4.500 9z"/><path d="M13.500 4.500L20 6l-1 5-6-1z"/><path d="M13.500 13.500l6-.5-1.500 6.500-5.500-.5z" opacity="0.6"/><path d="M4.500 12.500l6 .5-.5 6.500-4.500-1.500z" opacity="0.6"/>',
