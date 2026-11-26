@@ -10,7 +10,9 @@
 //   net.onBlocked(fn) → off()                        a call was refused while the state is 'ask': open the notice (fn(purpose))
 //   gatedFetch(net, fetch)(url, init)                a fetch that throws NetworkOff while not allowed; init.purpose ("Fontsource
 //                                                    search") is only read here, never sent
-//   noticeFor(providers)                             the one-time notice's words, from the providers the app uses
+//   noticeFor(providers, { menu })                   the one-time notice's words, from the providers the app uses; `menu` is the
+//                                                    View menu item the app really has (default "Online search"; KOMPOSITOR's is
+//                                                    "Online Search", and createNet(storage, { menu }) carries it into NetworkOff)
 //
 // The switch is stored under `vk.online`. An app that used another key before (KOMPOSITOR's `kmp.online`) passes it in
 // `legacyKeys`: it is read once, copied to the shared key and left in place. Not legal advice; the notice wording is PROVISIONAL
@@ -19,11 +21,11 @@
 export const NET_KEY = 'vk.online';
 
 export class NetworkOff extends Error {
-  constructor(state, purpose) {
+  constructor(state, purpose, menu = 'Online search') {
     super('online search is not allowed'); this.name = 'NetworkOff'; this.state = state; this.purpose = purpose || '';
     this.userMessage = state === 'ask'
       ? { what: 'Online search has not been allowed yet.', todo: 'Choose Allow in the notice first.' }
-      : { what: 'Online search is turned off.', todo: 'Turn it on in the View menu (Online search) to search.' };
+      : { what: 'Online search is turned off.', todo: `Turn it on in the View menu (${menu}) to search.` };
   }
 }
 
@@ -34,7 +36,7 @@ const join = (a) => (a.length < 2 ? a.join('') : a.length === 2 ? `${a[0]} or ${
  * The notice. providers: [{ name: 'Openverse', for: 'searching sounds', item: 'sound' }, { name: 'Fontsource', for: 'the font
  * browser', item: 'font' }]. → { title, body, allow, later }. With the two providers above the body is KOMPOSITOR's, word for word.
  */
-export function noticeFor(providers = []) {
+export function noticeFor(providers = [], { menu = 'Online search' } = {}) {
   const ps = providers.filter((p) => p && p.name);
   const uses = ps.map((p) => `${p.for || 'search'} uses ${p.name}`);
   const lead = uses.length ? `${cap(uses[0])}${uses.length > 1 ? `, and ${uses.slice(1).join(', and ')}` : ''}.` : 'Online search uses third-party services.';
@@ -42,13 +44,13 @@ export function noticeFor(providers = []) {
   const pick = items.length ? `a ${join(items)} you pick is fetched from their servers` : 'what you pick is fetched from their servers';
   return {
     title: 'Search online?',
-    body: `${lead} Your search words and your IP address go to them, and ${pick}. Nothing else leaves your device: your projects, media and edits stay here. You can switch this off any time in the View menu (Online search).`,
+    body: `${lead} Your search words and your IP address go to them, and ${pick}. Nothing else leaves your device: your projects, media and edits stay here. You can switch this off any time in the View menu (${menu}).`,
     allow: 'Allow online search',
     later: 'Not now',
   };
 }
 
-export function createNet(storage, { key = NET_KEY, legacyKeys = [] } = {}) {
+export function createNet(storage, { key = NET_KEY, legacyKeys = [], menu = 'Online search' } = {}) {
   let mem = null; // the choice for this session when storage can't keep it
   const get = (k) => { try { const v = storage.getItem(k); return v === 'on' || v === 'off' ? v : null; } catch { return null; } };
   const put = (v) => { try { storage.setItem(key, v); mem = null; } catch { mem = v; } };
@@ -68,6 +70,7 @@ export function createNet(storage, { key = NET_KEY, legacyKeys = [] } = {}) {
   return {
     get state() { return state(); },
     get allowed() { return state() === 'on'; },
+    get menu() { return menu; },
     allow() { write(true); },
     deny() { write(false); },
     set(on) { write(!!on); },
@@ -82,7 +85,7 @@ export const gatedFetch = (net, fetchFn = (...a) => fetch(...a)) => async (url, 
   if (!net.allowed) {
     const purpose = init && init.purpose;
     if (net.state === 'ask') net._blocked(purpose);
-    throw new NetworkOff(net.state, purpose);
+    throw new NetworkOff(net.state, purpose, net.menu);
   }
   if (init && 'purpose' in init) { const { purpose, ...rest } = init; return fetchFn(url, rest); }
   return fetchFn(url, init);

@@ -50,20 +50,20 @@ export function parse(licence, version) {
   let s = norm(licence), v = VER.test(String(version || '')) ? String(version) : '';
   if (!s) return null;
   let m;
-  if ((m = /^(?:sil-)?ofl(?:-(\d+\.\d+))?$/.exec(s))) return make('ofl', m[1] || v);
-  if ((m = /^apache(?:-(\d+\.\d+))?$/.exec(s))) return make('apache', m[1] || v);
+  if ((m = /^(?:sil-)?ofl(?:-(1\.[01]))?$/.exec(s))) return make('ofl', m[1] || v);
+  if ((m = /^apache(?:-(2\.0))?$/.exec(s))) return make('apache', m[1] || v);
   if (s === 'mit') return make('mit', '');
   if (s === 'v3ktr') return make('own', '');
   if (s === 'isc') return make('isc', '');
   s = s.replace(/^cc-/, '');
-  if ((m = /^(?:cc)?0(?:-(\d+\.\d+))?$/.exec(s)) || (m = /^cc0(?:-(\d+\.\d+))?$/.exec(s))) return make('cc0', m[1] || v);
-  if ((m = /^(?:pdm|public-domain(?:-mark)?)(?:-(\d+\.\d+))?$/.exec(s))) return make('pdm', m[1] || v);
+  if ((m = /^cc0(?:-(1\.0))?$/.exec(s))) return make('cc0', m[1] || v);
+  if ((m = /^(?:pdm|public-domain(?:-mark)?)(?:-(1\.0))?$/.exec(s))) return make('pdm', m[1] || v);
   if ((m = /^(by(?:-(?:nc|sa|nd))*?)(?:-(\d+\.\d+))?$/.exec(s)) && FAMILIES[m[1]]) return make(m[1], m[2] || v);
   return null;
 }
 function make(family, version) {
   const f = FAMILIES[family];
-  const ver = f.fixed ? f.version : version || f.version || (f.kind === 'cc' ? CC_DEFAULT_VERSION : '');
+  const ver = f.fixed ? f.version : version || f.version || '';
   const spdx = f.spdxFamily + (ver ? '-' + ver : '');
   return { family, version: ver, spdx, label: f.fixed || !ver ? f.label : `${f.label} ${ver}`, kind: f.kind, credit: f.credit, nc: f.nc, sa: f.sa, nd: f.nd };
 }
@@ -94,7 +94,7 @@ export function deedUrl(licence, version) {
   const p = parse(licence, version); if (!p) return '';
   const f = FAMILIES[p.family];
   if (f.deed) return f.deed(p.version);
-  return `https://creativecommons.org/licenses/${p.family}/${p.version}/`;
+  return `https://creativecommons.org/licenses/${p.family}/${p.version || CC_DEFAULT_VERSION}/`;
 }
 
 export const ncWarning = (noun = 'item') => `This ${noun} is licensed for non-commercial use only. Use it only in a project that is for personal use.`;
@@ -149,7 +149,7 @@ export function creditsText(items, { all = false } = {}) {
   for (const raw of items || []) {
     const c = cleanCredit(raw); if (!c) continue;
     const k = `${c.provider}:${c.id}`; if (seen.has(k)) continue; seen.add(k);
-    if (!all && !needsCredit(c.licence)) continue;
+    if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;
     out.push(creditLine(c));
   }
   return out.join('\n');

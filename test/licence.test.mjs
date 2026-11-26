@@ -25,11 +25,14 @@ async function load(f, mutate) {
 function licenceChecks(L) {
   const shown = (lic, o, v) => L.decide(lic, o, v).shown;
   // reading a licence: SPDX ids, provider codes and display strings all land on one family
-  for (const [x, v, spdx] of [['CC-BY-4.0', '', 'CC-BY-4.0'], ['by', '4.0', 'CC-BY-4.0'], ['BY', '3.0', 'CC-BY-3.0'], ['CC BY 4.0', '', 'CC-BY-4.0'], ['by', '', 'CC-BY-4.0'],
+  for (const [x, v, spdx] of [['CC-BY-4.0', '', 'CC-BY-4.0'], ['by', '4.0', 'CC-BY-4.0'], ['BY', '3.0', 'CC-BY-3.0'], ['CC BY 4.0', '', 'CC-BY-4.0'], ['by', '', 'CC-BY'],
     ['cc0', '', 'CC0-1.0'], ['CC0-1.0', '', 'CC0-1.0'], ['pdm', '', 'PDM-1.0'], ['Public Domain', '', 'PDM-1.0'],
     ['by-sa', '4.0', 'CC-BY-SA-4.0'], ['CC-BY-NC-SA-3.0', '', 'CC-BY-NC-SA-3.0'], ['OFL-1.1', '', 'OFL-1.1'], ['SIL OFL 1.1', '', 'OFL-1.1'],
     ['MIT', '', 'MIT'], ['ISC', '', 'ISC'], ['Apache-2.0', '', 'Apache-2.0']]) assert.equal(L.parse(x, v).spdx, spdx, `${x} ${v}`);
-  for (const bad of ['', null, undefined, 'sampling+', 'by-xx', 'GPL-3.0', 'all rights reserved', 'by-sa-nc']) assert.equal(L.parse(bad), null, String(bad));
+  for (const bad of ['', null, undefined, 'sampling+', 'by-xx', 'GPL-3.0', 'all rights reserved', 'by-sa-nc', 'Apache-1.1', 'Apache-1.0', 'OFL-2.0', '0', 'cc-0', 'CC0-2.0', 'cc0-9.9', 'PDM-2.0']) assert.equal(L.parse(bad), null, String(bad));
+  for (const [x, spdx] of [['Apache-2.0', 'Apache-2.0'], ['apache', 'Apache-2.0'], ['OFL-1.0', 'OFL-1.0'], ['OFL', 'OFL-1.1'], ['CC0-1.0', 'CC0-1.0'], ['PDM-1.0', 'PDM-1.0']]) assert.equal(L.parse(x).spdx, spdx, x);
+  assert.equal(L.parse('by').label, 'CC BY', 'a licence with no stated version does not claim one'); assert.equal(L.parse('by', '3.0').label, 'CC BY 3.0');
+  assert.equal(L.deedUrl('by'), 'https://creativecommons.org/licenses/by/4.0/', 'only the deed link defaults to 4.0'); assert.equal(L.deedUrl('by', '3.0'), 'https://creativecommons.org/licenses/by/3.0/');
   assert.equal(L.parse('V3KTR').spdx, 'V3KTR'); assert.equal(shown('V3KTR', {}), true, "V3KTR's own content is shown"); assert.equal(L.needsCredit('V3KTR'), false); assert.equal(L.label('V3KTR'), 'V3KTR'); assert.equal(L.deedUrl('V3KTR'), '');
   // the policy
   for (const ok of ['cc0', 'pdm', 'by', 'CC-BY-4.0', 'MIT', 'ISC', 'Apache-2.0', 'OFL-1.1']) assert.equal(shown(ok, {}), true, `${ok} is always shown`);
@@ -45,6 +48,9 @@ function licenceChecks(L) {
   assert.deepEqual(L.filterShown(items, {}).map((i) => i.title), ['a', 'c']);
   assert.deepEqual(L.filterShown(items, { personal: true }).map((i) => i.title), ['a', 'b', 'c']);
   // credit flags, labels, deeds
+  for (const free of ['pdm', 'ISC', 'Apache-2.0', 'MIT', 'OFL-1.1', 'cc0', 'V3KTR']) assert.equal(L.needsCredit(free), false, `${free} asks for no credit`);
+  assert.deepEqual(L.filterShown([{ x: 'by' }, { x: 'by-nd' }], {}, (i) => [i.x, '']), [{ x: 'by' }], 'filterShown reads the licence where get() says');
+  assert.equal(L.deedUrl('OFL-1.1'), 'https://openfontlicense.org/');
   assert.equal(L.needsCredit('by'), true); assert.equal(L.needsCredit('CC-BY-SA-4.0'), true); assert.equal(L.needsCredit('cc0'), false); assert.equal(L.needsCredit('OFL-1.1'), false); assert.equal(L.needsCredit('MIT'), false);
   assert.equal(L.isNonCommercial('by-nc-sa'), true); assert.equal(L.isNonCommercial('by'), false); assert.equal(L.isShareAlike('by-nc-sa'), true); assert.equal(L.isShareAlike('by-nc'), false);
   assert.equal(L.label('by', '4.0'), 'CC BY 4.0'); assert.equal(L.label('cc0'), 'CC0'); assert.equal(L.label('pdm'), 'Public Domain'); assert.equal(L.label('OFL-1.1'), 'OFL 1.1'); assert.equal(L.label('MIT'), 'MIT'); assert.equal(L.label('weird'), 'weird'); assert.equal(L.label(''), 'Unknown licence');
@@ -70,6 +76,9 @@ function licenceChecks(L) {
   const set = [r, sh, { provider: 'fonts', id: 'inter', title: 'Inter', licence: 'OFL-1.1' }, { provider: 'x', id: 'zero', title: 'Zero', licence: 'cc0' }, r, { id: '', licence: 'by' }];
   assert.equal(L.creditsText(set).split('\n').length, 2); assert.match(L.creditsText(set), /By Pad/); assert.match(L.creditsText(set), /Kiwi Soda/); assert.doesNotMatch(L.creditsText(set), /Inter|Zero/);
   assert.equal(L.creditsText(set, { all: true }).split('\n').length, 4);
+  const weird = [{ provider: 'p', id: 'au', title: 'Odd', licence: 'CC BY 2.5 AU' }, { provider: 'p', id: 'cu', title: 'Custom one', licence: 'Custom' }];
+  assert.equal(L.creditsText(weird).split('\n').length, 2, 'unknown licences are listed: one line too many is better than one missing');
+  assert.equal(L.cleanCredit({ provider: 'p', id: 'nolic', title: 'No licence' }), null, 'a record with an id and no licence is dropped');
   assert.equal(L.creditsText([]), ''); assert.equal(L.creditsText([{ provider: 'f', id: 'i', title: 'I', licence: 'OFL-1.1' }]), '');
   // the file
   const f = L.creditsFileText([r, { id: 'n', title: 'N', licence: 'by-nc', provider: 'p' }], { name: 'My cut', notes: ['The sounds were cut.'] });
@@ -81,7 +90,9 @@ function licenceChecks(L) {
 // ---- online.js -----------------------------------------------------------------------------------------------------------
 const mem = () => { const d = new Map(); return { getItem: (k) => (d.has(k) ? d.get(k) : null), setItem: (k, v) => d.set(k, String(v)), d }; };
 const dead = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
-const KMP_NOTICE_BODY = 'Searching sounds uses Openverse, and the font browser uses Fontsource. Your search words and your IP address go to them, and a sound or font you pick is fetched from their servers. Nothing else leaves your device: your projects, media and edits stay here. You can switch this off any time in the View menu (Online search).';
+// KOMPOSITOR's own words, as in sounds/network.js and its live menu item "Online Search" (ui/main.js, test/shell.mjs): NOT edited to fit the module.
+const KMP_NOTICE_BODY = 'Searching sounds uses Openverse, and the font browser uses Fontsource. Your search words and your IP address go to them, and a sound or font you pick is fetched from their servers. Nothing else leaves your device: your projects, media and edits stay here. You can switch this off any time in the View menu (Online Search).';
+const KMP_OFF_TODO = 'Turn it on in the View menu (Online Search) to search.';
 
 async function onlineChecks(O) {
   let s = mem(), net = O.createNet(s);
@@ -108,8 +119,12 @@ async function onlineChecks(O) {
   net = O.createNet(mem()); const asked = []; net.onBlocked((pp) => asked.push(pp)); const g2 = O.gatedFetch(net, fake);
   await assert.rejects(g2('u', { purpose: 'Fontsource search' })); net.deny(); await assert.rejects(g2('u', { purpose: 'again' })); assert.deepEqual(asked, ['Fontsource search']);
   // the notice
-  const nt = O.noticeFor([{ name: 'Openverse', for: 'searching sounds', item: 'sound' }, { name: 'Fontsource', for: 'the font browser', item: 'font' }]);
-  assert.equal(nt.body, KMP_NOTICE_BODY, "KOMPOSITOR's notice, word for word"); assert.equal(nt.title, 'Search online?'); assert.equal(nt.allow, 'Allow online search'); assert.equal(nt.later, 'Not now');
+  const KMP = { menu: 'Online Search' };
+  const nt = O.noticeFor([{ name: 'Openverse', for: 'searching sounds', item: 'sound' }, { name: 'Fontsource', for: 'the font browser', item: 'font' }], KMP);
+  assert.equal(nt.body, KMP_NOTICE_BODY, "KOMPOSITOR's notice, word for word, with its own menu name");
+  assert.match(O.noticeFor([{ name: 'A', for: 'a' }]).body, /View menu \(Online search\)\.$/, 'the default menu name');
+  { const k = O.createNet(mem(), KMP); k.deny(); await assert.rejects(O.gatedFetch(k, async () => 1)('u'), (e) => e.userMessage.todo === KMP_OFF_TODO); }
+  assert.equal(nt.title, 'Search online?'); // assert.equal(nt.title, 'Search online?'); assert.equal(nt.allow, 'Allow online search'); assert.equal(nt.later, 'Not now');
   assert.match(O.noticeFor([{ name: 'Fontsource', for: 'the font picker', item: 'font' }]).body, /^The font picker uses Fontsource\. .* a font you pick is fetched/);
   assert.match(O.noticeFor([{ name: 'A', for: 'a', item: 'x' }, { name: 'B', for: 'b', item: 'y' }, { name: 'C', for: 'c', item: 'z' }]).body, /a x, y or z you pick/);
   assert.match(O.noticeFor([]).body, /^Online search uses third-party services\./);
@@ -131,6 +146,14 @@ await lm('CC0 asks for credit', "cc0: CC('CC0', 'CC0', { credit: false,", "cc0: 
 await lm('unknown licences are shown', 'if (!p) return { shown: false', 'if (!p) return { shown: true');
 await lm('SPDX ids are not read', "s = s.replace(/^cc-/, '');", '');
 await lm('credits list every item', 'if (!all && !needsCredit(c.licence)) continue;', '');
+await lm('PDM asks for credit', "pdm: CC('Public Domain', 'PDM', { credit: false,", "pdm: CC('Public Domain', 'PDM', { credit: true,");
+await lm('ISC asks for credit', "isc: { label: 'ISC', kind: 'code', credit: false", "isc: { label: 'ISC', kind: 'code', credit: true");
+await lm('Apache asks for credit', "apache: { label: 'Apache', kind: 'code', credit: false", "apache: { label: 'Apache', kind: 'code', credit: true");
+await lm('filterShown ignores get', 'const g = get ? get(i) : [licenceOf(i), versionOf(i)];', 'const g = [licenceOf(i), versionOf(i)];');
+await lm('the OFL deed link changes', "deed: () => 'https://openfontlicense.org/'", "deed: () => 'https://example.org/'");
+await lm('a missing version is claimed as 4.0', "version || f.version || '';", "version || f.version || (f.kind === 'cc' ? '4.0' : '');");
+await lm('Apache 1.1 is read', 'apache(?:-(2\\.0))?$', 'apache(?:-(\\d\\.\\d))?$');
+await lm('unknown licences are dropped from the credits', 'if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;', 'if (!all && !needsCredit(c.licence)) continue;');
 await lm('credits are not de-duplicated', 'if (seen.has(k)) continue; seen.add(k);', '');
 
 console.log('online.js');
@@ -141,6 +164,8 @@ await om('the old key is not read', 'for (const k of legacyKeys)', 'for (const k
 await om('the old key is not copied', 'if (o) { put(o); return o; }', 'if (o) { return o; }');
 await om('purpose is sent to the network', 'const { purpose, ...rest } = init; return fetchFn(url, rest);', 'return fetchFn(url, init);');
 await om('onChange fires every time', 'if (s !== last) {', 'if (true) {');
+await om('the menu name is ignored by the notice', '(${menu}).`,', '(Online search).`,');
+await om('the menu name is ignored by NetworkOff', 'View menu (${menu}) to search', 'View menu (Online search) to search');
 await om('the notice wording changes', 'Your search words and your IP address go to them', 'Your search words go to them');
 
 fs.rmSync(TMP, { recursive: true, force: true });
