@@ -1,8 +1,8 @@
 <title>V3KTR Design</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-/* ===== core: tokens.css v0.41.180 ===== */
-/* V3KTR design tokens · v0.41.180
+/* ===== core: tokens.css v0.41.181 ===== */
+/* V3KTR design tokens · v0.41.181
    Source of truth: PTRKMRTN/V3KTR-design. Do not edit a copy inside an app —
    change it here, tag a release, bump the app's pinned version.
    Extracted from PROCESSOR index.html :root (origin/main 4f170b9, 2026-09-29). */
@@ -98,7 +98,7 @@
 }
 
 /* ===== app layer ===== */
-/* V3KTR app layer · v0.41.180 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.181 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -649,6 +649,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-modal__list .vk-row.is-selected,.vk-modal__list .vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));}   /* the system selected look, over --bg-2: white on it is 4.86:1 at worst; over --bg-3 it measured 4.30:1, under AA */
 /* A short note at the right end of a row ("has an image", "no image"): 11px, --tx-2-hi, never wraps; white on a selected row like everything else on it. */
 .vk-row__note{margin-left:auto;flex:none;padding-left:8px;font-size:11px;color:var(--tx-2-hi);white-space:nowrap;}
+.vk-modal__list .vk-row:hover .vk-row__note,.vk-modal__list .vk-row.is-hover .vk-row__note{color:var(--tx-1);}   /* the hover tint is lighter than --bg-3: --tx-2-hi falls to 3.78 to 4.11:1 on it, --tx-1 is 5.8 to 6.3:1 */
 .vk-row.is-selected .vk-row__note,.vk-row[aria-selected="true"] .vk-row__note{color:var(--tx-0);}
 /* A tall dialog (v0.41.152, DIMENSOR's Import SVG with a preview is 728px): a modal never runs past the window. It is at most the window height less 22px
    above and below. Wrap everything between the title and the actions in .vk-modal__body (add .vk-scrollbar for the house bar): the body scrolls and the
@@ -3414,7 +3415,7 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
 .sp-demo{padding:16px;background:var(--bg-0)}
 </style>
 <div class="shell">
-  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.180</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
+  <div class="top"><h1>V3KTR Design</h1><span class="ver">v0.41.181</span><span class="src">PTRKMRTN/V3KTR-design</span></div>
   <p class="intro">Every token and component, rendered from the repo's own CSS. Built by <code>scripts/build-specimen.mjs</code>; if an app looks different from this page, the app has drifted.</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="t-core" data-t="core" aria-selected="true">Core</button>
@@ -3457,11 +3458,13 @@ body{font:var(--fs-body)/1.5 var(--sans);margin:0;padding-inline:16px}
   </div>
   <p class="th-note">Each scroll area sits 22px in from its frame, so content never scrolls into a line. Separators sit on the frame edge, inset 22px along their length, and touch nothing. Fades show more past an edge (top once scrolled). The square on the vertical line is the optional resize grip.</p></div>
 <div class="spec-group"><div class="spec-caption">Linked-asset badge · v0.28.0 · app/link-badge.css · owner colour</div>
-  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked" data-tip="Linked" data-tip-desc="Linked to DIMENSOR. Updates when you ask"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <span class="vk-lnk" data-owner="processor" data-state="linked" data-tip="Linked" data-tip-desc="Linked to PROCESSOR. Drag onto an image slot to copy it there"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked, draggable</span></span>
   <button type="button" class="vk-lnk" data-owner="dimensor" data-state="update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Update available</span></button>
   <span class="vk-lnk" data-owner="processor" data-state="stale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Source not responding</span></span>
   <span class="vk-lnk" data-owner="kompositor" data-state="closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/></svg><span>Source closed</span></span>
-  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div></div>
+  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div>
+  <p class="th-note">Hover a Linked badge for its tip. The default tip is <q>Linked to DIMENSOR. Updates when you ask</q> (7 words). An app whose badge can be dragged onto an image slot sets <code>dragHint: true</code> and the tip is <q>Linked to DIMENSOR. Drag onto an image slot to copy it there</q> (12 words). A tip description is 12 words at most, so neither is longer; an app without the drag never shows the hint.</p></div>
 <div class="spec-group"><div class="spec-caption">Link light · v0.26.0 · app/link.css</div>
   <div class="sp-demo"><span class="vk-link" style="margin-left:0"><span class="vk-link__mark is-self" data-app="processor">P</span><button type="button" class="vk-link__mark is-linked" data-app="kompositor">K</button><span class="vk-link__mark is-absent" data-app="dimensor">D</span></span></div></div>
 <section class="spec-layer" data-layer="app">

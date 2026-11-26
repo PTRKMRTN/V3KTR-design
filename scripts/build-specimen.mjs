@@ -8,6 +8,9 @@ const root = new URL('../', import.meta.url);
 const read = (p) => (existsSync(new URL(p, root)) ? readFileSync(new URL(p, root), 'utf8') : '');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+const { badgeOf } = await import(new URL('interactions/link-badge.js', root).href);
+const tipPlain = badgeOf({ ownerApp: 'dimensor', policy: 'onRequest' }).desc, tipDrag = badgeOf({ ownerApp: 'dimensor', policy: 'onRequest', dragHint: true }).desc;
+const words = (s) => s.split(' ').length;
 const core = read('tokens.css');
 const version = core.match(/v(\d+\.\d+\.\d+)/)[1];
 
@@ -68,11 +71,13 @@ const compHtml = `
   </div>
   <p class="th-note">Each scroll area sits 22px in from its frame, so content never scrolls into a line. Separators sit on the frame edge, inset 22px along their length, and touch nothing. Fades show more past an edge (top once scrolled). The square on the vertical line is the optional resize grip.</p></div>
 <div class="spec-group"><div class="spec-caption">Linked-asset badge · v0.28.0 · app/link-badge.css · owner colour</div>
-  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <div class="sp-demo"><span class="vk-lnk" data-owner="dimensor" data-state="linked" data-tip="Linked" data-tip-desc="${tipPlain}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked</span></span>
+  <span class="vk-lnk" data-owner="processor" data-state="linked" data-tip="Linked" data-tip-desc="${badgeOf({ ownerApp: 'processor', dragHint: true }).desc}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Linked, draggable</span></span>
   <button type="button" class="vk-lnk" data-owner="dimensor" data-state="update"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Update available</span></button>
   <span class="vk-lnk" data-owner="processor" data-state="stale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/></svg><span>Source not responding</span></span>
   <span class="vk-lnk" data-owner="kompositor" data-state="closed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.660 0l3-3a4 4 0 00-5.660-5.660l-1 1"/><path d="M14 10a4 4 0 00-5.660 0l-3 3a4 4 0 005.660 5.660l1-1"/><path d="M4 4l16 16"/></svg><span>Source closed</span></span>
-  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div></div>
+  <span class="vk-lnk" data-owner="dimensor" data-state="frozen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="9"/><path d="M8.500 11V8a3.500 3.500 0 017 0v3"/></svg><span>Frozen</span></span></div>
+  <p class="th-note">Hover a Linked badge for its tip. The default tip is <q>${esc(tipPlain)}</q> (${words(tipPlain)} words). An app whose badge can be dragged onto an image slot sets <code>dragHint: true</code> and the tip is <q>${esc(tipDrag)}</q> (${words(tipDrag)} words). A tip description is 12 words at most, so neither is longer; an app without the drag never shows the hint.</p></div>
 <div class="spec-group"><div class="spec-caption">Link light · v0.26.0 · app/link.css</div>
   <div class="sp-demo"><span class="vk-link" style="margin-left:0"><span class="vk-link__mark is-self" data-app="processor">P</span><button type="button" class="vk-link__mark is-linked" data-app="kompositor">K</button><span class="vk-link__mark is-absent" data-app="dimensor">D</span></span></div></div>
 `;

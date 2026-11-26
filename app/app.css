@@ -1,4 +1,4 @@
-/* V3KTR app layer · v0.41.180 · requires tokens.css (core)
+/* V3KTR app layer · v0.41.181 · requires tokens.css (core)
    Reference CSS for app chrome (KOMPOSITOR, DIMENSOR, specimen), generalised from the live
    PROCESSOR <style> block. Every value below is PROCESSOR's own; each rule names its source.
    Colours, fonts and row height come from core tokens only. Values the core lacks are declared
@@ -549,6 +549,7 @@ input,textarea,[contenteditable],[contenteditable] *,.vk-input,.vk-input--inline
 .vk-modal__list .vk-row.is-selected,.vk-modal__list .vk-row[aria-selected="true"]{background:color-mix(in srgb,var(--accent) var(--tint-sel),var(--bg-2));}   /* the system selected look, over --bg-2: white on it is 4.86:1 at worst; over --bg-3 it measured 4.30:1, under AA */
 /* A short note at the right end of a row ("has an image", "no image"): 11px, --tx-2-hi, never wraps; white on a selected row like everything else on it. */
 .vk-row__note{margin-left:auto;flex:none;padding-left:8px;font-size:11px;color:var(--tx-2-hi);white-space:nowrap;}
+.vk-modal__list .vk-row:hover .vk-row__note,.vk-modal__list .vk-row.is-hover .vk-row__note{color:var(--tx-1);}   /* the hover tint is lighter than --bg-3: --tx-2-hi falls to 3.78 to 4.11:1 on it, --tx-1 is 5.8 to 6.3:1 */
 .vk-row.is-selected .vk-row__note,.vk-row[aria-selected="true"] .vk-row__note{color:var(--tx-0);}
 /* A tall dialog (v0.41.152, DIMENSOR's Import SVG with a preview is 728px): a modal never runs past the window. It is at most the window height less 22px
    above and below. Wrap everything between the title and the actions in .vk-modal__body (add .vk-scrollbar for the house bar): the body scrolls and the

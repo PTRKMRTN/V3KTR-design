@@ -1,6 +1,6 @@
-// node test/dialog-lists.test.mjs: v0.41.180, PROCESSOR's "Use in an FX" dialog: the pick list inside a dialog (.vk-modal__list), the row note (.vk-row__note),
+// node test/dialog-lists.test.mjs: v0.41.180 and v0.41.181, PROCESSOR's "Use in an FX" dialog: the pick list inside a dialog (.vk-modal__list), the row note (.vk-row__note),
 // three actions at the narrowest dialog (.vk-modal__actions wraps), and the Linked badge's drag hint. Real CSS (dist/app.css), real clicks, Edge.
-// Negative controls: without the list rule a row is invisible against the dialog; without flex-wrap three actions overflow at 300px.
+// Negative controls: without the list rule a row is invisible against the dialog; without flex-wrap three actions overflow at 300px; without the hover rule the note on a hovered row is under AA.
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,7 +13,7 @@ const noList = css.replace(/\.vk-modal__list \.vk-row\{background:var\(--bg-3\);
 const noWrap = css.replace('.vk-modal__actions{display:flex;flex-wrap:wrap;', '.vk-modal__actions{display:flex;');
 assert.ok(noList.length < css.length && noWrap.length < css.length, 'the negative controls really removed their rule');
 const acts = '<div class="vk-modal__actions"><button class="vk-btn">Keep mine</button><button class="vk-btn">Use in an FX…</button><button class="vk-btn vk-btn--primary">Replace</button></div>';
-const page = (c) => `<!doctype html><meta charset=utf-8><style>${c}</style><body data-app="processor" style="margin:0;background:#161616;font:var(--fs-body)/1.35 var(--sans);color:var(--tx-1)">
+const page = (c, app = 'processor') => `<!doctype html><meta charset=utf-8><style>${c}</style><body data-app="${app}" style="margin:0;background:#161616;font:var(--fs-body)/1.35 var(--sans);color:var(--tx-1)">
 <div class="vk-modal" id="m1" style="width:390px"><div class="vk-modal__title">Use in an FX</div><div class="vk-modal__msg">Pick the image slot to fill with it.</div>
 <div class="vk-modal__list" id="list"><div class="vk-row is-selected" id="r1"><span class="vk-row__label">Image · Image</span><span class="vk-row__note" id="n1">has an image</span></div><div class="vk-row" id="r2"><span class="vk-row__label">Pattern · Stamp Image</span><span class="vk-row__note" id="n2">no image</span></div></div>
 <div class="vk-modal__actions"><button class="vk-btn">Back</button></div></div>
@@ -21,7 +21,7 @@ const page = (c) => `<!doctype html><meta charset=utf-8><style>${c}</style><body
 <div class="vk-modal" id="narrow" style="width:300px;min-width:300px"><div class="vk-modal__title">Image</div><div class="vk-modal__msg">Replace it?</div>${acts}</div>`;
 const b = await chromium.launch({ channel: 'msedge' });
 let n = 0; const ok = (c, m) => { assert.ok(c, m); n++; };
-const open = async (c = css) => { const p = await b.newPage({ viewport: { width: 700, height: 900 } }); await p.setContent(page(c)); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200); return p; };
+const open = async (c = css, app = 'processor') => { const p = await b.newPage({ viewport: { width: 700, height: 900 } }); await p.setContent(page(c, app)); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200); return p; };
 const luma = (rgb) => { const sc = /^color\(/.test(rgb) ? 255 : 1; const [r, g, bl] = rgb.match(/[\d.]+/g).slice(0, 3).map((v) => Number(v) * sc).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * bl; };
 const cr = (a, c) => { const [x, y] = [luma(a), luma(c)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
 try {
@@ -52,9 +52,26 @@ try {
   ok(bad, 'NEGATIVE CONTROL: without the list rule a row is the same colour as the dialog (invisible until hovered)');
   const w = await open(noWrap); const ov = await w.evaluate(() => { const a = document.querySelector('#narrow .vk-modal__actions').getBoundingClientRect(); return [...document.querySelectorAll('#narrow .vk-modal__actions .vk-btn')].some((e) => e.getBoundingClientRect().left < a.left + 18 - 0.5); }); await w.close();
   ok(ov, 'NEGATIVE CONTROL: without flex-wrap the three actions run past the dialog padding at 300px');
-  // the badge tip
-  const L = badgeOf({ ownerApp: 'dimensor', policy: 'onRequest' }).desc, L2 = badgeOf({ ownerApp: 'dimensor', policy: 'live', dragHint: false }).desc;
-  ok(/Drag onto an image slot to copy it there$/.test(L) && L.split(' ').length <= 16, `a Linked badge's tip carries the drag hint (${L})`);
-  ok(!/Drag/.test(L2) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', state: 'frozen' }).desc) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', via: 'file' }).desc), 'dragHint:false and the other states carry no hint');
+  // the note on a hovered row: AA (4.5:1) on all four app colours; the negative control drops the hover rule
+  const HOVER = '.vk-modal__list .vk-row:hover .vk-row__note,.vk-modal__list .vk-row.is-hover .vk-row__note{color:var(--tx-1);}'; const noHover = css.replace(HOVER, '');
+  assert.ok(noHover.length < css.length, 'the hover negative control really removed its rule');
+  const hoverRatio = async (c, app) => { const q = await open(c, app); await q.hover('#r2'); await q.waitForTimeout(150); const v = await q.evaluate(() => ({ fg: getComputedStyle(document.getElementById('n2')).color, bg: getComputedStyle(document.getElementById('r2')).backgroundColor })); await q.close(); return cr(v.fg, v.bg); };
+  const worst = []; for (const app of ['processor', 'kompositor', 'dimensor', 'inceptor']) { const r = await hoverRatio(css, app); worst.push(r); ok(r >= 4.5, `the note on a hovered row reads at AA in ${app} (${r.toFixed(2)}:1)`); }
+  const bare = await hoverRatio(noHover, 'processor');
+  ok(bare < 4.5, `NEGATIVE CONTROL: without the hover rule the note on a hovered row is under AA in processor (${bare.toFixed(2)}:1)`);
+  // the note sits at least 16px from the label (the row's 8px gap plus the note's 8px)
+  const p3 = await open(); const gap = await p3.evaluate(() => document.getElementById('n2').getBoundingClientRect().left - document.querySelector('#r2 .vk-row__label').getBoundingClientRect().right); await p3.close();
+  ok(gap >= 16, `the note is at least 16px from the label's right edge when the label is short (${Math.round(gap)}px: the margin-left:auto pushes it further)`);
+  // the badge tip: 12 words at most, the drag hint is opt-in
+  const words = (t) => t.split(' ').length;
+  const plain = badgeOf({ ownerApp: 'dimensor', policy: 'onRequest' }).desc, live = badgeOf({ ownerApp: 'dimensor', policy: 'live' }).desc;
+  const drag = badgeOf({ ownerApp: 'dimensor', policy: 'onRequest', dragHint: true }).desc, dragLive = badgeOf({ ownerApp: 'dimensor', policy: 'live', dragHint: true }).desc;
+  ok(drag === 'Linked to DIMENSOR. Drag onto an image slot to copy it there' && words(drag) <= 12 && words(dragLive) <= 12 && dragLive === drag, `with dragHint: true the tip is the 12-word hint (${drag}: ${words(drag)} words, the same for both policies)`);
+  ok(words(plain) <= 12 && words(live) <= 12 && !/Drag/.test(plain) && !/Drag/.test(live), `by default there is no hint, so an app without the drag never promises it (${plain}; ${live})`);
+  ok(!/Drag/.test(badgeOf({ ownerApp: 'dimensor', policy: 'live', dragHint: false }).desc), 'dragHint: false is the same as the default');
+  ok(!/Drag/.test(badgeOf({ ownerApp: 'dimensor', state: 'frozen', dragHint: true }).desc) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', via: 'file', dragHint: true }).desc) && !/Drag/.test(badgeOf({ ownerApp: 'dimensor', state: 'sourceClosed', dragHint: true }).desc), 'the other states carry no hint even with dragHint: true');
+  // NEGATIVE CONTROL for the default: the old behaviour (hint on unless false) would have put the hint on a plain record
+  const oldDefault = (rec) => (rec.dragHint === false ? 'plain' : 'Drag onto an image slot');
+  ok(/Drag/.test(oldDefault({ ownerApp: 'dimensor' })) && !/Drag/.test(plain), 'NEGATIVE CONTROL: an on-by-default hint would show on a plain record; the shipped default does not');
   console.log(`dialog-lists: ${n} checks passed`);
 } finally { await b.close(); }

@@ -49,7 +49,9 @@ export function badgeOf(rec = {}) {
   if (rec.notResponding) return { state: 'stale', word: 'Source not responding', desc: "The source app is open but isn't answering. Try again, or check it." };
   if (rec.state === 'updateAvailable' && rec.policy !== 'manual') return { state: 'update', word: 'Update available', desc: `${app} has a newer version. Click to use it` };
   if (rec.via === 'file') return { state: 'file', word: 'Sent as files', desc: 'This asset came in as files, not as a live link.' };
-  return { state: 'linked', word: 'Linked', desc: `Linked to ${app}. ${rec.policy === 'live' ? 'Updates as it changes' : 'Updates when you ask'}${rec.dragHint === false ? '' : '. Drag onto an image slot to copy it there'}` };
+  // 12 words or fewer. An app whose badge can be dragged onto an image slot passes dragHint: true; the default tip never promises a drag.
+  if (rec.dragHint === true) return { state: 'linked', word: 'Linked', desc: `Linked to ${app}. Drag onto an image slot to copy it there` };
+  return { state: 'linked', word: 'Linked', desc: `Linked to ${app}. ${rec.policy === 'live' ? 'Updates as it changes' : 'Updates when you ask'}` };
 }
 
 const ICON = { linked: 'link', update: 'link', stale: 'link', closed: 'unlink', frozen: 'lock', file: 'doc' };
