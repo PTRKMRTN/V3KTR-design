@@ -9,20 +9,21 @@ Faces are served `immutable` for a year, so `v1/files/...` never changes in plac
 
 ## CORS (step 4)
 - Dashboard: paste `cors-dashboard.json` (the S3-style array).
-- Command line: `npx wrangler r2 bucket cors set v3ktr-fonts --file cors-wrangler.json` (the `{"rules": [...]}` shape Cloudflare documents for that command; not tried against the live bucket from here).
+- Command line: `npx wrangler r2 bucket cors set v3ktr-fonts --file cors-wrangler.json` (the `{"rules": [...]}` shape Cloudflare documents for that command; **it took on the live bucket, 2026-11-27**).
 - Then `npx wrangler r2 bucket cors list v3ktr-fonts` and keep the output: it is the proof the policy took.
 
-## Headers (step 5): two Transform Rules, scoped
-1. **All paths on `fonts.v3ktr.com`:** `Cross-Origin-Resource-Policy: cross-origin` (KOMPOSITOR is cross-origin isolated).
-2. **Only** `starts_with(http.request.uri.path, "/v1/files/")` or `starts_with(http.request.uri.path, "/v1/licences/")`: `Cache-Control: public, max-age=31536000, immutable`.
-   A rule for the whole hostname would make `catalogue.json` and `NOTICE.txt` immutable for a year as well, and the catalogue is the file that changes when a family is added.
-3. **catalogue.json and NOTICE.txt:** set per object at upload, `--cache-control "public, max-age=3600"`:
-   `npx wrangler r2 object put v3ktr-fonts/v1/catalogue.json --file <folder>/v1/catalogue.json --content-type application/json --cache-control "public, max-age=3600"`
-   (the same for `v1/NOTICE.txt` with `--content-type "text/plain; charset=utf-8"`).
+## Headers: set per object at upload (as done on the live bucket, 2026-11-27)
+R2 does not read a `_headers` file, and the wrangler login that set the bucket up can read zones but not make Transform Rules, so **every object carries its own `Cache-Control`, set at upload** (`npx wrangler r2 object put v3ktr-fonts/<path> --file <file> --content-type <type> --cache-control "<value>"`):
+- **Faces under `v1/files/` and licences under `v1/licences/`:** `--cache-control "public, max-age=31536000, immutable"`.
+- **`v1/catalogue.json` and `v1/NOTICE.txt`:** `--cache-control "public, max-age=3600"` (the catalogue is the file that changes when a family is added, so it must not be immutable).
+  `npx wrangler r2 object put v3ktr-fonts/v1/catalogue.json --file <folder>/v1/catalogue.json --content-type application/json --cache-control "public, max-age=3600"`
+  (the same for `v1/NOTICE.txt` with `--content-type "text/plain; charset=utf-8"`).
+- **`Cross-Origin-Resource-Policy` is not set, on purpose.** Measured on the live host in headless Edge on a page that is cross-origin isolated (COOP same-origin, COEP require-corp): a `FontFace` load of a face and the catalogue fetch both work, because the CORS header satisfies COEP; a no-cors fetch of the same face is blocked (`ERR_BLOCKED_BY_RESPONSE`). So CORP only matters to an app that loads these files **without CORS** (a plain `<img>`-style or no-cors fetch). Every consumer here uses `FontFace` or `fetch` with CORS. If one ever needs no-cors loading, add one Transform Rule for the hostname: `Cross-Origin-Resource-Policy: cross-origin`.
+- If Transform Rules are ever used for the cache instead, the `immutable` rule must be scoped to `starts_with(http.request.uri.path, "/v1/files/")` or `"/v1/licences/"` only: a rule for the whole hostname would make `catalogue.json` and `NOTICE.txt` immutable for a year as well. The build's `_headers` file is for a host that reads one (Cloudflare Pages or a Worker), not for the R2 custom domain.
 
 ## Upload content types
 `.woff2` as `font/woff2`, `.ttf` (Roboto Flex and Darktech LDR) as `font/ttf`, licences as `text/plain; charset=utf-8`.
 
 ## Check after upload
-`curl -sI https://fonts.v3ktr.com/v1/catalogue.json` shows one `cache-control` of 3600; a face under `/v1/files/` shows the immutable one; both carry `access-control-allow-origin` and `cross-origin-resource-policy`.
-The one-cache-across-the-apps check (Chromium keys its HTTP cache by top-level site, and the four apps share `v3ktr.com`) is made once the host exists, not assumed.
+`curl -sI https://fonts.v3ktr.com/v1/catalogue.json` shows one `cache-control` of 3600; a licence under `/v1/licences/` or a face under `/v1/files/` shows the immutable one; all carry `access-control-allow-origin: *` and expose `Content-Length` and `ETag`. Confirmed on the live host on 2026-11-27 (catalogue and NOTICE 3600, licence immutable).
+The one-cache-across-the-apps check (Chromium keys its HTTP cache by top-level site, and the four apps share `v3ktr.com`) is made now that the host exists, not assumed.
