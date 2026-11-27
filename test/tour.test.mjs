@@ -26,19 +26,19 @@ const full = tokens + themes + app, noTok = full.replace(/--tour-hi:[^;]*;\s*--t
 assert.ok(noTok.length < full.length, 'the negative control really removed the token');
 const b = await chromium.launch({ channel: 'msedge' });
 let n = 0; const ok = (c, m) => { assert.ok(c, m); n++; };
-const open = async (css = full, o = {}) => { const p = await b.newPage({ viewport: { width: 1920, height: 1080 }, reducedMotion: o.reduced ? 'reduce' : 'no-preference' }); await p.setContent(page(css, o.zones, o.js)); await p.waitForTimeout(300); return p; };
+const open = async (css = full, o = {}) => { const p = await b.newPage({ viewport: { width: 1920, height: 1080 }, reducedMotion: o.reduced ? 'reduce' : 'no-preference' }); if (o.route) await o.route(p); await p.setContent(page(css, o.zones, o.js), { waitUntil: o.route ? 'domcontentloaded' : 'load' }); await p.waitForTimeout(300); return p; };
 const st = (p) => p.evaluate(() => ({ s: __t.state(), count: document.querySelector('.vk-tour__n').textContent, name: document.querySelector('.vk-tour__name').textContent, focus: document.activeElement.dataset.tour || document.activeElement.id, back: document.querySelector('[data-tour=back]').disabled, next: document.querySelector('[data-tour=next]').disabled }));
 // a step may name its own picture (v0.41.196): steps 1-3 share the page's picture, step 4 (the Sequencer) has its own at its own size, step 5 shares it again
 const svgOf = (c, w, h) => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><rect width="' + w + '" height="' + h + '" fill="' + c + '"/></svg>');
 const SEQ = svgOf('#a04040', 1920, 1080), SEQ2 = svgOf('#40a040', 1280, 720);
-const PZ = [{ name: 'Viewport', line: 'a', rect: [22, 97, 1076, 517] }, { name: 'Timeline', line: 'b', rect: [4, 624, 1912, 412] }, { name: 'Sequencer', line: 'c', rect: [100, 80, 960, 540], src: SEQ },
-  { name: 'Steps', line: 'd', rect: [640, 360, 320, 180], src: SEQ2, size: [1280, 720] }, { name: 'Inspector', line: 'e', rect: [1620, 45, 300, 576] }];
+const PZ = [{ name: 'Viewport', line: 'a', rect: [22, 97, 1076, 517] }, { name: 'Timeline', line: 'b', rect: [4, 624, 1912, 412] }, { name: 'Sequencer', line: 'c', rect: [100, 80, 960, 540], shot: SEQ },
+  { name: 'Steps', line: 'd', rect: [640, 360, 320, 180], shot: SEQ2, size: [1280, 720] }, { name: 'Inspector', line: 'e', rect: [1620, 45, 300, 576] }];
 const pic = (p) => p.evaluate(() => document.querySelector('.vk-tour__stage > img').getAttribute('src'));
 const geo = (p) => p.evaluate(() => { const b = document.querySelector('.vk-tour__box').getBoundingClientRect(), s = document.querySelector('.vk-tour__stage').getBoundingClientRect(); return [(b.left - s.left) / s.width, (b.top - s.top) / s.height, b.width / s.width, b.height / s.height]; });
 const near = (a, w, h, tol = 0.004) => a.every((v, k) => Math.abs(v - [w[0] / h[0], w[1] / h[1], w[2] / h[0], w[3] / h[1]][k]) <= tol);
 async function pictures(js, label) {
   const p = await open(full, { zones: PZ, js }); const base = await pic(p); const bad = [];
-  await p.click('[data-tour=next]'); await p.waitForTimeout(350); if (await pic(p) !== base) bad.push('a step without src keeps the shared picture');
+  await p.click('[data-tour=next]'); await p.waitForTimeout(350); if (await pic(p) !== base) bad.push('a step without shot keeps the shared picture');
   await p.click('[data-tour=next]'); await p.waitForTimeout(40); const mid = await geo(p); // right after the picture swap
   if (await pic(p) !== SEQ) bad.push('step 3 shows its own picture');
   if (!near(mid, PZ[2].rect, [1920, 1080])) bad.push('on a picture change the box jumps to its rect, it does not glide (' + mid.map((v) => v.toFixed(3)) + ')');
@@ -47,7 +47,7 @@ async function pictures(js, label) {
   if (await pic(p) !== SEQ2) bad.push('step 4 shows its own picture');
   if (!near(mid2, PZ[3].rect, [1280, 720])) bad.push('step 4 places the box in its own picture\'s pixels (' + mid2.map((v) => v.toFixed(3)) + ')');
   await p.waitForTimeout(350); await p.click('[data-tour=next]'); await p.waitForTimeout(350);
-  if (await pic(p) !== base) bad.push('a later step without src goes back to the shared picture');
+  if (await pic(p) !== base) bad.push('a later step without shot goes back to the shared picture');
   if (!near(await geo(p), PZ[4].rect, [1920, 1080])) bad.push('and the box is placed in the shared picture\'s pixels again');
   await p.click('[data-tour=back]'); await p.waitForTimeout(350); if (await pic(p) !== SEQ2) bad.push('Back returns to the step\'s own picture');
   const imgs = await p.evaluate(() => window.__imgs.map((i) => i.getAttribute('src')));
@@ -58,15 +58,31 @@ async function inside(js) { // a move inside one picture still glides
   const p = await open(full, { zones: PZ, js }); await p.click('[data-tour=next]'); await p.waitForTimeout(60); const g = await geo(p); await p.close();
   return !near(g, PZ[1].rect, [1920, 1080], 0.01);
 }
+// a slow picture: the step shows its caption at once, but the picture and the box wait for it together (the box hidden meanwhile), then arrive together
+const SLOW = 'http://tour.test/slow.svg', SZ = [{ name: 'Viewport', line: 'a', rect: [22, 97, 1076, 517] }, { name: 'Sequencer', line: 'c', rect: [100, 80, 960, 540], shot: SLOW }];
+async function slow(js) {
+  const p = await open(full, { zones: SZ, js, route: (pg) => pg.route(SLOW, async (r) => { await new Promise((k) => setTimeout(k, 1500)); await r.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="1920" height="1080" fill="#a04040"/></svg>' }); }) });
+  const base = await pic(p), bad = []; await p.click('[data-tour=next]'); await p.waitForTimeout(80);
+  const early = await p.evaluate(() => ({ vis: getComputedStyle(document.querySelector('.vk-tour__box')).visibility, name: document.querySelector('.vk-tour__name').textContent }));
+  if (early.name !== 'Sequencer') bad.push('the caption changes at once (' + early.name + ')');
+  if (await pic(p) !== base) bad.push('the old picture stays while the new one loads');
+  if (early.vis !== 'hidden') bad.push('the box is hidden until the picture is ready (' + early.vis + ')');
+  await p.waitForTimeout(2200);
+  if (await pic(p) !== SLOW) bad.push('the picture arrives'); if (await p.evaluate(() => getComputedStyle(document.querySelector('.vk-tour__box')).visibility) !== 'visible') bad.push('and the box with it');
+  if (!near(await geo(p), SZ[1].rect, [1920, 1080])) bad.push('on its rect');
+  await p.close(); return bad;
+}
 const expectFail = async (name, mut) => { const bad = await pictures(mut(tourJs), name); if (!bad.length) throw new Error('MUTANT SURVIVED: ' + name); n++; };
 const sub = (a, c) => (j) => { if (!j.includes(a)) throw new Error('mutation changed nothing: ' + a.slice(0, 60)); return j.replace(a, () => c); };
 try {
   { const bad = await pictures(tourJs); ok(!bad.length, 'step pictures: ' + bad.join('; ')); ok(await inside(tourJs), 'a move inside one picture still glides');
+    { const bad = await slow(tourJs); ok(!bad.length, 'a slow picture: ' + bad.join('; '));
+      const m = await slow(sub("box.style.visibility = 'hidden'; ", '')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: the box not hidden while the picture loads'); }
     await expectFail('the picture is never swapped', sub("stageImg.setAttribute('src', pic);", ''));
     await expectFail('the box glides across a picture change', sub("box.style.transition = 'none';", ''));
-    await expectFail('the step pictures are not preloaded', sub("im.src = u; return im;", 'return im;'));
+    await expectFail('the step pictures are not preloaded', sub('im.src = z.shot;', ''));
     await expectFail('a step\'s own size is ignored', sub('sz = z.size || size', 'sz = size'));
-    await expectFail('a step without src keeps the last step\'s picture', sub('pic = z.src || baseSrc', 'pic = z.src || shown')); }
+    await expectFail('a step without shot keeps the last step\'s picture', sub('pic = z.shot || baseSrc', 'pic = z.shot || shown')); }
   { const p = await open(); let u = await st(p);
     ok(u.count === '1 / 6' && u.name === 'Viewport' && u.back && !u.next && u.focus === 'next', 'opens on step 1 with focus on Next and Back off');
     for (let i = 1; i < 6; i++) {
