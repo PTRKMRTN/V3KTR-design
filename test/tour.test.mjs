@@ -72,6 +72,22 @@ async function slow(js) {
   if (!near(await geo(p), SZ[1].rect, [1920, 1080])) bad.push('on its rect');
   await p.close(); return bad;
 }
+// Back before a slow picture arrives, and a picture whose request is aborted (v0.41.196)
+const SZ3 = [...SZ, { name: 'Inspector', line: 'e', rect: [1620, 45, 300, 576] }];
+const SVGBODY = '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="1920" height="1080" fill="#a04040"/></svg>';
+async function away(js) { // Next onto the slow step, Back before it arrives: the earlier step stays, picture, box and caption
+  const p = await open(full, { zones: SZ3, js, route: (pg) => pg.route(SLOW, async (r) => { await new Promise((k) => setTimeout(k, 1500)); await r.fulfill({ contentType: 'image/svg+xml', body: SVGBODY }); }) });
+  const base = await pic(p), bad = []; await p.click('[data-tour=next]'); await p.waitForTimeout(80); await p.click('[data-tour=back]'); await p.waitForTimeout(2200);
+  const u = await st(p); if (u.s.step !== 0 || u.name !== 'Viewport') bad.push('Back before the picture arrives stays on step 1 (' + u.s.step + ', ' + u.name + ')');
+  if (await pic(p) !== base) bad.push('the earlier step keeps its own picture'); if (!near(await geo(p), SZ[0].rect, [1920, 1080])) bad.push('and its box');
+  await p.close(); return bad;
+}
+async function aborted(js) { // the picture's request fails while the step waits for it (a late failure): the step moves on, the box is on its rect and Next still works
+  const p = await open(full, { zones: SZ3, js, route: (pg) => pg.route(SLOW, async (r) => { await new Promise((k) => setTimeout(k, 1500)); await r.abort(); }) }), bad = []; await p.click('[data-tour=next]'); await p.waitForTimeout(2200);
+  if ((await st(p)).s.step !== 1 || !near(await geo(p), SZ[1].rect, [1920, 1080])) bad.push('an aborted picture still moves the step on, box on its rect');
+  await p.click('[data-tour=next]'); await p.waitForTimeout(350); if ((await st(p)).s.step !== 2) bad.push('and Next works');
+  await p.close(); return bad;
+}
 const expectFail = async (name, mut) => { const bad = await pictures(mut(tourJs), name); if (!bad.length) throw new Error('MUTANT SURVIVED: ' + name); n++; };
 const sub = (a, c) => (j) => { if (!j.includes(a)) throw new Error('mutation changed nothing: ' + a.slice(0, 60)); return j.replace(a, () => c); };
 try {
@@ -79,6 +95,8 @@ try {
     { const bad = await slow(tourJs); ok(!bad.length, 'a slow picture: ' + bad.join('; '));
       const m = await slow(sub('if (step === i0) show(i0);', '')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: a slow picture never arrives');
       const m2 = await slow(sub('(im.onload = im.onerror = go)); return; }', '(im.onload = im.onerror = go)); }')(tourJs)); ok(m2.length > 0, 'MUTANT CAUGHT: the box moves before a slow picture is ready');
+      { const bad = await away(tourJs); ok(!bad.length, 'Back while loading: ' + bad.join('; ')); const m = await away(sub('if (step === i0) show(i0);', 'show(i0);')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: a late picture drags the tour back to its step'); }
+      { const bad = await aborted(tourJs); ok(!bad.length, 'an aborted picture: ' + bad.join('; ')); const m = await aborted(sub('im.decode().then(go, go)', 'im.decode().then(go)')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: a failed picture strands the step'); }
       { const p = await open(full, { zones: SZ, js: tourJs, route: (pg) => pg.route(SLOW, (r) => r.fulfill({ status: 404, body: 'no' })) }); await p.click('[data-tour=next]'); await p.waitForTimeout(500);
         ok((await st(p)).s.step === 1 && near(await geo(p), SZ[1].rect, [1920, 1080]), 'a picture that fails to load does not strand the step: it moves on'); await p.close(); } }
     await expectFail('the picture is never swapped', sub("stageImg.setAttribute('src', pic);", ''));
