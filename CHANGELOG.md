@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.194 (2026-11-27)
+
+Credits that travel between apps (REQ-DS-credits-wire-r1/r2/r3; the asset-alignment session's Livelink credits convention, COWORK `reports/asset-alignment/LIVELINK-CREDITS.md`). Code only: no CSS and nothing on screen changes.
+- **`interactions/licence.js` gains three wire helpers.** `cleanCredits(list, { max, maxLen })` makes a credit list from outside (a Livelink message, a sidecar, a saved project) safe to keep: not an array gives `[]`, entries `cleanCredit` rejects are dropped, each string is cut to 500 characters (never inside a surrogate pair), repeats of one provider and id are kept once (the first wins), at most 200 entries (`CREDIT_MAX`, `CREDIT_MAX_LEN`); a `max` or `maxLen` that is not a finite number is the default. `mergeCredits(...lists)` is the union of several lists (arrays only), within the same limits, for items sent on that hold received ones. `creditListed(licence)` is what a sender lists: licences that ask for credit (CC BY, with NC and Share-Alike) and unknown ones, exactly what `creditsText` lists; OFL, MIT, ISC, Apache, CC0, PDM and V3KTR content are not. The rule goes by licence, never by kind of item: a CC BY or CC BY-SA font is listed.
+- **`test/licence.test.mjs`:** 14 more mutants, all caught; three mutants whose target text had gone were re-anchored, and `expectFail` now fails the run when a mutation changes nothing (a stale anchor can no longer count as a catch).
+- **`font-library/HOSTING.md`** matches the live `fonts.v3ktr.com`: headers are set per object at upload, the CORS shape took on the live bucket, and `Cross-Origin-Resource-Policy` is deliberately unset (a cross-origin-isolated page loads the faces through `FontFace` and `fetch` with CORS; only a no-cors load is blocked).
+
 ## 0.41.193 (2026-11-27)
 
 INCEPTOR rail icons, batch 6 of 7 (`REQ-DS-inceptor-rail-icons-6`, QA PASS r3; Patrick approved all thirteen and the Square grid reuse on card `DS-inceptor-rail-icons-6`, 2026-11-27). Icons only; no CSS or behaviour change.
