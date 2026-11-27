@@ -2,6 +2,15 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.195 (2026-11-27)
+
+The asset browser shell as a pullable component, licence tags, the credit line and the Licences dialog (REQ-DS-asset-browser-r1/r2; fonts and licence brief 1.2 to 1.4). Nothing changes in any app until it moves onto the new classes.
+- **`app/asset-browser.css`, one class family `.vk-ab*`** (in `dist/app.css`), lifted from KOMPOSITOR's Sounds browser (`.snd-xl*`) and INCEPTOR's Font browser and Library (`.in-fonts*`): the shell (a filters column and the results in two `.vk-frame`s), the head (kind tabs with Collapse, search, preview text, summary), the column header, rows (34px; 44px for a specimen row whose preview is the item in its own typeface; 4px apart; one `--ab-cols` grid for the header and every row), the foot (the selected item, its styles, Use). A selected row and a hovered item in use print `--tx-0` (AA in all four app themes). The font picker is this shell with a Fonts tab; the apps keep their own logic inside it.
+- **Licence tags:** `.vk-tag--lic` (neutral) and `.vk-tag--lic.vk-tag--nc` (caution, for a licence that limits use); the word is always printed. **Credit line:** `.vk-store-detail__credit`. **Help ▸ Licences:** `.vk-licences` / `.vk-lic` (a set per row with its tag and a "Licence text" that opens `.vk-lic__text`).
+- **The Library menu** is documented in AGENTS.md: one plain item beside the link light, `Mod+Shift+L`, no drop-down, no icon.
+- Specimen group "Asset browser" (five entries); `node test/asset-browser.test.mjs` (18 mutants caught, runs on CRLF checkouts).
+- KOMPOSITOR's 20px Sounds rows stay local until its adoption REQ moves them to the rule's 34px.
+
 ## 0.41.194 (2026-11-27)
 
 Credits that travel between apps (REQ-DS-credits-wire-r1/r2/r3; the asset-alignment session's Livelink credits convention, COWORK `reports/asset-alignment/LIVELINK-CREDITS.md`). Code only: no CSS and nothing on screen changes.
