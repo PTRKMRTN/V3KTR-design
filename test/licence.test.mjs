@@ -80,6 +80,24 @@ function licenceChecks(L) {
   assert.equal(L.creditsText(weird).split('\n').length, 2, 'unknown licences are listed: one line too many is better than one missing');
   assert.equal(L.cleanCredit({ provider: 'p', id: 'nolic', title: 'No licence' }), null, 'a record with an id and no licence is dropped');
   assert.equal(L.creditsText([]), ''); assert.equal(L.creditsText([{ provider: 'f', id: 'i', title: 'I', licence: 'OFL-1.1' }]), '');
+  // the wire helpers: what a message or sidecar may carry
+  assert.deepEqual(L.cleanCredits(undefined), []); assert.deepEqual(L.cleanCredits('x'), []); assert.deepEqual(L.cleanCredits({ id: 'a', licence: 'by' }), []);
+  assert.deepEqual(L.cleanCredits([r, null, { id: 'x' }, { licence: 'by' }, 5, r]), [L.cleanCredit(r)], 'rejected entries are dropped and a repeat is kept once');
+  { const a = { provider: 'p', id: '1', title: 'A', licence: 'CC-BY-4.0' }, a2 = { ...a, title: 'Other title' };
+    assert.equal(L.cleanCredits([a, a2])[0].title, 'A', 'the first of a repeated provider and id wins'); }
+  { const big = Array.from({ length: 300 }, (_, i) => ({ provider: 'p', id: 'i' + i, title: 'T' + i, licence: 'CC-BY-4.0' }));
+    assert.equal(L.cleanCredits(big).length, 200, 'at most 200 entries'); assert.equal(L.cleanCredits(big)[199].id, 'i199', 'the first 200 are kept, in order');
+    assert.equal(L.cleanCredits(big, { max: 5 }).length, 5); }
+  { const long = 'x'.repeat(900), c = L.cleanCredits([{ provider: 'p', id: 'i', title: long, author: long, licence: 'CC-BY-4.0', url: 'https://e.org/' + long }])[0];
+    assert.equal(c.title.length, 500); assert.equal(c.author.length, 500); assert.equal(c.url.length, 500, 'every string is cut to 500');
+    assert.equal(L.cleanCredits([{ provider: 'p', id: 'i', title: long, licence: 'by' }], { maxLen: 10 })[0].title.length, 10); }
+  assert.deepEqual(L.cleanCredits(L.cleanCredits([r, sh])), L.cleanCredits([r, sh]), 'cleaning twice changes nothing');
+  assert.deepEqual(L.mergeCredits([r], [sh, r], undefined, [{ provider: 'p', id: 'z', title: 'Z', licence: 'CC0' }]).map((c) => c.id), [r.id, sh.id, 'z'], 'the union keeps order and drops repeats');
+  assert.deepEqual(L.mergeCredits(), []);
+  // which licences a sender lists: what creditsText lists, so a CC BY font or icon is in and an OFL font or MIT icon is out
+  for (const [lic, want] of [['CC-BY-4.0', true], ['by-sa', true], ['by-nc', true], ['by-nc-sa', true], ['CC0', false], ['PDM', false], ['OFL-1.1', false], ['MIT', false], ['ISC', false], ['Apache-2.0', false], ['V3KTR', false], ['Custom', true], ['', true]])
+    assert.equal(L.creditListed(lic), want, lic + ' listed: ' + want);
+  for (const lic of ['CC-BY-4.0', 'by-nc', 'CC0', 'OFL-1.1', 'MIT', 'Custom', 'CC BY-SA 3.0']) assert.equal(L.creditsText([{ provider: 'p', id: 'i', title: 'T', licence: lic }]) !== '', L.creditListed(lic), 'creditsText and creditListed agree on ' + lic);
   // the file
   const f = L.creditsFileText([r, { id: 'n', title: 'N', licence: 'by-nc', provider: 'p' }], { name: 'My cut', notes: ['The sounds were cut.'] });
   assert.match(f, /^Credits in "My cut"\n\n"By Pad"/); assert.match(f, /The sounds were cut\./); assert.match(f, /non-commercial use only: this work must stay a personal project\./);
@@ -155,6 +173,14 @@ await lm('a missing version is claimed as 4.0', "version || f.version || '';", "
 await lm('Apache 1.1 is read', 'apache(?:-(2\\.0))?$', 'apache(?:-(\\d\\.\\d))?$');
 await lm('unknown licences are dropped from the credits', 'if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;', 'if (!all && !needsCredit(c.licence)) continue;');
 await lm('credits are not de-duplicated', 'if (seen.has(k)) continue; seen.add(k);', '');
+await lm('credit lists are not capped', 'out.push(c); if (out.length >= max) break;', 'out.push(c);');
+await lm('credit strings are not cut', 'if (c[k].length > maxLen) c[k] = c[k].slice(0, maxLen);', '');
+await lm('credit lists keep repeats', 'if (seen.has(key)) continue; seen.add(key);', '');
+await lm('a non-array credit list is kept', 'if (!Array.isArray(list)) return [];', 'if (!list) return [];');
+await lm('the wire limit is 100', 'CREDIT_MAX = 200', 'CREDIT_MAX = 100');
+await lm('the string limit is 100', 'CREDIT_MAX_LEN = 500', 'CREDIT_MAX_LEN = 100');
+await lm('a sender would drop unknown licences', 'export const creditListed = (licence) => !parse(licence) || needsCredit(licence);', 'export const creditListed = (licence) => needsCredit(licence);');
+await lm('merge drops the second list', 'cleanCredits(lists.flat())', 'cleanCredits(lists[0])');
 
 console.log('online.js');
 await onlineChecks(await load('online.js')); console.log('  checks pass');

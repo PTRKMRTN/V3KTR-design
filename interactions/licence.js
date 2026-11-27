@@ -127,6 +127,33 @@ export function cleanCredit(rec) {
   return r.id && r.licence ? r : null;
 }
 
+/** True when a credit list should carry an item with this licence: the ones that ask for credit (CC BY and the like, NC and Share-Alike included) and the unknown ones, exactly the items `creditsText` lists. Fonts under OFL and code under MIT, ISC or Apache are not listed (Help ▸ Licences); a font or icon under CC BY is. */
+export const creditListed = (licence) => !parse(licence) || needsCredit(licence);
+
+/** The wire limits for credits sent between apps (Livelink `credits`, a sidecar, a pack): at most this many entries, each string at most this long. */
+export const CREDIT_MAX = 200, CREDIT_MAX_LEN = 500;
+
+/**
+ * A credit list from outside (a message, a sidecar, a saved project) made safe to keep: an array of cleaned records, each string cut to
+ * `maxLen` characters, entries `cleanCredit` rejects dropped, de-duplicated by provider and id (the first wins), at most `max` of them.
+ * Anything that is not an array is []. Text only: a url in a record is written into a credits file, never fetched or opened.
+ */
+export function cleanCredits(list, { max = CREDIT_MAX, maxLen = CREDIT_MAX_LEN } = {}) {
+  if (!Array.isArray(list)) return [];
+  const seen = new Set(), out = [];
+  for (const raw of list) {
+    const c = cleanCredit(raw); if (!c) continue;
+    for (const k of Object.keys(c)) if (c[k].length > maxLen) c[k] = c[k].slice(0, maxLen);
+    if (!c.id || !c.licence) continue;
+    const key = `${c.provider}:${c.id}`; if (seen.has(key)) continue; seen.add(key);
+    out.push(c); if (out.length >= max) break;
+  }
+  return out;
+}
+
+/** The credits of several things sent on together (a clip that holds a received icon, a result with a stamp): the union, de-duplicated, within the wire limits. */
+export const mergeCredits = (...lists) => cleanCredits(lists.flat());
+
 /** One credit line: `"Title" by Author, CC BY 4.0 (deed). Source: url`. A licence that needs no credit says so. */
 export function creditLine(c) {
   const p = parse(c.licence), lic = p ? p.label : str(c.licence) || 'Unknown licence';
