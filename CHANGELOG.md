@@ -2,6 +2,13 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.196 (2026-11-27)
+
+The Welcome tour takes a picture per step (KOMPOSITOR's Sequencer lives on the KOMPOSE screen, the rest of the tour on the EDIT one). Nothing changes in an app that does not name a picture.
+- **`interactions/tour.js`: a zone may carry `src` (and `size`).** A step with `src` shows its own picture and places the box in that picture's pixels; a step without one shows the shared picture the markup carries, also when it follows a step with its own. Every named picture is preloaded when the tour opens, so a step never opens on a blank stage; the box jumps when the picture changes and still glides for a move inside one picture. `state()` also returns the picture on show. Still one tour, one count, no new markup or CSS.
+- `node test/tour.test.mjs`: 42 checks, five of them mutants of `tour.js` (picture never swapped, box glides across a swap, no preload, own size ignored, a stepless zone keeps the last picture) that must fail.
+- AGENTS.md "Welcome and tour": the one-picture-per-tab rule now says how.
+
 ## 0.41.195 (2026-11-27)
 
 The asset browser shell as a pullable component, licence tags, the credit line and the Licences dialog (REQ-DS-asset-browser-r1/r2; fonts and licence brief 1.2 to 1.4). Nothing changes in any app until it moves onto the new classes.
