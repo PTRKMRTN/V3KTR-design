@@ -157,7 +157,7 @@ async function onlineChecks(O) {
 }
 
 async function expectFail(name, fn) {
-  let failed = false; try { await fn(); } catch { failed = true; }
+  let failed = false; try { await fn(); } catch (e) { if (/mutation changed nothing/.test(String(e && e.message))) throw e; failed = true; }
   assert.ok(failed, `MUTANT NOT CAUGHT: ${name}`);
   console.log(`  mutant caught: ${name}`);
 }
@@ -171,7 +171,7 @@ await lm('NC shown without the switch', 'if (p.nc && !personal)', 'if (false)');
 await lm('CC0 asks for credit', "cc0: CC('CC0', 'CC0', { credit: false,", "cc0: CC('CC0', 'CC0', { credit: true,");
 await lm('unknown licences are shown', 'if (!p) return { shown: false', 'if (!p) return { shown: true');
 await lm('SPDX ids are not read', "s = s.replace(/^cc-/, '');", '');
-await lm('credits list every item', 'if (!all && !needsCredit(c.licence)) continue;', '');
+await lm('credits list every item', 'if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;', '');
 await lm('PDM asks for credit', "pdm: CC('Public Domain', 'PDM', { credit: false,", "pdm: CC('Public Domain', 'PDM', { credit: true,");
 await lm('ISC asks for credit', "isc: { label: 'ISC', kind: 'code', credit: false", "isc: { label: 'ISC', kind: 'code', credit: true");
 await lm('Apache asks for credit', "apache: { label: 'Apache', kind: 'code', credit: false", "apache: { label: 'Apache', kind: 'code', credit: true");
@@ -182,7 +182,7 @@ await lm('Apache 1.1 is read', 'apache(?:-(2\\.0))?$', 'apache(?:-(\\d\\.\\d))?$
 await lm('unknown licences are dropped from the credits', 'if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;', 'if (!all && !needsCredit(c.licence)) continue;');
 await lm('credits are not de-duplicated', 'if (seen.has(k)) continue; seen.add(k);', '');
 await lm('credit lists are not capped', 'if (out.length >= cap) break;', '');
-await lm('credit strings are not cut', 'if (c[k].length > maxLen) c[k] = c[k].slice(0, maxLen);', '');
+await lm('credit strings are not cut', 'if (c[k].length > cut)', 'if (false)');
 await lm('credit lists keep repeats', 'if (seen.has(key)) continue; seen.add(key);', '');
 await lm('a non-array credit list is kept', 'if (!Array.isArray(list)) return [];', 'if (!list) return [];');
 await lm('the wire limit is 100', 'CREDIT_MAX = 200', 'CREDIT_MAX = 100');
@@ -194,7 +194,7 @@ await lm('a missing cap is a cap of one', ': CREDIT_MAX, cut', ': 1, cut');
 await lm('a NaN string limit turns the cut off', 'Number.isFinite(maxLen) ?', 'true ?');
 await lm('a cut inside an emoji leaves a lone surrogate', ".slice(0, cut).replace(/[\\ud800-\\udbff]$/, '')", '.slice(0, cut)');
 await lm('merge keeps a bare record', 'lists.flatMap((l) => (Array.isArray(l) ? l : []))', 'lists.flat()');
-await lm('merge drops the second list', 'cleanCredits(lists.flat())', 'cleanCredits(lists[0])');
+await lm('merge drops the second list', 'cleanCredits(lists.flatMap((l) => (Array.isArray(l) ? l : [])))', 'cleanCredits(lists[0])');
 
 console.log('online.js');
 await onlineChecks(await load('online.js')); console.log('  checks pass');
