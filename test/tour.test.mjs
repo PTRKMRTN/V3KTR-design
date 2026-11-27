@@ -58,17 +58,17 @@ async function inside(js) { // a move inside one picture still glides
   const p = await open(full, { zones: PZ, js }); await p.click('[data-tour=next]'); await p.waitForTimeout(60); const g = await geo(p); await p.close();
   return !near(g, PZ[1].rect, [1920, 1080], 0.01);
 }
-// a slow picture: the step shows its caption at once, but the picture and the box wait for it together (the box hidden meanwhile), then arrive together
+// a slow picture: the step shows its caption at once, but the old picture keeps its old box until the new picture is ready; then picture and box arrive together
 const SLOW = 'http://tour.test/slow.svg', SZ = [{ name: 'Viewport', line: 'a', rect: [22, 97, 1076, 517] }, { name: 'Sequencer', line: 'c', rect: [100, 80, 960, 540], shot: SLOW }];
 async function slow(js) {
   const p = await open(full, { zones: SZ, js, route: (pg) => pg.route(SLOW, async (r) => { await new Promise((k) => setTimeout(k, 1500)); await r.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="1920" height="1080" fill="#a04040"/></svg>' }); }) });
   const base = await pic(p), bad = []; await p.click('[data-tour=next]'); await p.waitForTimeout(80);
-  const early = await p.evaluate(() => ({ vis: getComputedStyle(document.querySelector('.vk-tour__box')).visibility, name: document.querySelector('.vk-tour__name').textContent }));
+  const early = await p.evaluate(() => ({ name: document.querySelector('.vk-tour__name').textContent })), earlyBox = await geo(p);
   if (early.name !== 'Sequencer') bad.push('the caption changes at once (' + early.name + ')');
   if (await pic(p) !== base) bad.push('the old picture stays while the new one loads');
-  if (early.vis !== 'hidden') bad.push('the box is hidden until the picture is ready (' + early.vis + ')');
+  if (!near(earlyBox, SZ[0].rect, [1920, 1080])) bad.push('the old picture keeps its old box while the new one loads (' + earlyBox.map((v) => v.toFixed(3)) + ')');
   await p.waitForTimeout(2200);
-  if (await pic(p) !== SLOW) bad.push('the picture arrives'); if (await p.evaluate(() => getComputedStyle(document.querySelector('.vk-tour__box')).visibility) !== 'visible') bad.push('and the box with it');
+  if (await pic(p) !== SLOW) bad.push('the picture arrives');
   if (!near(await geo(p), SZ[1].rect, [1920, 1080])) bad.push('on its rect');
   await p.close(); return bad;
 }
@@ -77,7 +77,10 @@ const sub = (a, c) => (j) => { if (!j.includes(a)) throw new Error('mutation cha
 try {
   { const bad = await pictures(tourJs); ok(!bad.length, 'step pictures: ' + bad.join('; ')); ok(await inside(tourJs), 'a move inside one picture still glides');
     { const bad = await slow(tourJs); ok(!bad.length, 'a slow picture: ' + bad.join('; '));
-      const m = await slow(sub("box.style.visibility = 'hidden'; ", '')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: the box not hidden while the picture loads'); }
+      const m = await slow(sub('if (step === i0) show(i0);', '')(tourJs)); ok(m.length > 0, 'MUTANT CAUGHT: a slow picture never arrives');
+      const m2 = await slow(sub('(im.onload = im.onerror = go)); return; }', '(im.onload = im.onerror = go)); }')(tourJs)); ok(m2.length > 0, 'MUTANT CAUGHT: the box moves before a slow picture is ready');
+      { const p = await open(full, { zones: SZ, js: tourJs, route: (pg) => pg.route(SLOW, (r) => r.fulfill({ status: 404, body: 'no' })) }); await p.click('[data-tour=next]'); await p.waitForTimeout(500);
+        ok((await st(p)).s.step === 1 && near(await geo(p), SZ[1].rect, [1920, 1080]), 'a picture that fails to load does not strand the step: it moves on'); await p.close(); } }
     await expectFail('the picture is never swapped', sub("stageImg.setAttribute('src', pic);", ''));
     await expectFail('the box glides across a picture change', sub("box.style.transition = 'none';", ''));
     await expectFail('the step pictures are not preloaded', sub('im.src = z.shot;', ''));

@@ -5,7 +5,7 @@
 //
 //   scrim   the `.vk-scrim` that holds the `.vk-modal.vk-welcome` (appended to <body>, never inside a zoomed app root; see "T4 messages" in AGENTS.md).
 //   zones   [{ name: 'Viewport', line: 'what it is, what you do with it', rect: [x, y, w, h], shot?: 'sequencer.png', size?: [1920, 1080] }] in the screenshot's own pixels, read from the live app's DOM when the screenshot is shot.
-//           `shot` (optional, v0.41.196): this step's own picture, for a part that lives on another screen or tab. A step without `shot` shows the picture the markup carries (the shared one). Every `shot` is loaded and decoded when the tour opens; the picture and the box change together, the box jumps (no glide) and never sits over the wrong picture, even on a slow load (the box is hidden until the picture is ready). `size` is that picture's pixel size when it differs from the shared `size`.
+//           `shot` (optional, v0.41.196): this step's own picture, for a part that lives on another screen or tab. A step without `shot` shows the picture the markup carries (the shared one). Every `shot` is loaded and decoded when the tour opens; the picture and the box change together, the box jumps (no glide), and on a slow load the words and count change at once while the old picture keeps its old box until the new picture is ready (or has failed, and then the step moves on), so the box never sits over the wrong picture. `size` is that picture's pixel size when it differs from the shared `size`; every picture is shown in the stage's fixed 16:9 (stretched otherwise), so give it 16:9 pixels: 1920x1080, 2560x1440 and 3840x2160 are fine.
 //   size    the screenshot's pixel size (default 1920 x 1080); the box is placed in percent of it, so it follows the stage at any width.
 //   inert   an element (or list) made `inert` while the tour is open and restored on close, so the app behind cannot take focus or clicks.
 //   returnFocus  the element that gets focus when the tour closes (the control that opened it, or the app's first control).
@@ -31,22 +31,18 @@ export function mountTour(scrim, { zones, size = [1920, 1080], inert = null, ret
   function show(i) {
     step = Math.max(0, Math.min(zones.length - 1, i));
     const z = zones[step], i0 = step, pic = z.shot || baseSrc, swap = stageImg && pic && pic !== shown;
-    // the picture and the box change together: at once when the picture is ready, otherwise the box waits (hidden) for it, so it never sits over the wrong picture
-    const place = () => {
-      if (i0 !== step) return;
-      const r = z.rect, sz = z.size || size;
-      if (swap) { stageImg.setAttribute('src', pic); shown = pic; box.style.transition = 'none'; } // a new picture: the box jumps, the glide is for moves inside one picture
-      box.style.left = (r[0] / sz[0] * 100) + '%'; box.style.top = (r[1] / sz[1] * 100) + '%';
-      box.style.width = (r[2] / sz[0] * 100) + '%'; box.style.height = (r[3] / sz[1] * 100) + '%';
-      box.style.visibility = '';
-      if (swap) { void box.offsetWidth; box.style.transition = ''; }
-    };
-    if (swap && z.shot && !ready.has(pic)) { box.style.visibility = 'hidden'; const im = pics.get(pic), go = () => { ready.add(pic); place(); }; im.decode ? im.decode().then(go, go) : (im.complete ? go() : im.addEventListener('load', go, { once: true })); } else place();
     nm.textContent = z.name; tx.textContent = z.line; cnt.textContent = (step + 1) + ' / ' + zones.length;
     back.disabled = step === 0; next.disabled = step === zones.length - 1;
     // focus never falls out of the dialog when Back or Next turns off
     const a = document.activeElement;
     if (a && a.disabled) (a === back ? next : start).focus();
+    // the picture and the box change together: when the step's picture is not ready yet, the old picture keeps its old box and the step is shown again when the picture is ready (or has failed), if it is still the step
+    if (swap && z.shot && !ready.has(pic)) { const go = () => { ready.add(pic); if (step === i0) show(i0); }, im = pics.get(pic); im.decode ? im.decode().then(go, go) : (im.complete ? go() : (im.onload = im.onerror = go)); return; }
+    const r = z.rect, sz = z.size || size;
+    if (swap) { stageImg.setAttribute('src', pic); shown = pic; box.style.transition = 'none'; } // a new picture: the box jumps, the glide is for moves inside one picture
+    box.style.left = (r[0] / sz[0] * 100) + '%'; box.style.top = (r[1] / sz[1] * 100) + '%';
+    box.style.width = (r[2] / sz[0] * 100) + '%'; box.style.height = (r[3] / sz[1] * 100) + '%';
+    if (swap) { void box.offsetWidth; box.style.transition = ''; }
   }
   function close() {
     if (closed) return; closed = true;
