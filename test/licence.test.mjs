@@ -91,6 +91,14 @@ function licenceChecks(L) {
   { const long = 'x'.repeat(900), c = L.cleanCredits([{ provider: 'p', id: 'i', title: long, author: long, licence: 'CC-BY-4.0', url: 'https://e.org/' + long }])[0];
     assert.equal(c.title.length, 500); assert.equal(c.author.length, 500); assert.equal(c.url.length, 500, 'every string is cut to 500');
     assert.equal(L.cleanCredits([{ provider: 'p', id: 'i', title: long, licence: 'by' }], { maxLen: 10 })[0].title.length, 10); }
+  { const many = Array.from({ length: 5 }, (_, i) => ({ provider: 'p', id: 'i' + i, title: 'T', licence: 'CC-BY-4.0' }));
+    for (const [m, want] of [[0, 0], [-1, 0], [2.5, 2], [2, 2]]) assert.equal(L.cleanCredits(many, { max: m }).length, want, 'max ' + m + ' keeps ' + want);
+    for (const m of [null, NaN, undefined, 'x']) assert.equal(L.cleanCredits(many, { max: m }).length, 5, 'a max of ' + String(m) + ' is the default, not a cap of one'); }
+  for (const bad of [NaN, null, 'x', Infinity]) assert.equal(L.cleanCredits([{ provider: 'p', id: 'i', title: 'y'.repeat(900), licence: 'by' }], { maxLen: bad })[0].title.length, 500, 'maxLen ' + String(bad) + ' falls back to 500');
+  { const t = 'x'.repeat(499) + '\u{1F600}tail', c = L.cleanCredits([{ provider: 'p', id: 'e', title: t, licence: 'by' }])[0];
+    assert.equal(c.title, 'x'.repeat(499), 'a cut inside an emoji drops the half pair, no lone surrogate'); assert.doesNotMatch(c.title, /[\ud800-\udfff]/);
+    const ok = L.cleanCredits([{ provider: 'p', id: 'e', title: 'x'.repeat(498) + '\u{1F600}tail', licence: 'by' }])[0].title; assert.equal(ok.length, 500, 'a whole pair that fits is kept'); }
+  assert.deepEqual(L.mergeCredits({ id: 'a', licence: 'by' }), [], 'a bare record is not a list'); assert.deepEqual(L.mergeCredits({ id: 'a', licence: 'by' }, [r]).map((c) => c.id), [r.id]);
   assert.deepEqual(L.cleanCredits(L.cleanCredits([r, sh])), L.cleanCredits([r, sh]), 'cleaning twice changes nothing');
   assert.deepEqual(L.mergeCredits([r], [sh, r], undefined, [{ provider: 'p', id: 'z', title: 'Z', licence: 'CC0' }]).map((c) => c.id), [r.id, sh.id, 'z'], 'the union keeps order and drops repeats');
   assert.deepEqual(L.mergeCredits(), []);
@@ -173,13 +181,19 @@ await lm('a missing version is claimed as 4.0', "version || f.version || '';", "
 await lm('Apache 1.1 is read', 'apache(?:-(2\\.0))?$', 'apache(?:-(\\d\\.\\d))?$');
 await lm('unknown licences are dropped from the credits', 'if (!all && parse(c.licence) && !needsCredit(c.licence)) continue;', 'if (!all && !needsCredit(c.licence)) continue;');
 await lm('credits are not de-duplicated', 'if (seen.has(k)) continue; seen.add(k);', '');
-await lm('credit lists are not capped', 'out.push(c); if (out.length >= max) break;', 'out.push(c);');
+await lm('credit lists are not capped', 'if (out.length >= cap) break;', '');
 await lm('credit strings are not cut', 'if (c[k].length > maxLen) c[k] = c[k].slice(0, maxLen);', '');
 await lm('credit lists keep repeats', 'if (seen.has(key)) continue; seen.add(key);', '');
 await lm('a non-array credit list is kept', 'if (!Array.isArray(list)) return [];', 'if (!list) return [];');
 await lm('the wire limit is 100', 'CREDIT_MAX = 200', 'CREDIT_MAX = 100');
 await lm('the string limit is 100', 'CREDIT_MAX_LEN = 500', 'CREDIT_MAX_LEN = 100');
 await lm('a sender would drop unknown licences', 'export const creditListed = (licence) => !parse(licence) || needsCredit(licence);', 'export const creditListed = (licence) => needsCredit(licence);');
+await lm('a zero or negative cap keeps one entry', 'Math.max(0, Math.floor(max))', 'Math.max(1, Math.floor(max))');
+await lm('a fractional cap rounds up', 'Math.max(0, Math.floor(max))', 'Math.max(0, Math.ceil(max))');
+await lm('a missing cap is a cap of one', ': CREDIT_MAX, cut', ': 1, cut');
+await lm('a NaN string limit turns the cut off', 'Number.isFinite(maxLen) ?', 'true ?');
+await lm('a cut inside an emoji leaves a lone surrogate', ".slice(0, cut).replace(/[\\ud800-\\udbff]$/, '')", '.slice(0, cut)');
+await lm('merge keeps a bare record', 'lists.flatMap((l) => (Array.isArray(l) ? l : []))', 'lists.flat()');
 await lm('merge drops the second list', 'cleanCredits(lists.flat())', 'cleanCredits(lists[0])');
 
 console.log('online.js');

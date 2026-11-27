@@ -135,24 +135,26 @@ export const CREDIT_MAX = 200, CREDIT_MAX_LEN = 500;
 
 /**
  * A credit list from outside (a message, a sidecar, a saved project) made safe to keep: an array of cleaned records, each string cut to
- * `maxLen` characters, entries `cleanCredit` rejects dropped, de-duplicated by provider and id (the first wins), at most `max` of them.
+ * `maxLen` characters (never inside a surrogate pair), entries `cleanCredit` rejects dropped, de-duplicated by provider and id (the first wins), at most `max` of them.
  * Anything that is not an array is []. Text only: a url in a record is written into a credits file, never fetched or opened.
  */
 export function cleanCredits(list, { max = CREDIT_MAX, maxLen = CREDIT_MAX_LEN } = {}) {
   if (!Array.isArray(list)) return [];
+  const cap = Number.isFinite(max) ? Math.max(0, Math.floor(max)) : CREDIT_MAX, cut = Number.isFinite(maxLen) ? Math.max(1, Math.floor(maxLen)) : CREDIT_MAX_LEN;
   const seen = new Set(), out = [];
   for (const raw of list) {
+    if (out.length >= cap) break;
     const c = cleanCredit(raw); if (!c) continue;
-    for (const k of Object.keys(c)) if (c[k].length > maxLen) c[k] = c[k].slice(0, maxLen);
+    for (const k of Object.keys(c)) if (c[k].length > cut) c[k] = c[k].slice(0, cut).replace(/[\ud800-\udbff]$/, '');
     if (!c.id || !c.licence) continue;
     const key = `${c.provider}:${c.id}`; if (seen.has(key)) continue; seen.add(key);
-    out.push(c); if (out.length >= max) break;
+    out.push(c);
   }
   return out;
 }
 
 /** The credits of several things sent on together (a clip that holds a received icon, a result with a stamp): the union, de-duplicated, within the wire limits. */
-export const mergeCredits = (...lists) => cleanCredits(lists.flat());
+export const mergeCredits = (...lists) => cleanCredits(lists.flatMap((l) => (Array.isArray(l) ? l : [])));
 
 /** One credit line: `"Title" by Author, CC BY 4.0 (deed). Source: url`. A licence that needs no credit says so. */
 export function creditLine(c) {
