@@ -2,6 +2,14 @@
 
 Semver. Apps pin a tag; a major bump means a consumer may render differently.
 
+## 0.41.197 (2026-11-27)
+
+INCEPTOR rail icons, batch 7 of 7 (`REQ-DS-inceptor-rail-icons-7-r2`, QA PASS; Patrick approved all eleven on card `DS-inceptor-rail-icons-7`, 2026-11-27). Icons only; no CSS or behaviour change.
+- **Eleven rail icons** in `icons/inceptor-icons.js`, keys are the GEN row names in lower case with spaces dropped. Fields as shapes: `branching`, `circlepack`, `differentialgrowth`, `lsystem`, `maze`, `reactiondiffusion`. 2.5D: `drips`, `lightning`, `ripples`, `terrain`, `wireframe`. Same language and 14px measurement as the earlier batches; Branching, L-system, Terrain and Wireframe were redrawn to sit centred in the frame.
+- **One mapping:** `branching` is INCEPTOR's "Fractal tree" row (its placeholder key was `tree`).
+- Still placeholders in INCEPTOR: Hex grid and Perspective.
+- App pins: INCEPTOR bumps `DESIGN_TAG` to v0.41.197 and maps the eleven names (Branching on its Fractal tree row) through its `SAME_AS` aliases; its fallback stays for Hex grid and Perspective.
+
 ## 0.41.196 (2026-11-27)
 
 The Welcome tour takes a picture per step (KOMPOSITOR's Sequencer lives on the KOMPOSE screen, the rest of the tour on the EDIT one). Nothing changes in an app that does not name a picture.
